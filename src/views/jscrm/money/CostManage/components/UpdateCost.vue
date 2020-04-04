@@ -22,154 +22,100 @@
                    class="crm-create-box"
                    :rules="ruleValidate">
             <el-form-item
-                          class="crm-create-item left-field" prop="invoiceDate"
+                          class="crm-create-item left-field" prop="title"
                           style="">
               <div slot="label"
                    style="display: inline-block;">
                 <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  开票日期
+                  标题
                   <span style="color:#999;">
                    
                   </span>
                 </div>
               </div>
-              <el-date-picker
-              v-model="record.invoiceDate"
-              type="date" style="width:100%" 
-              placeholder="选择日期">
-            </el-date-picker>  
+              <el-input v-model="record.title"
+                ></el-input>
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item right-field" prop="caseName"
+                          class="crm-create-item right-field" prop="type"
                           style="">
               <div slot="label"
                    style="display: inline-block;">
                 <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  关联案件
+                  类型
+                  <span style="color:#999;">
+                   
+                  </span>
+                </div>
+              </div>
+              <el-select v-model="record.type"  style="width : 100%" clearable placeholder="请选择">
+                <el-option
+                  key="员工"
+                  label="员工"
+                  value="员工">
+                </el-option>  
+                <el-option
+                  key="合伙人"
+                  label="合伙人"
+                  value="合伙人">
+                </el-option>  
+                <el-option
+                  key="商家"
+                  label="商家"
+                  value="商家">
+                </el-option>  
+                <el-option
+                  key="兼职"
+                  label="兼职"
+                  value="兼职">
+                </el-option>  
+               </el-select>  
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item left-field" prop="ratio"
+                          style="">
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  分润占比
+                  <span style="color:#999;">
+                   
+                  </span>
+                </div>
+              </div>
+              <el-input  v-model="record.ratio" 
+                ></el-input>
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item right-field" prop="state"
+                          >
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  状态
                   <span style="color:#999;">
                    
                   </span>
                 </div>
               </div>
             
-              <el-input v-model="record.caseName"
-                ></el-input>
-            </el-form-item>
-
-            <el-form-item
-                          class="crm-create-item left-field" prop="contractId"
-                          style="">
-              <div slot="label"
-                   style="display: inline-block;">
-                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  合同编号
-                  <span style="color:#999;">
-                   
-                  </span>
-                </div>
-              </div>
-              <el-input  v-model="record.contractId"  maxlength="36"
-                ></el-input>
-            </el-form-item>
-
-
-            <el-form-item
-                          class="crm-create-item right-field" prop="billType"
-                          style="">
-              <div slot="label"
-                   style="display: inline-block;">
-                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  票据类型
-                  <span style="color:#999;">
-                  </span>
-                </div>
-              </div>
-               <el-select v-model="record.billType" style="width:100%" clearable placeholder="请选择">
-                 <el-option
-                  v-for="item in billTyppNum"
-                  :key="item.code"
-                  :label="item.code"
-                  :value="item.code"
-                  >
-                </el-option>
-               </el-select>    
-            </el-form-item>
-
-            <el-form-item
-                          class="crm-create-item left-field" prop="invoiceMoney"
-                          style="">
-              <div slot="label"
-                   style="display: inline-block;">
-                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  开票金额
-                  <span style="color:#999;">
-                   
-                  </span>
-                </div>
-              </div>
-            
-              <el-input-number v-model="record.invoiceMoney" :max="1000000000" style="width:100%"  show-word-limit
-                ></el-input-number>
-            </el-form-item>
-
-            <el-form-item
-                          class="crm-create-item right-field" prop="billNo"
-                          style="">
-              <div slot="label"
-                   style="display: inline-block;">
-                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  发票号码
-                  <span style="color:#999;">
-                   
-                  </span>
-                </div>
-              </div>
-              <el-input
-                placeholder="请输入" maxlength="36"
-                v-model="record.billNo"
-              >
-              </el-input>  
-            </el-form-item>
-
-            <el-form-item
-                          class="crm-create-item left-field" prop="handPersonName"
-                          >
-              <div slot="label"
-                   style="display: inline-block;">
-                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  经手人
-                  <span style="color:#999;">
-                  </span>
-                </div>
-              </div>
-              <el-input v-model="record.handPersonName"
-                ></el-input>
-            </el-form-item>
-
-            <el-form-item
-                          class="crm-create-item right-field"
-                          >
-            </el-form-item>
-
-            <el-form-item
-                          class="crm-create-item left-field" 
-                          >
-              <div slot="label"
-                   style="display: inline-block;">
-                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  备注
-                  <span style="color:#999;">
-                  </span>
-                </div>
-              </div>
-              <el-input v-model="record.remarks" type="textarea"   placeholder="请输入内容"
-                ></el-input>
+              <el-select v-model="record.state"  style="width : 100%" clearable placeholder="请选择">
+                <el-option
+                  label="停用"
+                  value="0">
+                </el-option>  
+                <el-option
+                  label="启用"
+                  value="1">
+                </el-option>  
+               </el-select> 
             </el-form-item>
 
           </el-form>
         </div>
-
 
          <div
            class="handle-bar">
@@ -188,13 +134,11 @@
 </template>
 <script type="text/javascript">
 import CreateView from '@/components/CreateView'
-import { updateData,selectById } from '@/api/jscrm/money/InvoiceManage'
-import {billTyppNum}from '@/views/jscrm/money/const/const'
-
+import { updateData,selectById } from '@/api/jscrm/money/CostManage'
 
 
 export default {
-  name: 'create-share', // 所有新建效果的view
+  name: 'update-share', // 所有新建效果的view
   components: {
     CreateView,
     
@@ -203,56 +147,29 @@ export default {
     // 详情信息
     detailData: Object
   },
- 
   data() {
     return {
-      billTyppNum:billTyppNum,
       record:{
-        "contractId": null,
-        "caseName": null,
-        "handPersonName": null,
-        "billNo": null,
-        "invoiceMoney": null,
-        "invoiceDate": null,
-        "handPersonId": 3,
-        "caseId": 2,
-        "billType": null,
-        "id": null,
-        "annexId": null,
-        "remarks": null
+        state: null,
+        title: null,
+        type: null,
+        ratio: null
       },
       // 标题展示名称
       loading: false,
       // 自定义字段验证规则
       ruleValidate: {
-          invoiceDate: [
-            { required: true, message: '请输入开票日期', trigger: 'blur' },
+          title: [
+            { required: true, message: '请输入标题', trigger: 'blur' },
+            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
           ],
-           caseName: [
-            { required: true, message: '请输入关联案件', trigger: 'blur' },
-            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
-          ],   
-           contractId: [
-            { required: true, message: '请输入合同编号', trigger: 'blur' },
-            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
-          ],   
-           billType: [
-            { required: true, message: '请输入票据类型', trigger: 'blur' },
-            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
-          ],   
-           invoiceMoney: [
-            { required: true, message: '请输入开票金额', trigger: 'blur' },
-          ],  
-           billNo: [
-            { required: true, message: '请输入发票号码', trigger: 'blur' },
+           ratio: [
+            { required: true, message: '请输入分润占比', trigger: 'blur' },
             { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
           ],         
-           handPersonName: [
-            { required: true, message: '请输入经手人', trigger: 'blur' },
-            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
-          ],         
-          
-          },
+          state: [
+            { required: true, message: '请选择状态', trigger: 'blur' },
+          ],},
      
     }
   },
@@ -303,6 +220,9 @@ export default {
         })
     },
   },
+
+
+  
   destroyed() {
     // remove DOM node after destroy
     if (this.$el && this.$el.parentNode) {

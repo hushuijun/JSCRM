@@ -5,7 +5,7 @@
              align="stretch"
              class="crm-create-container">
       <flexbox class="crm-create-header">
-        <div style="flex:1;font-size:17px;color:#333;">修改分润</div>
+        <div style="flex:1;font-size:17px;color:#333;">新建分润</div>
         <img @click="hidenView"
              class="close"
              src="@/assets/img/task_close.png" />
@@ -177,7 +177,7 @@
                    @click.native="hidenView">取消</el-button>
         <el-button class="handle-button"
                    type="primary"
-                   @click.native="updateValidate">保存</el-button>
+                   @click.native="addValidate">保存</el-button>
         
       </div>
         
@@ -188,7 +188,7 @@
 </template>
 <script type="text/javascript">
 import CreateView from '@/components/CreateView'
-import { updateData,selectById } from '@/api/jscrm/money/InvoiceManage'
+import { addData } from '@/api/jscrm/money/RemittancePlan'
 import {billTyppNum}from '@/views/jscrm/money/const/const'
 
 
@@ -198,10 +198,6 @@ export default {
   components: {
     CreateView,
     
-  },
-  props: {
-    // 详情信息
-    detailData: Object
   },
  
   data() {
@@ -261,14 +257,7 @@ export default {
   },
   mounted() {
     document.body.appendChild(this.$el)
-    console.log(this.detailData);
-    selectById(this.detailData.id)
-      .then(res => {
-        this.record = res.data;
-      })
-      .catch(() => {
-        this.$message.error('后台异常');
-      });
+
   },
   methods: {
     hidenView() {
@@ -276,10 +265,10 @@ export default {
     },
    
     // 保存数据
-    updateValidate() {
+    addValidate() {
       this.$refs.addForm.validate(valid => {
         if (valid) {
-            this.update(this.record)
+            this.add(this.record)
         } else {
           this.$message.error('请完善必填信息')
           return false
@@ -288,15 +277,15 @@ export default {
     },
    
     /** 添加 */
-    update(record) {
+    add(record) {
       this.loading = true
-      updateData(record)
+      addData(record)
         .then(res => {
           this.loading = false
           this.hidenView()
           this.$message.success('操作成功')
           // 回到保存成功
-          this.$emit('update')
+          this.$emit('save')
         })
         .catch(() => {
           this.loading = false

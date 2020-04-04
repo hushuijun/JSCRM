@@ -61,7 +61,7 @@ export default {
       showDview: false,
       /** 高级筛选 */
       filterObj: {}, // 筛选确定数据
-      sceneId: '', // 场景筛选ID
+      sceneId: "", // 场景筛选ID
       sceneName: '', // 场景名字
       /** 列表展示字段管理 */
       showFieldSet: false,
@@ -98,11 +98,13 @@ export default {
         page: this.currentPage,
         limit: this.pageSize,
         search: this.search,
-        type: this.isSeas ? 8 : crmTypeModel[this.crmType] // 8是公海
+        // type: this.isSeas ? 8 : crmTypeModel[this.crmType] // 8是公海
+        type: this.crmType ? crmTypeModel[this.crmType]: 8
       }
-      if (this.sceneId) {
-        params.sceneId = this.sceneId
-      }
+      // if (this.sceneId) {
+      //   params.sceneId = parseInt(this.sceneId)
+      // }
+      // params.sceneId = parseInt(sceneId)
       if (this.filterObj && Object.keys(this.filterObj).length > 0) {
         params.data = this.filterObj
       }
@@ -134,11 +136,11 @@ export default {
       if (this.crmType === 'leads') {
         return crmLeadsIndex
       } else if (this.crmType === 'customer') {
-        if (this.isSeas) {
-          return crmCustomerPool
-        } else {
+        // if (this.isSeas) {
+        //   return crmCustomerPool
+        // } else {
           return crmCustomerIndex
-        }
+        // }
       } else if (this.crmType === 'contacts') {
         return crmContactsIndex
       } else if (this.crmType === 'business') {
@@ -149,6 +151,8 @@ export default {
         return crmProductIndex
       } else if (this.crmType === 'receivables') {
         return crmReceivablesIndex
+      } else if (this.crmType === 'seas') {
+        return crmCustomerPool
       }
     },
     /** 获取字段 */
@@ -204,6 +208,24 @@ export default {
       if (this.fieldList.length) {
         this.getList()
       }
+    },
+    //点击搜索
+    searchList (info) {
+      console.log(info, 111111)
+      let params = {}
+      info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
+      info.mobile ? params.mobile = {"condition": "is", "value": info.mobile,"formType": "text","name": "mobile"} : ''
+      info.realname ? params.realname = {"condition": "is", "value": info.realname,"formType": "text","name": "realname"} : ''
+      info.create_time ? params.create_time = {"condition": "is", "value": info.create_time + ' 00:00:00',"formType": "datetime","name": "create_time"} : ''
+      info.create_time ? params.create_time = {"start": info.create_time + ' 00:00:00',"end": info.create_time + ' 23:59:59',"formType": "datetime","name": "create_time"} : ''
+
+      console.log(params, 2222222)
+      this.filterObj = params
+      var offsetHei = document.documentElement.clientHeight
+      var removeHeight = Object.keys(this.filterObj).length > 0 ? 310 : 240
+      this.tableHeight = offsetHei - removeHeight
+      this.currentPage = 1
+      this.getList()
     },
     /** 列表操作 */
     // 当某一行被点击时会触发该事件
@@ -361,6 +383,14 @@ export default {
       this.currentPage = 1
       this.getFieldList()
     },
+    /** 共有私有切换操作 */
+    switchTab (data) {
+      console.log(data, 111111111)
+      this.sceneId = data
+      this.sceneName = data.name
+      this.currentPage = 1
+      this.getFieldList()
+    },
     /** 勾选操作 */
     handleHandle(data) {
       if (data.type === 'alloc' || data.type === 'get' || data.type === 'transfer' || data.type === 'transform' || data.type === 'delete' || data.type === 'put_seas') {
@@ -477,6 +507,11 @@ export default {
       var offsetHei = document.documentElement.clientHeight
       var removeHeight = Object.keys(this.filterObj).length > 0 ? 310 : 240
       this.tableHeight = offsetHei - removeHeight
+    }
+  },
+  watch: {
+    sceneId (value) {
+      console.log(value, 1234455566777)
     }
   },
 

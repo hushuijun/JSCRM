@@ -156,21 +156,21 @@ export default {
       if (this.crm.customer && this.crm.customer.read) {
         tempsTabs.push({ label: '基本信息', name: 'basicinfo' })
       }
-      if (this.crm.contacts && this.crm.contacts.index) {
-        tempsTabs.push({ label: '联系人', name: 'contacts' })
-      }
-      tempsTabs.push({ label: '相关团队', name: 'team' })
+      // if (this.crm.contacts && this.crm.contacts.index) {
+      //   tempsTabs.push({ label: '联系人', name: 'contacts' })
+      // }
+      // tempsTabs.push({ label: '相关团队', name: 'team' })
       if (this.crm.business && this.crm.business.index) {
         tempsTabs.push({ label: '商机', name: 'business' })
       }
-      if (this.crm.contract && this.crm.contract.index) {
-        tempsTabs.push({ label: '合同', name: 'contract' })
-      }
-      if (this.crm.receivables && this.crm.receivables.index) {
-        tempsTabs.push({ label: '回款信息', name: 'returnedmoney' })
-      }
-      tempsTabs.push({ label: '附件', name: 'file' })
-      tempsTabs.push({ label: '操作记录', name: 'operationlog' })
+      // if (this.crm.contract && this.crm.contract.index) {
+      //   tempsTabs.push({ label: '合同', name: 'contract' })
+      // }
+      // if (this.crm.receivables && this.crm.receivables.index) {
+      //   tempsTabs.push({ label: '回款信息', name: 'returnedmoney' })
+      // }
+      // tempsTabs.push({ label: '附件', name: 'file' })
+      // tempsTabs.push({ label: '操作记录', name: 'operationlog' })
       return tempsTabs
     }
   },

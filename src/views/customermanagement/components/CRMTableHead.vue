@@ -2,28 +2,28 @@
   <div>
     <flexbox v-show="selectionList.length == 0"
              class="th-container">
-      <div v-if="!isSeas">场景：</div>
+      <!-- <div v-if="!isSeas">场景：</div> -->
       <el-popover v-if="!isSeas"
                   trigger="click"
                   popper-class="no-padding-popover"
                   v-model="showScene"
                   width="150">
-        <flexbox slot="reference">
+        <!-- <flexbox slot="reference">
           <div class="condition_title">{{sceneData.name || getDefaultSceneName()}}</div>
           <i class="el-icon-arrow-down el-icon--right"
              style="color:#777;"></i>
-        </flexbox>
+        </flexbox> -->
         <scene-list ref="sceneList"
                     :crmType="crmType"
                     @scene="sceneSelect"
                     @scene-handle="sceneHandle"
                     @hidden-scene="showScene=false"></scene-list>
       </el-popover>
-      <img @click="showFilterClick"
+      <!-- <img @click="showFilterClick"
            class="c-filtrate"
            :style="{ 'margin-left': isSeas ? 0 : '30px'}"
-           src="@/assets/img/c_filtrate.png" />
-      <div class="condition_title"
+           src="@/assets/img/c_filtrate.png" /> -->
+      <!-- <div class="condition_title"
            @click="showFilterClick">高级筛选</div>
       <filter-form :fieldList="fieldList"
                    :dialogVisible.sync="showFilter"
@@ -31,7 +31,7 @@
                    :crmType="crmType"
                    :isSeas="isSeas"
                    @filter="handleFilter">
-      </filter-form>
+      </filter-form> -->
     </flexbox>
     <flexbox v-if="selectionList.length > 0"
              class="selection-bar">
@@ -560,13 +560,13 @@ export default {
         } else {
           return this.forSelectionHandleItems(handleInfos, [
             'transfer',
-            'export',
+            // 'export',
             'put_seas',
             'delete',
-            'lock',
-            'unlock',
-            'add_user',
-            'delete_user'
+            // 'lock',
+            // 'unlock',
+            // 'add_user',
+            // 'delete_user'
           ])
         }
       } else if (this.crmType == 'contacts') {

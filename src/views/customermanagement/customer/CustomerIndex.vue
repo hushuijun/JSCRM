@@ -1,6 +1,6 @@
 <template>
   <div>
-    <c-r-m-list-head title="客户管理"
+    <!-- <c-r-m-list-head title="客户管理"
                      placeholder="请输入客户名称/手机/电话"
                      :search.sync="search"
                      @on-handle="listHeadHandle"
@@ -8,7 +8,50 @@
                      main-title="新建客户"
                      @on-export="exportInfos"
                      :crm-type="crmType">
-    </c-r-m-list-head>
+    </c-r-m-list-head> -->
+    <el-tabs v-model="crmType" @tab-click="switchTab(crmType)" type="card">
+      <el-tab-pane label="私有客户" name="customer"></el-tab-pane>
+      <el-tab-pane label="客户公海" name="seas"></el-tab-pane>
+    </el-tabs>
+    <div class="input-container">
+      <span>客户姓名</span>
+      <el-input
+        placeholder=""
+        label="客户姓名" size="small" type="text" v-model="searchInfo.customer_name">
+      </el-input>
+    </div>
+    <div class="input-container">
+      <span>客户姓名</span>
+      <el-input
+        placeholder=""
+        label="客户手机号" size="small" v-model="searchInfo.mobile">
+      </el-input>
+    </div>
+    <div class="input-container">
+      <span>负责人</span>
+      <el-input
+        placeholder=""
+        label="负责人" size="small" v-model="searchInfo.owner_user_id">
+      </el-input>
+    </div>
+    <div class="input-container">
+      <span>创建时间</span>
+      <!-- <el-input
+        placeholder="请选择时间"
+        label="创建时间" size="small" v-model="searchInfo.create_time" suffix-icon="el-icon-date" disabled="false">
+      </el-input> -->
+      <el-date-picker
+        v-model="searchInfo.create_time"
+        type="date"
+        placeholder="选择日期" class="date-pick" value-format="yyyy-MM-dd">
+      </el-date-picker>
+    </div>
+    <el-row class="customer-search">
+      <el-button type="primary" @click="searchList(searchInfo)">搜索</el-button>
+    </el-row>
+    <el-row class="customer-search">
+      <el-button type="primary">新建</el-button>
+    </el-row>
     <div v-empty="!crm.customer.index"
          xs-empty-icon="nopermission"
          xs-empty-text="暂无权限"
@@ -145,13 +188,20 @@ export default {
   mixins: [table],
   data() {
     return {
-      crmType: 'customer'
+      crmType: 'customer',
+      typeId: "2",
+      searchInfo: {
+        customer_name: '',
+        mobile: '',
+        create_time: '',
+        realname: ''
+      },
+      // searchDate: ''
     }
   },
   computed: {
     ...mapGetters(['CRMConfig'])
   },
-  mounted() {},
   methods: {
     relativeBusinessClick(data) {
       this.rowID = data.businessId
@@ -169,6 +219,10 @@ export default {
         return ''
       }
     },
+    // 私有和公海tab切换
+    // switchTab () {
+
+    // },
     // 商机信息查看
     businessCheckClick(e, scope) {
       if (scope.row.businessCount == 0) {
@@ -199,5 +253,22 @@ export default {
 
 .el-table /deep/ tbody tr td:nth-child(3) {
   border-right: 1px solid #e6e6e6;
+}
+.input-container {
+  width: 230px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+.el-input--small{
+  width: 150px;
+  display: inline-block;
+}
+.customer-search {
+  display: inline-block;
+  
+}
+.date-pick {
+  width: 150px;
+  display: inline-block;
 }
 </style>

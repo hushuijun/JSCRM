@@ -235,7 +235,6 @@ export default {
       if (this.crm.business && this.crm.business.read) {
         tempsTabs.push({ label: '基本信息', name: 'basicinfo' })
       }
-
       if (this.crm.contacts && this.crm.contacts.index) {
         tempsTabs.push({ label: '联系人', name: 'contacts' })
       }

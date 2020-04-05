@@ -18,28 +18,28 @@
       <span>客户姓名</span>
       <el-input
         placeholder=""
-        label="客户姓名" size="small" type="text" v-model="searchInfo.customer_name">
+        label="客户姓名" size="small" type="text" v-model="searchInfo.leads_name">
       </el-input>
     </div>
     <div class="input-container">
       <span>客户手机号</span>
       <el-input
         placeholder=""
-        label="客户手机号" size="small" v-model="searchInfo.mobile">
+        label="客户手机号" size="small" v-model="searchInfo.telephone">
       </el-input>
     </div>
     <div class="input-container">
       <span>负责人</span>
       <el-input
         placeholder=""
-        label="负责人" size="small" v-model="searchInfo.realname">
+        label="负责人" size="small" v-model="searchInfo.owner_user_name">
       </el-input>
     </div>
     <div class="input-container">
       <span>线索来源</span>
       <el-input
         placeholder=""
-        label="负责人" size="small" v-model="searchInfo.source">
+        label="负责人" size="small" v-model="searchInfo['线索来源']">
       </el-input>
     </div>
     <div class="input-container">
@@ -172,11 +172,18 @@ export default {
     return {
       crmType: 'leads',
       clueType: '0',
+
+       // leads_name 客户名称
+      // mobile 客户手机号
+      // owner_user_name 负责人
+      // 线索来源 
+      // create_time 创建时间
       searchInfo: {
-        customer_name: '',
-        mobile: '',
+        leads_name: '',
+        telephone: '',
         create_time: '',
-        realname: ''
+        owner_user_name: '',
+        '线索来源': ''
       },
     }
   },

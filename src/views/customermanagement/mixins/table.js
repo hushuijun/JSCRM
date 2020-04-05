@@ -234,10 +234,25 @@ export default {
     //点击搜索
     searchList (info) {
       let params = {}
-      info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
-      info.mobile ? params.mobile = {"condition": "is", "value": info.mobile,"formType": "text","name": "mobile"} : ''
-      info.realname ? params.realname = {"condition": "is", "value": info.realname,"formType": "text","name": "realname"} : ''
-      info.create_time ? params.create_time = {"condition": "is", "value": info.create_time + ' 00:00:00',"formType": "datetime","name": "create_time"} : ''
+      // leads_name 客户名称
+      // mobile 客户手机号
+      // owner_user_name 负责人
+      // 线索来源 
+      // create_time 创建时间
+      if (this.crmType === 'customer') {
+        info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
+        info.mobile ? params.mobile = {"condition": "is", "value": info.mobile,"formType": "text","name": "mobile"} : ''
+        info.realname ? params.realname = {"condition": "is", "value": info.realname,"formType": "text","name": "realname"} : ''
+        // info.create_time ? params.create_time = {"condition": "is", "value": info.create_time + ' 00:00:00',"formType": "datetime","name": "create_time"} : ''
+        // info.create_time ? params.create_time = {"start": info.create_time + ' 00:00:00',"end": info.create_time + ' 23:59:59',"formType": "datetime","name": "create_time"} : ''
+      } else if (this.crmType === 'leads') {
+        info.telephone ? params.telephone = {"condition": "is", "value": info.telephone,"formType": "text","name": "telephone"} : ''
+        info.leads_name ? params.leads_name = {"condition": "is", "value": info.leads_name,"formType": "text","name": "leads_name"} : ''
+        info.owner_user_name ? params.owner_user_name = {"condition": "is", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
+        info['线索来源'] ? params['线索来源'] = {"condition": "is", "value": info['线索来源'],"formType": "text","name": "线索来源"} : ''
+      }
+      // info.mobile ? params.mobile = {"condition": "is", "value": info.mobile,"formType": "text","name": "mobile"} : ''
+      // info.create_time ? params.create_time = {"condition": "is", "value": info.create_time + ' 00:00:00',"formType": "datetime","name": "create_time"} : ''
       info.create_time ? params.create_time = {"start": info.create_time + ' 00:00:00',"end": info.create_time + ' 23:59:59',"formType": "datetime","name": "create_time"} : ''
 
       this.filterObj = params

@@ -12,13 +12,14 @@
              direction="column"
              align="stretch"
              class="d-container">
-      <c-r-m-detail-head crmType="leads"
+      <!-- <c-r-m-detail-head crmType="leads"
                          @handle="detailHeadHandle"
                          @close="hideView"
                          :detail="detailData"
                          :headDetails="headDetails"
                          :id="id">
-      </c-r-m-detail-head>
+      </c-r-m-detail-head> -->
+      <div class="close-detail el-icon-close" @click="closeDetail"></div>
       <div class="tabs">
         <el-tabs v-model="tabCurrentName"
                  @tab-click="handleClick">
@@ -113,13 +114,13 @@ export default {
         { title: '创建时间', value: '' }
       ],
       tabnames: [
-        { label: '跟进记录', name: 'followlog' },
         { label: '基本信息', name: 'basicinfo' },
-        { label: '附件', name: 'file' },
-        { label: '操作记录', name: 'operationlog' }
+        { label: '跟进记录', name: 'followlog' },
+        // { label: '附件', name: 'file' },
+        // { label: '操作记录', name: 'operationlog' }
       ],
-      tabCurrentName: 'followlog',
-      isCreate: false // 编辑操作
+      tabCurrentName: 'basicinfo',
+      isCreate: false, // 编辑操作
     }
   },
   computed: {
@@ -138,6 +139,9 @@ export default {
   },
   mounted() {},
   methods: {
+    closeDetail () {
+      this.$emit("hide-view")
+    },
     getDetial() {
       this.loading = true
       crmLeadsRead({
@@ -174,4 +178,12 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/crmdetail.scss';
+.el-icon-close:before {
+  font-size: 30px;
+  color: #666;
+  position: fixed;
+  right: 24px;
+  top: 65px;
+  z-index: 99;
+}
 </style>

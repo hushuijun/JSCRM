@@ -1,6 +1,6 @@
 <template>
   <div class="c-container">
-    <div class="title">{{title}}</div>
+    <!-- <div class="title">{{title}}</div>
     <el-input class="sc-container"
               :placeholder="placeholder"
               v-model="inputContent"
@@ -9,25 +9,25 @@
       <el-button slot="append"
                  @click.native="searchInput"
                  icon="el-icon-search"></el-button>
-    </el-input>
+    </el-input> -->
     <div class="right-container">
       <el-button @click="createClick"
                  v-if="canSave"
                  type="primary">{{mainTitle}}</el-button>
-      <el-dropdown trigger="click"
+      <!-- <el-dropdown trigger="click"
                    v-if="moreTypes.length > 0"
-                   @command="handleTypeDrop">
-        <flexbox class="right-more-item">
+                   @command="handleTypeDrop"> -->
+        <!-- <flexbox class="right-more-item">
           <div>更多</div>
           <i class="el-icon-arrow-down el-icon--right"
              style="color:#777;"></i>
-        </flexbox>
-        <el-dropdown-menu slot="dropdown">
+        </flexbox> -->
+        <!-- <el-dropdown-menu slot="dropdown">
           <el-dropdown-item v-for="(item, index) in moreTypes"
                             :key="index"
                             :command="item.type">{{item.name}}</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+        </el-dropdown-menu> -->
+      <!-- </el-dropdown> -->
     </div>
     <c-r-m-create-view v-if="isCreate"
                        :crm-type="createCRMType"
@@ -164,6 +164,7 @@ export default {
   height: 60px;
   position: relative;
   z-index: 100;
+  display: inline-block;
   .title {
     float: left;
     padding: 0 20px;
@@ -179,10 +180,10 @@ export default {
   }
 
   .right-container {
-    margin-right: -10px;
-    float: right;
-    margin: 12px 20px 0 0;
-    position: relative;
+    // margin-right: -10px;
+    // float: right;
+    // margin: 12px 20px 0 0;
+    // position: relative;
     .right-item {
       float: left;
       margin-right: 10px;

@@ -7,7 +7,8 @@
              :listenerIDs="listenerIDs"
              :noListenerIDs="noListenerIDs"
              @handle="detailHandle"
-             @hide-view="hiddenView">
+             @hide-view="hiddenView"
+             :isSeas=isSeas>
   </component>
 </template>
 
@@ -88,6 +89,10 @@ export default {
       default: () => {
         return ['el-table__body']
       }
+    },
+    isSeas: {
+      type: Boolean,
+      default: false
     }
   },
   mounted() {
@@ -95,6 +100,7 @@ export default {
       document.body.appendChild(this.$el)
       this.$el.style.zIndex = getMaxIndex()
     }
+    console.log(this.isSeas, 'allDeatil')
   },
   methods: {
     hiddenView() {

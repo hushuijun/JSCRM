@@ -9,9 +9,9 @@
                      @on-export="exportInfos"
                      :crm-type="crmType">
     </c-r-m-list-head> -->
-    <el-tabs v-model="crmType" @tab-click="switchTab(crmType)" type="card">
-      <el-tab-pane label="私有客户" name="customer"></el-tab-pane>
-      <el-tab-pane label="客户公海" name="seas"></el-tab-pane>
+    <el-tabs v-model="typeId" @tab-click="switchTab(crmType, typeId)" type="card">
+      <el-tab-pane label="私有客户" name="2"></el-tab-pane>
+      <el-tab-pane label="客户公海" name="8"></el-tab-pane>
     </el-tabs>
     <div class="input-container">
       <span>客户姓名</span>
@@ -21,7 +21,7 @@
       </el-input>
     </div>
     <div class="input-container">
-      <span>客户姓名</span>
+      <span>客户手机号</span>
       <el-input
         placeholder=""
         label="客户手机号" size="small" v-model="searchInfo.mobile">
@@ -31,7 +31,7 @@
       <span>负责人</span>
       <el-input
         placeholder=""
-        label="负责人" size="small" v-model="searchInfo.owner_user_id">
+        label="负责人" size="small" v-model="searchInfo.realname">
       </el-input>
     </div>
     <div class="input-container">
@@ -49,18 +49,24 @@
     <el-row class="customer-search">
       <el-button type="primary" @click="searchList(searchInfo)">搜索</el-button>
     </el-row>
-    <el-row class="customer-search">
-      <el-button type="primary">新建</el-button>
-    </el-row>
+    <!-- <el-row class="customer-search">
+      <el-button type="primary" @click="createClick">新建</el-button>
+    </el-row> -->
+    <c-r-m-list-head
+      main-title="新建"
+      :crm-type="crmType" :isSeas="isSeas">
+    </c-r-m-list-head>
     <div v-empty="!crm.customer.index"
          xs-empty-icon="nopermission"
          xs-empty-text="暂无权限"
          class="crm-container">
+         <!-- @handleRowClick='handleRowClick' -->
       <c-r-m-table-head ref="crmTableHead"
                         :crm-type="crmType"
                         @filter="handleFilter"
                         @handle="handleHandle"
-                        @scene="handleScene"></c-r-m-table-head>
+                        @scene="handleScene" :isSeas="isSeas" @handleRecordsClick="handleRecordsClick"></c-r-m-table-head>
+      <!-- @row-click="handleRowClick" -->
       <el-table class="n-table--border"
                 id="crm-table"
                 v-loading="loading"
@@ -69,9 +75,8 @@
                 stripe
                 border
                 highlight-current-row
-                style="width: 100%"
+                style="width: 100%;"
                 :cell-style="cellStyle"
-                @row-click="handleRowClick"
                 @header-dragend="handleHeaderDragend"
                 @selection-change="handleSelectionChange">
         <el-table-column show-overflow-tooltip
@@ -146,6 +151,17 @@
                  class="table-set" />
           </template>
         </el-table-column>
+        <el-table-column
+          fixed="right"
+          label="操作"
+          width="120"
+          type="operation">
+          <template slot-scope="scope">
+            <el-button @click="deleteClick(scope.row)" type="text" size="small">删除</el-button>
+            <el-button @click="editClick(scope.row, 'edit')" type="text" size="small">编辑</el-button>
+            <el-button @click="detailClick(scope.row)" type="text" size="small">详情</el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <div class="p-contianer">
         <el-pagination class="p-bar"
@@ -159,12 +175,23 @@
         </el-pagination>
       </div>
     </div>
+    <!-- :crm-type="createCRMType"
+                      :action="createActionInfo"
+                      @save-success="createSaveSuccess"
+                      @hiden-view="hideView" -->
+    <!-- <c-r-m-create-view v-if="isEdit" :operation='operationType' :id='customerId' :crmType='crmType'
+                      ></c-r-m-create-view> -->
     <!-- 相关详情页面 -->
+    <c-r-m-create-view v-if="isCreate"
+                       crm-type="customer"
+                       :action="{type: 'update', id: rowID, batchId: batchId}"
+                       @save-success="editSaveSuccess"
+                       @hiden-view="isCreate=false"></c-r-m-create-view>
     <c-r-m-all-detail :visible.sync="showDview"
                       :crmType="rowType"
                       :id="rowID"
                       @handle="handleHandle"
-                      class="d-view">
+                      class="d-view" :isSeas="isSeas">
     </c-r-m-all-detail>
     <fields-set :crmType="crmType"
                 @set-success="setSave"
@@ -176,14 +203,17 @@
 import { mapGetters } from 'vuex'
 import CRMAllDetail from '@/views/customermanagement/components/CRMAllDetail'
 import BusinessCheck from './components/BusinessCheck' // 相关商机
+import CRMCreateView from '../components/CRMCreateView'
 import table from '../mixins/table'
+import detail from '../mixins/detail'
 
 export default {
   /** 客户管理 的 客户列表 */
   name: 'customerIndex',
   components: {
     CRMAllDetail,
-    BusinessCheck
+    BusinessCheck,
+    CRMCreateView
   },
   mixins: [table],
   data() {
@@ -196,6 +226,8 @@ export default {
         create_time: '',
         realname: ''
       },
+      clickRow: {},
+      isEdit: false,
       // searchDate: ''
     }
   },
@@ -270,5 +302,8 @@ export default {
 .date-pick {
   width: 150px;
   display: inline-block;
+}
+.el-button--small {
+  margin-left: 0;
 }
 </style>

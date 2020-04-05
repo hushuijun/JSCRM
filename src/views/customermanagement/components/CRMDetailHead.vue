@@ -119,7 +119,8 @@ export default {
       return this.crm[this.crmType].transfer
     },
     showEdit() {
-      return this.isSeas ? false : this.crm[this.crmType].update
+      // return this.isSeas ? false : this.crm[this.crmType].update
+      return this.crm[this.crmType].update
     }
   },
   data() {

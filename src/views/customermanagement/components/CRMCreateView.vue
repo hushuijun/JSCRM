@@ -49,7 +49,7 @@
             </div>
           </flexbox>
         </create-sections>
-        <create-sections v-if="showExamine"
+        <!-- <create-sections v-if="showExamine"
                          title="审核信息">
           <div slot="header"
                v-if="examineInfo.examineType===1 || examineInfo.examineType===2"
@@ -58,16 +58,16 @@
                                :types="'crm_' + crmType"
                                :typesId="action.id"
                                @value-change="examineValueChange"></create-examine-info>
-        </create-sections>
+        </create-sections> -->
       </div>
 
       <div class="handle-bar">
         <el-button class="handle-button"
                    @click.native="hidenView">取消</el-button>
-        <el-button v-if="crmType=='customer' && action.type == 'save'"
+        <!-- <el-button v-if="crmType=='customer' && action.type == 'save'"
                    class="handle-button"
                    type="primary"
-                   @click.native="saveField(true)">保存并新建联系人</el-button>
+                   @click.native="saveField(true)">保存并新建联系人</el-button> -->
         <el-button class="handle-button"
                    type="primary"
                    @click.native="saveField(false)">保存</el-button>
@@ -82,7 +82,7 @@ import CreateSections from '@/components/CreateSections'
 import CreateExamineInfo from '@/components/Examine/CreateExamineInfo'
 import { filedGetField, filedValidates } from '@/api/customermanagement/common'
 import { crmLeadsSave, crmLeadsUpdate } from '@/api/customermanagement/clue'
-import { crmCustomerSave } from '@/api/customermanagement/customer'
+import { crmCustomerSave, crmCustomerRead } from '@/api/customermanagement/customer'
 import { crmContactsSave } from '@/api/customermanagement/contacts'
 import {
   crmBusinessSave,
@@ -179,7 +179,8 @@ export default {
         crmFields: []
       },
       // 审批信息
-      examineInfo: {}
+      examineInfo: {},
+      // detailData: {}
     }
   },
   filters: {
@@ -190,7 +191,8 @@ export default {
         formType == 'number' ||
         formType == 'floatnumber' ||
         formType == 'mobile' ||
-        formType == 'email'
+        formType == 'email' || 
+        formType == 'map_address'
       ) {
         return 'XhInput'
       } else if (formType == 'textarea') {
@@ -224,9 +226,11 @@ export default {
         return 'XhBusinessStatus'
       } else if (formType == 'product') {
         return 'XhProduct'
-      } else if (formType == 'map_address') {
-        return 'XhCustomerAddress'
-      } else if (formType == 'receivables_plan') {
+      }
+      // else if (formType == 'map_address') {
+      //   return 'XhCustomerAddress'
+      // }
+       else if (formType == 'receivables_plan') {
         return 'XhReceivablesPlan'
       }
     }
@@ -237,6 +241,9 @@ export default {
       type: String,
       default: ''
     },
+    // operation: '',
+    // id: '',
+    // crmType: '',
     /**
      * save:添加、update:编辑(action_id)、read:详情、index:列表
      * relative: 相关 添加(目前用于客户等相关添加)
@@ -259,6 +266,61 @@ export default {
     this.getField()
   },
   methods: {
+    //如果是编辑，或者信息填充
+    // getDetial() {
+    //   this.loading = true
+    //   crmCustomerRead({
+    //     customerId: this.action.id
+    //   })
+    //     .then(res => {
+    //       this.loading = false
+    //       this.detailData = res.data
+    //       console.log(this.crmForm.crmFields.length,  6666666)
+    //       for (let i = 0; i < this.crmForm.crmFields.length; i++) {
+    //         let card = this.crmForm.crmFields[i]
+    //         this.crmForm.crmFields[i].value = this.detailData[this.crmForm.crmFields[i].key]
+    //         if (this.crmForm.crmFields[i].key == 'customer_name') {
+    //           this.crmForm.crmFields[i].value = this.detailData.customerName
+    //         }
+    //         if (this.crmForm.crmFields[i].key == '客户来源') {
+    //           this.crmForm.crmFields[i].value = this.detailData['客户来源']
+    //         }
+    //         // if (this.crmForm.crmFields[i].key == 'telephone') {
+    //         //   this.crmForm.crmFields[i].value = this.detailData.telephone
+    //         // }
+    //         // if (this.crmForm.crmFields[i].key == 'customer_name') {
+    //         //   this.crmForm.crmFields[i].value = this.detailData.customerName
+    //         // }
+    //         // if (this.crmForm.crmFields[i].key == 'customer_name') {
+    //         //   this.crmForm.crmFields[i].value = this.detailData.customerName
+    //         // }
+    //         // if (this.crmForm.crmFields[i].key == 'customer_name') {
+    //         //   this.crmForm.crmFields[i].value = this.detailData.customerName
+    //         // }
+    //         // if (this.crmForm.crmFields[i].key == 'customer_name') {
+    //         //   this.crmForm.crmFields[i].value = this.detailData.customerName
+    //         // }
+    //         // if (this.crmForm.crmFields[i].key == 'customer_name') {
+    //         //   this.crmForm.crmFields[i].value = this.detailData.customerName
+    //         // }
+    //         // if (this.crmForm.crmFields[i].key == 'customer_name') {
+    //         //   this.crmForm.crmFields[i].value = this.detailData.customerName
+    //         // }
+    //       }
+    //       console.log(this.crmForm.crmFields, 12345667)
+
+    //       // this.detailData = res.data
+    //       // this.crmForm.crmFields = res.data
+    //       // // 负责人
+    //       // this.headDetails[0].value = res.data.客户级别
+    //       // this.headDetails[1].value = res.data.dealStatus
+    //       // this.headDetails[2].value = res.data.ownerUserName
+    //       // this.headDetails[3].value = res.data.updateTime
+    //     })
+    //     .catch(() => {
+    //       this.loading = false
+    //     })
+    // },
     // 审批信息值更新
     examineValueChange(data) {
       this.examineInfo = data
@@ -420,6 +482,7 @@ export default {
         .then(res => {
           this.getcrmRulesAndModel(res.data)
           this.loading = false
+          // this.getDetial()
         })
         .catch(() => {
           this.loading = false

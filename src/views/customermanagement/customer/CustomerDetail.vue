@@ -12,14 +12,15 @@
              direction="column"
              align="stretch"
              class="d-container">
-      <c-r-m-detail-head crmType="customer"
+      <!-- <c-r-m-detail-head crmType="customer"
                          :isSeas="isSeas"
                          @handle="detailHeadHandle"
                          @close="hideView"
                          :detail="detailData"
                          :headDetails="headDetails"
                          :id="id">
-      </c-r-m-detail-head>
+      </c-r-m-detail-head> -->
+      <div class="close-detail el-icon-close" @click="closeDetail"></div>
       <div class="tabs">
         <el-tabs v-model="tabCurrentName"
                  @tab-click="handleClick">
@@ -123,7 +124,8 @@ export default {
         { title: '负责人', value: '' },
         { title: '更新时间', value: '' }
       ],
-      tabCurrentName: 'followlog',
+      // tabCurrentName: 'followlog',
+      tabCurrentName: 'basicinfo',
       isCreate: false // 编辑操作
     }
   },
@@ -152,16 +154,19 @@ export default {
     },
     tabnames() {
       var tempsTabs = []
-      tempsTabs.push({ label: '跟进记录', name: 'followlog' })
+      console.log(this.isSeas, 1000000001)
       if (this.crm.customer && this.crm.customer.read) {
         tempsTabs.push({ label: '基本信息', name: 'basicinfo' })
       }
-      // if (this.crm.contacts && this.crm.contacts.index) {
-      //   tempsTabs.push({ label: '联系人', name: 'contacts' })
-      // }
-      // tempsTabs.push({ label: '相关团队', name: 'team' })
-      if (this.crm.business && this.crm.business.index) {
-        tempsTabs.push({ label: '商机', name: 'business' })
+      if (!this.isSeas) {
+        tempsTabs.push({ label: '跟进记录', name: 'followlog' })
+        // if (this.crm.contacts && this.crm.contacts.index) {
+        //   tempsTabs.push({ label: '联系人', name: 'contacts' })
+        // }
+        // tempsTabs.push({ label: '相关团队', name: 'team' })
+        if (this.crm.business && this.crm.business.index) {
+          tempsTabs.push({ label: '商机', name: 'business' })
+        }
       }
       // if (this.crm.contract && this.crm.contract.index) {
       //   tempsTabs.push({ label: '合同', name: 'contract' })
@@ -174,8 +179,13 @@ export default {
       return tempsTabs
     }
   },
-  mounted() {},
+  mounted() {
+    console.log(this.isSeas, 1000000000)
+  },
   methods: {
+    closeDetail () {
+      this.$emit("hide-view")
+    },
     getDetial() {
       this.loading = true
       crmCustomerRead({
@@ -210,4 +220,12 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/crmdetail.scss';
+.el-icon-close:before {
+  font-size: 30px;
+  color: #666;
+  position: fixed;
+  right: 24px;
+  top: 65px;
+  z-index: 99;
+}
 </style>

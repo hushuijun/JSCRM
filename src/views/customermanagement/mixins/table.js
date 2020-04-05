@@ -6,6 +6,7 @@ import crmTypeModel from '@/views/customermanagement/model/crmTypeModel'
 import CRMListHead from '../components/CRMListHead'
 import CRMTableHead from '../components/CRMTableHead'
 import FieldsSet from '../components/fieldsManager/FieldsSet'
+import CRMCreateView from '../components/CRMCreateView'
 import {
   filedGetTableField,
   crmFieldColumnWidth
@@ -14,18 +15,23 @@ import {
   crmCustomerIndex,
   crmCustomerPool,
   crmCustomerExcelAllExport,
-  crmCustomerPoolExcelAllExport
+  crmCustomerPoolExcelAllExport,
+  crmCustomerDelete
 } from '@/api/customermanagement/customer'
 import {
   crmLeadsIndex,
-  crmLeadsExcelAllExport
+  crmLeadsExcelAllExport,
+  crmLeadsDelete,
+  crmLeadsStatus
 } from '@/api/customermanagement/clue'
 import {
   crmContactsIndex,
-  crmContactsExcelAllExport
+  crmContactsExcelAllExport,
+  // crmContractDelete
 } from '@/api/customermanagement/contacts'
 import {
-  crmBusinessIndex
+  crmBusinessIndex,
+  crmBusinessDelete
 } from '@/api/customermanagement/business'
 import {
   crmContractIndex
@@ -42,7 +48,8 @@ export default {
   components: {
     CRMListHead,
     CRMTableHead,
-    FieldsSet
+    FieldsSet,
+    CRMCreateView
   },
   data() {
     return {
@@ -59,6 +66,7 @@ export default {
       rowID: '', // 行信息
       rowType: '', //详情类型
       showDview: false,
+      batchId: '',
       /** 高级筛选 */
       filterObj: {}, // 筛选确定数据
       sceneId: "", // 场景筛选ID
@@ -66,7 +74,15 @@ export default {
       /** 列表展示字段管理 */
       showFieldSet: false,
       /** 勾选行 */
-      selectionList: [] // 勾选数据 用于全局导出
+      selectionList: [], // 勾选数据 用于全局导出
+      clickRow: {},
+      isEdit: false,
+      operationType: {},
+      customerId: '',
+      isSeas: false,
+      status: '0',
+      isCreate: false,
+      followId: ''
     }
   },
 
@@ -92,14 +108,18 @@ export default {
   methods: {
     /** 获取列表数据 */
     getList() {
+      console.log(this.isSeas, 9999999999888)
       this.loading = true
       var crmIndexRequest = this.getIndexRequest()
       var params = {
         page: this.currentPage,
         limit: this.pageSize,
         search: this.search,
-        // type: this.isSeas ? 8 : crmTypeModel[this.crmType] // 8是公海
-        type: this.crmType ? crmTypeModel[this.crmType]: 8
+        type: this.isSeas ? 8 : crmTypeModel[this.crmType] // 8是公海
+        // type: this.crmType ? crmTypeModel[this.crmType]: 8
+      }
+      if (this.crmType == 'leads') {
+        params.status = parseInt(this.status)
       }
       // if (this.sceneId) {
       //   params.sceneId = parseInt(this.sceneId)
@@ -133,14 +153,16 @@ export default {
     },
     /** 获取列表请求 */
     getIndexRequest() {
+      console.log(this.crmType, 99999999)
+      console.log(this.isSeas, 99999999)
       if (this.crmType === 'leads') {
         return crmLeadsIndex
       } else if (this.crmType === 'customer') {
-        // if (this.isSeas) {
-        //   return crmCustomerPool
-        // } else {
+        if (this.isSeas) {
+          return crmCustomerPool
+        } else {
           return crmCustomerIndex
-        // }
+        }
       } else if (this.crmType === 'contacts') {
         return crmContactsIndex
       } else if (this.crmType === 'business') {
@@ -211,7 +233,6 @@ export default {
     },
     //点击搜索
     searchList (info) {
-      console.log(info, 111111)
       let params = {}
       info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
       info.mobile ? params.mobile = {"condition": "is", "value": info.mobile,"formType": "text","name": "mobile"} : ''
@@ -219,7 +240,6 @@ export default {
       info.create_time ? params.create_time = {"condition": "is", "value": info.create_time + ' 00:00:00',"formType": "datetime","name": "create_time"} : ''
       info.create_time ? params.create_time = {"start": info.create_time + ' 00:00:00',"end": info.create_time + ' 23:59:59',"formType": "datetime","name": "create_time"} : ''
 
-      console.log(params, 2222222)
       this.filterObj = params
       var offsetHei = document.documentElement.clientHeight
       var removeHeight = Object.keys(this.filterObj).length > 0 ? 310 : 240
@@ -229,96 +249,192 @@ export default {
     },
     /** 列表操作 */
     // 当某一行被点击时会触发该事件
-    handleRowClick(row, column, event) {
-      if (column.type === 'selection') {
-        return // 多选布局不能点击
+    // handleRowClick(row, column, event) {
+    //   console.log(column, 'columncolumncolumncolumn')
+    //   if (column.type === 'selection') {
+    //     return // 多选布局不能点击
+    //   }
+    //   if (this.crmType === 'leads') {
+    //     if (column.property === 'leadsName' || !column.property) {
+    //       console.log('哈喽进入了吗')
+    //       this.rowID = row.leadsId
+    //       this.showDview = true
+    //     } else {
+    //       this.showDview = false
+    //     }
+    //   } else if (this.crmType === 'customer' || this.crmType === 'seas') {
+    //     if (column.property === 'businessCheck' && row.businessCount > 0) {
+    //       return // 列表查看商机不展示详情
+    //     }
+    //     if (column.property === 'customerName' || !column.property) {
+    //       this.rowID = row.customerId
+    //       this.rowType = 'customer'
+    //       this.showDview = true
+    //     } else {
+    //       this.showDview = false
+    //     }
+    //   } else if (this.crmType === 'contacts') {
+    //     if (column.property === 'customerName') {
+    //       this.rowID = row.customerId
+    //       this.rowType = 'customer'
+    //       this.showDview = true
+    //     } else if (column.property === 'name') {
+    //       this.rowID = row.contactsId
+    //       this.rowType = 'contacts'
+    //       this.showDview = true
+    //     } else {
+    //       this.showDview = false
+    //     }
+    //   } else if (this.crmType === 'business') {
+    //     if (column.property === 'customerName') {
+    //       this.rowID = row.customerId
+    //       this.rowType = 'customer'
+    //       this.showDview = true
+    //     } else if (column.property === 'businessName') {
+    //       this.rowID = row.businessId
+    //       this.rowType = 'business'
+    //       this.showDview = true
+    //     } else {
+    //       this.showDview = false
+    //     }
+    //   } else if (this.crmType === 'contract') {
+    //     if (column.property === 'customerName') {
+    //       this.rowID = row.customerId
+    //       this.rowType = 'customer'
+    //       this.showDview = true
+    //     } else if (column.property === 'businessName') {
+    //       this.rowID = row.businessId
+    //       this.rowType = 'business'
+    //       this.showDview = true
+    //     } else if (column.property === 'contactsName') {
+    //       this.rowID = row.contactsId
+    //       this.rowType = 'contacts'
+    //       this.showDview = true
+    //     } else if (column.property === 'num') {
+    //       this.rowID = row.contractId
+    //       this.rowType = 'contract'
+    //       this.showDview = true
+    //     } else {
+    //       this.showDview = false
+    //     }
+    //   } else if (this.crmType === 'product') {
+    //     if (column.property === 'name') {
+    //       this.rowID = row.productId
+    //       this.showDview = true
+    //     } else {
+    //       this.showDview = false
+    //     }
+    //   } else if (this.crmType === 'receivables') {
+    //     if (column.property === 'customerName') {
+    //       this.rowID = row.customerId
+    //       this.rowType = 'customer'
+    //       this.showDview = true
+    //     } else if (column.property === 'contractNum') {
+    //       this.rowID = row.contractId
+    //       this.rowType = 'contract'
+    //       this.showDview = true
+    //     } else if (column.property === 'number') {
+    //       this.rowID = row.receivablesId
+    //       this.rowType = 'receivables'
+    //       this.showDview = true
+    //     } else {
+    //       this.showDview = false
+    //     }
+    //   }
+    // },
+    deleteClick (info) {
+      console.log(info, 8888888)
+      this.$confirm('确定要删除这条数据吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        await this.confirmHandle(info)
+      })
+    },
+    //确认删除
+    confirmHandle (info){
+      let request = {
+        leads: crmLeadsDelete,
+        customer: crmCustomerDelete,
+        // contacts: crmContactsDelete,
+        business: crmBusinessDelete,
+        // contract: crmContractDelete,
+        // receivables: crmReceivablesDelete
+      }[this.crmType]
+      request({
+        [this.crmType + 'Ids']: info[this.crmType+'Id']
+      })
+        .then(res => {
+          this.$message({
+            type: 'success',
+            message: '删除成功'
+          })
+          this.getFieldList()
+          this.$emit('handle', { type: type })
+        })
+        .catch(() => {})
+    },
+    //编辑
+    editClick (data, type) {
+      data.type = type
+      this.rowID = data[this.crmType+'Id']
+      this.batchId = data['batchId']
+      // detailHeadHandle(data) {
+      console.log('编辑状态', type)
+      if (type === 'edit') {
+        this.isCreate = true
+      } else if (type === 'delete') {
+        this.hideView()
       }
-      if (this.crmType === 'leads') {
-        if (column.property === 'leadsName') {
-          this.rowID = row.leadsId
-          this.showDview = true
-        } else {
-          this.showDview = false
-        }
-      } else if (this.crmType === 'customer') {
-        if (column.property === 'businessCheck' && row.businessCount > 0) {
-          return // 列表查看商机不展示详情
-        }
-        if (column.property === 'customerName') {
-          this.rowID = row.customerId
-          this.rowType = 'customer'
-          this.showDview = true
-        } else {
-          this.showDview = false
-        }
-      } else if (this.crmType === 'contacts') {
-        if (column.property === 'customerName') {
-          this.rowID = row.customerId
-          this.rowType = 'customer'
-          this.showDview = true
-        } else if (column.property === 'name') {
-          this.rowID = row.contactsId
-          this.rowType = 'contacts'
-          this.showDview = true
-        } else {
-          this.showDview = false
-        }
-      } else if (this.crmType === 'business') {
-        if (column.property === 'customerName') {
-          this.rowID = row.customerId
-          this.rowType = 'customer'
-          this.showDview = true
-        } else if (column.property === 'businessName') {
-          this.rowID = row.businessId
-          this.rowType = 'business'
-          this.showDview = true
-        } else {
-          this.showDview = false
-        }
-      } else if (this.crmType === 'contract') {
-        if (column.property === 'customerName') {
-          this.rowID = row.customerId
-          this.rowType = 'customer'
-          this.showDview = true
-        } else if (column.property === 'businessName') {
-          this.rowID = row.businessId
-          this.rowType = 'business'
-          this.showDview = true
-        } else if (column.property === 'contactsName') {
-          this.rowID = row.contactsId
-          this.rowType = 'contacts'
-          this.showDview = true
-        } else if (column.property === 'num') {
-          this.rowID = row.contractId
-          this.rowType = 'contract'
-          this.showDview = true
-        } else {
-          this.showDview = false
-        }
-      } else if (this.crmType === 'product') {
-        if (column.property === 'name') {
-          this.rowID = row.productId
-          this.showDview = true
-        } else {
-          this.showDview = false
-        }
-      } else if (this.crmType === 'receivables') {
-        if (column.property === 'customerName') {
-          this.rowID = row.customerId
-          this.rowType = 'customer'
-          this.showDview = true
-        } else if (column.property === 'contractNum') {
-          this.rowID = row.contractId
-          this.rowType = 'contract'
-          this.showDview = true
-        } else if (column.property === 'number') {
-          this.rowID = row.receivablesId
-          this.rowType = 'receivables'
-          this.showDview = true
-        } else {
-          this.showDview = false
-        }
+      this.$emit('handle', data)
+      // }
+    },
+    // 置为无效
+    statusClick (data) {
+      this.rowID = data[this.crmType+'Id']
+      crmLeadsStatus({
+        status: this.status == 0 || this.status == 1 ? 0 : 1,
+        leadsIds: this.rowID
+      }).then((res) => {
+        this.$message({
+          type: 'success',
+          message: '成功'
+        })
+        this.getFieldList()
+      })
+    },
+    // 保存成功
+    editSaveSuccess () {
+      this.getFieldList()
+    },
+    handleRecordsClick () {
+      if (this.selectionList.length > 1) {
+        this.$message({
+          type: 'warning',
+          message: '只能选择一项查看跟进记录'
+        })
+        return false
       }
+      // this.detailClick()
+      this.rowID = this.followId
+      if (this.crmType === 'customer') {
+        this.rowType = 'customer'
+      }
+      console.log(this.rowID, '进来了吗')
+      // this.rowID = row.leadsId
+      this.showDview = true
+    },
+    //查看详情
+    detailClick (data) {
+      this.rowID = data[this.crmType+'Id']
+      if (this.crmType === 'customer') {
+        this.rowType = 'customer'
+      }
+      console.log(this.rowID, '进来了吗')
+      // this.rowID = row.leadsId
+      this.showDview = true
+      // this.handleRowClick()
     },
     /**
      * 导出 线索 客户 联系人 产品
@@ -384,11 +500,22 @@ export default {
       this.getFieldList()
     },
     /** 共有私有切换操作 */
-    switchTab (data) {
+    switchTab (data, typeId) {
       console.log(data, 111111111)
-      this.sceneId = data
-      this.sceneName = data.name
+      // this.sceneId = data
+      // this.sceneName = data.name
       this.currentPage = 1
+      if (this.crmType == 'leads') {
+        this.status = data
+      }
+      console.log(this.crmType, 'hhhhdhedndede')
+      // console.log(this.customer, 'hhhhdhedndede')
+      if (this.crmType == 'customer' && typeId == '8') {
+        this.isSeas = true
+      } else {
+        this.isSeas = false
+      }
+      console.log(this.isSeas, 'hhhhdhedndede')
       this.getFieldList()
     },
     /** 勾选操作 */
@@ -422,6 +549,11 @@ export default {
     /** 勾选操作 */
     // 当选择项发生变化时会触发该事件
     handleSelectionChange(val) {
+      console.log(val,'gouxuan ')
+      if (val.length == 1) {
+        this.followId = val[0][this.crmType+'Id']
+      }
+      console.log(this.followId, '勾选的id')
       this.selectionList = val // 勾选的行
       this.$refs.crmTableHead.headSelectionChange(val)
     },

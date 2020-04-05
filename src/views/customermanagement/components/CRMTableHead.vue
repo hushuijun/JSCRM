@@ -33,7 +33,8 @@
                    @filter="handleFilter">
       </filter-form> -->
     </flexbox>
-    <flexbox v-if="selectionList.length > 0"
+    <!-- v-if="selectionList.length > 0" -->
+    <flexbox
              class="selection-bar">
       <div class="selected—title">已选中<span class="selected—count">{{selectionList.length}}</span>项</div>
       <flexbox class="selection-items-box">
@@ -42,9 +43,12 @@
                  :key="index"
                  v-if="whetherTypeShowByPermision(item.type)"
                  @click.native="selectionBarClick(item.type)">
-          <img class="selection-item-icon"
-               :src="item.icon" />
-          <div class="selection-item-name">{{item.name}}</div>
+          <!-- <img class="selection-item-icon"
+               :src="item.icon" /> -->
+          <!-- <div class="selection-item-name">{{item.name}}</div> -->
+          <el-row class="customer-search">
+            <el-button type="primary">{{item.name}}</el-button>
+          </el-row>
         </flexbox>
       </flexbox>
     </flexbox>
@@ -179,6 +183,10 @@ export default {
     isSeas: {
       type: Boolean,
       default: false
+    },
+    clueType: {
+      type: String,
+      default: ''
     }
   },
   mounted() {},
@@ -254,6 +262,13 @@ export default {
     },
     /** 操作 */
     selectionBarClick(type) {
+      if (this.selectionList.length === 0) {
+        this.$message({
+          type: 'warning',
+          message: '请至少选择一项'
+        })
+        return false
+      }
       if (type == 'transfer') {
         // 转移
         this.transferDialogShow = true
@@ -326,7 +341,11 @@ export default {
       ) {
         var message = ''
         if (type == 'transform') {
-          message = '确定将这些线索转换为客户吗?'
+          if (this.clueType == 1) {
+            message = '确定认领?'
+          } else {
+            message = '确定将这些线索转换为客户吗?'
+          }
         } else if (type == 'put_seas') {
           message = '确定转移到公海吗?'
         } else if (type == 'delete') {
@@ -367,6 +386,14 @@ export default {
       } else if (type == 'alloc') {
         // 公海分配操作
         this.allocDialogShow = true
+      } else if (type == 'follow_records') {
+        this.$emit('handleRecordsClick', {type: 'follow_records'})
+      } else if (type == 'claim') {
+
+
+
+      } else if (type == 'business') {
+
       }
     },
     confirmHandle(type) {
@@ -476,14 +503,16 @@ export default {
     },
     /** 获取展示items */
     getSelectionHandleItemsInfo() {
+      console.log(this.crmType, 9999999)
+      console.log(this.isSeas, 9999999)
       let handleInfos = {
         transfer: {
-          name: '转移',
+          name: this.crmType == 'leads' ? '移交' : '转移' , 
           type: 'transfer',
-          icon: require('@/assets/img/selection_transfer.png')
+          // icon: require('@/assets/img/selection_transfer.png')
         },
         transform: {
-          name: '转化为客户',
+          name: this.crmType == 'leads' && this.clueType != 1 ? '转为客户' : this.clueType == 1 ? '认领' : '转化为客户' ,
           type: 'transform',
           icon: require('@/assets/img/selection_convert_customer.png')
         },
@@ -492,15 +521,25 @@ export default {
           type: 'export',
           icon: require('@/assets/img/selection_export.png')
         },
+        follow_records: {
+          name: '跟进记录',
+          type: 'follow_records',
+          // icon: require('@/assets/img/selection_delete.png')
+        },
+        // business: {
+        //   name: '商机',
+        //   type: 'business',
+        //   // icon: require('@/assets/img/selection_delete.png')
+        // },
         delete: {
           name: '删除',
           type: 'delete',
-          icon: require('@/assets/img/selection_delete.png')
+          // icon: require('@/assets/img/selection_delete.png')
         },
         put_seas: {
           name: '放入公海',
           type: 'put_seas',
-          icon: require('@/assets/img/selection_putseas.png')
+          // icon: require('@/assets/img/selection_putseas.png')
         },
         lock: {
           name: '锁定',
@@ -525,7 +564,7 @@ export default {
         alloc: {
           name: '分配',
           type: 'alloc',
-          icon: require('@/assets/img/selection_alloc.png')
+          // icon: require('@/assets/img/selection_alloc.png')
         },
         get: {
           name: '领取',
@@ -541,34 +580,66 @@ export default {
           name: '下架',
           type: 'disable',
           icon: require('@/assets/img/selection_disable.png')
+        },
+        claim: {
+          name: '认领',
+          type: 'claim',
+          // icon: require('@/assets/img/selection_disable.png')
         }
       }
       if (this.crmType == 'leads') {
-        return this.forSelectionHandleItems(handleInfos, [
-          'transfer',
-          'transform',
-          'export',
-          'delete'
-        ])
-      } else if (this.crmType == 'customer') {
-        if (this.isSeas) {
-          return this.forSelectionHandleItems(handleInfos, [
-            'alloc',
-            'get',
-            'export'
-          ])
-        } else {
+        if (this.clueType == 0) {
           return this.forSelectionHandleItems(handleInfos, [
             'transfer',
-            // 'export',
-            'put_seas',
-            'delete',
-            // 'lock',
-            // 'unlock',
-            // 'add_user',
-            // 'delete_user'
+            'transform',
+            'follow_records'
+          // 'export',
+          // 'delete'
           ])
         }
+        if (this.clueType == 1) {
+          return this.forSelectionHandleItems(handleInfos, [
+            'transfer',
+            'transform',
+          // 'export',
+          // 'delete'
+          ])
+        }
+        if (this.clueType == 2) {
+          return this.forSelectionHandleItems(handleInfos, [
+          // 'export',
+          // 'delete'
+          ])
+        }
+      } else if (this.crmType == 'seas') {
+        return this.forSelectionHandleItems(handleInfos, [
+            'alloc',
+            'get',
+            // 'export'
+          ])
+      }
+      else if (this.crmType == 'customer') {
+        // if (this.isSeas) {
+        //   return this.forSelectionHandleItems(handleInfos, [
+        //     'alloc',
+        //     'get',
+        //     // 'export'
+        //   ])
+        // } else {
+        return this.forSelectionHandleItems(handleInfos, [
+          'transfer',
+          // 'export',
+          'put_seas',
+          'follow_records'
+          // 'delete',
+          // 'follow_records',
+          // 'business'
+          // 'lock',
+          // 'unlock',
+          // 'add_user',
+          // 'delete_user'
+        ])
+        // }
       } else if (this.crmType == 'contacts') {
         return this.forSelectionHandleItems(handleInfos, [
           'transfer',
@@ -673,7 +744,7 @@ export default {
 <style lang="scss" scoped>
 .th-container {
   font-size: 13px;
-  height: 50px;
+  // height: 50px;
   padding: 0 20px;
 }
 /** 场景和筛选 */

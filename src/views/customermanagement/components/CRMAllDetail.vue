@@ -6,6 +6,7 @@
              :id="id"
              :listenerIDs="listenerIDs"
              :noListenerIDs="noListenerIDs"
+             :tabCurName='tabCurrentName'
              @handle="detailHandle"
              @hide-view="hiddenView"
              :isSeas=isSeas>
@@ -93,6 +94,10 @@ export default {
     isSeas: {
       type: Boolean,
       default: false
+    },
+    tabCurrentName: {
+      type: String,
+      default: ''
     }
   },
   mounted() {

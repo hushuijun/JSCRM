@@ -1,7 +1,7 @@
 <template>
   <el-popover v-model="showPopover"
               placement="bottom"
-              width="700"
+              width="600"
               :disabled="disabled"
               popper-class="no-padding-popover"
               trigger="click">
@@ -67,6 +67,10 @@ export default {
       default: () => {
         return {}
       }
+    },
+    crmType: {
+      type: String,
+      default: ''
     }
   },
   mounted() {
@@ -79,6 +83,7 @@ export default {
   methods: {
     /** 选中 */
     checkInfos(data) {
+      console.log(this.item.data.formType, '咋回事呢')
       this.dataValue = data.data ? data.data : []
       this.$emit('value-change', {
         index: this.index,

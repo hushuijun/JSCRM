@@ -14,7 +14,7 @@
       <el-tab-pane label="线索公海" name="1"></el-tab-pane>
       <el-tab-pane label="死海" name="2"></el-tab-pane>
     </el-tabs>
-        <div class="input-container">
+    <div class="input-container">
       <span>客户姓名</span>
       <el-input
         placeholder=""
@@ -59,7 +59,7 @@
     </el-row>
     <c-r-m-list-head
       main-title="新建"
-      :crm-type="crmType" :isSeas="false">
+      :crm-type="crmType" :isSeas="false" @on-handle="listHeadHandle">
     </c-r-m-list-head>
     <div v-empty="!crm.leads.index"
          xs-empty-icon="nopermission"
@@ -142,12 +142,12 @@
                  :id="rowID"
                  @handle="handleHandle"
                  @hide-view="showDview=false"
-                 class="d-view"></clue-detail>
+                 class="d-view" :tabCurName='tabCurrentName'></clue-detail>
     <fields-set :crmType="crmType"
                 @set-success="setSave"
                 :dialogVisible.sync="showFieldSet"></fields-set>
     <c-r-m-create-view v-if="isCreate"
-                       crm-type="leads"
+                       :crm-type="leads"
                        :action="{type: 'update', id: rowID, batchId: batchId}"
                        @save-success="editSaveSuccess"
                        @hiden-view="isCreate=false"></c-r-m-create-view>

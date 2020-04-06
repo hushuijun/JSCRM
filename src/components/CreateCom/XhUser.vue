@@ -1,6 +1,50 @@
 <template>
-  <div>
-    <el-input placeholder="搜索成员"
+  <div class="user-select">
+    <div class="input-container">
+      <span class="search-text">客户姓名</span>
+      <el-input
+        placeholder=""
+        label="客户姓名" size="small" type="text" v-model="realname">
+      </el-input>
+    </div>
+    <div class="input-container">
+      <span class="search-text">手机号</span>
+      <el-input
+        placeholder=""
+        label="手机号" size="small" v-model="mobile">
+      </el-input>
+    </div>
+    <el-row class="customer-search">
+      <el-button type="primary" @click="getUsersByCondition()">搜索</el-button>
+    </el-row>
+    <el-table
+        :data="list"
+        style="width: 560px;height:280px;overflow-y:scroll;margin-top: 15px;" border>
+          <el-table-column
+            label="姓名"
+            prop="realname"
+            width="150">
+          </el-table-column>
+          <el-table-column
+            label="手机号"
+            prop="mobile"
+            width="150">
+          </el-table-column>
+          <el-table-column
+            label="部门"
+            prop="deptName"
+            width="150">
+          </el-table-column>
+          <el-table-column
+            label="操作"
+            prop="确认"
+            width="80">
+            <template slot-scope="scope">
+              <el-button type="text" size="small" @click="handleConfirm(scope.row)">确认</el-button>
+             </template>
+          </el-table-column>
+      </el-table>
+    <!-- <el-input placeholder="搜索成员"
               size="small"
               v-model="searchInput"
               suffix-icon="el-icon-search"
@@ -22,11 +66,12 @@
           <span>{{item.realname}}</span>
         </el-checkbox>
       </el-checkbox-group>
-    </div>
+    </div> -->
   </div>
 </template>
 <script type="text/javascript">
 import { usersList } from '@/api/common'
+import { getUserByCondition} from '@/api/customermanagement/customer'
 
 export default {
   name: 'xh-user', // 新建 user
@@ -42,7 +87,9 @@ export default {
       list: [],
       selectItems: [], // 选择项
       loading: false, // 加载动画
-      searchInput: ''
+      searchInput: '',
+      realname: '',
+      mobile: ''
     }
   },
   props: {
@@ -122,6 +169,22 @@ export default {
       ) {
         return usersList
       }
+    },
+    //搜索
+    getUsersByCondition () {
+      getUserByCondition({
+        "realName": this.realname,
+        "mobile": this.mobile
+      }).then(res => {
+        this.list = res.data
+        console.log(this.list, 1111111)
+      })
+    },
+    handleConfirm (info) {
+      this.selectItems = [info]
+      console.log(this.selectItems, 'this.selectItems')
+      this.$emit('changeCheckout', { data: this.selectItems })
+      this.$emit('close')
     },
     getParams() {
       let params =
@@ -216,12 +279,34 @@ export default {
 </script>
 <style lang="scss" scoped>
 /* 选择员工 */
+.user-select {
+  width: 600px;
+  // background-color: #fff;
+}
 .search-img {
   width: 24px;
   height: 24px;
   border-radius: 12px;
   vertical-align: middle;
   margin-right: 8px;
+}
+.input-container {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding-left: 20px;
+}
+.search-text {
+  justify-items: left;
+  display: inline-block;
+  // width: 100px;
+}
+.el-input--small {
+  width: 150px;
+  display: inline-block;
+}
+.customer-search {
+  display: inline-block;
+  margin-left: 15px;
 }
 .search-list {
   padding: 5px;

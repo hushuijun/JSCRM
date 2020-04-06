@@ -111,6 +111,10 @@ export default {
       default: () => {
         return ['el-table__body']
       }
+    },
+    tabCurName: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -124,10 +128,13 @@ export default {
         { title: '负责人', value: '' },
         { title: '更新时间', value: '' }
       ],
-      // tabCurrentName: 'followlog',
-      tabCurrentName: 'basicinfo',
+      tabCurrentName: '',
+      // tabCurrentName: 'basicinfo',
       isCreate: false // 编辑操作
     }
+  },
+  created() {
+    this.tabCurrentName = this.tabCurName ? this.tabCurName : 'basicinfo'
   },
   computed: {
     tabName() {

@@ -54,7 +54,7 @@
     </el-row> -->
     <c-r-m-list-head
       main-title="新建"
-      :crm-type="crmType" :isSeas="isSeas">
+      :crm-type="crmType" :isSeas="isSeas" @on-handle="listHeadHandle">
     </c-r-m-list-head>
     <div v-empty="!crm.customer.index"
          xs-empty-icon="nopermission"
@@ -84,7 +84,7 @@
                          align="center"
                          width="55">
         </el-table-column>
-        <el-table-column prop="businessCheck"
+        <!-- <el-table-column prop="businessCheck"
                          fixed
                          :resizable='false'
                          label=""
@@ -114,7 +114,7 @@
                  :style="{'opacity' :scope.row.businessCount > 0 ? 1 : 0}"></i>
             </el-popover>
           </template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column v-for="(item, index) in fieldList"
                          :key="index"
                          show-overflow-tooltip
@@ -191,7 +191,7 @@
                       :crmType="rowType"
                       :id="rowID"
                       @handle="handleHandle"
-                      class="d-view" :isSeas="isSeas">
+                      class="d-view" :isSeas="isSeas" :tabCurrentName='tabCurrentName'>
     </c-r-m-all-detail>
     <fields-set :crmType="crmType"
                 @set-success="setSave"

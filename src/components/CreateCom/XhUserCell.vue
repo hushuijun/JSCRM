@@ -1,15 +1,16 @@
 <template>
-  <el-popover placement="bottom"
+  <el-popover placement="bottom-start"
               :disabled="disabled"
-              width="300"
-              trigger="click">
+              width="600"
+              style="left: 134px;"
+              trigger="click" class="user-pop" v-model="showPopover">
     <xh-user ref="xhuser"
              v-if="!disabled&&showSelectView"
              :infoType="infoType"
              :infoParams="infoParams"
              :radio="radio"
              :selectedData="dataValue"
-             @changeCheckout="checkUsers"></xh-user>
+             @changeCheckout="checkUsers" @close="showPopover=false"></xh-user>
     <div slot="reference">
       <flexbox @click.native="focusClick"
                wrap="wrap"
@@ -73,6 +74,8 @@ export default {
     /** 选中 */
     checkUsers(data) {
       this.dataValue = data.data
+      // this.showPopover = false
+      // this.showSelectView = false
       this.$emit('value-change', {
         item: this.item,
         index: this.index,
@@ -154,5 +157,8 @@ export default {
 
 .user-container.is_valid:hover {
   border-color: #c0c4cc;
+}
+.el-popover {
+  left: 134px!important;
 }
 </style>

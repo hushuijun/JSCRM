@@ -99,6 +99,10 @@ export default {
       default: () => {
         return ['el-table__body']
       }
+    },
+    tabCurName: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -119,11 +123,17 @@ export default {
         // { label: '附件', name: 'file' },
         // { label: '操作记录', name: 'operationlog' }
       ],
-      tabCurrentName: 'basicinfo',
+      tabCurrentName: '',
       isCreate: false, // 编辑操作
     }
   },
+  created() {
+    this.tabCurrentName = this.tabCurName ? this.tabCurName : 'basicinfo'
+  },
   computed: {
+    // tabCurrentName () {
+    //   return this.tabCurName ? this.tabCurName : 'basicinfo' 
+    // },
     tabName() {
       if (this.tabCurrentName == 'followlog') {
         return 'clue-follow'

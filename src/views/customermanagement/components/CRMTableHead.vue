@@ -265,7 +265,7 @@ export default {
       if (this.selectionList.length === 0) {
         this.$message({
           type: 'warning',
-          message: '请至少选择一项'
+          message: '请选择一项或者多项'
         })
         return false
       }
@@ -388,12 +388,8 @@ export default {
         this.allocDialogShow = true
       } else if (type == 'follow_records') {
         this.$emit('handleRecordsClick', {type: 'follow_records'})
-      } else if (type == 'claim') {
-
-
-
       } else if (type == 'business') {
-
+        this.$emit('handleRecordsClick', {type: 'business'})
       }
     },
     confirmHandle(type) {
@@ -526,11 +522,11 @@ export default {
           type: 'follow_records',
           // icon: require('@/assets/img/selection_delete.png')
         },
-        // business: {
-        //   name: '商机',
-        //   type: 'business',
-        //   // icon: require('@/assets/img/selection_delete.png')
-        // },
+        business: {
+          name: '新建商机',
+          type: 'business',
+          // icon: require('@/assets/img/selection_delete.png')
+        },
         delete: {
           name: '删除',
           type: 'delete',
@@ -585,7 +581,12 @@ export default {
           name: '认领',
           type: 'claim',
           // icon: require('@/assets/img/selection_disable.png')
-        }
+        },
+        // all_business: {
+        //   name: '全部商机',
+        //   type: 'all_business',
+        //   // icon: require('@/assets/img/selection_disable.png')
+        // }
       }
       if (this.crmType == 'leads') {
         if (this.clueType == 0) {
@@ -619,18 +620,19 @@ export default {
           ])
       }
       else if (this.crmType == 'customer') {
-        // if (this.isSeas) {
-        //   return this.forSelectionHandleItems(handleInfos, [
-        //     'alloc',
-        //     'get',
-        //     // 'export'
-        //   ])
-        // } else {
+        if (this.isSeas) {
+          return this.forSelectionHandleItems(handleInfos, [
+            'alloc',
+            'get',
+            // 'export'
+          ])
+        } else {
         return this.forSelectionHandleItems(handleInfos, [
           'transfer',
           // 'export',
           'put_seas',
-          'follow_records'
+          'follow_records',
+          'business'
           // 'delete',
           // 'follow_records',
           // 'business'
@@ -638,8 +640,8 @@ export default {
           // 'unlock',
           // 'add_user',
           // 'delete_user'
-        ])
-        // }
+          ])
+        }
       } else if (this.crmType == 'contacts') {
         return this.forSelectionHandleItems(handleInfos, [
           'transfer',
@@ -648,10 +650,12 @@ export default {
         ])
       } else if (this.crmType == 'business') {
         return this.forSelectionHandleItems(handleInfos, [
-          'transfer',
-          'delete',
-          'add_user',
-          'delete_user'
+          // 'transfer',
+          // 'delete',
+          // 'all_business',
+          'follow_records'
+          // 'add_user',
+          // 'delete_user'
         ])
       } else if (this.crmType == 'contract') {
         return this.forSelectionHandleItems(handleInfos, [

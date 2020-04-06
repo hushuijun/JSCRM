@@ -82,7 +82,8 @@ export default {
       isSeas: false,
       status: '0',
       isCreate: false,
-      followId: ''
+      followId: '',
+      tabCurrentName: ''
     }
   },
 
@@ -243,18 +244,19 @@ export default {
         info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
         info.mobile ? params.mobile = {"condition": "is", "value": info.mobile,"formType": "text","name": "mobile"} : ''
         info.realname ? params.realname = {"condition": "is", "value": info.realname,"formType": "text","name": "realname"} : ''
-        // info.create_time ? params.create_time = {"condition": "is", "value": info.create_time + ' 00:00:00',"formType": "datetime","name": "create_time"} : ''
-        // info.create_time ? params.create_time = {"start": info.create_time + ' 00:00:00',"end": info.create_time + ' 23:59:59',"formType": "datetime","name": "create_time"} : ''
+        info.create_time ? params.create_time = {"start": info.create_time + ' 00:00:00',"end": info.create_time + ' 23:59:59',"formType": "datetime","name": "create_time"} : ''
       } else if (this.crmType === 'leads') {
         info.telephone ? params.telephone = {"condition": "is", "value": info.telephone,"formType": "text","name": "telephone"} : ''
         info.leads_name ? params.leads_name = {"condition": "is", "value": info.leads_name,"formType": "text","name": "leads_name"} : ''
         info.owner_user_name ? params.owner_user_name = {"condition": "is", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
         info['线索来源'] ? params['线索来源'] = {"condition": "is", "value": info['线索来源'],"formType": "text","name": "线索来源"} : ''
+        info.create_time ? params.create_time = {"start": info.create_time + ' 00:00:00',"end": info.create_time + ' 23:59:59',"formType": "datetime","name": "create_time"} : ''
+      } else if (this.crmType === 'business') {
+        info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
+        info.business_name ? params.business_name = {"condition": "is", "value": info.business_name,"formType": "text","name": "business_name"} : ''
+        info.owner_user_name ? params.owner_user_name = {"condition": "is", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
+        info['商机状态'] ? params['商机状态'] = {"condition": "is", "value": info['商机状态'],"formType": "text","name": "商机状态"} : ''
       }
-      // info.mobile ? params.mobile = {"condition": "is", "value": info.mobile,"formType": "text","name": "mobile"} : ''
-      // info.create_time ? params.create_time = {"condition": "is", "value": info.create_time + ' 00:00:00',"formType": "datetime","name": "create_time"} : ''
-      info.create_time ? params.create_time = {"start": info.create_time + ' 00:00:00',"end": info.create_time + ' 23:59:59',"formType": "datetime","name": "create_time"} : ''
-
       this.filterObj = params
       var offsetHei = document.documentElement.clientHeight
       var removeHeight = Object.keys(this.filterObj).length > 0 ? 310 : 240
@@ -264,7 +266,7 @@ export default {
     },
     /** 列表操作 */
     // 当某一行被点击时会触发该事件
-    // handleRowClick(row, column, event) {
+    handleRowClick(row, column, event) {
     //   console.log(column, 'columncolumncolumncolumn')
     //   if (column.type === 'selection') {
     //     return // 多选布局不能点击
@@ -312,26 +314,27 @@ export default {
     //     } else {
     //       this.showDview = false
     //     }
-    //   } else if (this.crmType === 'contract') {
-    //     if (column.property === 'customerName') {
-    //       this.rowID = row.customerId
-    //       this.rowType = 'customer'
-    //       this.showDview = true
-    //     } else if (column.property === 'businessName') {
-    //       this.rowID = row.businessId
-    //       this.rowType = 'business'
-    //       this.showDview = true
-    //     } else if (column.property === 'contactsName') {
-    //       this.rowID = row.contactsId
-    //       this.rowType = 'contacts'
-    //       this.showDview = true
-    //     } else if (column.property === 'num') {
-    //       this.rowID = row.contractId
-    //       this.rowType = 'contract'
-    //       this.showDview = true
-    //     } else {
-    //       this.showDview = false
-    //     }
+      // } else 
+      if (this.crmType === 'contract') {
+        if (column.property === 'customerName') {
+          this.rowID = row.customerId
+          this.rowType = 'customer'
+          this.showDview = true
+        } else if (column.property === 'businessName') {
+          this.rowID = row.businessId
+          this.rowType = 'business'
+          this.showDview = true
+        } else if (column.property === 'contactsName') {
+          this.rowID = row.contactsId
+          this.rowType = 'contacts'
+          this.showDview = true
+        } else if (column.property === 'num') {
+          this.rowID = row.contractId
+          this.rowType = 'contract'
+          this.showDview = true
+        } else {
+          this.showDview = false
+        }
     //   } else if (this.crmType === 'product') {
     //     if (column.property === 'name') {
     //       this.rowID = row.productId
@@ -355,8 +358,8 @@ export default {
     //     } else {
     //       this.showDview = false
     //     }
-    //   }
-    // },
+      }
+    },
     deleteClick (info) {
       console.log(info, 8888888)
       this.$confirm('确定要删除这条数据吗?', '提示', {
@@ -423,7 +426,7 @@ export default {
     editSaveSuccess () {
       this.getFieldList()
     },
-    handleRecordsClick () {
+    handleRecordsClick (data) {
       if (this.selectionList.length > 1) {
         this.$message({
           type: 'warning',
@@ -431,20 +434,28 @@ export default {
         })
         return false
       }
-      // this.detailClick()
       this.rowID = this.followId
       if (this.crmType === 'customer') {
         this.rowType = 'customer'
+      } else if (this.crmType === 'business') {
+        this.rowType = 'business'
+      }
+      if (data.type == 'business') {
+        this.tabCurrentName = 'business'
+      } else if (data.type == 'follow_records'){
+        this.tabCurrentName = 'followlog'
       }
       console.log(this.rowID, '进来了吗')
-      // this.rowID = row.leadsId
       this.showDview = true
     },
     //查看详情
     detailClick (data) {
       this.rowID = data[this.crmType+'Id']
+      this.tabCurrentName = ''
       if (this.crmType === 'customer') {
         this.rowType = 'customer'
+      } else if (this.crmType === 'business') {
+        this.rowType = 'business'
       }
       console.log(this.rowID, '进来了吗')
       // this.rowID = row.leadsId

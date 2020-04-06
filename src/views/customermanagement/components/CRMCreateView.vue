@@ -42,6 +42,7 @@
                              :relation="item.relation"
                              :radio="false"
                              :disabled="item.disabled"
+                             :crmType="crmType"
                              @value-change="fieldValueChange">
                   </component>
                 </el-form-item>
@@ -264,6 +265,7 @@ export default {
     document.body.appendChild(this.$el)
     this.title = this.getTitle()
     this.getField()
+    console.log(this.crmType, '咋就不对呢')
   },
   methods: {
     //如果是编辑，或者信息填充
@@ -327,8 +329,10 @@ export default {
     },
     // 字段的值更新
     fieldValueChange(data) {
+      // console.log(data, '确定选择')
       var item = this.crmForm.crmFields[data.index]
       item.value = data.value
+      console.log(this.crmForm.crmFields, 'this.crmForm.crmFields')
       //商机下处理商机状态
       if (this.crmType == 'business' && item.data.formType == 'business_type') {
         //找到阶段数据

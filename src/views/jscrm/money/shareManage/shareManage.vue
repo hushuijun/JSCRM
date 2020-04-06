@@ -163,7 +163,7 @@ export default {
     },
     
     /**
-     *  添加审批流
+     *  添加记录
      */
     addData() {
       this.createView = true
@@ -192,7 +192,7 @@ export default {
         this.updateView = true
       } else if (type === 'delete') {
         // 启用停用
-        this.$confirm('您确定要删除该审批流?', '提示', {
+        this.$confirm('您确定要删除该记录?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -223,7 +223,7 @@ export default {
         this.$confirm(
           '您确定要' +
             (scope.row['state'] === '停用' ? '启用' : '停用') +
-            '该审批流?',
+            '该记录?',
           '提示',
           {
             confirmButtonText: '确定',

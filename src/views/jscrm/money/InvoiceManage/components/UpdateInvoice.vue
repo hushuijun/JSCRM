@@ -188,7 +188,7 @@
 </template>
 <script type="text/javascript">
 import CreateView from '@/components/CreateView'
-import { updateData,selectById } from '@/api/jscrm/money/InvoiceManage'
+import { updateData,selectById,queryPageFile } from '@/api/jscrm/money/InvoiceManage'
 import {billTyppNum}from '@/views/jscrm/money/const/const'
 
 
@@ -261,16 +261,32 @@ export default {
   },
   mounted() {
     document.body.appendChild(this.$el)
-    console.log(this.detailData);
-    selectById(this.detailData.id)
+    this.selectById();
+
+    // this.queryPageFile();
+  },
+  methods: {
+
+    selectById(){
+      selectById(this.detailData.id)
       .then(res => {
         this.record = res.data;
       })
       .catch(() => {
         this.$message.error('后台异常');
       });
-  },
-  methods: {
+    },
+
+    queryPageFile(){
+       queryPageFile(this.record.annexId)
+        .then(res => {
+          console.log(this.queryCondtion);
+          this.list = res.data.list
+        })
+        .catch(() => {
+        })
+    },
+
     hidenView() {
       this.$emit('hiden-view')
     },

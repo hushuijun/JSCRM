@@ -1,6 +1,5 @@
 import request from '@/utils/request'
 
-// 审批流程列表
 export function queryPage(data) {
   return request({
     url: 'shareManage/queryPage',
@@ -15,7 +14,6 @@ export function queryPage(data) {
 
 
 
-// 审批流程创建
 export function addData(data) {
   return request({
     url: 'shareManage/add',
@@ -39,11 +37,6 @@ export function updateData(data) {
   })
 }
 
-/**
- * 审批流程删除 启用 禁用
- * @param {*} data
- * id 审批流ID
- */
 export function deleteData(data) {
   return request({
     url: 'shareManage/delete?id='+data.id,
@@ -61,11 +54,6 @@ export function selectById(id) {
 
 
 
-/**
- * 审批流程删除 启用 禁用
- * @param {*} data
- * id 审批流ID
- */
 export function checkPass(data) {
   return request({
     url: 'shareManage/checkPass?id='+data.id,
@@ -74,11 +62,6 @@ export function checkPass(data) {
 }
 
 
-/**
- * 审批流程删除 启用 禁用
- * @param {*} data
- * id 审批流ID
- */
 export function checkReturn(data) {
   return request({
     url: 'shareManage/checkReturn?id='+data.id,

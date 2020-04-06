@@ -1,21 +1,25 @@
 <template>
   <div class="se-container">
-    <div class="se-header">发票管理</div>
+    <div class="se-header">回款管理</div>
     <div class="se-body">
       <div class="se-table-header">
-
-        <span style="margin-left:10px">发票类型</span> <el-select v-model="queryCondtion.billType" class="input_width" clearable placeholder="请选择">
-                 <el-option
-                  v-for="item in billTyppNum"
-                  :key="item.code"
-                  :label="item.code"
-                  :value="item.code"
-                  >
-                </el-option>
-               </el-select>  
-        <span style="margin-left:10px">负责人</span> <el-input v-model="queryCondtion.handPersonName" placeholder="请输入" class="input_width"></el-input>
-        <span style="margin-left:10px">案件编码</span> <el-input v-model="queryCondtion.caseId" placeholder="请输入" class="input_width"></el-input>
-        <span style="margin-left:10px">案件名称</span> <el-input v-model="queryCondtion.caseName" placeholder="请输入" class="input_width"></el-input>
+        <span style="margin-left:10px">合同编号</span> <el-input v-model="queryCondtion.handPersonName" placeholder="请输入" class="input_width"></el-input>
+        <span style="margin-left:10px">客户名称</span> <el-input v-model="queryCondtion.caseId" placeholder="请输入" class="input_width"></el-input>
+        <span style="margin-left:10px">审核状态</span> <el-input v-model="queryCondtion.caseName" placeholder="请输入" class="input_width"></el-input>
+        <br/>
+        <span style="margin-left:10px">回款开始日期</span> 
+        <el-date-picker
+          v-model="queryCondtion.startDate"
+          type="date" style="width: 140px"
+          placeholder="选择日期">
+        </el-date-picker>
+        <span style="margin-left:10px">回款结束日期</span> 
+        <el-date-picker
+          v-model="queryCondtion.endDate"
+          type="date" style="width: 140px"
+          placeholder="选择日期">
+        </el-date-picker>
+        <span style="margin-left:10px">负责人</span> <el-input v-model="queryCondtion.caseName" placeholder="请输入" class="input_width"></el-input>
         <el-button 
                    @click="addData"
                    type="primary" style="float:right;margin:0px 10px">新增</el-button>
@@ -32,14 +36,17 @@
                 style="width: 100%"
                >
        
-        <el-table-column prop="caseId" label="案件编号" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="caseName" label="案件名称" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="invoiceDate" label="开票日期" :formatter="dateFormat" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="billType" label="票据类型" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="invoiceMoney" label="开票金额" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="billNo" label="发票号码" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="createUserName" label="所属人员" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="handPersonName" label="发票经手人员" width="100px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="customerName" label="客户名称" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="customerCompanyName" label="客户公司名称" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="contractId" label="合同编号" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="id" label="回款编号" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="moneyBackDate" label="回款日期"  :formatter="dateFormat" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="planBackMoney" label="计划回款金额" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="actualBackMoney" label="实际回款金额" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="handPersonName" label="负责人" width="100px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="remittanceId" label="汇款方式" width="100px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="remittanceId" label="审核状态" width="100px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="remittanceId" label="回款状态" width="100px" align="center" header-align="center"></el-table-column>
 
         <el-table-column fixed="right"
                          label="操作"

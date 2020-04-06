@@ -5,7 +5,7 @@
              align="stretch"
              class="crm-create-container">
       <flexbox class="crm-create-header">
-        <div style="flex:1;font-size:17px;color:#333;">新建分润</div>
+        <div style="flex:1;font-size:17px;color:#333;">新建回款</div>
         <img @click="hidenView"
              class="close"
              src="@/assets/img/task_close.png" />
@@ -22,133 +22,158 @@
                    class="crm-create-box"
                    :rules="ruleValidate">
             <el-form-item
-                          class="crm-create-item left-field" prop="invoiceDate"
+                          class="crm-create-item left-field" prop="id"
                           style="">
               <div slot="label"
                    style="display: inline-block;">
                 <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  开票日期
+                  回款编号
                   <span style="color:#999;">
-                   
                   </span>
                 </div>
               </div>
-              <el-date-picker
-              v-model="record.invoiceDate"
-              type="date" style="width:100%" 
-              placeholder="选择日期">
-            </el-date-picker>  
-            </el-form-item>
-
-            <el-form-item
-                          class="crm-create-item right-field" prop="caseName"
-                          style="">
-              <div slot="label"
-                   style="display: inline-block;">
-                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  关联案件
-                  <span style="color:#999;">
-                   
-                  </span>
-                </div>
-              </div>
-            
-              <el-input v-model="record.caseName"
+            <el-input v-model="record.id"
                 ></el-input>
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item left-field" prop="contractId"
+                          class="crm-create-item right-field" prop="contractId"
                           style="">
               <div slot="label"
                    style="display: inline-block;">
                 <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
                   合同编号
                   <span style="color:#999;">
-                   
                   </span>
                 </div>
               </div>
-              <el-input  v-model="record.contractId"  maxlength="36"
+            
+              <el-input v-model="record.contractId"
+                ></el-input>
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item left-field" prop="customerName"
+                          style="">
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  客户姓名
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+              <el-input  v-model="record.customerName"  maxlength="36"
                 ></el-input>
             </el-form-item>
 
 
             <el-form-item
-                          class="crm-create-item right-field" prop="billType"
+                          class="crm-create-item right-field" prop="numberOfPeriods"
                           style="">
               <div slot="label"
                    style="display: inline-block;">
                 <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  票据类型
+                  期数
                   <span style="color:#999;">
                   </span>
                 </div>
               </div>
-               <el-select v-model="record.billType" style="width:100%" clearable placeholder="请选择">
-                 <el-option
-                  v-for="item in billTyppNum"
-                  :key="item.code"
-                  :label="item.code"
-                  :value="item.code"
-                  >
-                </el-option>
-               </el-select>    
+               <el-input  v-model="record.numberOfPeriods"  maxlength="36"
+                ></el-input>
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item left-field" prop="invoiceMoney"
+                          class="crm-create-item left-field" prop="moneyBackDate"
                           style="">
               <div slot="label"
                    style="display: inline-block;">
                 <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  开票金额
+                  回款日期
                   <span style="color:#999;">
-                   
                   </span>
                 </div>
               </div>
             
-              <el-input-number v-model="record.invoiceMoney" :max="1000000000" style="width:100%"  show-word-limit
-                ></el-input-number>
+             <el-date-picker
+              v-model="record.moneyBackDate"
+              type="date" style="width:100%" 
+              placeholder="选择日期">
+            </el-date-picker>  
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item right-field" prop="billNo"
+                          class="crm-create-item right-field" prop="planBackMoney"
                           style="">
               <div slot="label"
                    style="display: inline-block;">
                 <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  发票号码
+                  计划回款金额
                   <span style="color:#999;">
-                   
                   </span>
                 </div>
               </div>
               <el-input
                 placeholder="请输入" maxlength="36"
-                v-model="record.billNo"
+                v-model="record.planBackMoney"
               >
               </el-input>  
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item left-field" prop="handPersonName"
+                          class="crm-create-item left-field" prop="actualBackMoney"
                           >
               <div slot="label"
                    style="display: inline-block;">
                 <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  经手人
+                  实际回款金额
                   <span style="color:#999;">
                   </span>
                 </div>
               </div>
-              <el-input v-model="record.handPersonName"
+              <el-input v-model="record.actualBackMoney"
                 ></el-input>
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item right-field"
+                          class="crm-create-item right-field" prop="moduleId"
+                          >
+                <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  选择审核模板
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+              <el-input v-model="record.moduleId"    placeholder="请输入内容"
+                ></el-input>
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item left-field" 
+                          >
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  汇款方式
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+              <el-select v-model="record.remittanceId" style="width:100%" clearable placeholder="请选择">
+                 <el-option
+                  v-for="item in remittanceIdNum"
+                  :key="item.code"
+                  :label="item.code"
+                  :value="item.code"
+                  >
+                </el-option>
+               </el-select>   
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item right-field" 
                           >
             </el-form-item>
 
@@ -164,6 +189,26 @@
                 </div>
               </div>
               <el-input v-model="record.remarks" type="textarea"   placeholder="请输入内容"
+                ></el-input>
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item right-field" 
+                          >
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item left-field" 
+                          >
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  驳回原因
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+              <el-input v-model="record.reason" type="textarea"   placeholder="请输入内容"
                 ></el-input>
             </el-form-item>
 
@@ -189,7 +234,7 @@
 <script type="text/javascript">
 import CreateView from '@/components/CreateView'
 import { addData } from '@/api/jscrm/money/RemittancePlan'
-import {billTyppNum}from '@/views/jscrm/money/const/const'
+import {remittanceIdNum}from '@/views/jscrm/money/const/const'
 
 
 
@@ -197,14 +242,16 @@ export default {
   name: 'create-share', // 所有新建效果的view
   components: {
     CreateView,
-    
   },
  
   data() {
     return {
-      billTyppNum:billTyppNum,
+      remittanceIdNum:remittanceIdNum,
       record:{
+        "type": 1,
         "contractId": null,
+        "customerId": null,
+        "customerName": null,
         "caseName": null,
         "handPersonName": null,
         "billNo": null,
@@ -221,32 +268,29 @@ export default {
       loading: false,
       // 自定义字段验证规则
       ruleValidate: {
-          invoiceDate: [
-            { required: true, message: '请输入开票日期', trigger: 'blur' },
-          ],
-           caseName: [
-            { required: true, message: '请输入关联案件', trigger: 'blur' },
-            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
-          ],   
-           contractId: [
+         contractId: [
             { required: true, message: '请输入合同编号', trigger: 'blur' },
+          ],
+           customerName: [
+            { required: true, message: '请输入客户姓名', trigger: 'blur' },
             { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
           ],   
-           billType: [
-            { required: true, message: '请输入票据类型', trigger: 'blur' },
+           numberOfPeriods: [
+            { required: true, message: '请输入期数', trigger: 'blur' },
             { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
           ],   
-           invoiceMoney: [
-            { required: true, message: '请输入开票金额', trigger: 'blur' },
+           moneyBackDate: [
+            { required: true, message: '请输入回款日期', trigger: 'blur' },
+          ],   
+           planBackMoney: [
+            { required: true, message: '请输入计划回款金额', trigger: 'blur' },
           ],  
-           billNo: [
-            { required: true, message: '请输入发票号码', trigger: 'blur' },
-            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
+           actualBackMoney: [
+            { required: true, message: '请输入实际回款金额', trigger: 'blur' },
           ],         
-           handPersonName: [
-            { required: true, message: '请输入经手人', trigger: 'blur' },
-            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
-          ],         
+           moduleId: [
+            { required: true, message: '请输入审核模板', trigger: 'blur' },
+          ],        
           
           },
      

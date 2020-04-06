@@ -5,7 +5,7 @@
              align="stretch"
              class="crm-create-container">
       <flexbox class="crm-create-header">
-        <div style="flex:1;font-size:17px;color:#333;">修改分润</div>
+        <div style="flex:1;font-size:17px;color:#333;">修改回款</div>
         <img @click="hidenView"
              class="close"
              src="@/assets/img/task_close.png" />
@@ -22,100 +22,199 @@
                    class="crm-create-box"
                    :rules="ruleValidate">
             <el-form-item
-                          class="crm-create-item left-field" prop="title"
+                          class="crm-create-item left-field" prop="id"
                           style="">
               <div slot="label"
                    style="display: inline-block;">
                 <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  标题
+                  回款编号
                   <span style="color:#999;">
-                   
                   </span>
                 </div>
               </div>
-              <el-input v-model="record.title"
+            <el-input v-model="record.id"
                 ></el-input>
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item right-field" prop="type"
+                          class="crm-create-item right-field" prop="contractId"
                           style="">
               <div slot="label"
                    style="display: inline-block;">
                 <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  类型
+                  合同编号
                   <span style="color:#999;">
-                   
-                  </span>
-                </div>
-              </div>
-              <el-select v-model="record.type"  style="width : 100%" clearable placeholder="请选择">
-                <el-option
-                  key="员工"
-                  label="员工"
-                  value="员工">
-                </el-option>  
-                <el-option
-                  key="合伙人"
-                  label="合伙人"
-                  value="合伙人">
-                </el-option>  
-                <el-option
-                  key="商家"
-                  label="商家"
-                  value="商家">
-                </el-option>  
-                <el-option
-                  key="兼职"
-                  label="兼职"
-                  value="兼职">
-                </el-option>  
-               </el-select>  
-            </el-form-item>
-
-            <el-form-item
-                          class="crm-create-item left-field" prop="ratio"
-                          style="">
-              <div slot="label"
-                   style="display: inline-block;">
-                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  分润占比
-                  <span style="color:#999;">
-                   
-                  </span>
-                </div>
-              </div>
-              <el-input  v-model="record.ratio" 
-                ></el-input>
-            </el-form-item>
-
-            <el-form-item
-                          class="crm-create-item right-field" prop="state"
-                          >
-              <div slot="label"
-                   style="display: inline-block;">
-                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  状态
-                  <span style="color:#999;">
-                   
                   </span>
                 </div>
               </div>
             
-              <el-select v-model="record.state"  style="width : 100%" clearable placeholder="请选择">
-                <el-option
-                  label="停用"
-                  value="0">
-                </el-option>  
-                <el-option
-                  label="启用"
-                  value="1">
-                </el-option>  
-               </el-select> 
+              <el-input v-model="record.contractId"
+                ></el-input>
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item left-field" prop="customerName"
+                          style="">
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  客户姓名
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+              <el-input  v-model="record.customerName"  maxlength="36"
+                ></el-input>
+            </el-form-item>
+
+
+            <el-form-item
+                          class="crm-create-item right-field" prop="numberOfPeriods"
+                          style="">
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  期数
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+               <el-input  v-model="record.numberOfPeriods"  maxlength="36"
+                ></el-input>
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item left-field" prop="moneyBackDate"
+                          style="">
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  回款日期
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+            
+             <el-date-picker
+              v-model="record.moneyBackDate"
+              type="date" style="width:100%" 
+              placeholder="选择日期">
+            </el-date-picker>  
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item right-field" prop="planBackMoney"
+                          style="">
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  计划回款金额
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+              <el-input
+                placeholder="请输入" maxlength="36"
+                v-model="record.planBackMoney"
+              >
+              </el-input>  
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item left-field" prop="actualBackMoney"
+                          >
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  实际回款金额
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+              <el-input v-model="record.actualBackMoney"
+                ></el-input>
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item right-field" prop="moduleId"
+                          >
+                <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  选择审核模板
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+              <el-input v-model="record.moduleId"    placeholder="请输入内容"
+                ></el-input>
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item left-field" 
+                          >
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  汇款方式
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+              <el-select v-model="record.remittanceId" style="width:100%" clearable placeholder="请选择">
+                 <el-option
+                  v-for="item in remittanceIdNum"
+                  :key="item.code"
+                  :label="item.code"
+                  :value="item.code"
+                  >
+                </el-option>
+               </el-select>   
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item right-field" 
+                          >
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item left-field" 
+                          >
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  备注
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+              <el-input v-model="record.remarks" type="textarea"   placeholder="请输入内容"
+                ></el-input>
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item right-field" 
+                          >
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item left-field" 
+                          >
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  驳回原因
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+              <el-input v-model="record.reason" type="textarea"   placeholder="请输入内容"
+                ></el-input>
             </el-form-item>
 
           </el-form>
         </div>
+
 
          <div
            class="handle-bar">
@@ -135,41 +234,66 @@
 <script type="text/javascript">
 import CreateView from '@/components/CreateView'
 import { updateData,selectById } from '@/api/jscrm/money/RemittancePlan'
+import {remittanceIdNum}from '@/views/jscrm/money/const/const'
+
 
 
 export default {
-  name: 'update-share', // 所有新建效果的view
+  name: 'create-share', // 所有新建效果的view
   components: {
     CreateView,
-    
   },
-  props: {
+   props: {
     // 详情信息
     detailData: Object
   },
+ 
   data() {
     return {
+      remittanceIdNum:remittanceIdNum,
       record:{
-        state: null,
-        title: null,
-        type: null,
-        ratio: null
+        "contractId": null,
+        "caseName": null,
+        "handPersonName": null,
+        "billNo": null,
+        "invoiceMoney": null,
+        "invoiceDate": null,
+        "handPersonId": 3,
+        "caseId": 2,
+        "billType": null,
+        "id": null,
+        "annexId": null,
+        "remarks": null
       },
       // 标题展示名称
       loading: false,
       // 自定义字段验证规则
       ruleValidate: {
-          title: [
-            { required: true, message: '请输入标题', trigger: 'blur' },
-            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
+         contractId: [
+            { required: true, message: '请输入合同编号', trigger: 'blur' },
           ],
-           ratio: [
-            { required: true, message: '请输入分润占比', trigger: 'blur' },
+           customerName: [
+            { required: true, message: '请输入客户姓名', trigger: 'blur' },
             { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
+          ],   
+           numberOfPeriods: [
+            { required: true, message: '请输入期数', trigger: 'blur' },
+            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
+          ],   
+           moneyBackDate: [
+            { required: true, message: '请输入回款日期', trigger: 'blur' },
+          ],   
+           planBackMoney: [
+            { required: true, message: '请输入计划回款金额', trigger: 'blur' },
+          ],  
+           actualBackMoney: [
+            { required: true, message: '请输入实际回款金额', trigger: 'blur' },
           ],         
-          state: [
-            { required: true, message: '请选择状态', trigger: 'blur' },
-          ],},
+           moduleId: [
+            { required: true, message: '请输入审核模板', trigger: 'blur' },
+          ],        
+          
+          },
      
     }
   },
@@ -178,7 +302,7 @@ export default {
   },
   mounted() {
     document.body.appendChild(this.$el)
-    console.log(this.detailData);
+
     selectById(this.detailData.id)
       .then(res => {
         this.record = res.data;
@@ -186,6 +310,7 @@ export default {
       .catch(() => {
         this.$message.error('后台异常');
       });
+
   },
   methods: {
     hidenView() {
@@ -220,9 +345,6 @@ export default {
         })
     },
   },
-
-
-  
   destroyed() {
     // remove DOM node after destroy
     if (this.$el && this.$el.parentNode) {

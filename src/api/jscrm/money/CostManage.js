@@ -1,6 +1,5 @@
 import request from '@/utils/request'
 
-// 审批流程列表
 export function queryPage(data) {
   return request({
     url: 'costManage/queryPage',
@@ -15,7 +14,6 @@ export function queryPage(data) {
 
 
 
-// 审批流程创建
 export function addData(data) {
   return request({
     url: 'costManage/add',
@@ -39,11 +37,6 @@ export function updateData(data) {
   })
 }
 
-/**
- * 
- * @param {*} data
- * id 审批流ID
- */
 export function deleteData(data) {
   return request({
     url: 'costManage/delete?id='+data.id,

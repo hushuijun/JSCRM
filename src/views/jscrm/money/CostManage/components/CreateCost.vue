@@ -22,7 +22,7 @@
                    class="crm-create-box"
                    :rules="ruleValidate">
             <el-form-item
-                          class="crm-create-item left-field" prop="invoiceDate"
+                          class="crm-create-item left-field" prop="costName"
                           style="">
               <div slot="label"
                    style="display: inline-block;">
@@ -33,15 +33,15 @@
                   </span>
                 </div>
               </div>
-              <el-date-picker
-              v-model="record.invoiceDate"
-              type="date" style="width:100%" 
-              placeholder="选择日期">
-            </el-date-picker>  
+              <el-input
+                placeholder="请输入" maxlength="36"
+                v-model="record.costName"
+              >
+              </el-input>  
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item right-field" prop="caseName"
+                          class="crm-create-item right-field" prop="formType"
                           style="">
               <div slot="label"
                    style="display: inline-block;">
@@ -53,12 +53,19 @@
                 </div>
               </div>
             
-              <el-input v-model="record.caseName"
-                ></el-input>
+              <el-select v-model="record.formType" style="width:100%" clearable placeholder="请选择">
+                 <el-option
+                  v-for="item in formTypeNum"
+                  :key="item.code"
+                  :label="item.code"
+                  :value="item.code"
+                  >
+                </el-option>
+               </el-select>   
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item left-field" prop="contractId"
+                          class="crm-create-item left-field" prop="costType"
                           style="">
               <div slot="label"
                    style="display: inline-block;">
@@ -69,13 +76,20 @@
                   </span>
                 </div>
               </div>
-              <el-input  v-model="record.contractId"  maxlength="36"
-                ></el-input>
+              <el-select v-model="record.costType" style="width:100%" clearable placeholder="请选择">
+                 <el-option
+                  v-for="item in costTypeNum"
+                  :key="item.code"
+                  :label="item.code"
+                  :value="item.code"
+                  >
+                </el-option>
+               </el-select>  
             </el-form-item>
 
 
             <el-form-item
-                          class="crm-create-item right-field" prop="billType"
+                          class="crm-create-item right-field" prop="costDate"
                           style="">
               <div slot="label"
                    style="display: inline-block;">
@@ -85,19 +99,15 @@
                   </span>
                 </div>
               </div>
-               <el-select v-model="record.billType" style="width:100%" clearable placeholder="请选择">
-                 <el-option
-                  v-for="item in billTyppNum"
-                  :key="item.code"
-                  :label="item.code"
-                  :value="item.code"
-                  >
-                </el-option>
-               </el-select>    
+                <el-date-picker
+              v-model="record.costDate"
+              type="date" style="width:100%" 
+              placeholder="选择日期">
+            </el-date-picker>  
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item left-field" prop="invoiceMoney"
+                          class="crm-create-item left-field" prop="costMoney"
                           style="">
               <div slot="label"
                    style="display: inline-block;">
@@ -109,12 +119,12 @@
                 </div>
               </div>
             
-              <el-input-number v-model="record.invoiceMoney" :max="1000000000" style="width:100%"  show-word-limit
+              <el-input-number v-model="record.costMoney" :max="1000000000" style="width:100%"  show-word-limit
                 ></el-input-number>
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item right-field" prop="billNo"
+                          class="crm-create-item right-field" prop="contractId"
                           style="">
               <div slot="label"
                    style="display: inline-block;">
@@ -127,13 +137,13 @@
               </div>
               <el-input
                 placeholder="请输入" maxlength="36"
-                v-model="record.billNo"
+                v-model="record.contractId"
               >
               </el-input>  
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item left-field" prop="handPersonName"
+                          class="crm-create-item left-field" prop="applyUserId"
                           >
               <div slot="label"
                    style="display: inline-block;">
@@ -143,17 +153,12 @@
                   </span>
                 </div>
               </div>
-              <el-input v-model="record.handPersonName"
+              <el-input v-model="record.applyUserId"
                 ></el-input>
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item right-field"
-                          >
-            </el-form-item>
-
-            <el-form-item
-                          class="crm-create-item right-field" 
+                          class="crm-create-item right-field"  prop="caseId"
                           >
               <div slot="label"
                    style="display: inline-block;">
@@ -163,12 +168,12 @@
                   </span>
                 </div>
               </div>
-              <el-input v-model="record.remarks" type="textarea"   placeholder="请输入内容"
+              <el-input v-model="record.caseId"   placeholder="请输入内容"
                 ></el-input>
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item left-field" prop="handPersonName"
+                          class="crm-create-item left-field" prop="moduleId"
                           >
               <div slot="label"
                    style="display: inline-block;">
@@ -178,13 +183,36 @@
                   </span>
                 </div>
               </div>
-              <el-input v-model="record.handPersonName"
+              <el-input v-model="record.moduleId"
                 ></el-input>
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item right-field"
+                          class="crm-create-item right-field" 
                           >
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  上传附件
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item left-field" 
+                          >
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  备注
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+              <el-input v-model="record.remarks" type="textarea"   placeholder="请输入内容"
+                ></el-input>
             </el-form-item>
 
           </el-form>
@@ -209,7 +237,8 @@
 <script type="text/javascript">
 import CreateView from '@/components/CreateView'
 import { addData } from '@/api/jscrm/money/CostManage'
-import {billTyppNum}from '@/views/jscrm/money/const/const'
+import {formTypeNum,costTypeNum}from '@/views/jscrm/money/const/const'
+
 
 
 
@@ -222,52 +251,62 @@ export default {
  
   data() {
     return {
-      billTyppNum:billTyppNum,
+      formTypeNum:formTypeNum,
+      costTypeNum:costTypeNum,
       record:{
+        "costDate": null,
+        "costType": null,
         "contractId": null,
-        "caseName": null,
-        "handPersonName": null,
-        "billNo": null,
-        "invoiceMoney": null,
-        "invoiceDate": null,
-        "handPersonId": 3,
-        "caseId": 2,
-        "billType": null,
+        "formType": null,
+        "happenDate": null,
+        "updateTime": null,
+        "costMoney": null,
+        "moduleId": null,
+        "applyUserId": null,
+        "caseId": null,
         "id": null,
+        "costName": null,
         "annexId": null,
-        "remarks": null
+        "remarks": null,
+        "status": null
       },
       // 标题展示名称
       loading: false,
       // 自定义字段验证规则
       ruleValidate: {
-          invoiceDate: [
-            { required: true, message: '请输入开票日期', trigger: 'blur' },
+          costName: [
+            { required: true, message: '请输入费用名称', trigger: 'blur' },
+             { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
           ],
-           caseName: [
-            { required: true, message: '请输入关联案件', trigger: 'blur' },
+           formType: [
+            { required: true, message: '请输入填单类型', trigger: 'blur' },
             { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
           ],   
+           costType: [
+            { required: true, message: '请输入费用类型', trigger: 'blur' },
+            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
+          ],   
+           costDate: [
+            { required: true, message: '请输入费用日期', trigger: 'blur' },
+          ],   
+           costMoney: [
+            { required: true, message: '请输入费用金额', trigger: 'blur' },
+          ],  
            contractId: [
             { required: true, message: '请输入合同编号', trigger: 'blur' },
             { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
-          ],   
-           billType: [
-            { required: true, message: '请输入票据类型', trigger: 'blur' },
+          ],         
+           applyUserId: [
+            { required: true, message: '请输入申请人', trigger: 'blur' },
             { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
-          ],   
-           invoiceMoney: [
-            { required: true, message: '请输入开票金额', trigger: 'blur' },
           ],  
-           billNo: [
-            { required: true, message: '请输入发票号码', trigger: 'blur' },
-            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
-          ],         
-           handPersonName: [
-            { required: true, message: '请输入经手人', trigger: 'blur' },
-            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
-          ],         
-          
+          caseId: [
+                { required: true, message: '请输入关联案件', trigger: 'blur' },
+              ],  
+          moduleId: [
+                { required: true, message: '请选择审核模板', trigger: 'blur' },
+              ],   
+              
           },
      
     }

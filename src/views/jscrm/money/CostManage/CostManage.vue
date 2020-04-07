@@ -23,9 +23,9 @@
        
         <el-table-column prop="id" label="费用编号" align="center" header-align="center"></el-table-column>
         <el-table-column prop="contractId" label="合同编号" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="caseId" label="案件编号" :formatter="dateFormat" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="caseId" label="案件编号"  align="center" header-align="center"></el-table-column>
         <el-table-column prop="costMoney" label="金额" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="happenDate" label="时间" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="costDate" label="时间" align="center" :formatter="dateFormat" header-align="center"></el-table-column>
         <el-table-column prop="applyUserName" label="负责人" align="center" header-align="center"></el-table-column>
         <el-table-column prop="formType" label="填单类型" align="center" header-align="center"></el-table-column>
         <el-table-column prop="status" label="审核状态"  align="center" header-align="center"></el-table-column>
@@ -140,7 +140,7 @@ export default {
     },
     
     /**
-     *  添加审批流
+     *  添加记录
      */
     addData() {
       this.createView = true
@@ -169,7 +169,7 @@ export default {
         this.updateView = true
       } else if (type === 'delete') {
         // 启用停用
-        this.$confirm('您确定要删除该审批流?', '提示', {
+        this.$confirm('您确定要删除该记录?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'

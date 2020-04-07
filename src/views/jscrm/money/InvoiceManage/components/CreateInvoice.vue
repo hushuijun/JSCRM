@@ -53,8 +53,10 @@
                 </div>
               </div>
             
-              <el-input v-model="record.caseName"
+              <el-input v-model="record.caseName"  style="width: 70%"
                 ></el-input>
+              <!-- <el-button @click="">选择</el-button>   -->
+              <el-button @click="selectCase()">选择</el-button>  
             </el-form-item>
 
             <el-form-item
@@ -143,8 +145,9 @@
                   </span>
                 </div>
               </div>
-              <el-input v-model="record.handPersonName"
+              <el-input v-model="record.handPersonName"  style="width: 70%"
                 ></el-input>
+              <el-button @click="selectUser()">选择</el-button>    
             </el-form-item>
 
             <el-form-item
@@ -210,11 +213,6 @@
             </el-table>
             </div>
         </div>
-              
-          
-
-
-
          <div
            class="handle-bar">
         <el-button class="handle-button"
@@ -222,12 +220,12 @@
         <el-button class="handle-button"
                    type="primary"
                    @click.native="addValidate">保存</el-button>
-        
       </div>
-        
       </flexbox>
-      
     </flexbox>
+
+    <CaseMedal ref="refCaseMedal" @getDataCase="getDataCase"></CaseMedal>
+    <UserMedal ref="refUserMedal" @getDataUser="getDataUser"></UserMedal>
   </create-view>
 </template>
 <script type="text/javascript">
@@ -237,16 +235,21 @@ import { uploadMultiple,getBatchId,queryPageFile,download } from '@/api/jscrm/mo
 import {billTyppNum}from '@/views/jscrm/money/const/const'
 import * as fecha from "element-ui/lib/utils/date"
 import {crmFileDelete} from '@/api/common'
+import CaseMedal from '@/views/jscrm/components/CaseMedal' // 引入案件medal
+import UserMedal from '@/views/jscrm/components/UserMedal' // 引入用户medal
+
 
 export default {
   name: 'create-share', // 所有新建效果的view
   components: {
     CreateView,
-    
+    CaseMedal,
+    UserMedal,
   },
  
   data() {
     return {
+      CaseMedalIf:false,
       billTyppNum:billTyppNum,
       fileList:[],
       // fileList:[{size: "32KB", createTime: "2020-04-05 21:18:31", name: "捕获16.JPG", createUserName: "admin"}],
@@ -273,11 +276,9 @@ export default {
           ],
            caseName: [
             { required: true, message: '请输入关联案件', trigger: 'blur' },
-            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
           ],   
            contractId: [
             { required: true, message: '请输入合同编号', trigger: 'blur' },
-            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
           ],   
            billType: [
             { required: true, message: '请输入票据类型', trigger: 'blur' },
@@ -436,6 +437,26 @@ export default {
           })
       } 
     },
+
+    selectCase(){
+      this.$refs.refCaseMedal.visible=true;
+    },
+    selectUser(){
+      this.$refs.refUserMedal.visible=true;
+    },
+
+    getDataCase(data){
+      this.record.caseId = data.id;
+      this.record.caseName = data.name;
+      this.record.contractId = data.id;
+      console.log(this.record);
+    },
+
+    getDataUser(data){
+      this.record.handPersonId = data.userId;
+      this.record.handPersonName = data.realname;
+      console.log(this.record);
+    }
 
   },
   destroyed() {

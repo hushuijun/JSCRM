@@ -43,7 +43,7 @@
                              :radio="false"
                              :disabled="item.disabled"
                              :crmType="crmType"
-                             @value-change="fieldValueChange" :dataInfo="action.data">
+                             @value-change="fieldValueChange">
                   </component>
                 </el-form-item>
               </el-form>
@@ -331,6 +331,7 @@ export default {
     fieldValueChange(data) {
       // console.log(data, '确定选择')
       var item = this.crmForm.crmFields[data.index]
+      console.log(data.value, '进入到这个数据了吗')
       item.value = data.value
       // console.log(item.value, 111111119999990000)
       // console.log(this.crmForm.crmFields, 'this.crmForm.crmFields')

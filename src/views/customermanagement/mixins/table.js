@@ -320,26 +320,26 @@ export default {
     //       this.showDview = false
     //     }
       // } else 
-      if (this.crmType === 'contract') {
-        if (column.property === 'customerName') {
-          this.rowID = row.customerId
-          this.rowType = 'customer'
-          this.showDview = true
-        } else if (column.property === 'businessName') {
-          this.rowID = row.businessId
-          this.rowType = 'business'
-          this.showDview = true
-        } else if (column.property === 'contactsName') {
-          this.rowID = row.contactsId
-          this.rowType = 'contacts'
-          this.showDview = true
-        } else if (column.property === 'num') {
-          this.rowID = row.contractId
-          this.rowType = 'contract'
-          this.showDview = true
-        } else {
-          this.showDview = false
-        }
+      // if (this.crmType === 'contract') {
+      //   if (column.property === 'customerName') {
+      //     this.rowID = row.customerId
+      //     this.rowType = 'customer'
+      //     this.showDview = true
+      //   } else if (column.property === 'businessName') {
+      //     this.rowID = row.businessId
+      //     this.rowType = 'business'
+      //     this.showDview = true
+      //   } else if (column.property === 'contactsName') {
+      //     this.rowID = row.contactsId
+      //     this.rowType = 'contacts'
+      //     this.showDview = true
+      //   } else if (column.property === 'num') {
+      //     this.rowID = row.contractId
+      //     this.rowType = 'contract'
+      //     this.showDview = true
+      //   } else {
+      //     this.showDview = false
+      //   }
     //   } else if (this.crmType === 'product') {
     //     if (column.property === 'name') {
     //       this.rowID = row.productId
@@ -363,7 +363,7 @@ export default {
     //     } else {
     //       this.showDview = false
     //     }
-      }
+      // }
     },
     deleteClick (info) {
       console.log(info, 8888888)
@@ -456,12 +456,16 @@ export default {
     },
     //查看详情
     detailClick (data) {
+      console.log(data, '查看数据')
       this.rowID = data[this.crmType+'Id']
       this.tabCurrentName = ''
       if (this.crmType === 'customer') {
         this.rowType = 'customer'
       } else if (this.crmType === 'business') {
         this.rowType = 'business'
+      } else if (this.crmType === 'contract') {
+        // this.rowID = row.customerId
+        this.rowType = 'contract'
       }
       console.log(this.rowID, '进来了吗')
       // this.rowID = row.leadsId

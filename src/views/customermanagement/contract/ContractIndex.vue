@@ -79,11 +79,11 @@
                 @row-click="handleRowClick"
                 @header-dragend="handleHeaderDragend"
                 @selection-change="handleSelectionChange">
-        <el-table-column show-overflow-tooltip
+        <!-- <el-table-column show-overflow-tooltip
                          type="selection"
                          align="center"
                          width="55">
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column v-for="(item, index) in fieldList"
                          :key="index"
                          show-overflow-tooltip
@@ -161,7 +161,7 @@
     </c-r-m-all-detail>
     <c-r-m-create-view v-if="isCreate"
                        crm-type="contract"
-                       :action="{type: 'update', id: this.id, batchId: detailData.batchId}"
+                       :action="{type: 'update', id: rowID, batchId: batchId}"
                        @save-success="editSaveSuccess"
                        @hiden-view="isCreate=false"></c-r-m-create-view>
     <fields-set :crmType="crmType"

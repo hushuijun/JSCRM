@@ -10,7 +10,7 @@
              :infoParams="infoParams"
              :radio="radio"
              :selectedData="dataValue"
-             @changeCheckout="checkUsers" @close="showPopover=false" :dataInfo="dataInfo"></xh-user>
+             @changeCheckout="checkUsers" @close="showPopover=false"></xh-user>
     <div slot="reference">
       <flexbox @click.native="focusClick"
                wrap="wrap"
@@ -51,12 +51,6 @@ export default {
       // 是否单选
       type: Boolean,
       default: true
-    },
-    dataInfo: {
-      type: Object,
-      default: () => {
-        return {}
-      }
     },
     placeholder: {
       type: String,

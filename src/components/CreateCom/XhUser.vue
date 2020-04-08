@@ -97,12 +97,6 @@ export default {
       type: String,
       default: ''
     },
-    dataInfo: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    },
     /** 多选框 只能选一个 */
     radio: {
       type: Boolean,
@@ -157,10 +151,10 @@ export default {
             // }
             return item
           })
-          if (this.dataInfo.ownerUserId && this.list.indexOf(this.dataInfo.ownerUserId) > -1) {
-            console.log(this.dataInfo, 11111111111222222898888)
-            this.handleConfirm(this.dataInfo)
-          }
+          // if (this.dataInfo.ownerUserId && this.list.indexOf(this.dataInfo.ownerUserId) > -1) {
+          //   console.log(this.dataInfo, 11111111111222222898888)
+          //   this.handleConfirm(this.dataInfo)
+          // }
           this.loading = false
         })
         .catch(() => {

@@ -7,6 +7,7 @@ export default {
   },
   watch: {
     value: function (val) {
+      console.log(val)
       this.dataValue = val
     }
   },

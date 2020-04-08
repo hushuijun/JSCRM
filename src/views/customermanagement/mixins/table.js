@@ -34,7 +34,8 @@ import {
   crmBusinessDelete
 } from '@/api/customermanagement/business'
 import {
-  crmContractIndex
+  crmContractIndex,
+  crmContractDelete
 } from '@/api/customermanagement/contract'
 import {
   crmProductIndex,
@@ -83,7 +84,8 @@ export default {
       status: '0',
       isCreate: false,
       followId: '',
-      tabCurrentName: ''
+      tabCurrentName: '',
+      selectedStatus: ''
     }
   },
 
@@ -235,11 +237,7 @@ export default {
     //点击搜索
     searchList (info) {
       let params = {}
-      // leads_name 客户名称
-      // mobile 客户手机号
-      // owner_user_name 负责人
-      // 线索来源 
-      // create_time 创建时间
+      console.log(info, '搜索')
       if (this.crmType === 'customer') {
         info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
         info.mobile ? params.mobile = {"condition": "is", "value": info.mobile,"formType": "text","name": "mobile"} : ''
@@ -256,6 +254,13 @@ export default {
         info.business_name ? params.business_name = {"condition": "is", "value": info.business_name,"formType": "text","name": "business_name"} : ''
         info.owner_user_name ? params.owner_user_name = {"condition": "is", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
         info['商机状态'] ? params['商机状态'] = {"condition": "is", "value": info['商机状态'],"formType": "text","name": "商机状态"} : ''
+      } else if (this.crmType === 'contract') {
+        info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
+        info.name ? params.name = {"condition": "is", "value": info.name,"formType": "text","name": "name"} : ''
+        info.owner_user_name ? params.owner_user_name = {"condition": "is", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
+        info.contacts_name ? params.contacts_name = {"condition": "is", "value": info.contacts_name,"formType": "text","name": "contacts_name"} : ''
+        info.company_user_name ? params.company_user_name = {"condition": "is", "value": info.company_user_name,"formType": "text","name": "company_user_name"} : ''
+        info.check_status ||  info.check_status == 0 ? params.check_status = {"condition": "is", "value": info.check_status,"formType": "checkStatus","name": "check_status"} : ''
       }
       this.filterObj = params
       var offsetHei = document.documentElement.clientHeight
@@ -377,7 +382,7 @@ export default {
         customer: crmCustomerDelete,
         // contacts: crmContactsDelete,
         business: crmBusinessDelete,
-        // contract: crmContractDelete,
+        contract: crmContractDelete,
         // receivables: crmReceivablesDelete
       }[this.crmType]
       request({
@@ -397,6 +402,7 @@ export default {
     editClick (data, type) {
       data.type = type
       this.rowID = data[this.crmType+'Id']
+      console.log(this.rowID , 'this.rowID ')
       this.batchId = data['batchId']
       // detailHeadHandle(data) {
       console.log('编辑状态', type)

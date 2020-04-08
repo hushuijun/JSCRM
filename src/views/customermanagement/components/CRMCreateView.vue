@@ -43,7 +43,7 @@
                              :radio="false"
                              :disabled="item.disabled"
                              :crmType="crmType"
-                             @value-change="fieldValueChange">
+                             @value-change="fieldValueChange" :dataInfo="action.data">
                   </component>
                 </el-form-item>
               </el-form>
@@ -332,7 +332,8 @@ export default {
       // console.log(data, '确定选择')
       var item = this.crmForm.crmFields[data.index]
       item.value = data.value
-      console.log(this.crmForm.crmFields, 'this.crmForm.crmFields')
+      // console.log(item.value, 111111119999990000)
+      // console.log(this.crmForm.crmFields, 'this.crmForm.crmFields')
       //商机下处理商机状态
       if (this.crmType == 'business' && item.data.formType == 'business_type') {
         //找到阶段数据

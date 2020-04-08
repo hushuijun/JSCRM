@@ -10,7 +10,7 @@
              :infoParams="infoParams"
              :radio="radio"
              :selectedData="dataValue"
-             @changeCheckout="checkUsers" @close="showPopover=false"></xh-user>
+             @changeCheckout="checkUsers" @close="showPopover=false" :dataInfo="dataInfo"></xh-user>
     <div slot="reference">
       <flexbox @click.native="focusClick"
                wrap="wrap"
@@ -52,6 +52,12 @@ export default {
       type: Boolean,
       default: true
     },
+    dataInfo: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    },
     placeholder: {
       type: String,
       default: '添加员工'
@@ -69,11 +75,14 @@ export default {
       }
     }
   },
-  mounted() {},
+  mounted() {
+    console.log('xhcess')
+  },
   methods: {
     /** 选中 */
     checkUsers(data) {
       this.dataValue = data.data
+      console.log(this.dataValue, 99999999888666)
       // this.showPopover = false
       // this.showSelectView = false
       this.$emit('value-change', {

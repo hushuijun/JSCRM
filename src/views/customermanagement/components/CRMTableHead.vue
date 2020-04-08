@@ -659,10 +659,10 @@ export default {
         ])
       } else if (this.crmType == 'contract') {
         return this.forSelectionHandleItems(handleInfos, [
-          'transfer',
-          'delete',
-          'add_user',
-          'delete_user'
+          // 'transfer',
+          // 'delete',
+          // 'add_user',
+          // 'delete_user'
         ])
       } else if (this.crmType == 'receivables') {
         return this.forSelectionHandleItems(handleInfos, ['delete'])

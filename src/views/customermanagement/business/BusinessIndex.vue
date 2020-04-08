@@ -131,7 +131,7 @@
                 @set-success="setSave"
                 :dialogVisible.sync="showFieldSet"></fields-set>
     <c-r-m-create-view v-if="isCreate"
-        :crm-type="business"
+        :crm-type="crmType"
         :action="{type: 'update', id: rowID, batchId: batchId}"
         @save-success="editSaveSuccess"
         @hiden-view="isCreate=false"></c-r-m-create-view>

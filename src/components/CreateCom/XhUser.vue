@@ -97,6 +97,12 @@ export default {
       type: String,
       default: ''
     },
+    dataInfo: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    },
     /** 多选框 只能选一个 */
     radio: {
       type: Boolean,
@@ -134,23 +140,27 @@ export default {
         .then(res => {
           var self = this
           this.list = res.data.map(function(item, index, array) {
-            item.disabled = false // 要求单选
-            item.show = true
-            if (self.selectedData.length > 0) {
-              let disabled = true
-              for (let index = 0; index < self.selectedData.length; index++) {
-                const element = self.selectedData[index]
-                if (element.userId == item.userId) {
-                  disabled = false
-                  self.selectItems.push(item)
-                }
-              }
-              if (self.radio) {
-                item.disabled = disabled
-              }
-            }
+            // item.disabled = false // 要求单选
+            // item.show = true
+            // if (self.selectedData.length > 0) {
+            //   let disabled = true
+            //   for (let index = 0; index < self.selectedData.length; index++) {
+            //     const element = self.selectedData[index]
+            //     if (element.userId == item.userId) {
+            //       disabled = false
+            //       self.selectItems.push(item)
+            //     }
+            //   }
+            //   if (self.radio) {
+            //     item.disabled = disabled
+            //   }
+            // }
             return item
           })
+          if (this.dataInfo.ownerUserId && this.list.indexOf(this.dataInfo.ownerUserId) > -1) {
+            console.log(this.dataInfo, 11111111111222222898888)
+            this.handleConfirm(this.dataInfo)
+          }
           this.loading = false
         })
         .catch(() => {
@@ -177,6 +187,7 @@ export default {
         "mobile": this.mobile
       }).then(res => {
         this.list = res.data
+        // ownerUserId
         console.log(this.list, 1111111)
       })
     },

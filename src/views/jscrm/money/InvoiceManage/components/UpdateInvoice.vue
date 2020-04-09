@@ -5,7 +5,7 @@
              align="stretch"
              class="crm-create-container">
       <flexbox class="crm-create-header">
-        <div style="flex:1;font-size:17px;color:#333;">修改分润</div>
+        <div style="flex:1;font-size:17px;color:#333;">修改发票</div>
         <img @click="hidenView"
              class="close"
              src="@/assets/img/task_close.png" />
@@ -53,7 +53,7 @@
                 </div>
               </div>
             
-              <el-input v-model="record.caseName"  style="width: 70%"
+              <el-input v-model="record.caseName" :disabled="true" style="width: 70%"
                 ></el-input>
               <!-- <el-button @click="">选择</el-button>   -->
               <el-button @click="selectCase()">选择</el-button>  
@@ -71,7 +71,7 @@
                   </span>
                 </div>
               </div>
-              <el-input  v-model="record.contractId"  maxlength="36"
+              <el-input  v-model="record.contractId" :disabled="true" maxlength="36"
                 ></el-input>
             </el-form-item>
 
@@ -145,7 +145,7 @@
                   </span>
                 </div>
               </div>
-              <el-input v-model="record.handPersonName"  style="width: 70%"
+              <el-input v-model="record.handPersonName" :disabled="true" style="width: 70%"
                 ></el-input>
               <el-button @click="selectUser()">选择</el-button>    
             </el-form-item>

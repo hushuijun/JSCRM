@@ -106,7 +106,7 @@ export default {
       }
       if (this.bi) {
         tempsItems.push({
-          title: '商业智能',
+          title: '财款管理',
           type: 5,
           path: '/bi',
           icon: 'statistics'

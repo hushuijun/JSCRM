@@ -11,13 +11,18 @@
     border
     style="width: 100%">
     <el-table-column
-      prop="id"
-      label="编号"
+      prop="caseId"
+      label="案件编号"
       >
     </el-table-column>
     <el-table-column
       prop="name"
-      label="名称"
+      label="案件名称"
+      >
+    </el-table-column>
+    <el-table-column
+      prop="customerId"
+      label="合同编号"
       >
     </el-table-column>
     <el-table-column
@@ -49,7 +54,7 @@
 
 <script>
 
-
+import { queryPageList } from '@/api/jscrm/money/comm'
 export default {
   /** 客户管理 的 勾选后的 团队成员 操作 移除操作不可移除客户负责人*/
   name: 'teams-handle',
@@ -57,7 +62,7 @@ export default {
   },
   data() {
     return {
-      tableData:[{id:1,name:2},{id:1,name:2},{id:1,name:2},{id:1,name:2}],
+      tableData:[{"caseId":3,"name":"案件标题","customerId":3},{"caseId":3,"name":"案件标题","customerId":3},{"caseId":3,"name":"案件标题","customerId":3}],
       loading: false, // 加载动画
       visible: false,
       title:'选择案件',
@@ -74,9 +79,30 @@ export default {
     }
   },
   computed: {},
-  mounted() {
+  create(){
+
   },
+  mounted() {
+    // this.getList();
+  },
+
   methods: {
+
+    /** 获取列表数据 */
+    getList() {
+      this.loading = true
+      queryPageList(this.queryCondtion)
+        .then(res => {
+          console.log(this.queryCondtion);
+          this.tableData = res.data.list
+
+          this.total = res.data.totalRow
+          this.loading = false
+        })
+        .catch(() => {
+          this.loading = false
+        })
+    },
     /**
      * 取消选择
      */

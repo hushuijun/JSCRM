@@ -5,7 +5,7 @@
              align="stretch"
              class="crm-create-container">
       <flexbox class="crm-create-header">
-        <div style="flex:1;font-size:17px;color:#333;">新建分润</div>
+        <div style="flex:1;font-size:17px;color:#333;">新建发票</div>
         <img @click="hidenView"
              class="close"
              src="@/assets/img/task_close.png" />
@@ -53,7 +53,7 @@
                 </div>
               </div>
             
-              <el-input v-model="record.caseName"  style="width: 70%"
+              <el-input v-model="record.caseName" :disabled="true" style="width: 70%"
                 ></el-input>
               <!-- <el-button @click="">选择</el-button>   -->
               <el-button @click="selectCase()">选择</el-button>  
@@ -71,7 +71,7 @@
                   </span>
                 </div>
               </div>
-              <el-input  v-model="record.contractId"  maxlength="36"
+              <el-input  v-model="record.contractId" :disabled="true"  maxlength="36"
                 ></el-input>
             </el-form-item>
 
@@ -145,7 +145,7 @@
                   </span>
                 </div>
               </div>
-              <el-input v-model="record.handPersonName"  style="width: 70%"
+              <el-input v-model="record.handPersonName" :disabled="true" style="width: 70%"
                 ></el-input>
               <el-button @click="selectUser()">选择</el-button>    
             </el-form-item>
@@ -409,10 +409,34 @@ export default {
         //   data: previewList
         // })
 
-        download(item.row.fileId)
-              .then(res => {
-              })
-              .catch(() => {})
+        // download(item.row.fileId)
+        //       .then(res => {
+        //       })
+        //       .catch(() => {})
+
+        // window.location.href = 'http://127.0.0.1:8080/upload/download?id='+item.row.fileId;
+
+        // let a = document.createElement('a')
+        // a.href ='http://localhost:8090/api/upload/download?id='+item.row.fileId;
+        // a.click();
+
+
+        // axios.post('http://localhost:8090/api/upload/download?id='+item.row.fileId, this.group, {
+				// 		  responseType: "blob"
+				// 		})
+				// 		.then(res => {
+				// 		  let blob = new Blob([res.data], {
+				// 			type: "application/ms-excel;charset=utf-8"
+				// 		  });
+				// 		  let downloadElement = document.createElement("a");
+				// 		  let href = window.URL.createObjectURL(blob); // 创建下载的链接
+				// 		  downloadElement.href = href;
+				// 		  downloadElement.download = "银行日记账.xlsx"; // 下载后文件名
+				// 		  document.body.appendChild(downloadElement);
+				// 		  downloadElement.click(); // 点击下载
+				// 		  document.body.removeChild(downloadElement); // 下载完成移除元素
+				// 		  window.URL.revokeObjectURL(href); // 释放掉blob对象
+				// 		});
       } else if (type === 'delete') {
         this.$confirm('您确定要删除该文件吗?', '提示', {
           confirmButtonText: '确定',
@@ -446,9 +470,9 @@ export default {
     },
 
     getDataCase(data){
-      this.record.caseId = data.id;
+      this.record.caseId = data.caseId;
       this.record.caseName = data.name;
-      this.record.contractId = data.id;
+      this.record.contractId = data.customerId;
       console.log(this.record);
     },
 

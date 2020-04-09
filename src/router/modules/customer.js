@@ -32,56 +32,56 @@ const customerRouter = {
       num: 0
     }
   },
-  {
-    path: 'shareManage',
-    component: () => import('@/views/jscrm/money/shareManage/shareManage'),
-    meta: {
-      requiresAuth: true,
-      title: '分润管理',
-      icon: 'customer',
-      index: 1,
-      type: 'crm',
-      subType: 'customer'
-    }
-  },
-  {
-    path: 'InvoiceManage',
-    component: () => import('@/views/jscrm/money/InvoiceManage/InvoiceManage'),
-    meta: {
-      requiresAuth: true,
-      title: '发票管理',
-      icon: 'customer',
-      index: 1,
-      type: 'crm',
-      subType: 'customer'
-    }
-  },
+  // {
+  //   path: 'shareManage',
+  //   component: () => import('@/views/jscrm/money/shareManage/shareManage'),
+  //   meta: {
+  //     requiresAuth: true,
+  //     title: '分润管理',
+  //     icon: 'customer',
+  //     index: 1,
+  //     type: 'crm',
+  //     subType: 'customer'
+  //   }
+  // },
+  // {
+  //   path: 'InvoiceManage',
+  //   component: () => import('@/views/jscrm/money/InvoiceManage/InvoiceManage'),
+  //   meta: {
+  //     requiresAuth: true,
+  //     title: '发票管理',
+  //     icon: 'customer',
+  //     index: 1,
+  //     type: 'crm',
+  //     subType: 'customer'
+  //   }
+  // },
 
-  {
-    path: 'CostManage',
-    component: () => import('@/views/jscrm/money/CostManage/CostManage'),
-    meta: {
-      requiresAuth: true,
-      title: '费用管理',
-      icon: 'customer',
-      index: 1,
-      type: 'crm',
-      subType: 'customer'
-    }
-  },
+  // {
+  //   path: 'CostManage',
+  //   component: () => import('@/views/jscrm/money/CostManage/CostManage'),
+  //   meta: {
+  //     requiresAuth: true,
+  //     title: '费用管理',
+  //     icon: 'customer',
+  //     index: 1,
+  //     type: 'crm',
+  //     subType: 'customer'
+  //   }
+  // },
 
-  {
-    path: 'RemittancePlan',
-    component: () => import('@/views/jscrm/money/RemittancePlan/RemittancePlan'),
-    meta: {
-      requiresAuth: true,
-      title: '回款记录管理',
-      icon: 'customer',
-      index: 1,
-      type: 'crm',
-      subType: 'customer'
-    }
-  },
+  // {
+  //   path: 'RemittancePlan',
+  //   component: () => import('@/views/jscrm/money/RemittancePlan/RemittancePlan'),
+  //   meta: {
+  //     requiresAuth: true,
+  //     title: '回款记录管理',
+  //     icon: 'customer',
+  //     index: 1,
+  //     type: 'crm',
+  //     subType: 'customer'
+  //   }
+  // },
   {
     path: 'clue', // 线索列表
     component: () => import('@/views/customermanagement/clue/ClueIndex'),

@@ -458,9 +458,9 @@ export default {
     },
 
     getDataCase(data){
-      this.record.caseId = data.id;
+      this.record.caseId = data.caseId;
       this.record.caseName = data.name;
-      this.record.contractId = data.id;
+      this.record.contractId = data.customerId;
       console.log(this.record);
     },
 

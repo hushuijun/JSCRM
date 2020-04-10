@@ -5,7 +5,7 @@
              align="stretch"
              class="crm-create-container">
       <flexbox class="crm-create-header">
-        <div style="flex:1;font-size:17px;color:#333;">新建分润</div>
+        <div style="flex:1;font-size:17px;color:#333;">新建发票</div>
         <img @click="hidenView"
              class="close"
              src="@/assets/img/task_close.png" />
@@ -53,8 +53,10 @@
                 </div>
               </div>
             
-              <el-input v-model="record.caseName"
+              <el-input v-model="record.caseName" :disabled="true" style="width: 70%"
                 ></el-input>
+              <!-- <el-button @click="">选择</el-button>   -->
+              <el-button @click="selectCase()">选择</el-button>  
             </el-form-item>
 
             <el-form-item
@@ -69,7 +71,7 @@
                   </span>
                 </div>
               </div>
-              <el-input  v-model="record.contractId"  maxlength="36"
+              <el-input  v-model="record.contractId" :disabled="true"  maxlength="36"
                 ></el-input>
             </el-form-item>
 
@@ -143,8 +145,9 @@
                   </span>
                 </div>
               </div>
-              <el-input v-model="record.handPersonName"
+              <el-input v-model="record.handPersonName" :disabled="true" style="width: 70%"
                 ></el-input>
+              <el-button @click="selectUser()">选择</el-button>    
             </el-form-item>
 
             <el-form-item
@@ -210,11 +213,6 @@
             </el-table>
             </div>
         </div>
-              
-          
-
-
-
          <div
            class="handle-bar">
         <el-button class="handle-button"
@@ -222,12 +220,12 @@
         <el-button class="handle-button"
                    type="primary"
                    @click.native="addValidate">保存</el-button>
-        
       </div>
-        
       </flexbox>
-      
     </flexbox>
+
+    <CaseMedal ref="refCaseMedal" @getDataCase="getDataCase"></CaseMedal>
+    <UserMedal ref="refUserMedal" @getDataUser="getDataUser"></UserMedal>
   </create-view>
 </template>
 <script type="text/javascript">
@@ -237,16 +235,21 @@ import { uploadMultiple,getBatchId,queryPageFile,download } from '@/api/jscrm/mo
 import {billTyppNum}from '@/views/jscrm/money/const/const'
 import * as fecha from "element-ui/lib/utils/date"
 import {crmFileDelete} from '@/api/common'
+import CaseMedal from '@/views/jscrm/components/CaseMedal' // 引入案件medal
+import UserMedal from '@/views/jscrm/components/UserMedal' // 引入用户medal
+
 
 export default {
   name: 'create-share', // 所有新建效果的view
   components: {
     CreateView,
-    
+    CaseMedal,
+    UserMedal,
   },
  
   data() {
     return {
+      CaseMedalIf:false,
       billTyppNum:billTyppNum,
       fileList:[],
       // fileList:[{size: "32KB", createTime: "2020-04-05 21:18:31", name: "捕获16.JPG", createUserName: "admin"}],
@@ -273,11 +276,9 @@ export default {
           ],
            caseName: [
             { required: true, message: '请输入关联案件', trigger: 'blur' },
-            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
           ],   
            contractId: [
             { required: true, message: '请输入合同编号', trigger: 'blur' },
-            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
           ],   
            billType: [
             { required: true, message: '请输入票据类型', trigger: 'blur' },
@@ -408,10 +409,34 @@ export default {
         //   data: previewList
         // })
 
-        download(item.row.fileId)
-              .then(res => {
-              })
-              .catch(() => {})
+        // download(item.row.fileId)
+        //       .then(res => {
+        //       })
+        //       .catch(() => {})
+
+        // window.location.href = 'http://127.0.0.1:8080/upload/download?id='+item.row.fileId;
+
+        // let a = document.createElement('a')
+        // a.href ='http://localhost:8090/api/upload/download?id='+item.row.fileId;
+        // a.click();
+
+
+        // axios.post('http://localhost:8090/api/upload/download?id='+item.row.fileId, this.group, {
+				// 		  responseType: "blob"
+				// 		})
+				// 		.then(res => {
+				// 		  let blob = new Blob([res.data], {
+				// 			type: "application/ms-excel;charset=utf-8"
+				// 		  });
+				// 		  let downloadElement = document.createElement("a");
+				// 		  let href = window.URL.createObjectURL(blob); // 创建下载的链接
+				// 		  downloadElement.href = href;
+				// 		  downloadElement.download = "银行日记账.xlsx"; // 下载后文件名
+				// 		  document.body.appendChild(downloadElement);
+				// 		  downloadElement.click(); // 点击下载
+				// 		  document.body.removeChild(downloadElement); // 下载完成移除元素
+				// 		  window.URL.revokeObjectURL(href); // 释放掉blob对象
+				// 		});
       } else if (type === 'delete') {
         this.$confirm('您确定要删除该文件吗?', '提示', {
           confirmButtonText: '确定',
@@ -436,6 +461,26 @@ export default {
           })
       } 
     },
+
+    selectCase(){
+      this.$refs.refCaseMedal.visible=true;
+    },
+    selectUser(){
+      this.$refs.refUserMedal.visible=true;
+    },
+
+    getDataCase(data){
+      this.record.caseId = data.caseId;
+      this.record.caseName = data.name;
+      this.record.contractId = data.customerId;
+      console.log(this.record);
+    },
+
+    getDataUser(data){
+      this.record.handPersonId = data.userId;
+      this.record.handPersonName = data.realname;
+      console.log(this.record);
+    }
 
   },
   destroyed() {

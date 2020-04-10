@@ -5,7 +5,7 @@
              align="stretch"
              class="crm-create-container">
       <flexbox class="crm-create-header">
-        <div style="flex:1;font-size:17px;color:#333;">修改分润</div>
+        <div style="flex:1;font-size:17px;color:#333;">修改发票</div>
         <img @click="hidenView"
              class="close"
              src="@/assets/img/task_close.png" />
@@ -53,8 +53,10 @@
                 </div>
               </div>
             
-              <el-input v-model="record.caseName"
+              <el-input v-model="record.caseName" :disabled="true" style="width: 70%"
                 ></el-input>
+              <!-- <el-button @click="">选择</el-button>   -->
+              <el-button @click="selectCase()">选择</el-button>  
             </el-form-item>
 
             <el-form-item
@@ -69,7 +71,7 @@
                   </span>
                 </div>
               </div>
-              <el-input  v-model="record.contractId"  maxlength="36"
+              <el-input  v-model="record.contractId" :disabled="true" maxlength="36"
                 ></el-input>
             </el-form-item>
 
@@ -143,8 +145,9 @@
                   </span>
                 </div>
               </div>
-              <el-input v-model="record.handPersonName"
+              <el-input v-model="record.handPersonName" :disabled="true" style="width: 70%"
                 ></el-input>
+              <el-button @click="selectUser()">选择</el-button>    
             </el-form-item>
 
             <el-form-item
@@ -167,10 +170,49 @@
                 ></el-input>
             </el-form-item>
 
-          </el-form>
+
+            <el-form-item
+                          class="crm-create-item right-field" 
+                          >
+            </el-form-item>
+
+
+          <el-button style="margin:10px 0px"
+                 @click.native="addFile"
+                 type="primary">上传附件</el-button>
+      <input type="file"
+             id="file"
+             class="rc-head-file"
+             accept="*/*"
+             @change="uploadFile"
+             multiple>
+             </el-form>
+
+            <div style="margin: 0px 20px">
+             <el-table :data="fileList"
+              align="center"
+              header-align="center"
+              stripe
+              style="width: 100%;border: 1px solid #E6E6E6;"
+               >
+              <el-table-column show-overflow-tooltip prop="name" label="名称"></el-table-column>
+              <el-table-column show-overflow-tooltip prop="createUserName" label="上传人"></el-table-column>
+              <el-table-column show-overflow-tooltip prop="createTime" :formatter="dateFormat" label="时间"></el-table-column>
+              <el-table-column show-overflow-tooltip prop="size" label="大小"></el-table-column>
+            <el-table-column label="操作"
+                            width="150">
+              <template slot-scope="scope">
+                <!-- <flexbox justify="center"> -->
+                  <el-button type="text"
+                            @click.native="handleFile('preview', scope)">预览</el-button>
+                  <el-button type="text"
+                            @click.native="handleFile('delete', scope)">删除</el-button>
+                <!-- </flexbox> -->
+              </template>
+            </el-table-column>
+            </el-table>
+            </div>
         </div>
-
-
          <div
            class="handle-bar">
         <el-button class="handle-button"
@@ -184,20 +226,28 @@
       </flexbox>
       
     </flexbox>
+
+    <CaseMedal ref="refCaseMedal" @getDataCase="getDataCase"></CaseMedal>
+    <UserMedal ref="refUserMedal" @getDataUser="getDataUser"></UserMedal>
   </create-view>
 </template>
 <script type="text/javascript">
 import CreateView from '@/components/CreateView'
-import { updateData,selectById,queryPageFile } from '@/api/jscrm/money/InvoiceManage'
+import { updateData,selectById } from '@/api/jscrm/money/InvoiceManage'
+import { uploadMultiple,getBatchId,queryPageFile,download } from '@/api/jscrm/money/file'
 import {billTyppNum}from '@/views/jscrm/money/const/const'
-
+import * as fecha from "element-ui/lib/utils/date"
+import {crmFileDelete} from '@/api/common'
+import CaseMedal from '@/views/jscrm/components/CaseMedal' // 引入案件medal
+import UserMedal from '@/views/jscrm/components/UserMedal' // 引入用户medal
 
 
 export default {
   name: 'create-share', // 所有新建效果的view
   components: {
     CreateView,
-    
+    CaseMedal,
+    UserMedal,
   },
   props: {
     // 详情信息
@@ -206,7 +256,10 @@ export default {
  
   data() {
     return {
+      CaseMedalIf:false,
       billTyppNum:billTyppNum,
+      fileList:[],
+      // fileList:[{size: "32KB", createTime: "2020-04-05 21:18:31", name: "捕获16.JPG", createUserName: "admin"}],
       record:{
         "contractId": null,
         "caseName": null,
@@ -230,11 +283,9 @@ export default {
           ],
            caseName: [
             { required: true, message: '请输入关联案件', trigger: 'blur' },
-            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
           ],   
            contractId: [
             { required: true, message: '请输入合同编号', trigger: 'blur' },
-            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
           ],   
            billType: [
             { required: true, message: '请输入票据类型', trigger: 'blur' },
@@ -259,10 +310,13 @@ export default {
   filters: {
    
   },
+
+  created(){
+
+  },
   mounted() {
     document.body.appendChild(this.$el)
     this.selectById();
-
     // this.queryPageFile();
   },
   methods: {
@@ -271,20 +325,11 @@ export default {
       selectById(this.detailData.id)
       .then(res => {
         this.record = res.data;
+        this.getFileList();
       })
       .catch(() => {
         this.$message.error('后台异常');
       });
-    },
-
-    queryPageFile(){
-       queryPageFile(this.record.annexId)
-        .then(res => {
-          console.log(this.queryCondtion);
-          this.list = res.data.list
-        })
-        .catch(() => {
-        })
     },
 
     hidenView() {
@@ -318,6 +363,113 @@ export default {
           this.loading = false
         })
     },
+
+    addFile() {
+      document.getElementById('file').click()
+    },
+    /** 图片选择出发 */
+    uploadFile(event) {
+      var files = event.target.files
+      var self = this
+      for (let index = 0; index < files.length; index++) {
+        const file = files[index]
+        // if (file.type.indexOf('image') != -1) {
+        var params = {}
+        var params = {}
+        params.batchId = this.record.annexId;
+        params.file = file
+        uploadMultiple(params)
+          .then(res => {
+            // console.log(res);
+            // this.fileList.push(res.data);
+            // console.log(this.fileList);
+            this.getFileList();
+            this.$message.success('上传成功')
+          })
+          .catch(() => {})
+        // }
+      }
+
+      event.target.value = ''
+    },
+
+    getFileList() {
+      this.loading = true
+      queryPageFile(this.record.annexId)
+        .then(res => {
+          this.fileList = res.data
+          this.loading = false
+        })
+        .catch(() => {
+          this.loading = false
+        })
+    },
+
+    dateFormat(row,column,cellValue){
+      return cellValue ? fecha.format(new Date(cellValue),'yyyy-MM-dd'):'';
+    },
+
+
+    handleFile(type, item) {
+      if (type === 'preview') {
+        // var previewList = this.list.map(element => {
+        //   element.url = element.filePath
+        //   return element
+        // })
+        // this.$bus.emit('preview-image-bus', {
+        //   index: item.$index,
+        //   data: previewList
+        // })
+
+        download(item.row.fileId)
+              .then(res => {
+              })
+              .catch(() => {})
+      } else if (type === 'delete') {
+        this.$confirm('您确定要删除该文件吗?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(() => {
+            crmFileDelete({
+              id: item.row.fileId
+            })
+              .then(res => {
+                this.getFileList();
+                this.$message.success('删除成功')
+              })
+              .catch(() => {})
+          })
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消操作'
+            })
+          })
+      } 
+    },
+
+    selectCase(){
+      this.$refs.refCaseMedal.visible=true;
+    },
+    selectUser(){
+      this.$refs.refUserMedal.visible=true;
+    },
+
+    getDataCase(data){
+      this.record.caseId = data.caseId;
+      this.record.caseName = data.name;
+      this.record.contractId = data.customerId;
+      console.log(this.record);
+    },
+
+    getDataUser(data){
+      this.record.handPersonId = data.userId;
+      this.record.handPersonName = data.realname;
+      console.log(this.record);
+    }
+
   },
   destroyed() {
     // remove DOM node after destroy
@@ -429,5 +581,16 @@ export default {
     margin-top: 5px;
     margin-right: 20px;
   }
+}
+
+.rc-head-file {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 98px;
+  width: 98px;
+  opacity: 0;
+  z-index: -1;
+  cursor: pointer;
 }
 </style>

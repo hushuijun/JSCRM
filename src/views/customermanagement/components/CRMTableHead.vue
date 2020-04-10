@@ -605,14 +605,14 @@ export default {
         }
         if (this.clueType == 1) {
           //  let headerTab = 
-          console.log(this.getUserAuthAccess(1, access => {
+          this.getUserAuthAccess(1, access => {
              return this.forSelectionHandleItems(handleInfos, [
             'transform',
              access ? 'transfer' : ''
             // 'export',
             // 'delete'
             ]) 
-          }))
+          })
           // console.log('access', access)
         }
         if (this.clueType == 2) {
@@ -692,7 +692,9 @@ export default {
     forSelectionHandleItems(handleInfos, array) {
       var tempsHandles = []
       for (let index = 0; index < array.length; index++) {
-        tempsHandles.push(handleInfos[array[index]])
+        if (array[index]) {
+          tempsHandles.push(handleInfos[array[index]])
+        }
       }
       return tempsHandles
     },

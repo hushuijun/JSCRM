@@ -9,6 +9,7 @@
                      @on-export="exportInfos"
                      :crm-type="crmType">
     </c-r-m-list-head> -->
+    <div class="main-title">线索管理</div>
     <el-tabs v-model="clueType" @tab-click="switchTab(clueType)" type="card">
       <el-tab-pane label="私有线索" name="0"></el-tab-pane>
       <el-tab-pane label="线索公海" name="1"></el-tab-pane>
@@ -104,7 +105,7 @@
         </el-table-column>
         <el-table-column>
         </el-table-column>
-        <el-table-column fixed="right"
+        <!-- <el-table-column fixed="right"
                          width="36">
           <template slot="header"
                     slot-scope="slot">
@@ -112,7 +113,7 @@
                  @click="handleTableSet"
                  class="table-set" />
           </template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column
           fixed="right"
           label="操作"
@@ -204,6 +205,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/table.scss';
+.main-title {
+  font-size: 20px;
+  padding: 20px 0;
+}
 .input-container {
   width: 230px;
   display: inline-block;

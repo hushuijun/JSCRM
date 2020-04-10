@@ -8,6 +8,7 @@
                      main-title="新建商机"
                      :crm-type="crmType">
     </c-r-m-list-head> -->
+    <div class="main-title">商机管理</div>
     <div class="input-container">
       <span>客户姓名</span>
       <el-input
@@ -87,7 +88,7 @@
         </el-table-column>
         <el-table-column>
         </el-table-column>
-        <el-table-column fixed="right"
+        <!-- <el-table-column fixed="right"
                          width="36">
           <template slot="header"
                     slot-scope="slot">
@@ -95,7 +96,7 @@
                  @click="handleTableSet"
                  class="table-set" />
           </template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column
           fixed="right"
           label="操作"
@@ -177,6 +178,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/table.scss';
+.main-title {
+  font-size: 20px;
+  padding: 20px 0;
+}
 .input-container {
   width: 230px;
   display: inline-block;

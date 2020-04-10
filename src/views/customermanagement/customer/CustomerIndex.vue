@@ -9,6 +9,7 @@
                      @on-export="exportInfos"
                      :crm-type="crmType">
     </c-r-m-list-head> -->
+    <div class="main-title">客户管理</div>
     <el-tabs v-model="typeId" @tab-click="switchTab(crmType, typeId)" type="card">
       <el-tab-pane label="私有客户" name="2"></el-tab-pane>
       <el-tab-pane label="客户公海" name="8"></el-tab-pane>
@@ -54,7 +55,7 @@
     </el-row> -->
     <c-r-m-list-head
       main-title="新建"
-      :crm-type="crmType" :isSeas="isSeas" @on-handle="listHeadHandle">
+      :crm-type="crmType" @on-handle="listHeadHandle">
     </c-r-m-list-head>
     <div v-empty="!crm.customer.index"
          xs-empty-icon="nopermission"
@@ -65,7 +66,7 @@
                         :crm-type="crmType"
                         @filter="handleFilter"
                         @handle="handleHandle"
-                        @scene="handleScene" :isSeas="isSeas" @handleRecordsClick="handleRecordsClick"></c-r-m-table-head>
+                        @scene="handleScene" :isSeas="isSeas" @handleRecordsClick="handleRecordsClick" @createBusiness='createBusiness'></c-r-m-table-head>
       <!-- @row-click="handleRowClick" -->
       <el-table class="n-table--border"
                 id="crm-table"
@@ -183,10 +184,15 @@
                       ></c-r-m-create-view> -->
     <!-- 相关详情页面 -->
     <c-r-m-create-view v-if="isCreate"
-                       crm-type="customer"
+                       :crm-type="crmType"
                        :action="{type: 'update', id: rowID, batchId: batchId}"
                        @save-success="editSaveSuccess"
                        @hiden-view="isCreate=false"></c-r-m-create-view>
+    <c-r-m-create-business v-if="isCreateBusiness"
+                       crm-type="business"
+                       :action="createActionInfo"
+                       @save-success="createSaveSuccess"
+                       @hiden-view="isCreateBusiness=false"></c-r-m-create-business>
     <c-r-m-all-detail :visible.sync="showDview"
                       :crmType="rowType"
                       :id="rowID"
@@ -204,6 +210,7 @@ import { mapGetters } from 'vuex'
 import CRMAllDetail from '@/views/customermanagement/components/CRMAllDetail'
 import BusinessCheck from './components/BusinessCheck' // 相关商机
 import CRMCreateView from '../components/CRMCreateView'
+import CRMCreateBusiness from '../components/CRMCreateView'
 import table from '../mixins/table'
 import detail from '../mixins/detail'
 
@@ -213,7 +220,8 @@ export default {
   components: {
     CRMAllDetail,
     BusinessCheck,
-    CRMCreateView
+    CRMCreateView,
+    CRMCreateBusiness
   },
   mixins: [table],
   data() {
@@ -250,7 +258,7 @@ export default {
       } else {
         return ''
       }
-    },
+    },    
     // 私有和公海tab切换
     // switchTab () {
 
@@ -275,6 +283,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/table.scss';
+.main-title {
+  font-size: 20px;
+  padding: 20px 0;
+}
 .customer-lock {
   color: #f15e64;
 }

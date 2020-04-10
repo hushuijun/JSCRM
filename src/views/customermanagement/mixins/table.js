@@ -85,7 +85,9 @@ export default {
       isCreate: false,
       followId: '',
       tabCurrentName: '',
-      selectedStatus: ''
+      selectedStatus: '',
+      isCreateBusiness: false,
+      createActionInfo: { type: 'relative', crmType: this.crmType, data: {} }
     }
   },
 
@@ -675,6 +677,20 @@ export default {
       var offsetHei = document.documentElement.clientHeight
       var removeHeight = Object.keys(this.filterObj).length > 0 ? 310 : 240
       this.tableHeight = offsetHei - removeHeight
+    },
+    /** 新建商机 */
+    createBusiness() {
+      /** 客户 和 联系人 下可新建商机  */
+      console.log('进来了哈了吧')
+      if (this.crmType == 'contacts') {
+        this.createActionInfo.data['customer'] = this.detail
+      } else if (this.crmType == 'customer') {
+        this.createActionInfo.data['customer'] = this.detail
+      }
+      this.isCreateBusiness = true
+    },
+    createSaveSuccess () {
+
     }
   },
   watch: {

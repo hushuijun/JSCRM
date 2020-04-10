@@ -91,7 +91,8 @@ import crmTypeModel from '@/views/customermanagement/model/crmTypeModel'
 import {
   filterIndexfields,
   crmSceneIndex,
-  crmSceneSave
+  crmSceneSave,
+  getUserAuth
 } from '@/api/customermanagement/common'
 import {
   crmLeadsTransform,
@@ -117,6 +118,7 @@ import {
   crmProductStatus,
   crmProductExcelExport
 } from '@/api/customermanagement/product'
+
 
 import filterForm from './filterForm'
 import filterContent from './filterForm/filterContent'
@@ -262,7 +264,8 @@ export default {
     },
     /** 操作 */
     selectionBarClick(type) {
-      if (this.selectionList.length === 0) {
+      console.log(type, '点击的type')
+      if (this.selectionList.length === 0 && type != 'business') {
         this.$message({
           type: 'warning',
           message: '请选择一项或者多项'
@@ -389,7 +392,9 @@ export default {
       } else if (type == 'follow_records') {
         this.$emit('handleRecordsClick', {type: 'follow_records'})
       } else if (type == 'business') {
-        this.$emit('handleRecordsClick', {type: 'business'})
+        console.log('进入到商机了吗')
+        // this.$emit('handleRecordsClick', {type: 'business'})
+        this.$emit('createBusiness', {type: 'business'})
       }
     },
     confirmHandle(type) {
@@ -591,20 +596,24 @@ export default {
       if (this.crmType == 'leads') {
         if (this.clueType == 0) {
           return this.forSelectionHandleItems(handleInfos, [
-            'transfer',
             'transform',
+            'transfer',
             'follow_records'
           // 'export',
           // 'delete'
           ])
         }
         if (this.clueType == 1) {
-          return this.forSelectionHandleItems(handleInfos, [
-            'transfer',
+          //  let headerTab = 
+          console.log(this.getUserAuthAccess(1, access => {
+             return this.forSelectionHandleItems(handleInfos, [
             'transform',
-          // 'export',
-          // 'delete'
-          ])
+             access ? 'transfer' : ''
+            // 'export',
+            // 'delete'
+            ]) 
+          }))
+          // console.log('access', access)
         }
         if (this.clueType == 2) {
           return this.forSelectionHandleItems(handleInfos, [
@@ -622,15 +631,15 @@ export default {
       else if (this.crmType == 'customer') {
         if (this.isSeas) {
           return this.forSelectionHandleItems(handleInfos, [
-            'alloc',
             'get',
+            'alloc'
             // 'export'
           ])
         } else {
         return this.forSelectionHandleItems(handleInfos, [
+          'put_seas',
           'transfer',
           // 'export',
-          'put_seas',
           'follow_records',
           'business'
           // 'delete',
@@ -673,6 +682,12 @@ export default {
           'disable'
         ])
       }
+    },
+    // 获取权限
+    getUserAuthAccess(type, cb) {
+      getUserAuth(type).then((res) => {
+        cb(res.data)
+      })
     },
     forSelectionHandleItems(handleInfos, array) {
       var tempsHandles = []

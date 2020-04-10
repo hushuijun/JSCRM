@@ -526,6 +526,7 @@ export default {
           params['disabled'] = this.getItemDisabledFromItem(item)
           params['styleIndex'] = showStyleIndex
           this.crmForm.crmFields.push(params)
+          console.log(this.crmForm.crmFields, 'this.crmForm.crmFields111111')
         } else if (item.formType == 'category') {
           /** 产品分类 */
           var params = {}
@@ -587,7 +588,9 @@ export default {
             item.formType == 'contract'
           ) {
             if (this.action.type == 'update') {
-              params['value'] = item.value ? objDeepCopy(item.value) : []
+              console.log(item.formType, '进入到这里了吗1')
+              params['value'] = item.value && typeof item.value == Object ? objDeepCopy(item.value) : []
+              console.log(params['value'], '进入到这里了吗1value')
 
             } else {
               params['value'] = item.defaultValue
@@ -595,6 +598,7 @@ export default {
                 : []
             }
           } else {
+            console.log(item.formType, '进入到这里了吗2')
             if (this.action.type == 'update') {
               params['value'] = item.value || '' // 编辑的值 在value∂ç字段
             } else {

@@ -171,9 +171,9 @@ export default {
         //   tempsTabs.push({ label: '联系人', name: 'contacts' })
         // }
         // tempsTabs.push({ label: '相关团队', name: 'team' })
-        if (this.crm.business && this.crm.business.index) {
-          tempsTabs.push({ label: '商机', name: 'business' })
-        }
+        // if (this.crm.business && this.crm.business.index) {
+        //   tempsTabs.push({ label: '商机', name: 'business' })
+        // }
       }
       // if (this.crm.contract && this.crm.contract.index) {
       //   tempsTabs.push({ label: '合同', name: 'contract' })

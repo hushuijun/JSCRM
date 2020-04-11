@@ -167,7 +167,8 @@ export default {
       transferDialogShow: false,
       teamsDialogShow: false, // 团队操作提示框
       teamsTitle: '', // 团队操作标题名
-      allocDialogShow: false // 公海分配操作提示框
+      allocDialogShow: false, // 公海分配操作提示框
+      istransfer: false
     }
   },
   watch: {},
@@ -189,6 +190,13 @@ export default {
     clueType: {
       type: String,
       default: ''
+    }
+  },
+  created() {
+    if (this.crmType == 'leads') {
+      this.getUserAuthAccess(1)
+    } else if (this.crmType == 'customer') {
+      this.getUserAuthAccess(8)
     }
   },
   mounted() {},
@@ -515,12 +523,12 @@ export default {
         transform: {
           name: this.crmType == 'leads' && this.clueType != 1 ? '转为客户' : this.clueType == 1 ? '认领' : '转化为客户' ,
           type: 'transform',
-          icon: require('@/assets/img/selection_convert_customer.png')
+          // icon: require('@/assets/img/selection_convert_customer.png')
         },
         export: {
           name: '导出选中',
           type: 'export',
-          icon: require('@/assets/img/selection_export.png')
+          // icon: require('@/assets/img/selection_export.png')
         },
         follow_records: {
           name: '跟进记录',
@@ -563,7 +571,7 @@ export default {
           icon: require('@/assets/img/selection_delete_user.png')
         },
         alloc: {
-          name: '分配',
+          name: this.clueType == 1 ? '移交' : '分配',
           type: 'alloc',
           // icon: require('@/assets/img/selection_alloc.png')
         },
@@ -587,6 +595,11 @@ export default {
           type: 'claim',
           // icon: require('@/assets/img/selection_disable.png')
         },
+        cash_plan: {
+          name: '新建回款计划',
+          type: 'cash_plan',
+          // icon: require('@/assets/img/selection_disable.png')
+        },
         // all_business: {
         //   name: '全部商机',
         //   type: 'all_business',
@@ -604,16 +617,13 @@ export default {
           ])
         }
         if (this.clueType == 1) {
-          //  let headerTab = 
-          this.getUserAuthAccess(1, access => {
-             return this.forSelectionHandleItems(handleInfos, [
+          return this.forSelectionHandleItems(handleInfos, [
             'transform',
-             access ? 'transfer' : ''
-            // 'export',
-            // 'delete'
-            ]) 
-          })
-          // console.log('access', access)
+            // 'alloc',
+            this.istransfer ? 'alloc' : '',
+          // 'export',
+          // 'delete'
+          ])
         }
         if (this.clueType == 2) {
           return this.forSelectionHandleItems(handleInfos, [
@@ -623,7 +633,8 @@ export default {
         }
       } else if (this.crmType == 'seas') {
         return this.forSelectionHandleItems(handleInfos, [
-            'alloc',
+            // 'alloc',
+            this.istransfer ? 'alloc' : '',
             'get',
             // 'export'
           ])
@@ -668,6 +679,7 @@ export default {
         ])
       } else if (this.crmType == 'contract') {
         return this.forSelectionHandleItems(handleInfos, [
+          'cash_plan'
           // 'transfer',
           // 'delete',
           // 'add_user',
@@ -684,18 +696,21 @@ export default {
       }
     },
     // 获取权限
-    getUserAuthAccess(type, cb) {
+    getUserAuthAccess(type) {
       getUserAuth(type).then((res) => {
-        cb(res.data)
+        this.istransfer = res.data
       })
     },
     forSelectionHandleItems(handleInfos, array) {
+      console.log(handleInfos, 'handleInfos')
+      console.log(array, 'array')
       var tempsHandles = []
       for (let index = 0; index < array.length; index++) {
         if (array[index]) {
           tempsHandles.push(handleInfos[array[index]])
         }
       }
+      console.log(tempsHandles, 'tempsHandlestempsHandles')
       return tempsHandles
     },
     // 判断是否展示

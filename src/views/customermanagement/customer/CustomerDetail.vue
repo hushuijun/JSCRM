@@ -161,7 +161,6 @@ export default {
     },
     tabnames() {
       var tempsTabs = []
-      console.log(this.isSeas, 1000000001)
       if (this.crm.customer && this.crm.customer.read) {
         tempsTabs.push({ label: '基本信息', name: 'basicinfo' })
       }
@@ -187,7 +186,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.isSeas, 1000000000)
   },
   methods: {
     closeDetail () {

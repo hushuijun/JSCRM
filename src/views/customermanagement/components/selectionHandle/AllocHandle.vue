@@ -94,7 +94,6 @@ export default {
         this.$message.error('请选择负责人')
       } else {
         var self = this
-        console.log(this.selectionList, 111111113456)
         let moduleName = ''
         if (self.crmType == 'seas') {
           moduleName = 'customer'
@@ -104,7 +103,6 @@ export default {
         var actionIds = this.selectionList.map(function(item, index, array) {
           return item[moduleName + 'Id']
         })
-        console.log(actionIds, 111111113456)
         var params = {
           userId: this.usersList[0].userId
         }

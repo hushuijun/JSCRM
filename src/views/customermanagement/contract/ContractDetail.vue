@@ -116,6 +116,10 @@ export default {
       default: () => {
         return ['el-table__body']
       }
+    },
+    tabCurName: {
+      type: String,
+      default: ""
     }
   },
   data() {
@@ -131,9 +135,13 @@ export default {
         { title: '回款金额（元）', value: '' },
         { title: '负责人', value: '' }
       ],
-      tabCurrentName: 'basicinfo',
-      isCreate: false // 编辑操作
+      tabCurrentName: '',
+      isCreate: false, // 编辑操作
+      batchId: ''
     }
+  },
+  created() {
+    this.tabCurrentName = this.tabCurName ? this.tabCurName : 'basicinfo'
   },
   computed: {
     tabName() {
@@ -201,7 +209,7 @@ export default {
         .then(res => {
           this.loading = false
           this.detailData = res.data // 创建回款计划的时候使用
-
+          this.batchId = res.data.batchId
           this.headDetails[0].value = res.data.num
           this.headDetails[1].value = res.data.customerName
           this.headDetails[2].value = res.data.money

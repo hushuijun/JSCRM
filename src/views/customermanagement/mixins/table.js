@@ -113,7 +113,6 @@ export default {
   methods: {
     /** 获取列表数据 */
     getList() {
-      console.log(this.isSeas, 9999999999888)
       this.loading = true
       var crmIndexRequest = this.getIndexRequest()
       var params = {
@@ -158,8 +157,6 @@ export default {
     },
     /** 获取列表请求 */
     getIndexRequest() {
-      console.log(this.crmType, 99999999)
-      console.log(this.isSeas, 99999999)
       if (this.crmType === 'leads') {
         return crmLeadsIndex
       } else if (this.crmType === 'customer') {
@@ -239,7 +236,6 @@ export default {
     //点击搜索
     searchList (info) {
       let params = {}
-      console.log(info, '搜索')
       if (this.crmType === 'customer') {
         info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
         info.mobile ? params.mobile = {"condition": "is", "value": info.mobile,"formType": "text","name": "mobile"} : ''
@@ -274,13 +270,11 @@ export default {
     /** 列表操作 */
     // 当某一行被点击时会触发该事件
     handleRowClick(row, column, event) {
-    //   console.log(column, 'columncolumncolumncolumn')
     //   if (column.type === 'selection') {
     //     return // 多选布局不能点击
     //   }
     //   if (this.crmType === 'leads') {
     //     if (column.property === 'leadsName' || !column.property) {
-    //       console.log('哈喽进入了吗')
     //       this.rowID = row.leadsId
     //       this.showDview = true
     //     } else {
@@ -368,7 +362,6 @@ export default {
       // }
     },
     deleteClick (info) {
-      console.log(info, 8888888)
       this.$confirm('确定要删除这条数据吗?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -404,10 +397,8 @@ export default {
     editClick (data, type) {
       data.type = type
       this.rowID = data[this.crmType+'Id']
-      console.log(this.rowID , 'this.rowID ')
       this.batchId = data['batchId']
       // detailHeadHandle(data) {
-      console.log('编辑状态', type)
       if (type === 'edit') {
         this.isCreate = true
       } else if (type === 'delete') {
@@ -438,7 +429,7 @@ export default {
       if (this.selectionList.length > 1) {
         this.$message({
           type: 'warning',
-          message: '只能选择一项查看跟进记录'
+          message: '只能选择一项'
         })
         return false
       }
@@ -447,18 +438,20 @@ export default {
         this.rowType = 'customer'
       } else if (this.crmType === 'business') {
         this.rowType = 'business'
+      } else if (this.crmType === 'contract') {
+        this.rowType = 'contract'
       }
       if (data.type == 'business') {
         this.tabCurrentName = 'business'
       } else if (data.type == 'follow_records'){
         this.tabCurrentName = 'followlog'
+      } else if (data.type == 'cash_plan') {
+        this.tabCurrentName = 'returnedmoney'
       }
-      console.log(this.rowID, '进来了吗')
       this.showDview = true
     },
     //查看详情
     detailClick (data) {
-      console.log(data, '查看数据')
       this.rowID = data[this.crmType+'Id']
       this.tabCurrentName = ''
       if (this.crmType === 'customer') {
@@ -469,7 +462,6 @@ export default {
         // this.rowID = row.customerId
         this.rowType = 'contract'
       }
-      console.log(this.rowID, '进来了吗')
       // this.rowID = row.leadsId
       this.showDview = true
       // this.handleRowClick()
@@ -539,21 +531,17 @@ export default {
     },
     /** 共有私有切换操作 */
     switchTab (data, typeId) {
-      console.log(data, 111111111)
       // this.sceneId = data
       // this.sceneName = data.name
       this.currentPage = 1
       if (this.crmType == 'leads') {
         this.status = data
       }
-      console.log(this.crmType, 'hhhhdhedndede')
-      // console.log(this.customer, 'hhhhdhedndede')
       if (this.crmType == 'customer' && typeId == '8') {
         this.isSeas = true
       } else {
         this.isSeas = false
       }
-      console.log(this.isSeas, 'hhhhdhedndede')
       this.getFieldList()
     },
     /** 勾选操作 */
@@ -587,11 +575,9 @@ export default {
     /** 勾选操作 */
     // 当选择项发生变化时会触发该事件
     handleSelectionChange(val) {
-      console.log(val,'gouxuan ')
       if (val.length == 1) {
         this.followId = val[0][this.crmType+'Id']
       }
-      console.log(this.followId, '勾选的id')
       this.selectionList = val // 勾选的行
       this.$refs.crmTableHead.headSelectionChange(val)
     },
@@ -681,7 +667,6 @@ export default {
     /** 新建商机 */
     createBusiness() {
       /** 客户 和 联系人 下可新建商机  */
-      console.log('进来了哈了吧')
       if (this.crmType == 'contacts') {
         this.createActionInfo.data['customer'] = this.detail
       } else if (this.crmType == 'customer') {
@@ -695,7 +680,6 @@ export default {
   },
   watch: {
     sceneId (value) {
-      console.log(value, 1234455566777)
     }
   },
 

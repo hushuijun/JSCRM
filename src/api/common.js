@@ -91,6 +91,13 @@ export function crmFileIndex(data) {
     data: data
   })
 }
+// 附件列表2
+export function crmFileIndexNew(data) {
+  return request({
+    url: 'file/queryByBatchId?batchId=' + data,
+    method: 'post',
+  })
+}
 
 /** 暂时客户管理里面也有 */
 // 附件删除接口

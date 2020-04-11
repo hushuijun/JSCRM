@@ -45,7 +45,6 @@ export default {
     }
   },
   props: {},
-  mounted() {},
   methods: {
     selectImage() {
       if (!this.disabled) {
@@ -67,6 +66,9 @@ export default {
     },
     // 发送请求
     sendFileRequest(file, result) {
+      if (this.dataValue.length > 0) {
+        this.batchId = this.dataValue[0].batchId
+      }
       var params = { file: file }
       if (this.batchId) {
         params.batchId = this.batchId

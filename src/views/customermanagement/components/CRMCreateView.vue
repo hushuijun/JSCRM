@@ -122,7 +122,8 @@ import {
   XhProduct,
   XhBusinessStatus,
   XhCustomerAddress,
-  XhReceivablesPlan // 回款计划期数
+  XhReceivablesPlan, // 回款计划期数
+  XhAuditTemplate
 } from '@/components/CreateCom'
 
 export default {
@@ -145,7 +146,8 @@ export default {
     XhProduct,
     XhBusinessStatus,
     XhCustomerAddress,
-    XhReceivablesPlan
+    XhReceivablesPlan,
+    XhAuditTemplate
   },
   computed: {
     /** 合同 回款 下展示审批人信息 */
@@ -231,8 +233,11 @@ export default {
       // else if (formType == 'map_address') {
       //   return 'XhCustomerAddress'
       // }
-       else if (formType == 'receivables_plan') {
+      else if (formType == 'receivables_plan') {
         return 'XhReceivablesPlan'
+      } 
+      else if (formType == 'audit_template') {
+        return 'XhAuditTemplate'
       }
     }
   },
@@ -265,7 +270,6 @@ export default {
     document.body.appendChild(this.$el)
     this.title = this.getTitle()
     this.getField()
-    console.log(this.crmType, '咋就不对呢')
   },
   methods: {
     //如果是编辑，或者信息填充
@@ -277,7 +281,6 @@ export default {
     //     .then(res => {
     //       this.loading = false
     //       this.detailData = res.data
-    //       console.log(this.crmForm.crmFields.length,  6666666)
     //       for (let i = 0; i < this.crmForm.crmFields.length; i++) {
     //         let card = this.crmForm.crmFields[i]
     //         this.crmForm.crmFields[i].value = this.detailData[this.crmForm.crmFields[i].key]
@@ -309,8 +312,6 @@ export default {
     //         //   this.crmForm.crmFields[i].value = this.detailData.customerName
     //         // }
     //       }
-    //       console.log(this.crmForm.crmFields, 12345667)
-
     //       // this.detailData = res.data
     //       // this.crmForm.crmFields = res.data
     //       // // 负责人
@@ -329,12 +330,8 @@ export default {
     },
     // 字段的值更新
     fieldValueChange(data) {
-      // console.log(data, '确定选择')
       var item = this.crmForm.crmFields[data.index]
-      console.log(data.value, '进入到这个数据了吗')
       item.value = data.value
-      // console.log(item.value, 111111119999990000)
-      // console.log(this.crmForm.crmFields, 'this.crmForm.crmFields')
       //商机下处理商机状态
       if (this.crmType == 'business' && item.data.formType == 'business_type') {
         //找到阶段数据
@@ -516,7 +513,10 @@ export default {
           item.formType == 'customer' ||
           item.formType == 'contract' ||
           item.formType == 'business' ||
-          item.formType == 'receivables_plan'
+          item.formType == 'receivables_plan' ||
+          item.formType == 'user' || 
+          item.formType == 'audit_template' ||
+          item.formType == 'file'
         ) {
           var params = {}
           params['key'] = item.fieldName
@@ -526,7 +526,6 @@ export default {
           params['disabled'] = this.getItemDisabledFromItem(item)
           params['styleIndex'] = showStyleIndex
           this.crmForm.crmFields.push(params)
-          console.log(this.crmForm.crmFields, 'this.crmForm.crmFields111111')
         } else if (item.formType == 'category') {
           /** 产品分类 */
           var params = {}
@@ -585,20 +584,17 @@ export default {
             item.formType == 'category' ||
             item.formType == 'customer' ||
             item.formType == 'business' ||
-            item.formType == 'contract'
+            item.formType == 'contract' ||
+            item.formType == 'audit_template'
           ) {
             if (this.action.type == 'update') {
-              console.log(item.formType, '进入到这里了吗1')
               params['value'] = item.value && typeof item.value == Object ? objDeepCopy(item.value) : []
-              console.log(params['value'], '进入到这里了吗1value')
-
             } else {
               params['value'] = item.defaultValue
                 ? objDeepCopy(item.defaultValue)
                 : []
             }
           } else {
-            console.log(item.formType, '进入到这里了吗2')
             if (this.action.type == 'update') {
               params['value'] = item.value || '' // 编辑的值 在value∂ç字段
             } else {
@@ -863,19 +859,19 @@ export default {
       this.saveAndCreate = saveAndCreate
       this.$refs.crmForm.validate(valid => {
         if (valid) {
-          if (this.showExamine) {
-            /** 验证审批数据 */
-            this.$refs.examineInfo.validateField(() => {
-              var params = this.getSubmiteParams(this.crmForm.crmFields)
-              if (this.examineInfo.examineType === 2) {
-                params['checkUserId'] = this.examineInfo.value[0].userId
-              }
-              this.submiteParams(params)
-            })
-          } else {
+          // if (this.showExamine) {
+          //   /** 验证审批数据 */
+          //   this.$refs.examineInfo.validateField(() => {
+          //     var params = this.getSubmiteParams(this.crmForm.crmFields)
+          //     if (this.examineInfo.examineType === 2) {
+          //       params['checkUserId'] = this.examineInfo.value[0].userId
+          //     }
+          //     this.submiteParams(params)
+          //   })
+          // } else {
             var params = this.getSubmiteParams(this.crmForm.crmFields)
             this.submiteParams(params)
-          }
+          // }
         } else {
           return false
         }
@@ -987,7 +983,8 @@ export default {
         element.key == 'contacts_id' ||
         element.key == 'business_id' ||
         element.key == 'leads_id' ||
-        element.key == 'contract_id'
+        element.key == 'contract_id' || 
+        element.key == 'examine_id'
       ) {
         if (element.value && element.value.length) {
           let key = element.key.replace('_id', 'Id')
@@ -998,7 +995,23 @@ export default {
       } else if (
         element.data.formType == 'user' ||
         element.data.formType == 'structure'
+        // element.key == 'company_user_id' ||
+        // element.key == 'owner_user_id'
       ) {
+        if (element.key == 'company_user_id') {
+          return element.value
+          .map(function(item, index, array) {
+            return element.data.formType == 'user' ? item.companyUserId ? item.companyUserId : item.userId : item.id
+          })
+          .join(',')
+        }
+        if (element.key == 'owner_user_id') {
+          return element.value
+          .map(function(item, index, array) {
+            return element.data.formType == 'user' ? item.ownerUserId ? item.ownerUserId : item.userId : item.id
+          })
+          .join(',')
+        }
         return element.value
           .map(function(item, index, array) {
             return element.data.formType == 'user' ? item.userId : item.id

@@ -65,7 +65,7 @@
                         :crm-type="crmType"
                         @filter="handleFilter"
                         @handle="handleHandle"
-                        @scene="handleScene"></c-r-m-table-head>
+                        @scene="handleScene" @handleRecordsClick="handleRecordsClick"></c-r-m-table-head>
       <el-table class="n-table--border"
                 id="crm-table"
                 v-loading="loading"
@@ -79,11 +79,11 @@
                 @row-click="handleRowClick"
                 @header-dragend="handleHeaderDragend"
                 @selection-change="handleSelectionChange">
-        <!-- <el-table-column show-overflow-tooltip
+        <el-table-column show-overflow-tooltip
                          type="selection"
                          align="center"
                          width="55">
-        </el-table-column> -->
+        </el-table-column>
         <el-table-column v-for="(item, index) in fieldList"
                          :key="index"
                          show-overflow-tooltip
@@ -157,7 +157,8 @@
                       :crmType="rowType"
                       :id="rowID"
                       @handle="handleHandle"
-                      class="d-view">
+                      class="d-view"
+                      :tabCurrentName='tabCurrentName'>
     </c-r-m-all-detail>
     <c-r-m-create-view v-if="isCreate"
                        crm-type="contract"

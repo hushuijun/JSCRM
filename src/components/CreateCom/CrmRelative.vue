@@ -140,7 +140,6 @@ export default {
       }
     }
     if (this.crmType) {
-      console.log(this.crmType, '比哦哦阿哥')
       this.leftType = this.crmType
       this.leftSides.push(leftItems[this.crmType])
     } else {
@@ -174,7 +173,6 @@ export default {
       this.$emit('close')
     },
     checkCrmTypeInfos(data) {
-      console.log(data, '用户')
       this.currentSelectedData[data.type] = data.data
       this.confirmClick()
     },

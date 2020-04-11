@@ -272,7 +272,6 @@ export default {
     },
     /** 操作 */
     selectionBarClick(type) {
-      console.log(type, '点击的type')
       if (this.selectionList.length === 0 && type != 'business') {
         this.$message({
           type: 'warning',
@@ -400,9 +399,10 @@ export default {
       } else if (type == 'follow_records') {
         this.$emit('handleRecordsClick', {type: 'follow_records'})
       } else if (type == 'business') {
-        console.log('进入到商机了吗')
         // this.$emit('handleRecordsClick', {type: 'business'})
         this.$emit('createBusiness', {type: 'business'})
+      } else if (type == 'cash_plan') {
+        this.$emit('handleRecordsClick', {type: 'cash_plan'})
       }
     },
     confirmHandle(type) {
@@ -512,8 +512,6 @@ export default {
     },
     /** 获取展示items */
     getSelectionHandleItemsInfo() {
-      console.log(this.crmType, 9999999)
-      console.log(this.isSeas, 9999999)
       let handleInfos = {
         transfer: {
           name: this.crmType == 'leads' ? '移交' : '转移' , 
@@ -702,15 +700,12 @@ export default {
       })
     },
     forSelectionHandleItems(handleInfos, array) {
-      console.log(handleInfos, 'handleInfos')
-      console.log(array, 'array')
       var tempsHandles = []
       for (let index = 0; index < array.length; index++) {
         if (array[index]) {
           tempsHandles.push(handleInfos[array[index]])
         }
       }
-      console.log(tempsHandles, 'tempsHandlestempsHandles')
       return tempsHandles
     },
     // 判断是否展示

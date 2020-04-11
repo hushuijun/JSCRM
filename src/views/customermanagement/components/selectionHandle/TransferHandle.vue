@@ -180,7 +180,6 @@ export default {
       this.usersList = data.value
     },
     handleConfirm(user) {
-      console.log(user, 2222222)
       // if (this.usersList.length === 0) {
       //   this.$message.error('请选择变更负责人')
       // } else {
@@ -206,7 +205,6 @@ export default {
         "mobile": this.mobile
       }).then(res => {
         this.conditionUsers = res.data
-        console.log(this.conditionUsers, 1111111)
       })
     },
     getRequest() {

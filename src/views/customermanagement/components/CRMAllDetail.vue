@@ -98,6 +98,10 @@ export default {
     tabCurrentName: {
       type: String,
       default: ''
+    },
+    batchId: {
+      type: String,
+      default: ''
     }
   },
   mounted() {
@@ -105,7 +109,6 @@ export default {
       document.body.appendChild(this.$el)
       this.$el.style.zIndex = getMaxIndex()
     }
-    console.log(this.isSeas, 'allDeatil')
   },
   methods: {
     hiddenView() {

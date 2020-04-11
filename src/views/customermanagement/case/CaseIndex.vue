@@ -7,7 +7,7 @@
 <script>
 // import ClueDetail from './ClueDetail'
 // import CRMCreateView from '../components/CRMCreateView'
-import table from '../mixins/table'
+// import table from '../mixins/table'
 // import table from '../mixins/detail'
 
 export default {
@@ -15,7 +15,7 @@ export default {
   name: 'caseIndex',
   components: {
   },
-  mixins: [table],
+  // mixins: [table],
   data() {
     return {
       

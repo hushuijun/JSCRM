@@ -251,7 +251,6 @@ export default {
     getFieldList() {
       if (this.fieldList.length == 0) {
         this.fieldList = this.getDefaultField()
-        console.log(this.fieldList, '默认的')
       }
       // 获取好字段开始请求数据
       this.getList()
@@ -268,7 +267,6 @@ export default {
     },
     handleConfirm (info) {
       this.selectedItem = [info]
-      console.log(this.selectedItem, 'this.selectedItem')
       this.$emit('changeCheckout', {
         data: this.selectedItem,
         type: this.crmType
@@ -278,7 +276,6 @@ export default {
     },
     /** 获取列表请求 */
     getDefaultField() {
-      console.log(this.crmType,  '新建商机')
       if (this.crmType === 'leads') {
         return [
           { name: '线索名称', field: 'name', formType: 'leads' },
@@ -379,7 +376,6 @@ export default {
       crmIndexRequest(params)
         .then(res => {
           this.list = res.data.list
-          console.log(this.list, 'this.list')
           /**
            *  如果已选择的有数据
            */
@@ -456,7 +452,6 @@ export default {
       } else {
         this.selectedItem = val
       }
-      console.log(this.selectedItem, '11111111111数据')
       this.$emit('changeCheckout', {
         data: this.selectedItem,
         type: this.crmType

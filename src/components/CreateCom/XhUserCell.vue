@@ -22,7 +22,7 @@
              class="user-item">{{item.realname}}
           <i class="delete-icon el-icon-close"></i>
         </div>
-        <div class="add-item">+{{placeholder}}</div>
+        <div class="add-item" v-if='dataValue.length==0'>+{{placeholder}}</div>
       </flexbox>
     </div>
   </el-popover>
@@ -69,14 +69,10 @@ export default {
       }
     }
   },
-  mounted() {
-    console.log('xhcess')
-  },
   methods: {
     /** 选中 */
     checkUsers(data) {
       this.dataValue = data.data
-      console.log(this.dataValue, 99999999888666)
       // this.showPopover = false
       // this.showSelectView = false
       this.$emit('value-change', {

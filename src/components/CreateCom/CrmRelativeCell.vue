@@ -83,7 +83,6 @@ export default {
   methods: {
     /** 选中 */
     checkInfos(data) {
-      console.log(this.item.data.formType, '咋回事呢')
       this.dataValue = data.data ? data.data : []
       this.$emit('value-change', {
         index: this.index,

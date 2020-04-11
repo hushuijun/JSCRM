@@ -151,10 +151,6 @@ export default {
             // }
             return item
           })
-          // if (this.dataInfo.ownerUserId && this.list.indexOf(this.dataInfo.ownerUserId) > -1) {
-          //   console.log(this.dataInfo, 11111111111222222898888)
-          //   this.handleConfirm(this.dataInfo)
-          // }
           this.loading = false
         })
         .catch(() => {
@@ -181,13 +177,10 @@ export default {
         "mobile": this.mobile
       }).then(res => {
         this.list = res.data
-        // ownerUserId
-        console.log(this.list, 1111111)
       })
     },
     handleConfirm (info) {
       this.selectItems = [info]
-      console.log(this.selectItems, 'this.selectItems')
       this.$emit('changeCheckout', { data: this.selectItems })
       this.$emit('close')
     },

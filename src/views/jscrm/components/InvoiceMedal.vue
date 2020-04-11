@@ -6,41 +6,18 @@
              :append-to-body="true"
              width="600px">
     <div class="handle-box">
-
-      <div style="margin-bottom:5px">
-                <span style="margin-left:10px">姓名</span> <el-input v-model="queryCondtion.realname" placeholder="请输入" class="input_width"></el-input>
-                <span style="margin-left:10px">手机号</span> <el-input v-model="queryCondtion.mobile" placeholder="请输入" class="input_width"></el-input>
-
-                <el-button  @click="getList()" style="float:right">查询</el-button>
-      </div>
-
        <el-table
     :data="tableData"
     border
     style="width: 100%">
     <el-table-column
-      prop="userId"
-      label="编号"
+      prop="contractId"
+      label="合同编号"
       >
     </el-table-column>
     <el-table-column
-      prop="realname"
-      label="名称"
-      >
-    </el-table-column>
-    <el-table-column
-      prop="mobile"
-      label="手机号"
-      >
-    </el-table-column>
-    <el-table-column
-      prop="deptName"
-      label="部门"
-      >
-    </el-table-column>
-    <el-table-column
-      prop="post"
-      label="岗位"
+      prop="name"
+      label="合同名称"
       >
     </el-table-column>
     <el-table-column
@@ -72,9 +49,7 @@
 
 <script>
 
-import {
-  usersList,
-} from '@/api/common'
+import { queryPageListContract } from '@/api/jscrm/money/comm'
 export default {
   /** 客户管理 的 勾选后的 团队成员 操作 移除操作不可移除客户负责人*/
   name: 'teams-handle',
@@ -82,30 +57,36 @@ export default {
   },
   data() {
     return {
-      tableData:[],
+      tableData:[{"caseId":3,"name":"案件标题","customerId":3},{"caseId":3,"name":"案件标题","customerId":3},{"caseId":3,"name":"案件标题","customerId":3}],
       loading: false, // 加载动画
       visible: false,
-      title:'选择用户',
+      title:'选择合同',
       queryCondtion:{
         page: 1,
         limit: 5,
-        realname:null,
-        mobile:null,
+        billType:null,
+        handPersonName:null,
+        caseId:null,
+        caseName:null,
       },
       total:0,
       pageSizes: [5,10, 20, 30, 40],
     }
   },
   computed: {},
+  create(){
+
+  },
   mounted() {
     this.getList();
   },
+
   methods: {
 
     /** 获取列表数据 */
     getList() {
       this.loading = true
-      usersList(this.queryCondtion)
+      queryPageListContract(this.queryCondtion)
         .then(res => {
           console.log(this.queryCondtion);
           this.tableData = res.data.list
@@ -127,7 +108,7 @@ export default {
 
     handleClick(row) {
       console.log(row);
-      this.$emit('getDataUser',row);
+      this.$emit('getDataCase',row);
       this.visible = false;
     },
 
@@ -151,9 +132,5 @@ export default {
 .handle-box {
   color: #333;
   font-size: 12px;
-}
-
-.input_width {
-  width: 100px;
 }
 </style>

@@ -64,8 +64,28 @@
                </el-select>   
             </el-form-item>
 
+
+        <el-form-item
+                          class="crm-create-item left-field" prop="costDate"
+                          style="">
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  费用日期
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+                <el-date-picker
+              v-model="record.costDate"
+              type="date" style="width:100%" 
+              placeholder="选择日期">
+            </el-date-picker>  
+            </el-form-item>   
+
+
             <el-form-item
-                          class="crm-create-item left-field" prop="costType"
+                          class="crm-create-item right-field" prop="costType"
                           style="">
               <div slot="label"
                    style="display: inline-block;">
@@ -88,23 +108,7 @@
             </el-form-item>
 
 
-            <el-form-item
-                          class="crm-create-item right-field" prop="costDate"
-                          style="">
-              <div slot="label"
-                   style="display: inline-block;">
-                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  费用日期
-                  <span style="color:#999;">
-                  </span>
-                </div>
-              </div>
-                <el-date-picker
-              v-model="record.costDate"
-              type="date" style="width:100%" 
-              placeholder="选择日期">
-            </el-date-picker>  
-            </el-form-item>
+            
 
             <el-form-item
                           class="crm-create-item left-field" prop="costMoney"
@@ -371,7 +375,7 @@ export default {
     getDataCase(data){
       this.record.caseId = data.caseId;
       this.record.caseName = data.name;
-      this.record.contractId = data.customerId;
+      this.record.contractId = data.contractId;
       console.log(this.record);
     },
 

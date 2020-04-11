@@ -136,7 +136,7 @@
                 </div>
               </div>
               <el-input
-                placeholder="请输入" maxlength="36"
+                placeholder="请输入" maxlength="36" :disabled="true"
                 v-model="record.contractId"
               >
               </el-input>  
@@ -153,8 +153,9 @@
                   </span>
                 </div>
               </div>
-              <el-input v-model="record.applyUserId"
+                <el-input v-model="record.applyUserId" :disabled="true" style="width: 70%"
                 ></el-input>
+              <el-button @click="selectUser()">选择</el-button>    
             </el-form-item>
 
             <el-form-item
@@ -168,8 +169,10 @@
                   </span>
                 </div>
               </div>
-              <el-input v-model="record.caseId"   placeholder="请输入内容"
+              <el-input v-model="record.caseName" :disabled="true" style="width: 70%"
                 ></el-input>
+              <!-- <el-button @click="">选择</el-button>   -->
+              <el-button @click="selectCase()">选择</el-button>  
             </el-form-item>
 
             <el-form-item
@@ -190,14 +193,23 @@
             <el-form-item
                           class="crm-create-item right-field" 
                           >
-              <div slot="label"
+              <!-- <div slot="label"
                    style="display: inline-block;">
                 <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
                   上传附件
                   <span style="color:#999;">
                   </span>
                 </div>
-              </div>
+              </div> -->
+               <el-button style="margin:10px 0px"
+                 @click.native="addFile"
+                 type="primary">上传附件</el-button>
+              <input type="file"
+                    id="file"
+                    class="rc-head-file"
+                    accept="*/*"
+                    @change="uploadFile"
+                    multiple>
             </el-form-item>
 
             <el-form-item
@@ -232,13 +244,18 @@
       </flexbox>
       
     </flexbox>
+    <CaseMedal ref="refCaseMedal" @getDataCase="getDataCase"></CaseMedal>
+    <UserMedal ref="refUserMedal" @getDataUser="getDataUser"></UserMedal>
   </create-view>
 </template>
 <script type="text/javascript">
 import CreateView from '@/components/CreateView'
 import { addData } from '@/api/jscrm/money/CostManage'
 import {formTypeNum,costTypeNum}from '@/views/jscrm/money/const/const'
+import { upload,download } from '@/api/jscrm/money/file'
 
+import CaseMedal from '@/views/jscrm/components/CaseMedal' // 引入案件medal
+import UserMedal from '@/views/jscrm/components/UserMedal' // 引入用户medal
 
 
 
@@ -246,7 +263,8 @@ export default {
   name: 'create-share', // 所有新建效果的view
   components: {
     CreateView,
-    
+    CaseMedal,
+    UserMedal,
   },
  
   data() {
@@ -263,7 +281,9 @@ export default {
         "costMoney": null,
         "moduleId": null,
         "applyUserId": null,
+        "applyUserName": null,
         "caseId": null,
+        "caseName": null,
         "id": null,
         "costName": null,
         "annexId": null,
@@ -294,11 +314,9 @@ export default {
           ],  
            contractId: [
             { required: true, message: '请输入合同编号', trigger: 'blur' },
-            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
           ],         
            applyUserId: [
             { required: true, message: '请输入申请人', trigger: 'blur' },
-            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
           ],  
           caseId: [
                 { required: true, message: '请输入关联案件', trigger: 'blur' },
@@ -350,6 +368,57 @@ export default {
           this.loading = false
         })
     },
+    getDataCase(data){
+      this.record.caseId = data.caseId;
+      this.record.caseName = data.name;
+      this.record.contractId = data.customerId;
+      console.log(this.record);
+    },
+
+    getDataUser(data){
+      this.record.applyUserId = data.userId;
+      this.record.applyUserName = data.realname;
+      console.log(this.record);
+    },
+
+    addFile() {
+      document.getElementById('file').click()
+    },
+    /** 图片选择出发 */
+    uploadFile(event) {
+      var files = event.target.files
+      var self = this
+      for (let index = 0; index < files.length; index++) {
+        const file = files[index]
+        // if (file.type.indexOf('image') != -1) {
+        var params = {}
+        var params = {}
+        // params.batchId = this.record.annexId;
+        // params.file = file
+        upload(params)
+          .then(res => {
+            // console.log(res);
+            // this.fileList.push(res.data);
+            // console.log(this.fileList);
+            // this.getFileList();
+            this.$message.success('上传成功')
+          })
+          .catch(() => {})
+        // }
+      }
+
+      event.target.value = ''
+    },
+
+
+    selectCase(){
+      this.$refs.refCaseMedal.visible=true;
+    },
+    selectUser(){
+      this.$refs.refUserMedal.visible=true;
+    },
+
+
   },
   destroyed() {
     // remove DOM node after destroy
@@ -461,5 +530,16 @@ export default {
     margin-top: 5px;
     margin-right: 20px;
   }
+}
+
+.rc-head-file {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 98px;
+  width: 98px;
+  opacity: 0;
+  z-index: -1;
+  cursor: pointer;
 }
 </style>

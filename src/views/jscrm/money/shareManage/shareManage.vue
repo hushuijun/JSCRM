@@ -45,7 +45,7 @@
        
         <el-table-column prop="title" label="标题" align="center" header-align="center"></el-table-column>
         <el-table-column prop="type" label="分润类型" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="ratio" label="分润占比" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="ratio" label="分润占比" :formatter="ratioFormat"align="center" header-align="center"></el-table-column>
         <el-table-column prop="createTime" label="时间" :formatter="dateFormat" align="center" header-align="center"></el-table-column>
         <el-table-column prop="state" label="状态" align="center" header-align="center"></el-table-column>
 
@@ -144,6 +144,11 @@ export default {
   methods: {
     dateFormat(row,column,cellValue){
       return cellValue ? fecha.format(new Date(cellValue),'yyyy-MM-dd'):'';
+    },
+
+    
+    ratioFormat(row,column,cellValue){
+      return cellValue+"%";
     },
 
     /** 获取列表数据 */

@@ -6,6 +6,14 @@
              :append-to-body="true"
              width="600px">
     <div class="handle-box">
+
+      <div style="margin-bottom:5px">
+                <span style="margin-left:10px">姓名</span> <el-input v-model="queryCondtion.realname" placeholder="请输入" class="input_width"></el-input>
+                <span style="margin-left:10px">手机号</span> <el-input v-model="queryCondtion.mobile" placeholder="请输入" class="input_width"></el-input>
+
+                <el-button  @click="getList()" style="float:right">查询</el-button>
+      </div>
+
        <el-table
     :data="tableData"
     border
@@ -18,6 +26,21 @@
     <el-table-column
       prop="realname"
       label="名称"
+      >
+    </el-table-column>
+    <el-table-column
+      prop="mobile"
+      label="手机号"
+      >
+    </el-table-column>
+    <el-table-column
+      prop="deptName"
+      label="部门"
+      >
+    </el-table-column>
+    <el-table-column
+      prop="post"
+      label="岗位"
       >
     </el-table-column>
     <el-table-column
@@ -65,8 +88,9 @@ export default {
       title:'选择用户',
       queryCondtion:{
         page: 1,
-        limit: 10,
+        limit: 5,
         realname:null,
+        mobile:null,
       },
       total:0,
       pageSizes: [5,10, 20, 30, 40],
@@ -127,5 +151,9 @@ export default {
 .handle-box {
   color: #333;
   font-size: 12px;
+}
+
+.input_width {
+  width: 100px;
 }
 </style>

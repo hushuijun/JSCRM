@@ -1,6 +1,9 @@
 export const billTyppNum=[
-    {'code':'普通发票'},
-    {'code':'增值税专用发票'}
+    {'code':'增值税专用发票'},
+    {'code':'增值税普通发票'},
+    {'code':'国税通用机打发票'},
+    {'code':'地税通用机打发票'},
+    {'code':'收据'},
 ]
 
 export const formTypeNum=[

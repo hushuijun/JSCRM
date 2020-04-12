@@ -20,14 +20,15 @@
                             :crmType="item.type"
                             :selectedData="currentSelectedData"
                             :action="action"
-                            @changeCheckout="checkCrmTypeInfos"></crm-relative-table>
+                            @changeCheckout="checkCrmTypeInfos" @close='closeView'
+                            ></crm-relative-table>
       </div>
     </div>
-    <div class="handle-bar">
+    <!-- <div class="handle-bar">
       <el-button @click.native="closeView">取消</el-button>
       <el-button @click.native="confirmClick"
                  type="primary">确定</el-button>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -173,6 +174,7 @@ export default {
     },
     checkCrmTypeInfos(data) {
       this.currentSelectedData[data.type] = data.data
+      this.confirmClick()
     },
     // 确定选择
     confirmClick() {
@@ -227,7 +229,7 @@ export default {
   left: 0;
   right: 0;
   z-index: 3;
-  border-bottom: 1px solid $xr-border-line-color;
+  // border-bottom: 1px solid $xr-border-line-color;
 }
 
 .handle-bar {

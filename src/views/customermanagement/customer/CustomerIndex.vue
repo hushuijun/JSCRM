@@ -1,6 +1,6 @@
 <template>
   <div>
-    <c-r-m-list-head title="客户管理"
+    <!-- <c-r-m-list-head title="客户管理"
                      placeholder="请输入客户名称/手机/电话"
                      :search.sync="search"
                      @on-handle="listHeadHandle"
@@ -8,16 +8,66 @@
                      main-title="新建客户"
                      @on-export="exportInfos"
                      :crm-type="crmType">
+    </c-r-m-list-head> -->
+    <div class="main-title">客户管理</div>
+    <el-tabs v-model="typeId" @tab-click="switchTab(crmType, typeId)" type="card">
+      <el-tab-pane label="私有客户" name="2"></el-tab-pane>
+      <el-tab-pane label="客户公海" name="8"></el-tab-pane>
+    </el-tabs>
+    <div class="input-container">
+      <span>客户姓名</span>
+      <el-input
+        placeholder=""
+        label="客户姓名" size="small" type="text" v-model="searchInfo.customer_name">
+      </el-input>
+    </div>
+    <div class="input-container">
+      <span>客户手机号</span>
+      <el-input
+        placeholder=""
+        label="客户手机号" size="small" v-model="searchInfo.mobile">
+      </el-input>
+    </div>
+    <div class="input-container">
+      <span>负责人</span>
+      <el-input
+        placeholder=""
+        label="负责人" size="small" v-model="searchInfo.realname">
+      </el-input>
+    </div>
+    <div class="input-container">
+      <span>创建时间</span>
+      <!-- <el-input
+        placeholder="请选择时间"
+        label="创建时间" size="small" v-model="searchInfo.create_time" suffix-icon="el-icon-date" disabled="false">
+      </el-input> -->
+      <el-date-picker
+        v-model="searchInfo.create_time"
+        type="date"
+        placeholder="选择日期" class="date-pick" value-format="yyyy-MM-dd">
+      </el-date-picker>
+    </div>
+    <el-row class="customer-search">
+      <el-button type="primary" @click="searchList(searchInfo)">搜索</el-button>
+    </el-row>
+    <!-- <el-row class="customer-search">
+      <el-button type="primary" @click="createClick">新建</el-button>
+    </el-row> -->
+    <c-r-m-list-head
+      main-title="新建"
+      :crm-type="crmType" @on-handle="listHeadHandle">
     </c-r-m-list-head>
     <div v-empty="!crm.customer.index"
          xs-empty-icon="nopermission"
          xs-empty-text="暂无权限"
          class="crm-container">
+         <!-- @handleRowClick='handleRowClick' -->
       <c-r-m-table-head ref="crmTableHead"
                         :crm-type="crmType"
                         @filter="handleFilter"
                         @handle="handleHandle"
-                        @scene="handleScene"></c-r-m-table-head>
+                        @scene="handleScene" :isSeas="isSeas" @handleRecordsClick="handleRecordsClick" @createBusiness='createBusiness'></c-r-m-table-head>
+      <!-- @row-click="handleRowClick" -->
       <el-table class="n-table--border"
                 id="crm-table"
                 v-loading="loading"
@@ -26,9 +76,8 @@
                 stripe
                 border
                 highlight-current-row
-                style="width: 100%"
+                style="width: 100%;"
                 :cell-style="cellStyle"
-                @row-click="handleRowClick"
                 @header-dragend="handleHeaderDragend"
                 @selection-change="handleSelectionChange">
         <el-table-column show-overflow-tooltip
@@ -36,7 +85,7 @@
                          align="center"
                          width="55">
         </el-table-column>
-        <el-table-column prop="businessCheck"
+        <!-- <el-table-column prop="businessCheck"
                          fixed
                          :resizable='false'
                          label=""
@@ -66,7 +115,7 @@
                  :style="{'opacity' :scope.row.businessCount > 0 ? 1 : 0}"></i>
             </el-popover>
           </template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column v-for="(item, index) in fieldList"
                          :key="index"
                          show-overflow-tooltip
@@ -94,13 +143,24 @@
         </el-table-column>
         <el-table-column>
         </el-table-column>
-        <el-table-column fixed="right"
+        <!-- <el-table-column fixed="right"
                          width="36">
           <template slot="header"
                     slot-scope="slot">
             <img src="@/assets/img/t_set.png"
                  @click="handleTableSet"
                  class="table-set" />
+          </template>
+        </el-table-column> -->
+        <el-table-column
+          fixed="right"
+          label="操作"
+          width="120"
+          type="operation">
+          <template slot-scope="scope">
+            <el-button @click="deleteClick(scope.row)" type="text" size="small">删除</el-button>
+            <el-button @click="editClick(scope.row, 'edit')" type="text" size="small">编辑</el-button>
+            <el-button @click="detailClick(scope.row)" type="text" size="small">详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -116,12 +176,28 @@
         </el-pagination>
       </div>
     </div>
+    <!-- :crm-type="createCRMType"
+                      :action="createActionInfo"
+                      @save-success="createSaveSuccess"
+                      @hiden-view="hideView" -->
+    <!-- <c-r-m-create-view v-if="isEdit" :operation='operationType' :id='customerId' :crmType='crmType'
+                      ></c-r-m-create-view> -->
     <!-- 相关详情页面 -->
+    <c-r-m-create-view v-if="isCreate"
+                       :crm-type="crmType"
+                       :action="{type: 'update', id: rowID, batchId: batchId}"
+                       @save-success="editSaveSuccess"
+                       @hiden-view="isCreate=false"></c-r-m-create-view>
+    <c-r-m-create-business v-if="isCreateBusiness"
+                       crm-type="business"
+                       :action="createActionInfo"
+                       @save-success="createSaveSuccess"
+                       @hiden-view="isCreateBusiness=false"></c-r-m-create-business>
     <c-r-m-all-detail :visible.sync="showDview"
                       :crmType="rowType"
                       :id="rowID"
                       @handle="handleHandle"
-                      class="d-view">
+                      class="d-view" :isSeas="isSeas" :tabCurrentName='tabCurrentName'>
     </c-r-m-all-detail>
     <fields-set :crmType="crmType"
                 @set-success="setSave"
@@ -133,25 +209,39 @@
 import { mapGetters } from 'vuex'
 import CRMAllDetail from '@/views/customermanagement/components/CRMAllDetail'
 import BusinessCheck from './components/BusinessCheck' // 相关商机
+import CRMCreateView from '../components/CRMCreateView'
+import CRMCreateBusiness from '../components/CRMCreateView'
 import table from '../mixins/table'
+import detail from '../mixins/detail'
 
 export default {
   /** 客户管理 的 客户列表 */
   name: 'customerIndex',
   components: {
     CRMAllDetail,
-    BusinessCheck
+    BusinessCheck,
+    CRMCreateView,
+    CRMCreateBusiness
   },
   mixins: [table],
   data() {
     return {
-      crmType: 'customer'
+      crmType: 'customer',
+      typeId: "2",
+      searchInfo: {
+        customer_name: '',
+        mobile: '',
+        create_time: '',
+        realname: ''
+      },
+      clickRow: {},
+      isEdit: false,
+      // searchDate: ''
     }
   },
   computed: {
     ...mapGetters(['CRMConfig'])
   },
-  mounted() {},
   methods: {
     relativeBusinessClick(data) {
       this.rowID = data.businessId
@@ -168,7 +258,11 @@ export default {
       } else {
         return ''
       }
-    },
+    },    
+    // 私有和公海tab切换
+    // switchTab () {
+
+    // },
     // 商机信息查看
     businessCheckClick(e, scope) {
       if (scope.row.businessCount == 0) {
@@ -189,6 +283,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/table.scss';
+.main-title {
+  font-size: 20px;
+  padding: 20px 0;
+}
 .customer-lock {
   color: #f15e64;
 }
@@ -199,5 +297,25 @@ export default {
 
 .el-table /deep/ tbody tr td:nth-child(3) {
   border-right: 1px solid #e6e6e6;
+}
+.input-container {
+  width: 230px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+.el-input--small{
+  width: 150px;
+  display: inline-block;
+}
+.customer-search {
+  display: inline-block;
+  
+}
+.date-pick {
+  width: 150px;
+  display: inline-block;
+}
+.el-button--small {
+  margin-left: 0;
 }
 </style>

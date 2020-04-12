@@ -2,28 +2,28 @@
   <div>
     <flexbox v-show="selectionList.length == 0"
              class="th-container">
-      <div v-if="!isSeas">场景：</div>
+      <!-- <div v-if="!isSeas">场景：</div> -->
       <el-popover v-if="!isSeas"
                   trigger="click"
                   popper-class="no-padding-popover"
                   v-model="showScene"
                   width="150">
-        <flexbox slot="reference">
+        <!-- <flexbox slot="reference">
           <div class="condition_title">{{sceneData.name || getDefaultSceneName()}}</div>
           <i class="el-icon-arrow-down el-icon--right"
              style="color:#777;"></i>
-        </flexbox>
+        </flexbox> -->
         <scene-list ref="sceneList"
                     :crmType="crmType"
                     @scene="sceneSelect"
                     @scene-handle="sceneHandle"
                     @hidden-scene="showScene=false"></scene-list>
       </el-popover>
-      <img @click="showFilterClick"
+      <!-- <img @click="showFilterClick"
            class="c-filtrate"
            :style="{ 'margin-left': isSeas ? 0 : '30px'}"
-           src="@/assets/img/c_filtrate.png" />
-      <div class="condition_title"
+           src="@/assets/img/c_filtrate.png" /> -->
+      <!-- <div class="condition_title"
            @click="showFilterClick">高级筛选</div>
       <filter-form :fieldList="fieldList"
                    :dialogVisible.sync="showFilter"
@@ -31,9 +31,10 @@
                    :crmType="crmType"
                    :isSeas="isSeas"
                    @filter="handleFilter">
-      </filter-form>
+      </filter-form> -->
     </flexbox>
-    <flexbox v-if="selectionList.length > 0"
+    <!-- v-if="selectionList.length > 0" -->
+    <flexbox
              class="selection-bar">
       <div class="selected—title">已选中<span class="selected—count">{{selectionList.length}}</span>项</div>
       <flexbox class="selection-items-box">
@@ -42,9 +43,12 @@
                  :key="index"
                  v-if="whetherTypeShowByPermision(item.type)"
                  @click.native="selectionBarClick(item.type)">
-          <img class="selection-item-icon"
-               :src="item.icon" />
-          <div class="selection-item-name">{{item.name}}</div>
+          <!-- <img class="selection-item-icon"
+               :src="item.icon" /> -->
+          <!-- <div class="selection-item-name">{{item.name}}</div> -->
+          <el-row class="customer-search">
+            <el-button type="primary">{{item.name}}</el-button>
+          </el-row>
         </flexbox>
       </flexbox>
     </flexbox>
@@ -87,7 +91,8 @@ import crmTypeModel from '@/views/customermanagement/model/crmTypeModel'
 import {
   filterIndexfields,
   crmSceneIndex,
-  crmSceneSave
+  crmSceneSave,
+  getUserAuth
 } from '@/api/customermanagement/common'
 import {
   crmLeadsTransform,
@@ -113,6 +118,7 @@ import {
   crmProductStatus,
   crmProductExcelExport
 } from '@/api/customermanagement/product'
+
 
 import filterForm from './filterForm'
 import filterContent from './filterForm/filterContent'
@@ -161,7 +167,8 @@ export default {
       transferDialogShow: false,
       teamsDialogShow: false, // 团队操作提示框
       teamsTitle: '', // 团队操作标题名
-      allocDialogShow: false // 公海分配操作提示框
+      allocDialogShow: false, // 公海分配操作提示框
+      istransfer: false
     }
   },
   watch: {},
@@ -179,6 +186,17 @@ export default {
     isSeas: {
       type: Boolean,
       default: false
+    },
+    clueType: {
+      type: String,
+      default: ''
+    }
+  },
+  created() {
+    if (this.crmType == 'leads') {
+      this.getUserAuthAccess(1)
+    } else if (this.crmType == 'customer') {
+      this.getUserAuthAccess(8)
     }
   },
   mounted() {},
@@ -254,6 +272,13 @@ export default {
     },
     /** 操作 */
     selectionBarClick(type) {
+      if (this.selectionList.length === 0 && type != 'business') {
+        this.$message({
+          type: 'warning',
+          message: '请选择一项或者多项'
+        })
+        return false
+      }
       if (type == 'transfer') {
         // 转移
         this.transferDialogShow = true
@@ -326,7 +351,11 @@ export default {
       ) {
         var message = ''
         if (type == 'transform') {
-          message = '确定将这些线索转换为客户吗?'
+          if (this.clueType == 1) {
+            message = '确定认领?'
+          } else {
+            message = '确定将这些线索转换为客户吗?'
+          }
         } else if (type == 'put_seas') {
           message = '确定转移到公海吗?'
         } else if (type == 'delete') {
@@ -367,6 +396,13 @@ export default {
       } else if (type == 'alloc') {
         // 公海分配操作
         this.allocDialogShow = true
+      } else if (type == 'follow_records') {
+        this.$emit('handleRecordsClick', {type: 'follow_records'})
+      } else if (type == 'business') {
+        // this.$emit('handleRecordsClick', {type: 'business'})
+        this.$emit('createBusiness', {type: 'business'})
+      } else if (type == 'cash_plan') {
+        this.$emit('handleRecordsClick', {type: 'cash_plan'})
       }
     },
     confirmHandle(type) {
@@ -478,29 +514,39 @@ export default {
     getSelectionHandleItemsInfo() {
       let handleInfos = {
         transfer: {
-          name: '转移',
+          name: this.crmType == 'leads' ? '移交' : '转移' , 
           type: 'transfer',
-          icon: require('@/assets/img/selection_transfer.png')
+          // icon: require('@/assets/img/selection_transfer.png')
         },
         transform: {
-          name: '转化为客户',
+          name: this.crmType == 'leads' && this.clueType != 1 ? '转为客户' : this.clueType == 1 ? '认领' : '转化为客户' ,
           type: 'transform',
-          icon: require('@/assets/img/selection_convert_customer.png')
+          // icon: require('@/assets/img/selection_convert_customer.png')
         },
         export: {
           name: '导出选中',
           type: 'export',
-          icon: require('@/assets/img/selection_export.png')
+          // icon: require('@/assets/img/selection_export.png')
+        },
+        follow_records: {
+          name: '跟进记录',
+          type: 'follow_records',
+          // icon: require('@/assets/img/selection_delete.png')
+        },
+        business: {
+          name: '新建商机',
+          type: 'business',
+          // icon: require('@/assets/img/selection_delete.png')
         },
         delete: {
           name: '删除',
           type: 'delete',
-          icon: require('@/assets/img/selection_delete.png')
+          // icon: require('@/assets/img/selection_delete.png')
         },
         put_seas: {
           name: '放入公海',
           type: 'put_seas',
-          icon: require('@/assets/img/selection_putseas.png')
+          // icon: require('@/assets/img/selection_putseas.png')
         },
         lock: {
           name: '锁定',
@@ -523,9 +569,9 @@ export default {
           icon: require('@/assets/img/selection_delete_user.png')
         },
         alloc: {
-          name: '分配',
+          name: this.clueType == 1 ? '移交' : '分配',
           type: 'alloc',
-          icon: require('@/assets/img/selection_alloc.png')
+          // icon: require('@/assets/img/selection_alloc.png')
         },
         get: {
           name: '领取',
@@ -541,32 +587,77 @@ export default {
           name: '下架',
           type: 'disable',
           icon: require('@/assets/img/selection_disable.png')
-        }
+        },
+        claim: {
+          name: '认领',
+          type: 'claim',
+          // icon: require('@/assets/img/selection_disable.png')
+        },
+        cash_plan: {
+          name: '新建回款计划',
+          type: 'cash_plan',
+          // icon: require('@/assets/img/selection_disable.png')
+        },
+        // all_business: {
+        //   name: '全部商机',
+        //   type: 'all_business',
+        //   // icon: require('@/assets/img/selection_disable.png')
+        // }
       }
       if (this.crmType == 'leads') {
+        if (this.clueType == 0) {
+          return this.forSelectionHandleItems(handleInfos, [
+            'transform',
+            'transfer',
+            'follow_records'
+          // 'export',
+          // 'delete'
+          ])
+        }
+        if (this.clueType == 1) {
+          return this.forSelectionHandleItems(handleInfos, [
+            'transform',
+            // 'alloc',
+            this.istransfer ? 'alloc' : '',
+          // 'export',
+          // 'delete'
+          ])
+        }
+        if (this.clueType == 2) {
+          return this.forSelectionHandleItems(handleInfos, [
+          // 'export',
+          // 'delete'
+          ])
+        }
+      } else if (this.crmType == 'seas') {
         return this.forSelectionHandleItems(handleInfos, [
-          'transfer',
-          'transform',
-          'export',
-          'delete'
-        ])
-      } else if (this.crmType == 'customer') {
+            // 'alloc',
+            this.istransfer ? 'alloc' : '',
+            'get',
+            // 'export'
+          ])
+      }
+      else if (this.crmType == 'customer') {
         if (this.isSeas) {
           return this.forSelectionHandleItems(handleInfos, [
-            'alloc',
             'get',
-            'export'
+            'alloc'
+            // 'export'
           ])
         } else {
-          return this.forSelectionHandleItems(handleInfos, [
-            'transfer',
-            'export',
-            'put_seas',
-            'delete',
-            'lock',
-            'unlock',
-            'add_user',
-            'delete_user'
+        return this.forSelectionHandleItems(handleInfos, [
+          'put_seas',
+          'transfer',
+          // 'export',
+          'follow_records',
+          'business'
+          // 'delete',
+          // 'follow_records',
+          // 'business'
+          // 'lock',
+          // 'unlock',
+          // 'add_user',
+          // 'delete_user'
           ])
         }
       } else if (this.crmType == 'contacts') {
@@ -577,17 +668,20 @@ export default {
         ])
       } else if (this.crmType == 'business') {
         return this.forSelectionHandleItems(handleInfos, [
-          'transfer',
-          'delete',
-          'add_user',
-          'delete_user'
+          // 'transfer',
+          // 'delete',
+          // 'all_business',
+          'follow_records'
+          // 'add_user',
+          // 'delete_user'
         ])
       } else if (this.crmType == 'contract') {
         return this.forSelectionHandleItems(handleInfos, [
-          'transfer',
-          'delete',
-          'add_user',
-          'delete_user'
+          'cash_plan'
+          // 'transfer',
+          // 'delete',
+          // 'add_user',
+          // 'delete_user'
         ])
       } else if (this.crmType == 'receivables') {
         return this.forSelectionHandleItems(handleInfos, ['delete'])
@@ -599,10 +693,18 @@ export default {
         ])
       }
     },
+    // 获取权限
+    getUserAuthAccess(type) {
+      getUserAuth(type).then((res) => {
+        this.istransfer = res.data
+      })
+    },
     forSelectionHandleItems(handleInfos, array) {
       var tempsHandles = []
       for (let index = 0; index < array.length; index++) {
-        tempsHandles.push(handleInfos[array[index]])
+        if (array[index]) {
+          tempsHandles.push(handleInfos[array[index]])
+        }
       }
       return tempsHandles
     },
@@ -673,7 +775,7 @@ export default {
 <style lang="scss" scoped>
 .th-container {
   font-size: 13px;
-  height: 50px;
+  // height: 50px;
   padding: 0 20px;
 }
 /** 场景和筛选 */

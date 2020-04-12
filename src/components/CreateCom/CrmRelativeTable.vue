@@ -1,6 +1,6 @@
 <template>
   <div class="cr-body-content">
-    <flexbox class="content-header">
+    <!-- <flexbox class="content-header">
       <div v-if="!isRelationShow">场景：</div>
       <el-dropdown v-if="!isRelationShow"
                    trigger="click"
@@ -25,30 +25,55 @@
       <el-button class="create-button"
                  @click="isCreate=true"
                  type="primary">新建</el-button>
-    </flexbox>
+    </flexbox> -->
+    <div class="input-container input-container-noleft">
+      <span class="search-text">客户姓名</span>
+      <el-input
+        placeholder=""
+        label="客户姓名" size="small" type="text" v-model="searchInfo.customer_name">
+      </el-input>
+    </div>
+    <div class="input-container">
+      <span class="search-text">手机号</span>
+      <el-input
+        placeholder=""
+        label="手机号" size="small" v-model="searchInfo.mobile">
+      </el-input>
+    </div>
+    <el-row class="customer-search">
+      <el-button type="primary" @click="searchList(searchInfo)">搜索</el-button>
+    </el-row>
     <el-table class="cr-table"
               ref="relativeTable"
               :data="list"
               v-loading="loading"
-              :height="250"
+              :height="300"
               stripe
               border
               highlight-current-row
-              style="width: 100%"
+              style="width: 560px;"
               @select-all="selectAll"
               @selection-change="handleSelectionChange"
               @row-click="handleRowClick">
-      <el-table-column show-overflow-tooltip
+      <!-- <el-table-column show-overflow-tooltip
                        type="selection"
                        align="center"
-                       width="55"></el-table-column>
+                       width="150"></el-table-column> -->
       <el-table-column v-for="(item, index) in fieldList"
                        :key="index"
                        show-overflow-tooltip
                        :prop="item.field"
                        :label="item.name"
                        :width="150"></el-table-column>
-      <el-table-column></el-table-column>
+      <!-- <el-table-column></el-table-column> -->
+      <el-table-column
+            label="操作"
+            prop="确认"
+            width="80">
+            <template slot-scope="scope">
+              <el-button type="text" size="small" @click="handleConfirm(scope.row)">确认</el-button>
+            </template>
+      </el-table-column>
     </el-table>
     <div class="table-footer">
       <el-button @click.native="changePage('up')"
@@ -146,7 +171,11 @@ export default {
       currentPage: 1, // 当前页数
       totalPage: 1, //总页数
 
-      selectedItem: [] // 勾选的数据 点击确定 传递给父组件
+      selectedItem: [], // 勾选的数据 点击确定 传递给父组件
+      searchInfo: {
+        customer_name: '',
+        mobile: ''
+      },
     }
   },
   props: {
@@ -226,6 +255,25 @@ export default {
       // 获取好字段开始请求数据
       this.getList()
     },
+    searchList (info) {
+      let params = {}
+      if (this.crmType === 'customer') {
+        info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
+        info.mobile ? params.mobile = {"condition": "is", "value": info.mobile,"formType": "text","name": "mobile"} : ''
+      }
+      this.filterObj = params
+      this.currentPage = 1
+      this.getList()
+    },
+    handleConfirm (info) {
+      this.selectedItem = [info]
+      this.$emit('changeCheckout', {
+        data: this.selectedItem,
+        type: this.crmType
+      })
+      // this.$emit('changeCheckout', { data: this.selectedItem })
+      this.$emit('close')
+    },
     /** 获取列表请求 */
     getDefaultField() {
       if (this.crmType === 'leads') {
@@ -238,9 +286,11 @@ export default {
       } else if (this.crmType === 'customer') {
         return [
           { name: '客户名称', field: 'customerName', formType: 'customer' },
-          { name: '下次联系时间', field: 'nextTime', formType: 'datetime' },
-          { name: '最后跟进时间', field: 'updateTime', formType: 'datetime' },
-          { name: '创建时间 ', field: 'createTime', formType: 'datetime' }
+          { name: '手机号', field: 'telephone', formType: 'text' },
+          { name: '客户级别', field: '客户级别', formType: 'text' }
+          // { name: '下次联系时间', field: 'nextTime', formType: 'datetime' },
+          // { name: '最后跟进时间', field: 'updateTime', formType: 'datetime' },
+          // { name: '创建时间 ', field: 'createTime', formType: 'datetime' }
         ]
       } else if (this.crmType === 'contacts') {
         return [
@@ -257,6 +307,10 @@ export default {
           { name: '客户名称', field: 'customerName', formType: 'text' },
           { name: '商机状态组 ', field: 'typeName', formType: 'text' },
           { name: '状态 ', field: 'statusName', formType: 'text' }
+          // { name: '姓名 ', field: 'business_name', formType: 'text' },
+          // { name: '手机号', field: 'statusName', formType: 'text' },
+          // { name: '客户级别', field: 'statusName', formType: 'text' },
+          // { name: '姓名 ', field: 'statusName', formType: 'text' }
         ]
       } else if (this.crmType === 'contract') {
         return [
@@ -315,6 +369,9 @@ export default {
         params.page = this.currentPage
         params.limit = 10
         params.type = crmTypeModel[this.crmType]
+      }
+      if (this.filterObj && Object.keys(this.filterObj).length > 0) {
+        params.data = this.filterObj
       }
       crmIndexRequest(params)
         .then(res => {
@@ -428,9 +485,30 @@ export default {
 .cr-body-content {
   position: relative;
   background-color: white;
-  border-bottom: 1px solid $xr-border-line-color;
+  padding-left: 20px;
+  // border-bottom: 1px solid $xr-border-line-color;
 }
-
+.input-container {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding-left: 20px;
+}
+.input-container-noleft {
+ padding-left: 0;
+}
+.search-text {
+  justify-items: left;
+  display: inline-block;
+  // width: 100px;
+}
+.el-input--small {
+  width: 150px;
+  display: inline-block;
+}
+.customer-search {
+  display: inline-block;
+  margin-left: 15px;
+}
 .content-header {
   position: relative;
   padding: 10px 20px;

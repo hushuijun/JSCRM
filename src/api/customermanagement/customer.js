@@ -53,6 +53,14 @@ export function crmCustomerRead(data) {
     data: data
   })
 }
+//获取全局用户 getUserByCondition
+export function getUserByCondition(data) {
+  return request({
+    url: '/system/user/queryListByCondition',
+    method: 'post',
+    data: data
+  })
+}
 
 // 操作
 /**

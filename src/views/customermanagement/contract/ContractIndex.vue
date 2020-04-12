@@ -1,11 +1,60 @@
 <template>
   <div>
+    <div class="input-container">
+      <span>客户姓名</span>
+      <el-input
+        placeholder=""
+        label="客户姓名" size="small" type="text" v-model="searchInfo.customer_name">
+      </el-input>
+    </div>
+    <div class="input-container">
+      <span>合同名称</span>
+      <el-input
+        placeholder=""
+        label="合同名称" size="small" v-model="searchInfo.name">
+      </el-input>
+    </div>
+    <div class="input-container">
+      <span>负责人</span>
+      <el-input
+        placeholder=""
+        label="负责人" size="small" v-model="searchInfo.owner_user_name">
+      </el-input>
+    </div>
+    <div class="input-container">
+      <span>合同状态</span>
+      <el-select v-model="searchInfo.check_status" placeholder="请选择">
+        <el-option
+          v-for="item in statusList"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
+    </div>
+    <div class="input-container">
+      <span>客户签署人</span>
+      <el-input
+        placeholder=""
+        label="客户签署人" size="small" v-model="searchInfo.contacts_name">
+      </el-input>
+    </div>
+    <div class="input-container">
+      <span>公司签署人</span>
+      <el-input
+        placeholder=""
+        label="公司签署人" size="small" v-model="searchInfo.telephone">
+      </el-input>
+    </div>
+    <el-row class="customer-search">
+      <el-button type="primary" @click="searchList(searchInfo)">搜索</el-button>
+    </el-row>
     <c-r-m-list-head title="合同管理"
                      placeholder="请输入合同名称"
                      :search.sync="search"
                      @on-handle="listHeadHandle"
                      @on-search="crmSearch"
-                     main-title="新建合同"
+                     main-title="新建"
                      :crm-type="crmType">
     </c-r-m-list-head>
     <div v-empty="!crm.contract.index"
@@ -16,7 +65,7 @@
                         :crm-type="crmType"
                         @filter="handleFilter"
                         @handle="handleHandle"
-                        @scene="handleScene"></c-r-m-table-head>
+                        @scene="handleScene" @handleRecordsClick="handleRecordsClick"></c-r-m-table-head>
       <el-table class="n-table--border"
                 id="crm-table"
                 v-loading="loading"
@@ -77,6 +126,18 @@
                  class="table-set" />
           </template>
         </el-table-column>
+        <el-table-column
+          fixed="right"
+          label="操作"
+          width="150"
+          type="operation">
+          <template slot-scope="scope">
+            <el-button @click="deleteClick(scope.row)" type="text" size="small">删除</el-button>
+            <el-button @click="editClick(scope.row, 'edit')" type="text" size="small">编辑</el-button>
+            <el-button @click="detailClick(scope.row)" type="text" size="small">详情</el-button>
+            <el-button @click="statusClick(scope.row)" type="text" size="small">提交审核</el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <div class="p-contianer">
         <el-pagination class="p-bar"
@@ -88,7 +149,7 @@
                        layout="total, sizes, prev, pager, next, jumper"
                        :total="total">
         </el-pagination>
-        <span class="money-bar">合同总金额：{{moneyPageData.contractMoney || 0}} / 已回款金额：{{moneyPageData.receivedMoney || 0}}</span>
+        <!-- <span class="money-bar">合同总金额：{{moneyPageData.contractMoney || 0}} / 已回款金额：{{moneyPageData.receivedMoney || 0}}</span> -->
       </div>
     </div>
     <!-- 相关详情页面 -->
@@ -96,8 +157,14 @@
                       :crmType="rowType"
                       :id="rowID"
                       @handle="handleHandle"
-                      class="d-view">
+                      class="d-view"
+                      :tabCurrentName='tabCurrentName'>
     </c-r-m-all-detail>
+    <c-r-m-create-view v-if="isCreate"
+                       crm-type="contract"
+                       :action="{type: 'update', id: rowID, batchId: batchId}"
+                       @save-success="editSaveSuccess"
+                       @hiden-view="isCreate=false"></c-r-m-create-view>
     <fields-set :crmType="crmType"
                 @set-success="setSave"
                 :dialogVisible.sync="showFieldSet"></fields-set>
@@ -118,7 +185,23 @@ export default {
   data() {
     return {
       crmType: 'contract',
-      moneyData: null //合同列表金额
+      moneyData: null, //合同列表金额
+      searchInfo: {
+        customer_name: "",
+        name: "",
+        owner_user_name: "",
+        contacts_name: "",
+        company_user_name: "",
+        check_status: ""
+      },
+      statusList: [
+        {value: '', label: '全部'},
+        {value: 0, label: '待审核'},
+        {value: 1, label: '审核中'},
+        {value: 2, label: '审核通过'},
+        {value: 3, label: '审核未通过'},
+        {value: 4, label: '已撤回'}
+      ]
     }
   },
   computed: {
@@ -171,5 +254,32 @@ export default {
   position: absolute;
   left: 20px;
   top: 0;
+}
+.input-container {
+  width: 246px;
+  display: inline-block;
+  margin-bottom: 20px;
+  span {
+    width: 72px;
+    display: inline-block;
+  }
+}
+.el-input--small{
+  width: 150px;
+  display: inline-block;
+}
+.customer-search {
+  display: inline-block;
+  
+}
+.date-pick {
+  width: 150px;
+  display: inline-block;
+}
+.el-button--small {
+  margin-left: 0;
+}
+.el-select {
+  width: 150px;
 }
 </style>

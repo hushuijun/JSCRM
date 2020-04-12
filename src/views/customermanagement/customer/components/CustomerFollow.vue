@@ -8,7 +8,7 @@
                :show-relative-business="true"
                :show-relative-contacts="true"></mix-add>
       <flexbox class="se-section">
-        <div class="se-name">记录类型</div>
+        <div class="se-name">跟进方式</div>
         <el-dropdown style="margin-right: 20px;"
                      trigger="click"
                      @command="handleTypeDrop">
@@ -23,7 +23,7 @@
                               :command="item.type">{{item.name}}</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <div class="se-name">下次联系时间</div>
+        <div class="se-name">下次跟进时间</div>
         <el-date-picker class="se-datepicker"
                         v-model="nextTime"
                         type="datetime"
@@ -32,7 +32,7 @@
                         value-format="yyyy-MM-dd HH:mm:ss"
                         :editable="false">
         </el-date-picker>
-        <el-checkbox v-model="isEvent">添加到日程提醒</el-checkbox>
+        <!-- <el-checkbox v-model="isEvent">添加到日程提醒</el-checkbox> -->
         <el-button @click.native="sendInfo"
                    class="se-send"
                    type="primary">发布</el-button>
@@ -110,10 +110,10 @@ export default {
       logTypes: [
         // { type: 'all', name: '全部' },
         { type: 'record', name: '跟进记录' },
-        { type: 'log', name: '日志' },
-        { type: 'examine', name: '审批' },
-        { type: 'task', name: '任务' },
-        { type: 'schedule', name: '日程' }
+        // { type: 'log', name: '日志' },
+        // { type: 'examine', name: '审批' },
+        // { type: 'task', name: '任务' },
+        // { type: 'schedule', name: '日程' }
       ],
       recordList: [] // 跟进记录列表
     }

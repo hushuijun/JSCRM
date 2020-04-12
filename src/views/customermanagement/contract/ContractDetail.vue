@@ -12,21 +12,22 @@
              direction="column"
              align="stretch"
              class="d-container">
-      <c-r-m-detail-head crmType="contract"
+      <!-- <c-r-m-detail-head crmType="contract"
                          @handle="detailHeadHandle"
                          @close="hideView"
                          :detail="detailData"
                          :headDetails="headDetails"
                          :id="id">
-      </c-r-m-detail-head>
-      <div class="examine-info">
+      </c-r-m-detail-head> -->
+      <!-- <div class="examine-info">
         <examine-info :id="id"
                       class="examine-info-border"
                       examineType="crm_contract"
                       :recordId="detailData.examineRecordId"
                       :ownerUserId="detailData.ownerUserId">
         </examine-info>
-      </div>
+      </div> -->
+      <div class="close-detail el-icon-close" @click="closeDetail"></div>
       <div class="tabs">
         <el-tabs v-model="tabCurrentName"
                  @tab-click="handleClick">
@@ -60,6 +61,7 @@ import { crmContractRead } from '@/api/customermanagement/contract'
 import SlideView from '@/components/SlideView'
 import CRMDetailHead from '../components/CRMDetailHead'
 import ContractFollow from './components/ContractFollow' // 跟进记录
+import ContractProcess from './components/ContractProcess' // 审核流程
 import CRMBaseInfo from '../components/CRMBaseInfo' // 商机基本信息
 import RelativeHandle from '../components/RelativeHandle' //相关操作
 import RelativeTeam from '../components/RelativeTeam' //相关团队
@@ -88,7 +90,8 @@ export default {
     RelativeReturnMoney,
     RelativeFiles,
     ExamineInfo,
-    CRMCreateView
+    CRMCreateView,
+    ContractProcess
   },
   mixins: [detail],
   props: {
@@ -113,6 +116,10 @@ export default {
       default: () => {
         return ['el-table__body']
       }
+    },
+    tabCurName: {
+      type: String,
+      default: ""
     }
   },
   data() {
@@ -128,46 +135,67 @@ export default {
         { title: '回款金额（元）', value: '' },
         { title: '负责人', value: '' }
       ],
-      tabCurrentName: 'followlog',
-      isCreate: false // 编辑操作
+      tabCurrentName: '',
+      isCreate: false, // 编辑操作
+      batchId: ''
     }
+  },
+  created() {
+    this.tabCurrentName = this.tabCurName ? this.tabCurName : 'basicinfo'
   },
   computed: {
     tabName() {
-      if (this.tabCurrentName == 'followlog') {
-        return 'contract-follow'
-      } else if (this.tabCurrentName == 'basicinfo') {
+      // if (this.tabCurrentName == 'followlog') {
+      //   return 'contract-follow'
+      // } else if (this.tabCurrentName == 'basicinfo') {
+      //   return 'c-r-m-base-info'
+      // } else if (this.tabCurrentName == 'team') {
+      //   return 'relative-team'
+      // } else if (this.tabCurrentName == 'contract') {
+      //   return 'relative-contract'
+      // } else if (this.tabCurrentName == 'operationlog') {
+      //   return 'relative-handle'
+      // } else if (this.tabCurrentName == 'product') {
+      //   return 'relative-product'
+      // } else if (this.tabCurrentName == 'returnedmoney') {
+      //   return 'relative-return-money'
+      // } else if (this.tabCurrentName == 'file') {
+      //   return 'relative-files'
+      // }
+      if (this.tabCurrentName == 'basicinfo') { 
         return 'c-r-m-base-info'
-      } else if (this.tabCurrentName == 'team') {
-        return 'relative-team'
-      } else if (this.tabCurrentName == 'contract') {
-        return 'relative-contract'
-      } else if (this.tabCurrentName == 'operationlog') {
-        return 'relative-handle'
-      } else if (this.tabCurrentName == 'product') {
-        return 'relative-product'
-      } else if (this.tabCurrentName == 'returnedmoney') {
-        return 'relative-return-money'
+      } else if (this.tabCurrentName == 'approvalprocess') {
+        return 'contract-process'
       } else if (this.tabCurrentName == 'file') {
         return 'relative-files'
+      } else if (this.tabCurrentName == 'returnedmoney') {
+        return 'relative-return-money'
       }
       return ''
     },
     tabnames() {
       var tempsTabs = []
-      tempsTabs.push({ label: '跟进记录', name: 'followlog' })
-      if (this.crm.contract && this.crm.contract.read) {
-        tempsTabs.push({ label: '基本信息', name: 'basicinfo' })
-      }
-      if (this.crm.product && this.crm.product.index) {
-        tempsTabs.push({ label: '产品', name: 'product' })
-      }
-      if (this.crm.receivables && this.crm.receivables.index) {
-        tempsTabs.push({ label: '回款信息', name: 'returnedmoney' })
-      }
-      tempsTabs.push({ label: '相关团队', name: 'team' })
-      tempsTabs.push({ label: '附件', name: 'file' })
-      tempsTabs.push({ label: '操作记录', name: 'operationlog' })
+      // tempsTabs.push({ label: '跟进记录', name: 'followlog' })
+      // if (this.crm.contract && this.crm.contract.read) {
+      //   tempsTabs.push({ label: '基本信息', name: 'basicinfo' })
+      // }
+      // if (this.crm.contract && this.crm.contract.read) {
+      //   tempsTabs.push({ label: '基本信息', name: 'basicinfo' })
+      // }
+      // if (this.crm.product && this.crm.product.index) {
+      //   tempsTabs.push({ label: '产品', name: 'product' })
+      // }
+      // if (this.crm.receivables && this.crm.receivables.index) {
+      //   tempsTabs.push({ label: '回款信息', name: 'returnedmoney' })
+      // }
+      // tempsTabs.push({ label: '相关团队', name: 'team' })
+      // tempsTabs.push({ label: '附件', name: 'file' })
+      // tempsTabs.push({ label: '操作记录', name: 'operationlog' })
+      tempsTabs.push({ label: '合同详情', name: 'basicinfo' })
+      tempsTabs.push({ label: '审核流程', name: 'approvalprocess' })
+      tempsTabs.push({ label: '附件列表', name: 'file' })
+      tempsTabs.push({ label: '回款信息', name: 'returnedmoney' })
+
       return tempsTabs
     }
   },
@@ -181,7 +209,7 @@ export default {
         .then(res => {
           this.loading = false
           this.detailData = res.data // 创建回款计划的时候使用
-
+          this.batchId = res.data.batchId
           this.headDetails[0].value = res.data.num
           this.headDetails[1].value = res.data.customerName
           this.headDetails[2].value = res.data.money
@@ -197,6 +225,9 @@ export default {
     hideView() {
       this.$emit('hide-view')
     },
+    closeDetail () {
+      this.$emit("hide-view")
+    },
     //** tab标签点击 */
     handleClick(tab, event) {},
     editSaveSuccess() {
@@ -209,4 +240,12 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/crmdetail.scss';
+.el-icon-close:before {
+  font-size: 30px;
+  color: #666;
+  position: fixed;
+  right: 24px;
+  top: 65px;
+  z-index: 99;
+}
 </style>

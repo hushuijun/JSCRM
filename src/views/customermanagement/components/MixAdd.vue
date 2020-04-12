@@ -203,23 +203,23 @@ export default {
   computed: {},
   mounted() {
     /** 控制展示关联商机 和 联系人 */
-    if (this.showRelativeBusiness) {
-      this.barItems.push({
-        img: require('@/assets/img/send_business.png'),
-        title: '关联商机',
-        type: 'business',
-        show: false
-      })
-    }
+    // if (this.showRelativeBusiness) {
+    //   this.barItems.push({
+    //     img: require('@/assets/img/send_business.png'),
+    //     title: '关联商机',
+    //     type: 'business',
+    //     show: false
+    //   })
+    // }
 
-    if (this.showRelativeContacts) {
-      this.barItems.push({
-        img: require('@/assets/img/send_contacts.png'),
-        title: '关联联系人',
-        type: 'contacts',
-        show: false
-      })
-    }
+    // if (this.showRelativeContacts) {
+    //   this.barItems.push({
+    //     img: require('@/assets/img/send_contacts.png'),
+    //     title: '关联联系人',
+    //     type: 'contacts',
+    //     show: false
+    //   })
+    // }
     /** 父组件通知子组件提交数据 */
     /**将拼接好的数据回调父组件 this.$refs.child.$emit('submit-info');  调用*/
     this.$on('submit-info', function() {

@@ -42,6 +42,7 @@
                              :relation="item.relation"
                              :radio="false"
                              :disabled="item.disabled"
+                             :crmType="crmType"
                              @value-change="fieldValueChange">
                   </component>
                 </el-form-item>
@@ -49,7 +50,7 @@
             </div>
           </flexbox>
         </create-sections>
-        <create-sections v-if="showExamine"
+        <!-- <create-sections v-if="showExamine"
                          title="审核信息">
           <div slot="header"
                v-if="examineInfo.examineType===1 || examineInfo.examineType===2"
@@ -58,16 +59,16 @@
                                :types="'crm_' + crmType"
                                :typesId="action.id"
                                @value-change="examineValueChange"></create-examine-info>
-        </create-sections>
+        </create-sections> -->
       </div>
 
       <div class="handle-bar">
         <el-button class="handle-button"
                    @click.native="hidenView">取消</el-button>
-        <el-button v-if="crmType=='customer' && action.type == 'save'"
+        <!-- <el-button v-if="crmType=='customer' && action.type == 'save'"
                    class="handle-button"
                    type="primary"
-                   @click.native="saveField(true)">保存并新建联系人</el-button>
+                   @click.native="saveField(true)">保存并新建联系人</el-button> -->
         <el-button class="handle-button"
                    type="primary"
                    @click.native="saveField(false)">保存</el-button>
@@ -82,7 +83,7 @@ import CreateSections from '@/components/CreateSections'
 import CreateExamineInfo from '@/components/Examine/CreateExamineInfo'
 import { filedGetField, filedValidates } from '@/api/customermanagement/common'
 import { crmLeadsSave, crmLeadsUpdate } from '@/api/customermanagement/clue'
-import { crmCustomerSave } from '@/api/customermanagement/customer'
+import { crmCustomerSave, crmCustomerRead } from '@/api/customermanagement/customer'
 import { crmContactsSave } from '@/api/customermanagement/contacts'
 import {
   crmBusinessSave,
@@ -121,7 +122,8 @@ import {
   XhProduct,
   XhBusinessStatus,
   XhCustomerAddress,
-  XhReceivablesPlan // 回款计划期数
+  XhReceivablesPlan, // 回款计划期数
+  XhAuditTemplate
 } from '@/components/CreateCom'
 
 export default {
@@ -144,7 +146,8 @@ export default {
     XhProduct,
     XhBusinessStatus,
     XhCustomerAddress,
-    XhReceivablesPlan
+    XhReceivablesPlan,
+    XhAuditTemplate
   },
   computed: {
     /** 合同 回款 下展示审批人信息 */
@@ -179,7 +182,8 @@ export default {
         crmFields: []
       },
       // 审批信息
-      examineInfo: {}
+      examineInfo: {},
+      // detailData: {}
     }
   },
   filters: {
@@ -190,7 +194,8 @@ export default {
         formType == 'number' ||
         formType == 'floatnumber' ||
         formType == 'mobile' ||
-        formType == 'email'
+        formType == 'email' || 
+        formType == 'map_address'
       ) {
         return 'XhInput'
       } else if (formType == 'textarea') {
@@ -224,10 +229,15 @@ export default {
         return 'XhBusinessStatus'
       } else if (formType == 'product') {
         return 'XhProduct'
-      } else if (formType == 'map_address') {
-        return 'XhCustomerAddress'
-      } else if (formType == 'receivables_plan') {
+      }
+      // else if (formType == 'map_address') {
+      //   return 'XhCustomerAddress'
+      // }
+      else if (formType == 'receivables_plan') {
         return 'XhReceivablesPlan'
+      } 
+      else if (formType == 'audit_template') {
+        return 'XhAuditTemplate'
       }
     }
   },
@@ -237,6 +247,9 @@ export default {
       type: String,
       default: ''
     },
+    // operation: '',
+    // id: '',
+    // crmType: '',
     /**
      * save:添加、update:编辑(action_id)、read:详情、index:列表
      * relative: 相关 添加(目前用于客户等相关添加)
@@ -259,6 +272,58 @@ export default {
     this.getField()
   },
   methods: {
+    //如果是编辑，或者信息填充
+    // getDetial() {
+    //   this.loading = true
+    //   crmCustomerRead({
+    //     customerId: this.action.id
+    //   })
+    //     .then(res => {
+    //       this.loading = false
+    //       this.detailData = res.data
+    //       for (let i = 0; i < this.crmForm.crmFields.length; i++) {
+    //         let card = this.crmForm.crmFields[i]
+    //         this.crmForm.crmFields[i].value = this.detailData[this.crmForm.crmFields[i].key]
+    //         if (this.crmForm.crmFields[i].key == 'customer_name') {
+    //           this.crmForm.crmFields[i].value = this.detailData.customerName
+    //         }
+    //         if (this.crmForm.crmFields[i].key == '客户来源') {
+    //           this.crmForm.crmFields[i].value = this.detailData['客户来源']
+    //         }
+    //         // if (this.crmForm.crmFields[i].key == 'telephone') {
+    //         //   this.crmForm.crmFields[i].value = this.detailData.telephone
+    //         // }
+    //         // if (this.crmForm.crmFields[i].key == 'customer_name') {
+    //         //   this.crmForm.crmFields[i].value = this.detailData.customerName
+    //         // }
+    //         // if (this.crmForm.crmFields[i].key == 'customer_name') {
+    //         //   this.crmForm.crmFields[i].value = this.detailData.customerName
+    //         // }
+    //         // if (this.crmForm.crmFields[i].key == 'customer_name') {
+    //         //   this.crmForm.crmFields[i].value = this.detailData.customerName
+    //         // }
+    //         // if (this.crmForm.crmFields[i].key == 'customer_name') {
+    //         //   this.crmForm.crmFields[i].value = this.detailData.customerName
+    //         // }
+    //         // if (this.crmForm.crmFields[i].key == 'customer_name') {
+    //         //   this.crmForm.crmFields[i].value = this.detailData.customerName
+    //         // }
+    //         // if (this.crmForm.crmFields[i].key == 'customer_name') {
+    //         //   this.crmForm.crmFields[i].value = this.detailData.customerName
+    //         // }
+    //       }
+    //       // this.detailData = res.data
+    //       // this.crmForm.crmFields = res.data
+    //       // // 负责人
+    //       // this.headDetails[0].value = res.data.客户级别
+    //       // this.headDetails[1].value = res.data.dealStatus
+    //       // this.headDetails[2].value = res.data.ownerUserName
+    //       // this.headDetails[3].value = res.data.updateTime
+    //     })
+    //     .catch(() => {
+    //       this.loading = false
+    //     })
+    // },
     // 审批信息值更新
     examineValueChange(data) {
       this.examineInfo = data
@@ -420,6 +485,7 @@ export default {
         .then(res => {
           this.getcrmRulesAndModel(res.data)
           this.loading = false
+          // this.getDetial()
         })
         .catch(() => {
           this.loading = false
@@ -447,7 +513,10 @@ export default {
           item.formType == 'customer' ||
           item.formType == 'contract' ||
           item.formType == 'business' ||
-          item.formType == 'receivables_plan'
+          item.formType == 'receivables_plan' ||
+          item.formType == 'user' || 
+          item.formType == 'audit_template' ||
+          item.formType == 'file'
         ) {
           var params = {}
           params['key'] = item.fieldName
@@ -515,11 +584,11 @@ export default {
             item.formType == 'category' ||
             item.formType == 'customer' ||
             item.formType == 'business' ||
-            item.formType == 'contract'
+            item.formType == 'contract' ||
+            item.formType == 'audit_template'
           ) {
             if (this.action.type == 'update') {
-              params['value'] = item.value ? objDeepCopy(item.value) : []
-
+              params['value'] = item.value && typeof item.value == Object ? objDeepCopy(item.value) : []
             } else {
               params['value'] = item.defaultValue
                 ? objDeepCopy(item.defaultValue)
@@ -790,19 +859,19 @@ export default {
       this.saveAndCreate = saveAndCreate
       this.$refs.crmForm.validate(valid => {
         if (valid) {
-          if (this.showExamine) {
-            /** 验证审批数据 */
-            this.$refs.examineInfo.validateField(() => {
-              var params = this.getSubmiteParams(this.crmForm.crmFields)
-              if (this.examineInfo.examineType === 2) {
-                params['checkUserId'] = this.examineInfo.value[0].userId
-              }
-              this.submiteParams(params)
-            })
-          } else {
+          // if (this.showExamine) {
+          //   /** 验证审批数据 */
+          //   this.$refs.examineInfo.validateField(() => {
+          //     var params = this.getSubmiteParams(this.crmForm.crmFields)
+          //     if (this.examineInfo.examineType === 2) {
+          //       params['checkUserId'] = this.examineInfo.value[0].userId
+          //     }
+          //     this.submiteParams(params)
+          //   })
+          // } else {
             var params = this.getSubmiteParams(this.crmForm.crmFields)
             this.submiteParams(params)
-          }
+          // }
         } else {
           return false
         }
@@ -914,7 +983,8 @@ export default {
         element.key == 'contacts_id' ||
         element.key == 'business_id' ||
         element.key == 'leads_id' ||
-        element.key == 'contract_id'
+        element.key == 'contract_id' || 
+        element.key == 'examine_id'
       ) {
         if (element.value && element.value.length) {
           let key = element.key.replace('_id', 'Id')
@@ -925,7 +995,23 @@ export default {
       } else if (
         element.data.formType == 'user' ||
         element.data.formType == 'structure'
+        // element.key == 'company_user_id' ||
+        // element.key == 'owner_user_id'
       ) {
+        if (element.key == 'company_user_id') {
+          return element.value
+          .map(function(item, index, array) {
+            return element.data.formType == 'user' ? item.companyUserId ? item.companyUserId : item.userId : item.id
+          })
+          .join(',')
+        }
+        if (element.key == 'owner_user_id') {
+          return element.value
+          .map(function(item, index, array) {
+            return element.data.formType == 'user' ? item.ownerUserId ? item.ownerUserId : item.userId : item.id
+          })
+          .join(',')
+        }
         return element.value
           .map(function(item, index, array) {
             return element.data.formType == 'user' ? item.userId : item.id

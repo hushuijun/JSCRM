@@ -51,6 +51,23 @@ export function crmLeadsRead(data) {
   })
 }
 
+//置为无效
+export function crmLeadsStatus(data) {
+  return request({
+    url: '/CrmLeads/changeStatus',
+    method: 'post',
+    data: data
+  })
+}
+// //公海线索认领
+// export function crmLeadsStatus(data) {
+//   return request({
+//     url: '/CrmLeads/transfer',
+//     method: 'post',
+//     data: data
+//   })
+// }
+
 /**
  * 线索转移
  * @param {*} data

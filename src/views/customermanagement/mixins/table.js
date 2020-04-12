@@ -6,6 +6,7 @@ import crmTypeModel from '@/views/customermanagement/model/crmTypeModel'
 import CRMListHead from '../components/CRMListHead'
 import CRMTableHead from '../components/CRMTableHead'
 import FieldsSet from '../components/fieldsManager/FieldsSet'
+import CRMCreateView from '../components/CRMCreateView'
 import {
   filedGetTableField,
   crmFieldColumnWidth
@@ -14,21 +15,27 @@ import {
   crmCustomerIndex,
   crmCustomerPool,
   crmCustomerExcelAllExport,
-  crmCustomerPoolExcelAllExport
+  crmCustomerPoolExcelAllExport,
+  crmCustomerDelete
 } from '@/api/customermanagement/customer'
 import {
   crmLeadsIndex,
-  crmLeadsExcelAllExport
+  crmLeadsExcelAllExport,
+  crmLeadsDelete,
+  crmLeadsStatus
 } from '@/api/customermanagement/clue'
 import {
   crmContactsIndex,
-  crmContactsExcelAllExport
+  crmContactsExcelAllExport,
+  // crmContractDelete
 } from '@/api/customermanagement/contacts'
 import {
-  crmBusinessIndex
+  crmBusinessIndex,
+  crmBusinessDelete
 } from '@/api/customermanagement/business'
 import {
-  crmContractIndex
+  crmContractIndex,
+  crmContractDelete
 } from '@/api/customermanagement/contract'
 import {
   crmProductIndex,
@@ -42,7 +49,8 @@ export default {
   components: {
     CRMListHead,
     CRMTableHead,
-    FieldsSet
+    FieldsSet,
+    CRMCreateView
   },
   data() {
     return {
@@ -59,14 +67,27 @@ export default {
       rowID: '', // 行信息
       rowType: '', //详情类型
       showDview: false,
+      batchId: '',
       /** 高级筛选 */
       filterObj: {}, // 筛选确定数据
-      sceneId: '', // 场景筛选ID
+      sceneId: "", // 场景筛选ID
       sceneName: '', // 场景名字
       /** 列表展示字段管理 */
       showFieldSet: false,
       /** 勾选行 */
-      selectionList: [] // 勾选数据 用于全局导出
+      selectionList: [], // 勾选数据 用于全局导出
+      clickRow: {},
+      isEdit: false,
+      operationType: {},
+      customerId: '',
+      isSeas: false,
+      status: '0',
+      isCreate: false,
+      followId: '',
+      tabCurrentName: '',
+      selectedStatus: '',
+      isCreateBusiness: false,
+      createActionInfo: { type: 'relative', crmType: this.crmType, data: {} }
     }
   },
 
@@ -99,10 +120,15 @@ export default {
         limit: this.pageSize,
         search: this.search,
         type: this.isSeas ? 8 : crmTypeModel[this.crmType] // 8是公海
+        // type: this.crmType ? crmTypeModel[this.crmType]: 8
       }
-      if (this.sceneId) {
-        params.sceneId = this.sceneId
+      if (this.crmType == 'leads') {
+        params.status = parseInt(this.status)
       }
+      // if (this.sceneId) {
+      //   params.sceneId = parseInt(this.sceneId)
+      // }
+      // params.sceneId = parseInt(sceneId)
       if (this.filterObj && Object.keys(this.filterObj).length > 0) {
         params.data = this.filterObj
       }
@@ -149,6 +175,8 @@ export default {
         return crmProductIndex
       } else if (this.crmType === 'receivables') {
         return crmReceivablesIndex
+      } else if (this.crmType === 'seas') {
+        return crmCustomerPool
       }
     },
     /** 获取字段 */
@@ -205,98 +233,238 @@ export default {
         this.getList()
       }
     },
+    //点击搜索
+    searchList (info) {
+      let params = {}
+      if (this.crmType === 'customer') {
+        info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
+        info.mobile ? params.mobile = {"condition": "is", "value": info.mobile,"formType": "text","name": "mobile"} : ''
+        info.realname ? params.realname = {"condition": "is", "value": info.realname,"formType": "text","name": "realname"} : ''
+        info.create_time ? params.create_time = {"start": info.create_time + ' 00:00:00',"end": info.create_time + ' 23:59:59',"formType": "datetime","name": "create_time"} : ''
+      } else if (this.crmType === 'leads') {
+        info.telephone ? params.telephone = {"condition": "is", "value": info.telephone,"formType": "text","name": "telephone"} : ''
+        info.leads_name ? params.leads_name = {"condition": "is", "value": info.leads_name,"formType": "text","name": "leads_name"} : ''
+        info.owner_user_name ? params.owner_user_name = {"condition": "is", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
+        info['线索来源'] ? params['线索来源'] = {"condition": "is", "value": info['线索来源'],"formType": "text","name": "线索来源"} : ''
+        info.create_time ? params.create_time = {"start": info.create_time + ' 00:00:00',"end": info.create_time + ' 23:59:59',"formType": "datetime","name": "create_time"} : ''
+      } else if (this.crmType === 'business') {
+        info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
+        info.business_name ? params.business_name = {"condition": "is", "value": info.business_name,"formType": "text","name": "business_name"} : ''
+        info.owner_user_name ? params.owner_user_name = {"condition": "is", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
+        info['商机状态'] ? params['商机状态'] = {"condition": "is", "value": info['商机状态'],"formType": "text","name": "商机状态"} : ''
+      } else if (this.crmType === 'contract') {
+        info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
+        info.name ? params.name = {"condition": "is", "value": info.name,"formType": "text","name": "name"} : ''
+        info.owner_user_name ? params.owner_user_name = {"condition": "is", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
+        info.contacts_name ? params.contacts_name = {"condition": "is", "value": info.contacts_name,"formType": "text","name": "contacts_name"} : ''
+        info.company_user_name ? params.company_user_name = {"condition": "is", "value": info.company_user_name,"formType": "text","name": "company_user_name"} : ''
+        info.check_status ||  info.check_status == 0 ? params.check_status = {"condition": "is", "value": info.check_status,"formType": "checkStatus","name": "check_status"} : ''
+      }
+      this.filterObj = params
+      var offsetHei = document.documentElement.clientHeight
+      var removeHeight = Object.keys(this.filterObj).length > 0 ? 310 : 240
+      this.tableHeight = offsetHei - removeHeight
+      this.currentPage = 1
+      this.getList()
+    },
     /** 列表操作 */
     // 当某一行被点击时会触发该事件
     handleRowClick(row, column, event) {
-      if (column.type === 'selection') {
-        return // 多选布局不能点击
+    //   if (column.type === 'selection') {
+    //     return // 多选布局不能点击
+    //   }
+    //   if (this.crmType === 'leads') {
+    //     if (column.property === 'leadsName' || !column.property) {
+    //       this.rowID = row.leadsId
+    //       this.showDview = true
+    //     } else {
+    //       this.showDview = false
+    //     }
+    //   } else if (this.crmType === 'customer' || this.crmType === 'seas') {
+    //     if (column.property === 'businessCheck' && row.businessCount > 0) {
+    //       return // 列表查看商机不展示详情
+    //     }
+    //     if (column.property === 'customerName' || !column.property) {
+    //       this.rowID = row.customerId
+    //       this.rowType = 'customer'
+    //       this.showDview = true
+    //     } else {
+    //       this.showDview = false
+    //     }
+    //   } else if (this.crmType === 'contacts') {
+    //     if (column.property === 'customerName') {
+    //       this.rowID = row.customerId
+    //       this.rowType = 'customer'
+    //       this.showDview = true
+    //     } else if (column.property === 'name') {
+    //       this.rowID = row.contactsId
+    //       this.rowType = 'contacts'
+    //       this.showDview = true
+    //     } else {
+    //       this.showDview = false
+    //     }
+    //   } else if (this.crmType === 'business') {
+    //     if (column.property === 'customerName') {
+    //       this.rowID = row.customerId
+    //       this.rowType = 'customer'
+    //       this.showDview = true
+    //     } else if (column.property === 'businessName') {
+    //       this.rowID = row.businessId
+    //       this.rowType = 'business'
+    //       this.showDview = true
+    //     } else {
+    //       this.showDview = false
+    //     }
+      // } else 
+      // if (this.crmType === 'contract') {
+      //   if (column.property === 'customerName') {
+      //     this.rowID = row.customerId
+      //     this.rowType = 'customer'
+      //     this.showDview = true
+      //   } else if (column.property === 'businessName') {
+      //     this.rowID = row.businessId
+      //     this.rowType = 'business'
+      //     this.showDview = true
+      //   } else if (column.property === 'contactsName') {
+      //     this.rowID = row.contactsId
+      //     this.rowType = 'contacts'
+      //     this.showDview = true
+      //   } else if (column.property === 'num') {
+      //     this.rowID = row.contractId
+      //     this.rowType = 'contract'
+      //     this.showDview = true
+      //   } else {
+      //     this.showDview = false
+      //   }
+    //   } else if (this.crmType === 'product') {
+    //     if (column.property === 'name') {
+    //       this.rowID = row.productId
+    //       this.showDview = true
+    //     } else {
+    //       this.showDview = false
+    //     }
+    //   } else if (this.crmType === 'receivables') {
+    //     if (column.property === 'customerName') {
+    //       this.rowID = row.customerId
+    //       this.rowType = 'customer'
+    //       this.showDview = true
+    //     } else if (column.property === 'contractNum') {
+    //       this.rowID = row.contractId
+    //       this.rowType = 'contract'
+    //       this.showDview = true
+    //     } else if (column.property === 'number') {
+    //       this.rowID = row.receivablesId
+    //       this.rowType = 'receivables'
+    //       this.showDview = true
+    //     } else {
+    //       this.showDview = false
+    //     }
+      // }
+    },
+    deleteClick (info) {
+      this.$confirm('确定要删除这条数据吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        await this.confirmHandle(info)
+      })
+    },
+    //确认删除
+    confirmHandle (info){
+      let request = {
+        leads: crmLeadsDelete,
+        customer: crmCustomerDelete,
+        // contacts: crmContactsDelete,
+        business: crmBusinessDelete,
+        contract: crmContractDelete,
+        // receivables: crmReceivablesDelete
+      }[this.crmType]
+      request({
+        [this.crmType + 'Ids']: info[this.crmType+'Id']
+      })
+        .then(res => {
+          this.$message({
+            type: 'success',
+            message: '删除成功'
+          })
+          this.getFieldList()
+          this.$emit('handle', { type: type })
+        })
+        .catch(() => {})
+    },
+    //编辑
+    editClick (data, type) {
+      data.type = type
+      this.rowID = data[this.crmType+'Id']
+      this.batchId = data['batchId']
+      // detailHeadHandle(data) {
+      if (type === 'edit') {
+        this.isCreate = true
+      } else if (type === 'delete') {
+        this.hideView()
       }
-      if (this.crmType === 'leads') {
-        if (column.property === 'leadsName') {
-          this.rowID = row.leadsId
-          this.showDview = true
-        } else {
-          this.showDview = false
-        }
-      } else if (this.crmType === 'customer') {
-        if (column.property === 'businessCheck' && row.businessCount > 0) {
-          return // 列表查看商机不展示详情
-        }
-        if (column.property === 'customerName') {
-          this.rowID = row.customerId
-          this.rowType = 'customer'
-          this.showDview = true
-        } else {
-          this.showDview = false
-        }
-      } else if (this.crmType === 'contacts') {
-        if (column.property === 'customerName') {
-          this.rowID = row.customerId
-          this.rowType = 'customer'
-          this.showDview = true
-        } else if (column.property === 'name') {
-          this.rowID = row.contactsId
-          this.rowType = 'contacts'
-          this.showDview = true
-        } else {
-          this.showDview = false
-        }
+      this.$emit('handle', data)
+      // }
+    },
+    // 置为无效
+    statusClick (data) {
+      this.rowID = data[this.crmType+'Id']
+      crmLeadsStatus({
+        status: this.status == 0 || this.status == 1 ? 0 : 1,
+        leadsIds: this.rowID
+      }).then((res) => {
+        this.$message({
+          type: 'success',
+          message: '成功'
+        })
+        this.getFieldList()
+      })
+    },
+    // 保存成功
+    editSaveSuccess () {
+      this.getFieldList()
+    },
+    handleRecordsClick (data) {
+      if (this.selectionList.length > 1) {
+        this.$message({
+          type: 'warning',
+          message: '只能选择一项'
+        })
+        return false
+      }
+      this.rowID = this.followId
+      if (this.crmType === 'customer') {
+        this.rowType = 'customer'
       } else if (this.crmType === 'business') {
-        if (column.property === 'customerName') {
-          this.rowID = row.customerId
-          this.rowType = 'customer'
-          this.showDview = true
-        } else if (column.property === 'businessName') {
-          this.rowID = row.businessId
-          this.rowType = 'business'
-          this.showDview = true
-        } else {
-          this.showDview = false
-        }
+        this.rowType = 'business'
       } else if (this.crmType === 'contract') {
-        if (column.property === 'customerName') {
-          this.rowID = row.customerId
-          this.rowType = 'customer'
-          this.showDview = true
-        } else if (column.property === 'businessName') {
-          this.rowID = row.businessId
-          this.rowType = 'business'
-          this.showDview = true
-        } else if (column.property === 'contactsName') {
-          this.rowID = row.contactsId
-          this.rowType = 'contacts'
-          this.showDview = true
-        } else if (column.property === 'num') {
-          this.rowID = row.contractId
-          this.rowType = 'contract'
-          this.showDview = true
-        } else {
-          this.showDview = false
-        }
-      } else if (this.crmType === 'product') {
-        if (column.property === 'name') {
-          this.rowID = row.productId
-          this.showDview = true
-        } else {
-          this.showDview = false
-        }
-      } else if (this.crmType === 'receivables') {
-        if (column.property === 'customerName') {
-          this.rowID = row.customerId
-          this.rowType = 'customer'
-          this.showDview = true
-        } else if (column.property === 'contractNum') {
-          this.rowID = row.contractId
-          this.rowType = 'contract'
-          this.showDview = true
-        } else if (column.property === 'number') {
-          this.rowID = row.receivablesId
-          this.rowType = 'receivables'
-          this.showDview = true
-        } else {
-          this.showDview = false
-        }
+        this.rowType = 'contract'
       }
+      if (data.type == 'business') {
+        this.tabCurrentName = 'business'
+      } else if (data.type == 'follow_records'){
+        this.tabCurrentName = 'followlog'
+      } else if (data.type == 'cash_plan') {
+        this.tabCurrentName = 'returnedmoney'
+      }
+      this.showDview = true
+    },
+    //查看详情
+    detailClick (data) {
+      this.rowID = data[this.crmType+'Id']
+      this.tabCurrentName = ''
+      if (this.crmType === 'customer') {
+        this.rowType = 'customer'
+      } else if (this.crmType === 'business') {
+        this.rowType = 'business'
+      } else if (this.crmType === 'contract') {
+        // this.rowID = row.customerId
+        this.rowType = 'contract'
+      }
+      // this.rowID = row.leadsId
+      this.showDview = true
+      // this.handleRowClick()
     },
     /**
      * 导出 线索 客户 联系人 产品
@@ -361,6 +529,21 @@ export default {
       this.currentPage = 1
       this.getFieldList()
     },
+    /** 共有私有切换操作 */
+    switchTab (data, typeId) {
+      // this.sceneId = data
+      // this.sceneName = data.name
+      this.currentPage = 1
+      if (this.crmType == 'leads') {
+        this.status = data
+      }
+      if (this.crmType == 'customer' && typeId == '8') {
+        this.isSeas = true
+      } else {
+        this.isSeas = false
+      }
+      this.getFieldList()
+    },
     /** 勾选操作 */
     handleHandle(data) {
       if (data.type === 'alloc' || data.type === 'get' || data.type === 'transfer' || data.type === 'transform' || data.type === 'delete' || data.type === 'put_seas') {
@@ -392,6 +575,9 @@ export default {
     /** 勾选操作 */
     // 当选择项发生变化时会触发该事件
     handleSelectionChange(val) {
+      if (val.length == 1) {
+        this.followId = val[0][this.crmType+'Id']
+      }
       this.selectionList = val // 勾选的行
       this.$refs.crmTableHead.headSelectionChange(val)
     },
@@ -477,6 +663,23 @@ export default {
       var offsetHei = document.documentElement.clientHeight
       var removeHeight = Object.keys(this.filterObj).length > 0 ? 310 : 240
       this.tableHeight = offsetHei - removeHeight
+    },
+    /** 新建商机 */
+    createBusiness() {
+      /** 客户 和 联系人 下可新建商机  */
+      if (this.crmType == 'contacts') {
+        this.createActionInfo.data['customer'] = this.detail
+      } else if (this.crmType == 'customer') {
+        this.createActionInfo.data['customer'] = this.detail
+      }
+      this.isCreateBusiness = true
+    },
+    createSaveSuccess () {
+
+    }
+  },
+  watch: {
+    sceneId (value) {
     }
   },
 

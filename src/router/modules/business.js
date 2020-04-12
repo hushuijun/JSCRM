@@ -363,6 +363,73 @@ const taskCompleteRouteItem = {
 }
 
 
+const shareManage = {
+  path: 'shareManage',
+  component: () => import('@/views/jscrm/money/shareManage/shareManage'),
+  meta: {
+    requiresAuth: true,
+    title: '分润管理',
+    icon: 'customer',
+    index: 1,
+    type: 'bi',
+    subType: 'achievement'
+  }
+}
+
+const InvoiceManage = {
+  path: 'InvoiceManage',
+  component: () => import('@/views/jscrm/money/InvoiceManage/InvoiceManage'),
+  meta: {
+    requiresAuth: true,
+    title: '发票管理',
+    icon: 'customer',
+    index: 1,
+    type: 'bi',
+    subType: 'achievement'
+  }
+}
+
+const CostManage = {
+  path: 'CostManage',
+  component: () => import('@/views/jscrm/money/CostManage/CostManage'),
+  meta: {
+    requiresAuth: true,
+    title: '费用管理',
+    icon: 'customer',
+    index: 1,
+    type: 'bi',
+    subType: 'achievement'
+  }
+}
+
+const RemittancePlan = {
+  path: 'RemittancePlan',
+  component: () => import('@/views/jscrm/money/RemittancePlan/RemittancePlan'),
+  meta: {
+    requiresAuth: true,
+    title: '回款记录管理',
+    icon: 'customer',
+    index: 1,
+    type: 'bi',
+    subType: 'achievement'
+  }
+}
+
+
+const RemittancePlanList = {
+  path: 'RemittancePlanList',
+  component: () => import('@/views/jscrm/money/RemittancePlan/RemittancePlanList'),
+  meta: {
+    requiresAuth: true,
+    title: '回款计划列表',
+    icon: 'customer',
+    index: 1,
+    type: 'bi',
+    subType: 'achievement'
+  }
+}
+
+
 export const biRouter = {
   path: '/bi',
   component: Layout,
@@ -376,22 +443,32 @@ export const biRouter = {
     type: 'bi'
   },
   children: [
-    ...customerRouter.children,
-    ...businessRouter.children,
-    ...achievementRouter.children,
-    ...portrayalRouter.children,
-    ...productRouter.children,
-    ...rankingRouter.children,
-    taskCompleteRouteItem
+    // ...customerRouter.children,
+    // ...businessRouter.children,
+    // ...achievementRouter.children,
+    // ...portrayalRouter.children,
+    // ...productRouter.children,
+    // ...rankingRouter.children,
+    // taskCompleteRouteItem,
+    shareManage,
+    InvoiceManage,
+    CostManage,
+    RemittancePlan,
+    RemittancePlanList,
   ]
 }
 
 export const biRouterMenu = [
-  customerRouter,
-  businessRouter,
-  achievementRouter,
-  portrayalRouterMenu,
-  productRouter,
-  rankingRouter,
-  taskCompleteRouteItem
+  // customerRouter,
+  // businessRouter,
+  // achievementRouter,
+  // portrayalRouterMenu,
+  // productRouter,
+  // rankingRouter,
+  // taskCompleteRouteItem,
+  shareManage,
+  InvoiceManage,
+    CostManage,
+    RemittancePlan,
+    RemittancePlanList,
 ]

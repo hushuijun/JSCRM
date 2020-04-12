@@ -3,10 +3,13 @@
     <div class="se-header">回款管理</div>
     <div class="se-body">
       <div class="se-table-header">
+        <div>
+
         <span style="margin-left:10px">合同编号</span> <el-input v-model="queryCondtion.handPersonName" placeholder="请输入" class="input_width"></el-input>
         <span style="margin-left:10px">客户名称</span> <el-input v-model="queryCondtion.caseId" placeholder="请输入" class="input_width"></el-input>
         <span style="margin-left:10px">审核状态</span> <el-input v-model="queryCondtion.caseName" placeholder="请输入" class="input_width"></el-input>
-        <br/>
+        </div>
+        <div style="margin-top:10px;">
         <span style="margin-left:10px">回款开始日期</span> 
         <el-date-picker
           v-model="queryCondtion.startDate"
@@ -24,6 +27,7 @@
                    @click="addData"
                    type="primary" style="float:right;margin:0px 10px">新增</el-button>
         <el-button  @click="getList()" style="float:right">搜索</el-button>
+        </div>
       </div>
       <el-table class="main-table"
                 id="examine-table"
@@ -33,7 +37,7 @@
                  stripe
                 border
                 highlight-current-row
-                style="width: 100%"
+                style="width: 100%;"
                >
        
         <el-table-column prop="customerName" label="客户名称" align="center" header-align="center"></el-table-column>
@@ -127,6 +131,7 @@ export default {
         handPersonName:null,
         caseId:null,
         caseName:null,
+        type:1,  //实际还款
       },
     }
   },
@@ -238,7 +243,7 @@ export default {
 }
 
 .se-table-header {
-  height: 50px;
+  height: 80px;
   background-color: white;
   position: relative;
   .se-table-header-button {

@@ -1,32 +1,25 @@
 <template>
   <div class="se-container">
-    <div class="se-header">分润管理</div>
+    <div class="se-header">回款计划列表</div>
     <div class="se-body">
       <div class="se-table-header">
-
-        <span style="margin-left:10px">类型</span> <el-select v-model="queryCondtion.type" class="input_width" clearable placeholder="请选择">
-                <el-option
-                  key="员工"
-                  label="员工"
-                  value="员工">
-                </el-option>  
-                <el-option
-                  key="合伙人"
-                  label="合伙人"
-                  value="合伙人">
-                </el-option>  
-                <el-option
-                  key="商家"
-                  label="商家"
-                  value="商家">
-                </el-option>  
-                <el-option
-                  key="兼职"
-                  label="兼职"
-                  value="兼职">
-                </el-option>  
-               </el-select>  
-        <span style="margin-left:10px">标题</span> <el-input v-model="queryCondtion.title" placeholder="请输入标题" class="input_width"></el-input>
+        <span style="margin-left:10px">合同编号</span> <el-input v-model="queryCondtion.handPersonName" placeholder="请输入" class="input_width"></el-input>
+        <span style="margin-left:10px">客户名称</span> <el-input v-model="queryCondtion.caseId" placeholder="请输入" class="input_width"></el-input>
+        <span style="margin-left:10px">审核状态</span> <el-input v-model="queryCondtion.caseName" placeholder="请输入" class="input_width"></el-input>
+        <br/>
+        <span style="margin-left:10px">回款开始日期</span> 
+        <el-date-picker
+          v-model="queryCondtion.startDate"
+          type="date" style="width: 140px"
+          placeholder="选择日期">
+        </el-date-picker>
+        <span style="margin-left:10px">回款结束日期</span> 
+        <el-date-picker
+          v-model="queryCondtion.endDate"
+          type="date" style="width: 140px"
+          placeholder="选择日期">
+        </el-date-picker>
+        <span style="margin-left:10px">负责人</span> <el-input v-model="queryCondtion.caseName" placeholder="请输入" class="input_width"></el-input>
         <el-button 
                    @click="addData"
                    type="primary" style="float:right;margin:0px 10px">新增</el-button>
@@ -43,11 +36,17 @@
                 style="width: 100%"
                >
        
-        <el-table-column prop="title" label="标题" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="type" label="分润类型" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="ratio" label="分润占比" :formatter="ratioFormat"align="center" header-align="center"></el-table-column>
-        <el-table-column prop="createTime" label="时间" :formatter="dateFormat" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="state" label="状态" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="customerName" label="客户名称" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="customerCompanyName" label="客户公司名称" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="contractId" label="合同编号" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="id" label="回款编号" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="moneyBackDate" label="回款日期"  :formatter="dateFormat" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="planBackMoney" label="计划回款金额" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="actualBackMoney" label="实际回款金额" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="handPersonName" label="负责人" width="100px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="remittanceId" label="汇款方式" width="100px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="remittanceId" label="审核状态" width="100px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="remittanceId" label="回款状态" width="100px" align="center" header-align="center"></el-table-column>
 
         <el-table-column fixed="right"
                          label="操作"
@@ -59,10 +58,6 @@
             <el-button @click="handleClick('delete', scope)"
                        type="text"
                        size="small">删除</el-button>
-            <el-button @click="handleClick('change', scope)"
-                       type="text"
-                       size="small">{{scope.row['state'] === '停用' ? '启用' : '停用'}}</el-button>
-            
           </template>
         </el-table-column>
       </el-table>
@@ -78,40 +73,42 @@
         </el-pagination>
       </div>
     </div>
-    <create-share v-if="createView"
+    <create-RemittancePlan v-if="createView"
                            @save="getList"
-                           @hiden-view="createView=false"></create-share>
-    <update-share v-if="updateView"
+                           @hiden-view="createView=false"></create-RemittancePlan>
+    <update-RemittancePlan v-if="updateView"
                            :detailData="detailData"
                            @update="getList"
-                           @hiden-view="updateView=false"></update-share>
+                           @hiden-view="updateView=false"></update-RemittancePlan>
 
     
   </div>
 </template>
 
 <script>
-import CreateShare from './components/CreateShare'
-import UpdateShare from './components/UpdateShare'
+import CreateRemittancePlan from './components/CreateRemittancePlan'
+import UpdateRemittancePlan from './components/UpdateRemittancePlan'
+import {billTyppNum}from '@/views/jscrm/money/const/const'
 import * as fecha from "element-ui/lib/utils/date"
+
+
 import {
   queryPage,
   deleteData,
-  checkPass,
-  checkReturn,
-} from '@/api/jscrm/money/shareManage'
+} from '@/api/jscrm/money/RemittancePlan'
 import { timestampToFormatTime } from '@/utils'
 
 export default {
   /** 系统管理 的 审核管理 */
   name: 'system-examine',
   components: {
-    CreateShare,
-    UpdateShare,
+    CreateRemittancePlan,
+    UpdateRemittancePlan,
   },
   mixins: [],
   data() {
     return {
+      billTyppNum:billTyppNum,
       loading: false, // 加载动画
       tableHeight: document.documentElement.clientHeight - 240, // 表的高度
       list: [],
@@ -126,8 +123,11 @@ export default {
       queryCondtion:{
         page: 1,
         limit: 10,
-        title:null,
-        type:null,
+        billType:null,
+        handPersonName:null,
+        caseId:null,
+        caseName:null,
+        type:0,  //计划还款
       },
     }
   },
@@ -145,12 +145,6 @@ export default {
     dateFormat(row,column,cellValue){
       return cellValue ? fecha.format(new Date(cellValue),'yyyy-MM-dd'):'';
     },
-
-    
-    ratioFormat(row,column,cellValue){
-      return cellValue+"%";
-    },
-
     /** 获取列表数据 */
     getList() {
       this.loading = true
@@ -168,7 +162,7 @@ export default {
     },
     
     /**
-     *  添加记录
+     *  添加审批流
      */
     addData() {
       this.createView = true
@@ -197,7 +191,7 @@ export default {
         this.updateView = true
       } else if (type === 'delete') {
         // 启用停用
-        this.$confirm('您确定要删除该记录?', '提示', {
+        this.$confirm('您确定要删除该审批流?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -222,56 +216,7 @@ export default {
               message: '已取消删除'
             })
           })
-      } else if (type === 'change') {
-        const status = scope.row['state'];
-        // 启用停用
-        this.$confirm(
-          '您确定要' +
-            (scope.row['state'] === '停用' ? '启用' : '停用') +
-            '该记录?',
-          '提示',
-          {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }
-        )
-          .then(() => {
-            if(status=='停用'){
-              checkPass({
-                id: scope.row['id'],
-                status: scope.row['state'] === '停用' ? '启用' : '停用'
-              })
-                .then(res => {
-                  scope.row['state'] = scope.row['state'] === '停用' ? '启用' : '停用'
-                  this.$message({
-                    type: 'success',
-                    message: '操作成功'
-                  })
-                })
-                .catch(() => {})
-            }else{
-               checkReturn({
-                id: scope.row['id'],
-                status: scope.row['state'] === '停用' ? '启用' : '停用'
-              })
-                .then(res => {
-                  scope.row['state'] = scope.row['state'] === '停用' ? '启用' : '停用'
-                  this.$message({
-                    type: 'success',
-                    message: '操作成功'
-                  })
-                })
-                .catch(() => {})
-            }
-          })
-          .catch(() => {
-            this.$message({
-              type: 'info',
-              message: '已取消删除'
-            })
-          })
-      } 
+      }
     }
   }
 }

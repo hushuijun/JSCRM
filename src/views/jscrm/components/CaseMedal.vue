@@ -54,7 +54,7 @@
 
 <script>
 
-import { queryPageList } from '@/api/jscrm/money/comm'
+import { queryPageListCase } from '@/api/jscrm/money/comm'
 export default {
   /** 客户管理 的 勾选后的 团队成员 操作 移除操作不可移除客户负责人*/
   name: 'teams-handle',
@@ -68,7 +68,7 @@ export default {
       title:'选择案件',
       queryCondtion:{
         page: 1,
-        limit: 10,
+        limit: 5,
         billType:null,
         handPersonName:null,
         caseId:null,
@@ -83,7 +83,7 @@ export default {
 
   },
   mounted() {
-    // this.getList();
+    this.getList();
   },
 
   methods: {
@@ -91,7 +91,7 @@ export default {
     /** 获取列表数据 */
     getList() {
       this.loading = true
-      queryPageList(this.queryCondtion)
+      queryPageListCase(this.queryCondtion)
         .then(res => {
           console.log(this.queryCondtion);
           this.tableData = res.data.list
@@ -108,7 +108,7 @@ export default {
      */
     handleCancel() {
       this.visible = false
-      this.$emit('update:dialogVisible', false)
+      // this.$emit('update:dialogVisible', false)
     },
 
     handleClick(row) {

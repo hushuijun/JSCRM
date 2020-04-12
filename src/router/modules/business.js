@@ -416,6 +416,20 @@ const RemittancePlan = {
 }
 
 
+const RemittancePlanList = {
+  path: 'RemittancePlanList',
+  component: () => import('@/views/jscrm/money/RemittancePlan/RemittancePlanList'),
+  meta: {
+    requiresAuth: true,
+    title: '回款计划列表',
+    icon: 'customer',
+    index: 1,
+    type: 'bi',
+    subType: 'achievement'
+  }
+}
+
+
 export const biRouter = {
   path: '/bi',
   component: Layout,
@@ -440,6 +454,7 @@ export const biRouter = {
     InvoiceManage,
     CostManage,
     RemittancePlan,
+    RemittancePlanList,
   ]
 }
 
@@ -455,4 +470,5 @@ export const biRouterMenu = [
   InvoiceManage,
     CostManage,
     RemittancePlan,
+    RemittancePlanList,
 ]

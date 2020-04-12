@@ -86,8 +86,11 @@
                   </span>
                 </div>
               </div>
-              <el-input  v-model="record.ratio" 
-                ></el-input>
+              <!-- <el-input  v-model="record.ratio" 
+                ></el-input> -->
+
+               <el-input-number v-model="record.ratio" :min="1" :max="99" style="width:100%"  show-word-limit
+                ></el-input-number>  
             </el-form-item>
 
             <el-form-item
@@ -169,7 +172,6 @@ export default {
           ],  
            ratio: [
             { required: true, message: '请输入分润占比', trigger: 'blur' },
-            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
           ],         
           state: [
             { required: true, message: '请选择状态', trigger: 'blur' },

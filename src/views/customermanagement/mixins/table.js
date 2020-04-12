@@ -42,9 +42,12 @@ import {
   crmProductExcelAllExport
 } from '@/api/customermanagement/product'
 import {
+  crmCaseIndex,
+  crmCaseDelete
+} from '@/api/customermanagement/case'
+import {
   crmReceivablesIndex
 } from '@/api/customermanagement/money'
-
 export default {
   components: {
     CRMListHead,
@@ -177,6 +180,8 @@ export default {
         return crmReceivablesIndex
       } else if (this.crmType === 'seas') {
         return crmCustomerPool
+      } else if (this.crmType === 'case') {
+        return crmCaseIndex
       }
     },
     /** 获取字段 */
@@ -378,6 +383,7 @@ export default {
         // contacts: crmContactsDelete,
         business: crmBusinessDelete,
         contract: crmContractDelete,
+        case: crmCaseDelete
         // receivables: crmReceivablesDelete
       }[this.crmType]
       request({
@@ -461,11 +467,24 @@ export default {
       } else if (this.crmType === 'contract') {
         // this.rowID = row.customerId
         this.rowType = 'contract'
+      } else if (this.crmType === 'case') {
+        // this.rowID = row.customerId
+        this.rowType = 'case'
       }
       // this.rowID = row.leadsId
       this.showDview = true
       // this.handleRowClick()
     },
+    //跟进
+    caseFollowLog (data) {
+      this.rowID = data[this.crmType+'Id']
+      if (this.crmType === 'case') {
+        this.rowType = 'case'
+      }
+      this.tabCurrentName = 'followlog'
+      this.showDview = true
+    },
+
     /**
      * 导出 线索 客户 联系人 产品
      * @param {*} data 
@@ -611,7 +630,7 @@ export default {
     },
     // 0待审核、1审核中、2审核通过、3审核未通过
     getStatusStyle(status) {
-      if (status == 0) {
+      if (status == 0 || status == null) {
         return {
           'border-color': '#E6A23C',
           'background-color': '#FDF6EC',
@@ -642,7 +661,7 @@ export default {
       }
     },
     getStatusName(status) {
-      if (status == 0) {
+      if (status == 0 || status == null) {
         return '待审核'
       } else if (status == 1) {
         return '审核中'

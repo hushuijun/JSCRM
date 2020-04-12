@@ -64,7 +64,7 @@
                        show-overflow-tooltip
                        :prop="item.field"
                        :label="item.name"
-                       :width="150"></el-table-column>
+                       :width="tableWidth"></el-table-column>
       <!-- <el-table-column></el-table-column> -->
       <el-table-column
             label="操作"
@@ -115,6 +115,7 @@ export default {
   computed: {
     // 展示相关效果 去除场景
     isRelationShow() {
+      console.log(this.action.type, 'this.action.type')
       return this.action.type === 'condition'
     }
   },
@@ -176,6 +177,7 @@ export default {
         customer_name: '',
         mobile: ''
       },
+      tableWidth: 156
     }
   },
   props: {
@@ -301,18 +303,20 @@ export default {
           { name: '职务', field: 'post', formType: 'text' }
         ]
       } else if (this.crmType === 'business') {
+        this.tableWidth = 118
         return [
           { name: '商机名称', field: 'businessName', formType: 'text' },
-          { name: '商机金额', field: 'totalPrice', formType: 'text' },
+          { name: '商机金额', field: 'money', formType: 'text' },
           { name: '客户名称', field: 'customerName', formType: 'text' },
-          { name: '商机状态组 ', field: 'typeName', formType: 'text' },
-          { name: '状态 ', field: 'statusName', formType: 'text' }
+          // { name: '商机状态组 ', field: 'typeName', formType: 'text' },
+          { name: '商机状态 ', field: '商机状态', formType: 'text' }
           // { name: '姓名 ', field: 'business_name', formType: 'text' },
           // { name: '手机号', field: 'statusName', formType: 'text' },
           // { name: '客户级别', field: 'statusName', formType: 'text' },
           // { name: '姓名 ', field: 'statusName', formType: 'text' }
         ]
       } else if (this.crmType === 'contract') {
+        this.tableWidth = 118
         return [
           { name: '合同编号', field: 'num', formType: 'text' },
           {
@@ -322,8 +326,8 @@ export default {
           },
           { name: '客户名称', field: 'customerName', formType: 'text' },
           { name: '合同金额', field: 'money', formType: 'text' },
-          { name: '开始日期', field: 'startTime', formType: 'text' },
-          { name: '结束日期', field: 'endTime', formType: 'text' }
+          // { name: '开始日期', field: 'startTime', formType: 'text' },
+          // { name: '结束日期', field: 'endTime', formType: 'text' }
         ]
       } else if (this.crmType === 'product') {
         return [
@@ -345,6 +349,7 @@ export default {
         params.sceneId = this.sceneInfo.sceneId
       }
       // 注入关联ID
+      console.log(this.isRelationShow, 'this.isRelationShow')
       if (this.isRelationShow) {
         // this.action.data.moduleType 下的 this.crmType 的列表
         if (this.action.data.moduleType) {
@@ -426,6 +431,8 @@ export default {
         return crmContractIndex
       } else if (this.crmType === 'product') {
         return crmProductIndex
+      } else if (this.crmType === 'case') {
+        return crmcaseIndex
       }
     },
     // 场景选择

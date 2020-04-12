@@ -7,14 +7,14 @@
             width="400"
             v-model='isShow'>
             <el-table :data="gridData" border>
-                <el-table-column width="150" property="name" label="审批流程名称"></el-table-column>
-                <el-table-column width="100" property="typeText" label="流程类型"></el-table-column>
+                <el-table-column width="128" property="name" label="审批流程名称"></el-table-column>
+                <el-table-column width="128" property="typeText" label="流程类型"></el-table-column>
                 <!-- <el-table-column width="300" property="address" label="关联对象"></el-table-column> -->
                 <!-- <el-table-column width="300" property="address" label="适用范围"></el-table-column> -->
                 <el-table-column
                     label="操作"
                     prop="确认"
-                    width="80">
+                    width="110">
                     <template slot-scope="scope">
                     <el-button type="text" size="small" @click="handleConfirm(scope.row)">确认</el-button>
                     </template>
@@ -95,10 +95,14 @@ export default {
 .el-button--primary {
     display: inline-block;
     position: absolute;
-    right: -60px;
+    right: 12px;
     bottom: 5px;
 }
 .el-input {
     display: inline-block;
+    width: 210px;
+}
+.el-table tr {
+    text-align: center;
 }
 </style>

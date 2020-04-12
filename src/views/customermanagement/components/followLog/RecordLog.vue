@@ -24,6 +24,7 @@ import { crmCustomerRecordIndex } from '@/api/customermanagement/customer'
 import { crmContactsRecordIndex } from '@/api/customermanagement/contacts'
 import { crmBusinessRecordIndex } from '@/api/customermanagement/business'
 import { crmContractRecordIndex } from '@/api/customermanagement/contract'
+import { crmCaseRecordIndex } from '@/api/customermanagement/case'
 import { formatTimeToTimestamp } from '@/utils'
 
 export default {
@@ -97,7 +98,8 @@ export default {
         leads: crmLeadsRecordIndex,
         contacts: crmContactsRecordIndex,
         business: crmBusinessRecordIndex,
-        contract: crmContractRecordIndex
+        contract: crmContractRecordIndex,
+        case: crmCaseRecordIndex
       }[this.crmType]
 
       let params = {

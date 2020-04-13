@@ -57,17 +57,13 @@ export default {
   },
   data() {
     return {
-      tableData:[{"caseId":3,"name":"案件标题","customerId":3},{"caseId":3,"name":"案件标题","customerId":3},{"caseId":3,"name":"案件标题","customerId":3}],
+      tableData:null,
       loading: false, // 加载动画
       visible: false,
       title:'选择合同',
       queryCondtion:{
         page: 1,
         limit: 5,
-        billType:null,
-        handPersonName:null,
-        caseId:null,
-        caseName:null,
       },
       total:0,
       pageSizes: [5,10, 20, 30, 40],
@@ -108,7 +104,7 @@ export default {
 
     handleClick(row) {
       console.log(row);
-      this.$emit('getDataCase',row);
+      this.$emit('getDataContract',row);
       this.visible = false;
     },
 

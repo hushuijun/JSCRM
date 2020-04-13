@@ -48,8 +48,9 @@
                 </div>
               </div>
             
-              <el-input v-model="record.contractId"
+              <el-input v-model="record.contractId" style="width: 70%"
                 ></el-input>
+               <el-button @click="selectInvoice()">选择</el-button>   
             </el-form-item>
 
             <el-form-item
@@ -229,12 +230,17 @@
       </flexbox>
       
     </flexbox>
+
+        <ContractMedal ref="refInvoiceMedal" @getDataContract="getDataContract"></ContractMedal>
+
   </create-view>
 </template>
 <script type="text/javascript">
 import CreateView from '@/components/CreateView'
 import { addData } from '@/api/jscrm/money/RemittancePlan'
 import {remittanceIdNum}from '@/views/jscrm/money/const/const'
+import ContractMedal from '@/views/jscrm/components/ContractMedal' // 引入合同medal
+
 
 
 
@@ -242,6 +248,7 @@ export default {
   name: 'create-share', // 所有新建效果的view
   components: {
     CreateView,
+    ContractMedal,
   },
  
   data() {
@@ -335,6 +342,15 @@ export default {
           this.loading = false
         })
     },
+    selectInvoice(){
+      this.$refs.refInvoiceMedal.visible=true;
+    },
+
+    getDataContract(data){
+      this.record.contractId = data.contractId;
+    },
+
+
   },
   destroyed() {
     // remove DOM node after destroy

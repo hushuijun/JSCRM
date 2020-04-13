@@ -3,9 +3,9 @@
     <flexbox v-if="!isSeas"
              class="rc-head"
              direction="row-reverse">
-      <el-button class="rc-head-item"
+      <!-- <el-button class="rc-head-item"
                  @click.native="addFile"
-                 type="primary">上传附件</el-button>
+                 type="primary">上传附件</el-button> -->
       <input type="file"
              id="file"
              class="rc-head-file"
@@ -34,8 +34,8 @@
           <flexbox justify="center">
             <el-button type="text"
                        @click.native="handleFile('preview', scope)">预览</el-button>
-            <el-button type="text"
-                       @click.native="handleFile('edit', scope)">重命名</el-button>
+            <!-- <el-button type="text"
+                       @click.native="handleFile('edit', scope)">重命名</el-button> -->
             <el-button type="text"
                        @click.native="handleFile('delete', scope)">删除</el-button>
           </flexbox>
@@ -69,7 +69,8 @@ import {
   crmFileSave,
   crmFileIndex,
   crmFileDelete,
-  crmFileUpdate
+  crmFileUpdate,
+  crmFileIndexNew
 } from '@/api/common'
 
 export default {
@@ -128,19 +129,38 @@ export default {
       width: '200',
       label: '上传时间'
     })
+     this.fieldList.push({
+      prop: 'type',
+      width: '200',
+      label: '类型'
+    })
 
     this.getDetail()
   },
   activated: function() {},
   deactivated: function() {},
   methods: {
-    getDetail() {
+    // getDetail() {
+    //   this.loading = true
+    //   crmFileIndex({
+    //     batchId: this.detail.batchId
+    //   })
+    //     .then(res => {
+    //       this.loading = false
+    //       this.list = res.data
+    //     })
+    //     .catch(() => {
+    //       this.loading = false
+    //     })
+    // },
+    getDetail () {
       this.loading = true
-      crmFileIndex({
-        batchId: this.detail.batchId
-      })
-        .then(res => {
+      let batchId = this.detail['附件'] ? this.detail['附件'] : ''
+      crmFileIndexNew(batchId).then(res => {
           this.loading = false
+          res.data.forEach((element) => {
+            element.type = element.name.split('.')[1]
+          })
           this.list = res.data
         })
         .catch(() => {

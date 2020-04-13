@@ -1,7 +1,7 @@
 <template>
   <el-popover v-model="showPopover"
               placement="bottom"
-              width="700"
+              width="600"
               :disabled="disabled"
               popper-class="no-padding-popover"
               trigger="click">
@@ -67,6 +67,10 @@ export default {
       default: () => {
         return {}
       }
+    },
+    crmType: {
+      type: String,
+      default: ''
     }
   },
   mounted() {

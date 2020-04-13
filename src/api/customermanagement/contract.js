@@ -158,3 +158,10 @@ export function crmContractUpdateMembers(data) {
     data: data
   })
 }
+//获取审核模板
+export function crmContractTemplate() {
+  return request({
+    url: '/examine/queryAllExamine',
+    method: 'post',
+  })
+}

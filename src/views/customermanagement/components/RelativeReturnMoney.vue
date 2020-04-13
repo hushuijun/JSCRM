@@ -32,15 +32,15 @@
       </el-table-column>
     </el-table>
 
-    <flexbox class="rc-head"
+    <!-- <flexbox class="rc-head"
              direction="row-reverse"
              style="margin-top: 15px;">
       <el-button v-if="!isSeas"
                  class="rc-head-item"
                  @click.native="createClick('money')"
                  type="primary">新建回款</el-button>
-    </flexbox>
-    <el-table :data="list"
+    </flexbox> -->
+    <!-- <el-table :data="list"
               :height="tableHeight"
               stripe
               style="width: 100%;border: 1px solid #E6E6E6;"
@@ -53,7 +53,7 @@
                        :prop="item.prop"
                        :label="item.label">
       </el-table-column>
-    </el-table>
+    </el-table> -->
     <c-r-m-full-screen-detail :visible.sync="showFullDetail"
                               :crmType="showFullCrmType"
                               :id="showFullId">

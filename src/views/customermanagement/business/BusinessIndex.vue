@@ -1,12 +1,50 @@
 <template>
   <div>
-    <c-r-m-list-head title="商机管理"
+    <!-- <c-r-m-list-head title="商机管理"
                      placeholder="请输入商机名称"
                      :search.sync="search"
                      @on-handle="listHeadHandle"
                      @on-search="crmSearch"
                      main-title="新建商机"
                      :crm-type="crmType">
+    </c-r-m-list-head> -->
+    <div class="main-title">商机管理</div>
+    <div class="input-container">
+      <span>客户姓名</span>
+      <el-input
+        placeholder=""
+        label="客户姓名" size="small" type="text" v-model="searchInfo.customer_name">
+      </el-input>
+    </div>
+    <div class="input-container">
+      <span>商机名称</span>
+      <el-input
+        placeholder=""
+        label="商机名称" size="small" v-model="searchInfo.business_name">
+      </el-input>
+    </div>
+    <div class="input-container">
+      <span>负责人</span>
+      <el-input
+        placeholder=""
+        label="负责人" size="small" v-model="searchInfo.owner_user_name">
+      </el-input>
+    </div>
+    <div class="input-container">
+      <span>
+        商机状态
+      </span>
+      <el-input
+        placeholder=""
+        label="商机状态" size="small" v-model="searchInfo['商机状态']">
+      </el-input>
+    </div>
+    <el-row class="customer-search">
+      <el-button type="primary" @click="searchList(searchInfo)">搜索</el-button>
+    </el-row>
+    <c-r-m-list-head
+      main-title="新建"
+      :crm-type="crmType" :isSeas="false" @on-handle="listHeadHandle">
     </c-r-m-list-head>
     <div v-empty="!crm.business.index"
          xs-empty-icon="nopermission"
@@ -16,7 +54,8 @@
                         :crm-type="crmType"
                         @filter="handleFilter"
                         @handle="handleHandle"
-                        @scene="handleScene"></c-r-m-table-head>
+                        @scene="handleScene" @handleRecordsClick="handleRecordsClick"></c-r-m-table-head>
+      <!-- @row-click="handleRowClick" -->
       <el-table class="n-table--border"
                 id="crm-table"
                 v-loading="loading"
@@ -27,7 +66,6 @@
                 highlight-current-row
                 style="width: 100%"
                 :cell-style="cellStyle"
-                @row-click="handleRowClick"
                 @header-dragend="handleHeaderDragend"
                 @selection-change="handleSelectionChange">
         <el-table-column show-overflow-tooltip
@@ -50,13 +88,24 @@
         </el-table-column>
         <el-table-column>
         </el-table-column>
-        <el-table-column fixed="right"
+        <!-- <el-table-column fixed="right"
                          width="36">
           <template slot="header"
                     slot-scope="slot">
             <img src="@/assets/img/t_set.png"
                  @click="handleTableSet"
                  class="table-set" />
+          </template>
+        </el-table-column> -->
+        <el-table-column
+          fixed="right"
+          label="操作"
+          width="120"
+          type="operation">
+          <template slot-scope="scope">
+            <el-button @click="deleteClick(scope.row)" type="text" size="small">删除</el-button>
+            <el-button @click="editClick(scope.row, 'edit')" type="text" size="small">编辑</el-button>
+            <el-button @click="detailClick(scope.row)" type="text" size="small">详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -77,11 +126,16 @@
                       :crmType="rowType"
                       :id="rowID"
                       @handle="handleHandle"
-                      class="d-view">
+                      class="d-view" :tabCurrentName='tabCurrentName'>
     </c-r-m-all-detail>
     <fields-set :crmType="crmType"
                 @set-success="setSave"
                 :dialogVisible.sync="showFieldSet"></fields-set>
+    <c-r-m-create-view v-if="isCreate"
+        :crm-type="crmType"
+        :action="{type: 'update', id: rowID, batchId: batchId}"
+        @save-success="editSaveSuccess"
+        @hiden-view="isCreate=false"></c-r-m-create-view>
   </div>
 </template>
 
@@ -98,7 +152,13 @@ export default {
   mixins: [table],
   data() {
     return {
-      crmType: 'business'
+      crmType: 'business',
+      searchInfo: {
+        customer_name: '',
+        business_name: '',
+        owner_user_name: '',
+        '商机状态': ''
+      }
     }
   },
   computed: {},
@@ -118,4 +178,28 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/table.scss';
+.main-title {
+  font-size: 20px;
+  padding: 20px 0;
+}
+.input-container {
+  width: 230px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+.el-input--small{
+  width: 150px;
+  display: inline-block;
+}
+.customer-search {
+  display: inline-block;
+  
+}
+.date-pick {
+  width: 150px;
+  display: inline-block;
+}
+.el-button--small {
+  margin-left: 0;
+}
 </style>

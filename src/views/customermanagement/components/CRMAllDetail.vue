@@ -6,8 +6,10 @@
              :id="id"
              :listenerIDs="listenerIDs"
              :noListenerIDs="noListenerIDs"
+             :tabCurName='tabCurrentName'
              @handle="detailHandle"
-             @hide-view="hiddenView">
+             @hide-view="hiddenView"
+             :isSeas=isSeas>
   </component>
 </template>
 
@@ -88,6 +90,18 @@ export default {
       default: () => {
         return ['el-table__body']
       }
+    },
+    isSeas: {
+      type: Boolean,
+      default: false
+    },
+    tabCurrentName: {
+      type: String,
+      default: ''
+    },
+    batchId: {
+      type: String,
+      default: ''
     }
   },
   mounted() {

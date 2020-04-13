@@ -258,3 +258,11 @@ export function crmRecordDelete(data) {
     data: data
   })
 }
+
+// 权限数据
+export function getUserAuth(data) {
+  return request({
+    url: 'system/user/queryUserAuth?type=' + data,
+    method: 'post',
+  })
+}

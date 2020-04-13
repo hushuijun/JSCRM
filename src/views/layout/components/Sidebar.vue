@@ -42,9 +42,9 @@
                :class="'wukong-' + item.meta.icon"
                :style="{ 'color': activeIndex == item.path ? activeTextColor : textColor, fontSize: item.meta.fontSize || '16px'}"></i>
             <span slot="title">{{item.meta.title}}</span>
-            <el-badge v-if="item.meta.num && item.meta.num > 0"
+            <!-- <el-badge v-if="item.meta.num && item.meta.num > 0"
                       :max="99"
-                      :value="item.meta.num"></el-badge>
+                      :value="item.meta.num"></el-badge> -->
           </el-menu-item>
         </router-link>
         <el-submenu v-else

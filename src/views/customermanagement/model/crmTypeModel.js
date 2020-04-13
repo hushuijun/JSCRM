@@ -8,4 +8,5 @@ export default {
   receivables: 7,
   // 公海 8
   receivables_plan: 8
+  // seas: 8
 }

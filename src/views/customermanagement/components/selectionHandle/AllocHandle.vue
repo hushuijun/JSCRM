@@ -94,8 +94,14 @@ export default {
         this.$message.error('请选择负责人')
       } else {
         var self = this
+        let moduleName = ''
+        if (self.crmType == 'seas') {
+          moduleName = 'customer'
+        } else {
+          moduleName = self.crmType
+        }
         var actionIds = this.selectionList.map(function(item, index, array) {
-          return item[self.crmType + 'Id']
+          return item[moduleName + 'Id']
         })
         var params = {
           userId: this.usersList[0].userId

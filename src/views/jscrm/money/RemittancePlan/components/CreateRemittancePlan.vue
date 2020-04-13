@@ -48,7 +48,7 @@
                 </div>
               </div>
             
-              <el-input v-model="record.contractId" style="width: 70%"
+              <el-input v-model="record.contractId" style="width: 70%" :disabled="true"
                 ></el-input>
                <el-button @click="selectInvoice()">选择</el-button>   
             </el-form-item>
@@ -64,7 +64,7 @@
                   </span>
                 </div>
               </div>
-              <el-input  v-model="record.customerName"  maxlength="36"
+              <el-input  v-model="record.customerName" :disabled="true"  maxlength="36"
                 ></el-input>
             </el-form-item>
 
@@ -255,10 +255,9 @@ export default {
     return {
       remittanceIdNum:remittanceIdNum,
       record:{
-        "type": 1,
+        // "type": 1,
         "contractId": null,
         "customerId": null,
-        "customerName": null,
         "caseName": null,
         "handPersonName": null,
         "billNo": null,
@@ -348,6 +347,7 @@ export default {
 
     getDataContract(data){
       this.record.contractId = data.contractId;
+      this.record.customerName = data.customerName;
     },
 
 

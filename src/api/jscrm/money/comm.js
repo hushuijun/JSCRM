@@ -13,9 +13,9 @@ export function queryPageListCase(data) {
 }
 
 
-export function queryPageListContract(data) {
+export function selectPageContract(data) {
   return request({
-    url: 'CrmContract/queryPageList',
+    url: 'remittancePlan/selectPageContract',
     method: 'post',
     data: data,
     headers: {

@@ -5,9 +5,9 @@
       <div class="se-table-header">
         <div>
 
-        <span style="margin-left:10px">合同编号</span> <el-input v-model="queryCondtion.handPersonName" placeholder="请输入" class="input_width"></el-input>
-        <span style="margin-left:10px">客户名称</span> <el-input v-model="queryCondtion.caseId" placeholder="请输入" class="input_width"></el-input>
-        <span style="margin-left:10px">审核状态</span> <el-input v-model="queryCondtion.caseName" placeholder="请输入" class="input_width"></el-input>
+        <span style="margin-left:10px">合同编号</span> <el-input v-model="queryCondtion.contractId" placeholder="请输入" class="input_width"></el-input>
+        <span style="margin-left:10px">客户名称</span> <el-input v-model="queryCondtion.customerName" placeholder="请输入" class="input_width"></el-input>
+        <span style="margin-left:10px">审核状态</span> <el-input v-model="queryCondtion.customerName1" placeholder="请输入" class="input_width"></el-input>
         </div>
         <div style="margin-top:10px;">
         <span style="margin-left:10px">回款开始日期</span> 
@@ -22,7 +22,7 @@
           type="date" style="width: 140px"
           placeholder="选择日期">
         </el-date-picker>
-        <span style="margin-left:10px">负责人</span> <el-input v-model="queryCondtion.caseName" placeholder="请输入" class="input_width"></el-input>
+        <span style="margin-left:10px">负责人</span> <el-input v-model="queryCondtion.handPersonName" placeholder="请输入" class="input_width"></el-input>
         <el-button 
                    @click="addData"
                    type="primary" style="float:right;margin:0px 10px">新增</el-button>
@@ -127,11 +127,13 @@ export default {
       queryCondtion:{
         page: 1,
         limit: 10,
-        billType:null,
+        contractId:null,
+        customerName:null,
+        customerName1:null,
         handPersonName:null,
-        caseId:null,
-        caseName:null,
-        type:1,  //实际还款
+        startDate:null,
+        endDate:null,
+        // type:1,  //实际还款
       },
     }
   },

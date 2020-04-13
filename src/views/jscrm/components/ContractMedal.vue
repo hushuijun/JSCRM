@@ -21,6 +21,11 @@
       >
     </el-table-column>
     <el-table-column
+      prop="customerName"
+      label="客户名称"
+      >
+    </el-table-column>
+    <el-table-column
       label="操作"
       >
       <template slot-scope="scope">
@@ -49,7 +54,7 @@
 
 <script>
 
-import { queryPageListContract } from '@/api/jscrm/money/comm'
+import { selectPageContract } from '@/api/jscrm/money/comm'
 export default {
   /** 客户管理 的 勾选后的 团队成员 操作 移除操作不可移除客户负责人*/
   name: 'teams-handle',
@@ -82,7 +87,7 @@ export default {
     /** 获取列表数据 */
     getList() {
       this.loading = true
-      queryPageListContract(this.queryCondtion)
+      selectPageContract(this.queryCondtion)
         .then(res => {
           console.log(this.queryCondtion);
           this.tableData = res.data.list

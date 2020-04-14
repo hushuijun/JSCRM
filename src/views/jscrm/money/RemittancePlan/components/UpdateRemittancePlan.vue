@@ -114,11 +114,8 @@
                   </span>
                 </div>
               </div>
-              <el-input
-                placeholder="请输入" maxlength="36"
-                v-model="record.planBackMoney"
-              >
-              </el-input>  
+              <el-input-number v-model="record.planBackMoney" :max="1000000000" style="width:100%"  show-word-limit
+                ></el-input-number>
             </el-form-item>
 
             <el-form-item
@@ -132,8 +129,8 @@
                   </span>
                 </div>
               </div>
-              <el-input v-model="record.actualBackMoney"
-                ></el-input>
+               <el-input-number v-model="record.actualBackMoney" :max="1000000000" style="width:100%"  show-word-limit
+                ></el-input-number> 
             </el-form-item>
 
             <el-form-item

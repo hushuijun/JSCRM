@@ -245,7 +245,7 @@ export default {
       if (this.crmType === 'customer') {
         info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
         info.mobile ? params.telephone = {"condition": "is", "value": info.mobile,"formType": "text","name": "telephone"} : ''
-        info.realname ? params.realname = {"condition": "is", "value": info.realname,"formType": "text","name": "realname"} : ''
+        info.realname ? params.owner_user_name = {"condition": "is", "value": info.realname,"formType": "text","name": "owner_user_name"} : ''
         info.create_time ? params.create_time = {"start": info.create_time[0] + ' 00:00:00',"end": info.create_time[1] + ' 23:59:59',"formType": "datetime","name": "create_time"} : ''
       } else if (this.crmType === 'leads') {
         info.telephone ? params.telephone = {"condition": "is", "value": info.telephone,"formType": "text","name": "telephone"} : ''

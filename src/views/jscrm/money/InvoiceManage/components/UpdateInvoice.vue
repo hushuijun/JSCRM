@@ -234,7 +234,7 @@
 <script type="text/javascript">
 import CreateView from '@/components/CreateView'
 import { updateData,selectById } from '@/api/jscrm/money/InvoiceManage'
-import { uploadMultiple,getBatchId,queryPageFile,download } from '@/api/jscrm/money/file'
+import { upload,queryPageFile,download } from '@/api/jscrm/money/file'
 import {billTyppNum}from '@/views/jscrm/money/const/const'
 import * as fecha from "element-ui/lib/utils/date"
 import {crmFileDelete} from '@/api/common'
@@ -271,7 +271,7 @@ export default {
         "caseId": 2,
         "billType": null,
         "id": null,
-        "annexId": null,
+        "annexId": "",
         "remarks": null
       },
       // 标题展示名称
@@ -378,11 +378,12 @@ export default {
         var params = {}
         params.batchId = this.record.annexId;
         params.file = file
-        uploadMultiple(params)
+        upload(params)
           .then(res => {
             // console.log(res);
             // this.fileList.push(res.data);
             // console.log(this.fileList);
+            this.record.annexId = res.batchId;
             this.getFileList();
             this.$message.success('上传成功')
           })

@@ -240,18 +240,19 @@ export default {
     },
     //点击搜索
     searchList (info) {
+      console.log(info, 'infoinfoinfo')
       let params = {}
       if (this.crmType === 'customer') {
         info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
-        info.mobile ? params.mobile = {"condition": "is", "value": info.mobile,"formType": "text","name": "mobile"} : ''
+        info.mobile ? params.telephone = {"condition": "is", "value": info.mobile,"formType": "text","name": "telephone"} : ''
         info.realname ? params.realname = {"condition": "is", "value": info.realname,"formType": "text","name": "realname"} : ''
-        info.create_time ? params.create_time = {"start": info.create_time + ' 00:00:00',"end": info.create_time + ' 23:59:59',"formType": "datetime","name": "create_time"} : ''
+        info.create_time ? params.create_time = {"start": info.create_time[0] + ' 00:00:00',"end": info.create_time[1] + ' 23:59:59',"formType": "datetime","name": "create_time"} : ''
       } else if (this.crmType === 'leads') {
         info.telephone ? params.telephone = {"condition": "is", "value": info.telephone,"formType": "text","name": "telephone"} : ''
         info.leads_name ? params.leads_name = {"condition": "is", "value": info.leads_name,"formType": "text","name": "leads_name"} : ''
         info.owner_user_name ? params.owner_user_name = {"condition": "is", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
         info['线索来源'] ? params['线索来源'] = {"condition": "is", "value": info['线索来源'],"formType": "text","name": "线索来源"} : ''
-        info.create_time ? params.create_time = {"start": info.create_time + ' 00:00:00',"end": info.create_time + ' 23:59:59',"formType": "datetime","name": "create_time"} : ''
+        info.create_time ? params.create_time = {"start": info.create_time[0] + ' 00:00:00',"end": info.create_time[1] + ' 23:59:59',"formType": "datetime","name": "create_time"} : ''
       } else if (this.crmType === 'business') {
         info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
         info.business_name ? params.business_name = {"condition": "is", "value": info.business_name,"formType": "text","name": "business_name"} : ''

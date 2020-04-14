@@ -164,14 +164,17 @@ export default {
     this.getPlanList()
 
     this.fieldList = [
+      { prop: 'customerName', width: '200', label: '客户名称' },
+      { prop: 'contractNum', width: '200', label: '合同编号' },
       { prop: 'receivablesNum', width: '200', label: '回款编号' },
-      { prop: 'contractName', width: '200', label: '合同名称' },
-      { prop: 'contractMoney', width: '200', label: '合同金额' },
-      { prop: 'receivablesMoney', width: '200', label: '回款金额' },
-      { prop: 'num', width: '200', label: '期数' },
+      { prop: 'moneyBackDate', width: '200', label: '回款日期' },
+      { prop: 'actualBackMoney', width: '200', label: '实际回款金额' },
       { prop: 'ownerUserName', width: '200', label: '负责人' },
-      { prop: 'checkStatus', width: '200', label: '状态' },
-      { prop: 'returnTime', width: '200', label: '回款日期' }
+      { prop: 'remittanceId', width: '200', label: '汇款方式' },
+      { prop: 'status', width: '200', label: '审核状态' },
+      { prop: 'status', width: '200', label: '回款状态' },
+      // { prop: 'contractMoney', width: '200', label: '合同金额' },
+      // { prop: 'num', width: '200', label: '期数' },
     ]
     this.getList()
   },
@@ -207,7 +210,7 @@ export default {
         contract: crmContractQueryReceivables,
         case: crmCaseQueryReceivables
       }[this.crmType]
-      request(this.getParams())
+      request(this.getParams('real'))
         .then(res => {
           this.loading = false
           this.list = res.data.list
@@ -220,13 +223,18 @@ export default {
     /**
      * 获取上传参数
      */
-    getParams() {
+    getParams(costType) {
       if (this.crmType === 'customer') {
         return { customerId: this.id, pageType: 0 }
       } else if (this.crmType === 'contract') {
         return { contractId: this.id, pageType: 0 }
       } else if (this.crmType === 'case') {
-        return { contractId: this.contractId, pageType: 0 }
+        if (costType == 'real') {
+          return { pageType: 0, type: 1}
+          // return { contractId: this.contractId, pageType: 0, type: 1}
+        } else {
+          return { contractId: this.contractId, pageType: 0}
+        }
       }
       return {}
     },

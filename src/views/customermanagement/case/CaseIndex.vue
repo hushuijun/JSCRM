@@ -11,45 +11,49 @@
     </c-r-m-list-head> -->
     <div class="main-title">案件管理</div>
     <div class="input-container">
-      <span>客户姓名</span>
+      <span>案件标题</span>
       <el-input
         placeholder=""
         label="客户姓名" size="small" type="text" v-model="searchInfo.leads_name">
       </el-input>
     </div>
     <div class="input-container">
-      <span>客户手机号</span>
+      <span>案件编号</span>
       <el-input
         placeholder=""
         label="客户手机号" size="small" v-model="searchInfo.telephone">
       </el-input>
     </div>
     <div class="input-container">
-      <span>负责人</span>
+      <span>合同编号</span>
       <el-input
         placeholder=""
         label="负责人" size="small" v-model="searchInfo.owner_user_name">
       </el-input>
     </div>
     <div class="input-container">
-      <span>线索来源</span>
+      <span>客户名称</span>
       <el-input
         placeholder=""
         label="负责人" size="small" v-model="searchInfo['线索来源']">
       </el-input>
     </div>
     <div class="input-container">
-      <span>创建时间</span>
-      <!-- <el-input
-        placeholder="请选择时间"
-        label="创建时间" size="small" v-model="searchInfo.create_time" suffix-icon="el-icon-date" disabled="false">
-      </el-input> -->
-      <el-date-picker
-        v-model="searchInfo.create_time"
-        type="date"
-        placeholder="选择日期" class="date-pick" value-format="yyyy-MM-dd">
-      </el-date-picker>
+      <span>负责人</span>
+      <el-input
+        placeholder=""
+        label="负责人" size="small" v-model="searchInfo['线索来源']">
+      </el-input>
     </div>
+    <!-- <el-select v-model="value" placeholder="请选择">
+      <el-option
+        v-for="item in options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value">
+      </el-option>
+    </el-select> -->
+
     <el-row class="customer-search">
       <el-button type="primary" @click="searchList(searchInfo)">搜索</el-button>
     </el-row>

@@ -101,7 +101,10 @@ export function crmCaseQueryReceivables(data) {
     return request({
       url: 'remittancePlan/queryPage',
       method: 'post',
-      data: data
+      data: data,
+      // headers: {
+      //   'Content-Type': 'application/x-www-form-urlencoded'
+      // }
     })
 }
   /**

@@ -22,6 +22,7 @@
     <el-table-column
       prop="caseId"
       label="案件编号"
+      width="60px"
       >
     </el-table-column>
     <el-table-column

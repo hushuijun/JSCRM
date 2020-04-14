@@ -6,6 +6,16 @@
              :append-to-body="true"
              width="600px">
     <div class="handle-box">
+
+      <div style="margin-bottom:5px">
+                <span style="margin-left:10px">合同编号</span> <el-input v-model="queryCondtion.contractId" placeholder="请输入" class="input_width"></el-input>
+                <span style="margin-left:10px">合同名称</span> <el-input v-model="queryCondtion.name" placeholder="请输入" class="input_width"></el-input>
+                <span style="margin-left:10px">客户名称</span> <el-input v-model="queryCondtion.customerName" placeholder="请输入" class="input_width"></el-input>
+
+                <el-button  @click="getList()" style="float:right">查询</el-button>
+      </div>
+
+
        <el-table
     :data="tableData"
     border
@@ -69,6 +79,9 @@ export default {
       queryCondtion:{
         page: 1,
         limit: 5,
+        contractId:null,
+        name:null,
+        customerName:null,
       },
       total:0,
       pageSizes: [5,10, 20, 30, 40],
@@ -133,5 +146,9 @@ export default {
 .handle-box {
   color: #333;
   font-size: 12px;
+}
+
+.input_width {
+  width: 100px;
 }
 </style>

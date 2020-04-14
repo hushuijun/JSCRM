@@ -14,45 +14,59 @@
       <span>案件标题</span>
       <el-input
         placeholder=""
-        label="客户姓名" size="small" type="text" v-model="searchInfo.leads_name">
+        label="客户姓名" size="small" type="text" v-model="searchInfo.name">
       </el-input>
     </div>
     <div class="input-container">
       <span>案件编号</span>
       <el-input
         placeholder=""
-        label="客户手机号" size="small" v-model="searchInfo.telephone">
+        label="客户手机号" size="small" v-model="searchInfo.num">
       </el-input>
     </div>
     <div class="input-container">
       <span>合同编号</span>
       <el-input
         placeholder=""
-        label="负责人" size="small" v-model="searchInfo.owner_user_name">
+        label="负责人" size="small" v-model="searchInfo.contract_num">
       </el-input>
     </div>
     <div class="input-container">
       <span>客户名称</span>
       <el-input
         placeholder=""
-        label="负责人" size="small" v-model="searchInfo['线索来源']">
+        label="负责人" size="small" v-model="searchInfo.customer_name">
       </el-input>
     </div>
     <div class="input-container">
       <span>负责人</span>
       <el-input
         placeholder=""
-        label="负责人" size="small" v-model="searchInfo['线索来源']">
+        label="负责人" size="small" v-model="searchInfo.owner_user_name">
       </el-input>
     </div>
-    <!-- <el-select v-model="value" placeholder="请选择">
-      <el-option
-        v-for="item in options"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value">
-      </el-option>
-    </el-select> -->
+    <div class="input-container">
+      <span>数据筛选</span>
+       <el-select v-model="dataFliter" placeholder="请选择">
+        <el-option
+          v-for="item in dataOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
+    </div>
+    <div class="input-container">
+      <span>案件状态</span>
+       <el-select v-model="status" placeholder="请选择">
+        <el-option
+          v-for="item in dataStatus"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
+    </div>
 
     <el-row class="customer-search">
       <el-button type="primary" @click="searchList(searchInfo)">搜索</el-button>
@@ -198,12 +212,26 @@ export default {
       // 线索来源 
       // create_time 创建时间
       searchInfo: {
-        leads_name: '',
-        telephone: '',
-        create_time: '',
+        name: '',
+        num: '',
+        contract_num: '',
+        customer_name: '',
         owner_user_name: '',
-        '线索来源': ''
+        check_status: '',
       },
+      dataOptions: [
+        {label: '全部', value: '全部'},
+        {label: '私有', value: '私有'},
+        {label: '下属', value: '下属'}
+      ],
+      dataStatus: [
+        {label: '待提交', value: '待提交'},
+        {label: '未审核', value: '未审核'},
+        {label: '审核中', value: '审核中'},
+        {label: '已审核', value: '已审核'}
+      ],
+      dataFliter: '',
+      status: ''
     }
   },
   computed: {},
@@ -246,5 +274,8 @@ export default {
 }
 .el-button--small {
   margin-left: 0;
+}
+.el-select {
+  width: 150px;
 }
 </style>

@@ -128,22 +128,20 @@
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item right-field" prop="contractId"
-                          style="">
+                          class="crm-create-item right-field"  prop="caseId"
+                          >
               <div slot="label"
                    style="display: inline-block;">
                 <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  合同编号
+                  关联案件
                   <span style="color:#999;">
-                   
                   </span>
                 </div>
               </div>
-              <el-input
-                placeholder="请输入" maxlength="36" :disabled="true"
-                v-model="record.contractId"
-              >
-              </el-input>  
+              <el-input v-model="record.caseName" :disabled="true" style="width: 70%"
+                ></el-input>
+              <!-- <el-button @click="">选择</el-button>   -->
+              <el-button @click="selectCase()">选择</el-button>  
             </el-form-item>
 
             <el-form-item
@@ -163,20 +161,22 @@
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item right-field"  prop="caseId"
-                          >
+                          class="crm-create-item right-field" prop="contractId"
+                          style="">
               <div slot="label"
                    style="display: inline-block;">
                 <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  关联案件
+                  合同编号
                   <span style="color:#999;">
+                   
                   </span>
                 </div>
               </div>
-              <el-input v-model="record.caseName" :disabled="true" style="width: 70%"
-                ></el-input>
-              <!-- <el-button @click="">选择</el-button>   -->
-              <el-button @click="selectCase()">选择</el-button>  
+              <el-input
+                placeholder="请输入" maxlength="36" :disabled="true"
+                v-model="record.contractId"
+              >
+              </el-input>  
             </el-form-item>
 
             <el-form-item

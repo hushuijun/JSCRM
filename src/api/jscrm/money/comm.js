@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function queryPageListCase(data) {
+export function selectPageCase(data) {
   return request({
-    url: 'CrmCase/queryPageList',
+    url: 'remittancePlan/selectPageCase',
     method: 'post',
     data: data,
     headers: {

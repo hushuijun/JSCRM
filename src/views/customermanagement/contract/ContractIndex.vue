@@ -117,7 +117,7 @@
         </el-table-column>
         <el-table-column>
         </el-table-column>
-        <el-table-column fixed="right"
+        <!-- <el-table-column fixed="right"
                          width="36">
           <template slot="header"
                     slot-scope="slot">
@@ -125,7 +125,7 @@
                  @click="handleTableSet"
                  class="table-set" />
           </template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column
           fixed="right"
           label="操作"

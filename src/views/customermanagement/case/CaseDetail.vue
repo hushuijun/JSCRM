@@ -12,8 +12,7 @@
              direction="column"
              align="stretch"
              class="d-container">
-      <!-- <c-r-m-detail-head crmType="customer"
-                         :isSeas="isSeas"
+      <!-- <c-r-m-detail-head crmType="leads"
                          @handle="detailHeadHandle"
                          @close="hideView"
                          :detail="detailData"
@@ -35,15 +34,14 @@
            id="follow-log-content">
         <keep-alive>
           <component v-bind:is="tabName"
-                     crmType="customer"
+                     crmType="case"
                      :detail="detailData"
-                     :id="id"
-                     :isSeas="isSeas"></component>
+                     :id="id" :contractId="contractId"></component>
         </keep-alive>
       </div>
     </flexbox>
     <c-r-m-create-view v-if="isCreate"
-                       crm-type="customer"
+                       crm-type="leads"
                        :action="{type: 'update', id: this.id, batchId: detailData.batchId}"
                        @save-success="editSaveSuccess"
                        @hiden-view="isCreate=false"></c-r-m-create-view>
@@ -51,19 +49,18 @@
 </template>
 
 <script>
-import { crmCustomerRead } from '@/api/customermanagement/customer'
+import { crmCaseRead } from '@/api/customermanagement/case'
 
 import SlideView from '@/components/SlideView'
 import CRMDetailHead from '../components/CRMDetailHead'
-import CustomerFollow from './components/CustomerFollow' // 跟进记录
-import CRMBaseInfo from '../components/CRMBaseInfo' // 基本信息
-import RelativeContacts from '../components/RelativeContacts' //相关联系人
-import RelativeBusiness from '../components/RelativeBusiness' //相关商机
-import RelativeContract from '../components/RelativeContract' //相关合同
-import RelativeReturnMoney from '../components/RelativeReturnMoney' //相关回款
+import CaseFollow from './components/CaseFollow' // 跟进记录
+import CRMBaseInfo from '../components/CRMBaseInfo' // 案件基本信息
 import RelativeFiles from '../components/RelativeFiles' //相关附件
 import RelativeHandle from '../components/RelativeHandle' //相关操作
-import RelativeTeam from '../components/RelativeTeam' //相关团队
+import CaseProcess from './components/CaseProcess' // 审核流程
+import RelativeReturnMoney from '../components/RelativeReturnMoney' //相关回款
+import CaseInvoice from './components/CaseInvoice' //相关回款
+import CaseCost from './components/CaseCost' //相关回款
 
 import CRMCreateView from '../components/CRMCreateView' // 新建页面
 
@@ -72,21 +69,20 @@ import moment from 'moment'
 import detail from '../mixins/detail'
 
 export default {
-  /** 客户管理 的 客户详情 */
-  name: 'customer-detail',
+  /** 线索管理 的 线索详情 */
+  name: 'clue-detail',
   components: {
     SlideView,
-    CustomerFollow,
     CRMDetailHead,
+    CaseFollow,
     CRMBaseInfo,
-    RelativeContacts,
-    RelativeBusiness,
-    RelativeContract,
-    RelativeReturnMoney,
     RelativeFiles,
     RelativeHandle,
-    RelativeTeam,
-    CRMCreateView
+    CRMCreateView,
+    RelativeReturnMoney,
+    CaseProcess,
+    CaseInvoice,
+    CaseCost
   },
   mixins: [detail],
   props: {
@@ -120,90 +116,77 @@ export default {
   data() {
     return {
       loading: false, // 展示加载loading
-      crmType: 'customer',
+      crmType: 'leads',
       detailData: {}, // read 详情
       headDetails: [
-        { title: '客户级别', value: '' },
-        { title: '成交状态', value: '' },
+        { title: '姓名', value: '' },
+        { title: '线索来源', value: '' },
+        { title: '手机', value: '' },
         { title: '负责人', value: '' },
-        { title: '更新时间', value: '' }
+        { title: '创建时间', value: '' }
+      ],
+      tabnames: [
+        { label: '基本信息', name: 'basicinfo' },
+        { label: '跟进记录', name: 'followlog' },
+        { label: '审核流程', name: 'caseprocess' },
+        { label: '相关附件', name: 'file' },
+        { label: '回款', name: 'returnedmoney' },
+        { label: '发票', name: 'invoice' },
+        { label: '费用', name: 'cost' },
+        // { label: '附件', name: 'file' },
+        // { label: '操作记录', name: 'operationlog' }
       ],
       tabCurrentName: '',
-      // tabCurrentName: 'basicinfo',
-      isCreate: false // 编辑操作
+      isCreate: false, // 编辑操作
+      contractId: ''
     }
   },
   created() {
     this.tabCurrentName = this.tabCurName ? this.tabCurName : 'basicinfo'
   },
   computed: {
+    // tabCurrentName () {
+    //   return this.tabCurName ? this.tabCurName : 'basicinfo' 
+    // },
     tabName() {
       if (this.tabCurrentName == 'followlog') {
-        return 'customer-follow'
+        return 'case-follow'
       } else if (this.tabCurrentName == 'basicinfo') {
         return 'c-r-m-base-info'
-      } else if (this.tabCurrentName == 'contacts') {
-        return 'relative-contacts'
-      } else if (this.tabCurrentName == 'team') {
-        return 'relative-team'
-      } else if (this.tabCurrentName == 'business') {
-        return 'relative-business'
-      } else if (this.tabCurrentName == 'contract') {
-        return 'relative-contract'
-      } else if (this.tabCurrentName == 'returnedmoney') {
-        return 'relative-return-money'
       } else if (this.tabCurrentName == 'file') {
         return 'relative-files'
-      } else if (this.tabCurrentName == 'operationlog') {
-        return 'relative-handle'
+      } else if (this.tabCurrentName == 'caseprocess') {
+        return 'case-process'
+      } else if (this.tabCurrentName == 'returnedmoney') {
+        return 'relative-return-money'
+      } else if (this.tabCurrentName == 'invoice') {
+        return 'case-invoice'
+      } else if (this.tabCurrentName == 'cost') {
+        return 'case-cost'
       }
       return ''
-    },
-    tabnames() {
-      var tempsTabs = []
-      if (this.crm.customer && this.crm.customer.read) {
-        tempsTabs.push({ label: '基本信息', name: 'basicinfo' })
-      }
-      // if (!this.isSeas) {
-      tempsTabs.push({ label: '跟进记录', name: 'followlog' })
-        // if (this.crm.contacts && this.crm.contacts.index) {
-        //   tempsTabs.push({ label: '联系人', name: 'contacts' })
-        // }
-        // tempsTabs.push({ label: '相关团队', name: 'team' })
-        // if (this.crm.business && this.crm.business.index) {
-        //   tempsTabs.push({ label: '商机', name: 'business' })
-        // }
-      // }
-      // if (this.crm.contract && this.crm.contract.index) {
-      //   tempsTabs.push({ label: '合同', name: 'contract' })
-      // }
-      // if (this.crm.receivables && this.crm.receivables.index) {
-      //   tempsTabs.push({ label: '回款信息', name: 'returnedmoney' })
-      // }
-      // tempsTabs.push({ label: '附件', name: 'file' })
-      // tempsTabs.push({ label: '操作记录', name: 'operationlog' })
-      return tempsTabs
     }
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     closeDetail () {
       this.$emit("hide-view")
     },
     getDetial() {
       this.loading = true
-      crmCustomerRead({
-        customerId: this.id
+      crmCaseRead({
+        caseId: this.id
       })
         .then(res => {
-          this.loading = false
           this.detailData = res.data
+          this.contractId = res.data.contractId
+          this.headDetails[0].value = res.data.name
+          this.headDetails[1].value = res.data.线索来源
+          this.headDetails[2].value = res.data.mobile
           // 负责人
-          this.headDetails[0].value = res.data.客户级别
-          this.headDetails[1].value = res.data.dealStatus
-          this.headDetails[2].value = res.data.ownerUserName
-          this.headDetails[3].value = res.data.updateTime
+          this.headDetails[3].value = res.data.ownerUserName
+          this.headDetails[4].value = res.data.createTime
+          this.loading = false
         })
         .catch(() => {
           this.loading = false

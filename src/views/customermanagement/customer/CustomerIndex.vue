@@ -35,28 +35,37 @@
         label="负责人" size="small" v-model="searchInfo.realname">
       </el-input>
     </div>
-    <div class="input-container">
+    <div class="dateTime">
       <span>创建时间</span>
       <!-- <el-input
         placeholder="请选择时间"
         label="创建时间" size="small" v-model="searchInfo.create_time" suffix-icon="el-icon-date" disabled="false">
       </el-input> -->
-      <el-date-picker
+      <!-- <el-date-picker
         v-model="searchInfo.create_time"
         type="date"
         placeholder="选择日期" class="date-pick" value-format="yyyy-MM-dd">
-      </el-date-picker>
+      </el-date-picker> -->
+      <div class="block">
+        <el-date-picker
+          v-model="searchInfo.create_time"
+          type="daterange"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期" value-format="yyyy-MM-dd">
+        </el-date-picker>
+      </div>
+      <el-row class="customer-search">
+        <el-button type="primary" @click="searchList(searchInfo)">搜索</el-button>
+      </el-row>
+      <!-- <el-row class="customer-search">
+        <el-button type="primary" @click="createClick">新建</el-button>
+      </el-row> -->
+      <c-r-m-list-head
+        main-title="新建"
+        :crm-type="crmType" @on-handle="listHeadHandle">
+      </c-r-m-list-head>
     </div>
-    <el-row class="customer-search">
-      <el-button type="primary" @click="searchList(searchInfo)">搜索</el-button>
-    </el-row>
-    <!-- <el-row class="customer-search">
-      <el-button type="primary" @click="createClick">新建</el-button>
-    </el-row> -->
-    <c-r-m-list-head
-      main-title="新建"
-      :crm-type="crmType" @on-handle="listHeadHandle">
-    </c-r-m-list-head>
     <div v-empty="!crm.customer.index"
          xs-empty-icon="nopermission"
          xs-empty-text="暂无权限"
@@ -317,5 +326,12 @@ export default {
 }
 .el-button--small {
   margin-left: 0;
+}
+.block {
+  display: inline-block;
+  vertical-align: middle;
+}
+.customer-search {
+  margin-left: 20px;
 }
 </style>

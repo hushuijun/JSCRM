@@ -396,6 +396,7 @@ export default {
       } else if (type == 'alloc') {
         // 公海分配操作
         this.allocDialogShow = true
+        // this.transferDialogShow = true
       } else if (type == 'follow_records') {
         this.$emit('handleRecordsClick', {type: 'follow_records'})
       } else if (type == 'business') {

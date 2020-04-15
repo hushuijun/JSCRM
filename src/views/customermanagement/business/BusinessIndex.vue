@@ -34,10 +34,18 @@
       <span>
         商机状态
       </span>
-      <el-input
+      <el-select v-model="searchInfo['商机状态']" placeholder="请选择">
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
+      <!-- <el-input
         placeholder=""
         label="商机状态" size="small" v-model="searchInfo['商机状态']">
-      </el-input>
+      </el-input> -->
     </div>
     <el-row class="customer-search">
       <el-button type="primary" @click="searchList(searchInfo)">搜索</el-button>
@@ -158,7 +166,17 @@ export default {
         business_name: '',
         owner_user_name: '',
         '商机状态': ''
-      }
+      },
+      options: [{
+          value: '初步洽谈',
+          label: '初步洽谈'
+        }, {
+          value: '深入沟通',
+          label: '深入沟通'
+        }, {
+          value: '流失商机',
+          label: '流失商机'
+        }],
     }
   },
   computed: {},
@@ -201,5 +219,8 @@ export default {
 }
 .el-button--small {
   margin-left: 0;
+}
+.el-select {
+  width: 150px;
 }
 </style>

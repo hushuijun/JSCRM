@@ -19,10 +19,10 @@
         <div v-for="(item, index) in dataValue"
              :key="index"
              @click.stop="deleteuser(index)"
-             class="user-item">{{item.realname}}
+             class="user-item" v-show="dataValue.length > 0 && dataValue[0].realname">{{item.realname}}
           <i class="delete-icon el-icon-close"></i>
         </div>
-        <div class="add-item" v-if='dataValue.length==0'>+{{placeholder}}</div>
+        <div class="add-item" v-if='dataValue.length == 0 || (dataValue.length > 0 && !dataValue[0].realname)'>+{{placeholder}}</div>
       </flexbox>
     </div>
   </el-popover>
@@ -68,6 +68,9 @@ export default {
         return {}
       }
     }
+  },
+  mounted () {
+    console.log(this.dataValue, 'dataValue')
   },
   methods: {
     /** 选中 */

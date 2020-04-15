@@ -38,30 +38,47 @@
     </div>
     <div class="input-container">
       <span>线索来源</span>
-      <el-input
+      <el-select v-model="searchInfo['线索来源']" placeholder="请选择">
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
+      <!-- <el-input
         placeholder=""
         label="负责人" size="small" v-model="searchInfo['线索来源']">
-      </el-input>
+      </el-input> -->
     </div>
-    <div class="input-container">
+    <div class="dateTime">
       <span>创建时间</span>
       <!-- <el-input
         placeholder="请选择时间"
         label="创建时间" size="small" v-model="searchInfo.create_time" suffix-icon="el-icon-date" disabled="false">
       </el-input> -->
-      <el-date-picker
+      <!-- <el-date-picker
         v-model="searchInfo.create_time"
         type="date"
         placeholder="选择日期" class="date-pick" value-format="yyyy-MM-dd">
-      </el-date-picker>
-    </div>
-    <el-row class="customer-search">
+      </el-date-picker> -->
+      <div class="block">
+        <el-date-picker
+          v-model="searchInfo.create_time"
+          type="daterange"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期" value-format="yyyy-MM-dd">
+        </el-date-picker>
+      </div>
+      <el-row class="customer-search">
       <el-button type="primary" @click="searchList(searchInfo)">搜索</el-button>
-    </el-row>
-    <c-r-m-list-head
-      main-title="新建"
-      :crm-type="crmType" :isSeas="false" @on-handle="listHeadHandle">
-    </c-r-m-list-head>
+      </el-row>
+      <c-r-m-list-head
+        main-title="新建"
+        :crm-type="crmType" :isSeas="false" @on-handle="listHeadHandle">
+      </c-r-m-list-head>
+    </div>
     <div v-empty="!crm.leads.index"
          xs-empty-icon="nopermission"
          xs-empty-text="暂无权限"
@@ -186,6 +203,36 @@ export default {
         owner_user_name: '',
         '线索来源': ''
       },
+      options: [
+        {
+          value: '促销',
+          label: '促销'
+        }, {
+          value: '搜索引擎',
+          label: '搜索引擎'
+        }, {
+          value: '广告',
+          label: '广告'
+        },{
+          value: '转介绍',
+          label: '转介绍'
+        },{
+          value: '线上注册',
+          label: '线上注册'
+        },{
+          value: '线上询价',
+          label: '线上询价'
+        },{
+          value: '预约上门',
+          label: '预约上门'
+        },{
+          value: '电话咨询',
+          label: '电话咨询'
+        },{
+          value: '邮件咨询',
+          label: '邮件咨询'
+        }
+      ]
     }
   },
   computed: {},
@@ -228,5 +275,15 @@ export default {
 }
 .el-button--small {
   margin-left: 0;
+}
+.block {
+  display: inline-block;
+  vertical-align: middle;
+}
+.el-button--primary {
+  margin-left: 20px;
+}
+.el-select {
+  width: 150px;
 }
 </style>

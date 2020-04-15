@@ -19,11 +19,10 @@
       <div v-for="(aitem, aindex) in dataValue"
            :key="aindex"
            @click.stop="deleteinfo(aindex)"
-           class="user-item">{{getShowName(aitem)}}
+           class="user-item" v-show="!isShowAdd">{{getShowName(aitem)}}
         <i class="delete-icon el-icon-close"></i>
       </div>
-      <div class="add-item"
-           v-if="dataValue.length == 0">+添加</div>
+      <div class="add-item" v-if="isShowAdd">+添加</div>
     </flexbox>
   </el-popover>
 </template>
@@ -43,6 +42,9 @@ export default {
       return this.item && this.item.data && this.item.data.relation_id
     }
   },
+  created () {
+    console.log(this.dataValue, '关联客户')
+  },
   watch: {
     relation: function(val) {
       if (val.moduleType) {
@@ -57,7 +59,8 @@ export default {
       showPopover: false, // 展示popover
       showSelectView: false, // 内容
       radio: true, // 是否单选
-      relationAction: { type: 'default' }
+      relationAction: { type: 'default' },
+      isShowAdd: true
     }
   },
   props: {
@@ -79,10 +82,17 @@ export default {
     } else {
       this.relationAction = { type: 'default' }
     }
+    this.dataValue.forEach((element) => {
+      if (element.number || element.customerName || element.businessName || element.contractNum || element.num) {
+        this.isShowAdd = false
+        console.log(this.dataValue, 'this.dataValue')
+      }
+    })
   },
   methods: {
     /** 选中 */
     checkInfos(data) {
+      this.isShowAdd = false
       this.dataValue = data.data ? data.data : []
       this.$emit('value-change', {
         index: this.index,
@@ -101,7 +111,7 @@ export default {
       } else {
         this.dataValue.splice(index, 1)
       }
-
+      this.isShowAdd = true
       this.$emit('value-change', {
         index: this.index,
         value: this.dataValue

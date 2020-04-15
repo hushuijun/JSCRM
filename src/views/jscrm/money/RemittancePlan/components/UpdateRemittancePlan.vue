@@ -48,8 +48,9 @@
                 </div>
               </div>
             
-              <el-input v-model="record.contractId"
+              <el-input v-model="record.contractId" style="width: 70%" :disabled="true"
                 ></el-input>
+               <el-button @click="selectInvoice()">选择</el-button>   
             </el-form-item>
 
             <el-form-item
@@ -63,7 +64,7 @@
                   </span>
                 </div>
               </div>
-              <el-input  v-model="record.customerName"  maxlength="36"
+              <el-input  v-model="record.customerName" :disabled="true"  maxlength="36"
                 ></el-input>
             </el-form-item>
 
@@ -113,11 +114,8 @@
                   </span>
                 </div>
               </div>
-              <el-input
-                placeholder="请输入" maxlength="36"
-                v-model="record.planBackMoney"
-              >
-              </el-input>  
+              <el-input-number v-model="record.planBackMoney" :max="1000000000" style="width:100%"  show-word-limit
+                ></el-input-number>
             </el-form-item>
 
             <el-form-item
@@ -131,8 +129,8 @@
                   </span>
                 </div>
               </div>
-              <el-input v-model="record.actualBackMoney"
-                ></el-input>
+               <el-input-number v-model="record.actualBackMoney" :max="1000000000" style="width:100%"  show-word-limit
+                ></el-input-number> 
             </el-form-item>
 
             <el-form-item
@@ -229,12 +227,16 @@
       </flexbox>
       
     </flexbox>
+
+        <ContractMedal ref="refInvoiceMedal" @getDataContract="getDataContract"></ContractMedal>
+
   </create-view>
 </template>
 <script type="text/javascript">
 import CreateView from '@/components/CreateView'
 import { updateData,selectById } from '@/api/jscrm/money/RemittancePlan'
 import {remittanceIdNum}from '@/views/jscrm/money/const/const'
+import ContractMedal from '@/views/jscrm/components/ContractMedal' // 引入合同medal
 
 
 
@@ -242,6 +244,7 @@ export default {
   name: 'create-share', // 所有新建效果的view
   components: {
     CreateView,
+    ContractMedal
   },
    props: {
     // 详情信息
@@ -252,7 +255,9 @@ export default {
     return {
       remittanceIdNum:remittanceIdNum,
       record:{
+        // "type": 1,
         "contractId": null,
+        "customerId": null,
         "caseName": null,
         "handPersonName": null,
         "billNo": null,
@@ -344,6 +349,16 @@ export default {
           this.loading = false
         })
     },
+    selectInvoice(){
+      this.$refs.refInvoiceMedal.visible=true;
+    },
+
+    getDataContract(data){
+      this.record.contractId = data.contractId;
+      this.record.customerName = data.customerName;
+    },
+
+
   },
   destroyed() {
     // remove DOM node after destroy

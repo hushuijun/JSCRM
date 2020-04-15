@@ -6,6 +6,15 @@
              :append-to-body="true"
              width="600px">
     <div class="handle-box">
+
+     <div style="margin-bottom:5px">
+                <span style="margin-left:10px">案件编号</span> <el-input v-model="queryCondtion.caseId" placeholder="请输入" class="input_width"></el-input>
+                <span style="margin-left:10px">案件名称</span> <el-input v-model="queryCondtion.caseName" placeholder="请输入" class="input_width"></el-input>
+                <span style="margin-left:10px">合同名称</span> <el-input v-model="queryCondtion.contractName" placeholder="请输入" class="input_width"></el-input>
+
+                <el-button  @click="getList()" style="float:right">查询</el-button>
+      </div>
+
        <el-table
     :data="tableData"
     border
@@ -13,16 +22,22 @@
     <el-table-column
       prop="caseId"
       label="案件编号"
+      width="60px"
       >
     </el-table-column>
     <el-table-column
-      prop="name"
+      prop="caseName"
       label="案件名称"
       >
     </el-table-column>
     <el-table-column
-      prop="customerId"
-      label="合同编号"
+      prop="contractName"
+      label="合同名称"
+      >
+    </el-table-column>
+    <el-table-column
+      prop="realname"
+      label="负责人"
       >
     </el-table-column>
     <el-table-column
@@ -54,7 +69,7 @@
 
 <script>
 
-import { queryPageListCase } from '@/api/jscrm/money/comm'
+import { selectPageCase } from '@/api/jscrm/money/comm'
 export default {
   /** 客户管理 的 勾选后的 团队成员 操作 移除操作不可移除客户负责人*/
   name: 'teams-handle',
@@ -69,10 +84,9 @@ export default {
       queryCondtion:{
         page: 1,
         limit: 5,
-        billType:null,
-        handPersonName:null,
         caseId:null,
         caseName:null,
+        contractName:null,
       },
       total:0,
       pageSizes: [5,10, 20, 30, 40],
@@ -91,7 +105,7 @@ export default {
     /** 获取列表数据 */
     getList() {
       this.loading = true
-      queryPageListCase(this.queryCondtion)
+      selectPageCase(this.queryCondtion)
         .then(res => {
           console.log(this.queryCondtion);
           this.tableData = res.data.list
@@ -137,5 +151,9 @@ export default {
 .handle-box {
   color: #333;
   font-size: 12px;
+}
+
+.input_width {
+  width: 100px;
 }
 </style>

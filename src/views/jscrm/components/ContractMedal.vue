@@ -6,6 +6,16 @@
              :append-to-body="true"
              width="600px">
     <div class="handle-box">
+
+      <div style="margin-bottom:5px">
+                <span style="margin-left:10px">合同编号</span> <el-input v-model="queryCondtion.contractId" placeholder="请输入" class="input_width"></el-input>
+                <span style="margin-left:10px">合同名称</span> <el-input v-model="queryCondtion.name" placeholder="请输入" class="input_width"></el-input>
+                <span style="margin-left:10px">客户名称</span> <el-input v-model="queryCondtion.customerName" placeholder="请输入" class="input_width"></el-input>
+
+                <el-button  @click="getList()" style="float:right">查询</el-button>
+      </div>
+
+
        <el-table
     :data="tableData"
     border
@@ -18,6 +28,11 @@
     <el-table-column
       prop="name"
       label="合同名称"
+      >
+    </el-table-column>
+    <el-table-column
+      prop="customerName"
+      label="客户名称"
       >
     </el-table-column>
     <el-table-column
@@ -49,7 +64,7 @@
 
 <script>
 
-import { queryPageListContract } from '@/api/jscrm/money/comm'
+import { selectPageContract } from '@/api/jscrm/money/comm'
 export default {
   /** 客户管理 的 勾选后的 团队成员 操作 移除操作不可移除客户负责人*/
   name: 'teams-handle',
@@ -57,17 +72,16 @@ export default {
   },
   data() {
     return {
-      tableData:[{"caseId":3,"name":"案件标题","customerId":3},{"caseId":3,"name":"案件标题","customerId":3},{"caseId":3,"name":"案件标题","customerId":3}],
+      tableData:null,
       loading: false, // 加载动画
       visible: false,
       title:'选择合同',
       queryCondtion:{
         page: 1,
         limit: 5,
-        billType:null,
-        handPersonName:null,
-        caseId:null,
-        caseName:null,
+        contractId:null,
+        name:null,
+        customerName:null,
       },
       total:0,
       pageSizes: [5,10, 20, 30, 40],
@@ -86,7 +100,7 @@ export default {
     /** 获取列表数据 */
     getList() {
       this.loading = true
-      queryPageListContract(this.queryCondtion)
+      selectPageContract(this.queryCondtion)
         .then(res => {
           console.log(this.queryCondtion);
           this.tableData = res.data.list
@@ -108,7 +122,7 @@ export default {
 
     handleClick(row) {
       console.log(row);
-      this.$emit('getDataCase',row);
+      this.$emit('getDataContract',row);
       this.visible = false;
     },
 
@@ -132,5 +146,9 @@ export default {
 .handle-box {
   color: #333;
   font-size: 12px;
+}
+
+.input_width {
+  width: 100px;
 }
 </style>

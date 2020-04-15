@@ -21,16 +21,19 @@
     <el-table-column
       prop="userId"
       label="编号"
+      width="50px"
       >
     </el-table-column>
     <el-table-column
       prop="realname"
       label="名称"
+      width="80px"
       >
     </el-table-column>
     <el-table-column
       prop="mobile"
       label="手机号"
+      width="120px"
       >
     </el-table-column>
     <el-table-column
@@ -41,6 +44,7 @@
     <el-table-column
       prop="post"
       label="岗位"
+      width="120px"
       >
     </el-table-column>
     <el-table-column

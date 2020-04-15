@@ -17,7 +17,7 @@ export function upload(data) {
     param.append(key, data[key])
   })
   return request({
-    url: 'upload/upload',
+    url: 'file/upload',
     method: 'post',
     data: param,
     headers: {

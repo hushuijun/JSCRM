@@ -111,7 +111,7 @@ export default {
           })
       },
       previewFile (info) {
-        let batchId = info.batchId
+        let batchId = info.annexId
         // let batchId = 'e2f90567400943e3aa11aea9875d412d'
         this.isShow = true
         crmFileIndexNew(batchId).then(res => {

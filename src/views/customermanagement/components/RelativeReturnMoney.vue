@@ -48,7 +48,8 @@
               style="width: 100%;border: 1px solid #E6E6E6;"
               :header-cell-style="headerRowStyle"
               :cell-style="cellStyle"
-              @row-click="handleRowClick" v-if="crmType=='case'">
+               v-if="crmType=='case'">
+               <!-- @row-click="handleRowClick" -->
       <el-table-column v-for="(item, index) in fieldList"
                        :key="index"
                        show-overflow-tooltip
@@ -169,7 +170,7 @@ export default {
       { prop: 'receivablesNum', width: '200', label: '回款编号' },
       { prop: 'moneyBackDate', width: '200', label: '回款日期' },
       { prop: 'actualBackMoney', width: '200', label: '实际回款金额' },
-      { prop: 'ownerUserName', width: '200', label: '负责人' },
+      { prop: 'handPersonName', width: '200', label: '负责人' },
       { prop: 'remittanceId', width: '200', label: '汇款方式' },
       { prop: 'status', width: '200', label: '审核状态' },
       { prop: 'status', width: '200', label: '回款状态' },

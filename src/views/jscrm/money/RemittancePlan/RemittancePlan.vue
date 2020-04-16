@@ -41,16 +41,16 @@
                >
        
         <el-table-column prop="customerName" label="客户名称" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="customerCompanyName" label="客户公司名称" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="contractId" label="合同编号" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="customerCompanyName" label="客户公司名称" width="150px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="contractId" label="合同编号" width="150px" align="center" header-align="center"></el-table-column>
         <el-table-column prop="id" label="回款编号" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="moneyBackDate" label="回款日期"  :formatter="dateFormat" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="planBackMoney" label="计划回款金额" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="actualBackMoney" label="实际回款金额" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="moneyBackDate" label="回款日期" width="100px"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="planBackMoney" label="计划回款金额" width="100px"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="actualBackMoney" label="实际回款金额" width="100px"  align="center" header-align="center"></el-table-column>
         <el-table-column prop="handPersonName" label="负责人" width="100px" align="center" header-align="center"></el-table-column>
         <el-table-column prop="remittanceId" label="汇款方式" width="100px" align="center" header-align="center"></el-table-column>
         <el-table-column prop="remittanceId" label="审核状态" width="100px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="remittanceId" label="回款状态" width="100px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="remitStatus" label="回款状态" width="100px" align="center" header-align="center"></el-table-column>
 
         <el-table-column fixed="right"
                          label="操作"

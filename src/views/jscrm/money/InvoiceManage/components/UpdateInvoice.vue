@@ -33,7 +33,7 @@
                   </span>
                 </div>
               </div>
-              <el-date-picker
+              <el-date-picker value-format="yyyy-MM-dd"
               v-model="record.invoiceDate"
               type="date" style="width:100%" 
               placeholder="选择日期">

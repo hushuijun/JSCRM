@@ -38,12 +38,12 @@
                 style="width: 100%"
                >
        
-        <el-table-column prop="caseId" label="案件编号" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="caseName" label="案件名称" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="invoiceDate" label="开票日期" :formatter="dateFormat" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="billType" label="票据类型" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="invoiceMoney" label="开票金额" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="billNo" label="发票号码" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="caseId" label="案件编号" width="150px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="caseName" label="案件名称"  width="100px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="invoiceDate" label="开票日期"  width="100px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="billType" label="票据类型" width="140px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="invoiceMoney" label="开票金额" width="100px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="billNo" label="发票号码" width="100px" align="center" header-align="center"></el-table-column>
         <el-table-column prop="createUserName" label="所属人员" align="center" header-align="center"></el-table-column>
         <el-table-column prop="handPersonName" label="发票经手人员" width="100px" align="center" header-align="center"></el-table-column>
 

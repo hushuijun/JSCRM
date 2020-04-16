@@ -23,10 +23,10 @@
                >
        
         <el-table-column prop="id" label="费用编号" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="contractId" label="合同编号" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="caseId" label="案件编号"  align="center" header-align="center"></el-table-column>
-        <el-table-column prop="costMoney" label="金额" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="costDate" label="时间" align="center" :formatter="dateFormat" header-align="center"></el-table-column>
+        <el-table-column prop="contractId" label="合同编号" width="150px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="caseId" label="案件编号" width="150px"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="costMoney" label="金额" width="100px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="costDate" label="时间" width="100px" align="center"  header-align="center"></el-table-column>
         <el-table-column prop="applyUserName" label="负责人" align="center" header-align="center"></el-table-column>
         <el-table-column prop="formType" label="填单类型" align="center" header-align="center"></el-table-column>
         <el-table-column prop="status" label="审核状态"  align="center" header-align="center"></el-table-column>

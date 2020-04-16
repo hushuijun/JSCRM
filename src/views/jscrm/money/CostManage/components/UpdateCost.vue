@@ -100,7 +100,7 @@
                 </div>
               </div>
                 <el-date-picker
-              v-model="record.costDate"
+              v-model="record.costDate"  value-format="yyyy-MM-dd"
               type="date" style="width:100%" 
               placeholder="选择日期">
             </el-date-picker>  

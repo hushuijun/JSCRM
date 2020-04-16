@@ -1,15 +1,16 @@
 <template>
   <div class="se-container">
-    <div class="se-header">费用管理</div>
-    <div class="se-body">
-      <div class="se-table-header">
-
-        <span style="margin-left:10px">合同编号</span> <el-input v-model="queryCondtion.contractId" placeholder="请输入" class="input_width"></el-input>
+    <div class="main-title">费用管理</div>
+    
+        <div class="input-container">
+        <span style="margin-left:10px">合同编号</span> <el-input v-model="queryCondtion.contractId" placeholder="请输入" size="small"></el-input>
+        </div>
+        <el-button  @click="getList()" type="primary">搜索</el-button>
         <el-button 
                    @click="addData"
-                   type="primary" style="float:right;margin:0px 10px">新增</el-button>
-        <el-button  @click="getList()" style="float:right">搜索</el-button>
-      </div>
+                   type="primary" >新增</el-button>
+
+      <div class="se-body">
       <el-table class="main-table"
                 id="examine-table"
                 v-loading="loading"
@@ -243,6 +244,22 @@ export default {
 
 .input_width {
   width: 100px;
+}
+
+.input-container {
+  width: 230px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.el-input--small{
+  width: 150px;
+  display: inline-block;
+}
+
+.main-title {
+  font-size: 20px;
+  padding: 20px 0;
 }
 
 // @import '../styles/table.scss';

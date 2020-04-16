@@ -1,10 +1,9 @@
 <template>
   <div class="se-container">
-    <div class="se-header">发票管理</div>
-    <div class="se-body">
-      <div class="se-table-header">
-
-        <span style="margin-left:10px">发票类型</span> <el-select v-model="queryCondtion.billType" class="input_width" clearable placeholder="请选择">
+    <div class="main-title">发票管理</div>
+    
+    <div class="input-container">
+        <span >发票类型</span> <el-select v-model="queryCondtion.billType" size="small" style="width: 150px;" clearable placeholder="请选择">
                  <el-option
                   v-for="item in billTyppNum"
                   :key="item.code"
@@ -12,15 +11,22 @@
                   :value="item.code"
                   >
                 </el-option>
-               </el-select>  
-        <span style="margin-left:10px">负责人</span> <el-input v-model="queryCondtion.handPersonName" placeholder="请输入" class="input_width"></el-input>
-        <span style="margin-left:10px">案件编码</span> <el-input v-model="queryCondtion.caseId" placeholder="请输入" class="input_width"></el-input>
-        <span style="margin-left:10px">案件名称</span> <el-input v-model="queryCondtion.caseName" placeholder="请输入" class="input_width"></el-input>
+               </el-select>  </div>
+               <div class="input-container">
+        <span >负责人</span> <el-input v-model="queryCondtion.handPersonName" placeholder="请输入" size="small"></el-input>
+                 </div>
+               <div class="input-container">
+        <span >案件编码</span> <el-input v-model="queryCondtion.caseId" placeholder="请输入" size="small"></el-input>
+                 </div>
+               <div class="input-container">
+        <span >案件名称</span> <el-input v-model="queryCondtion.caseName" placeholder="请输入" size="small"></el-input>
+                 </div>
+        <el-button  @click="getList()"  type="primary">搜索</el-button>
         <el-button 
                    @click="addData"
-                   type="primary" style="float:right;margin:0px 10px">新增</el-button>
-        <el-button  @click="getList()" style="float:right">搜索</el-button>
-      </div>
+                   type="primary" >新增</el-button>
+
+      <div class="se-body">
       <el-table class="main-table"
                 id="examine-table"
                 v-loading="loading"
@@ -257,6 +263,22 @@ export default {
 
 .input_width {
   width: 100px;
+}
+
+.input-container {
+  width: 230px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.el-input--small{
+  width: 150px;
+  display: inline-block;
+}
+
+.main-title {
+  font-size: 20px;
+  padding: 20px 0;
 }
 
 // @import '../styles/table.scss';

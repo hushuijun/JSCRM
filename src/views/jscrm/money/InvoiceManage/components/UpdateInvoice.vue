@@ -460,7 +460,7 @@ export default {
 
     getDataCase(data){
       this.record.caseId = data.caseId;
-      this.record.caseName = data.name;
+      this.record.caseName = data.caseName;
       this.record.contractId = data.contractId;
       console.log(this.record);
     },

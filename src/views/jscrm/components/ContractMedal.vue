@@ -36,7 +36,7 @@
       >
     </el-table-column>
     <el-table-column
-      label="操作"
+      label="操作"  width="60px"
       >
       <template slot-scope="scope">
         <el-button @click="handleClick(scope.row)" type="text" size="small">选择</el-button>

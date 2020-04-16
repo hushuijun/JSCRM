@@ -166,14 +166,14 @@ export default {
 
     this.fieldList = [
       { prop: 'customerName', width: '200', label: '客户名称' },
-      { prop: 'contractNum', width: '200', label: '合同编号' },
+      { prop: 'contractId', width: '200', label: '合同编号' },
       { prop: 'receivablesNum', width: '200', label: '回款编号' },
       { prop: 'moneyBackDate', width: '200', label: '回款日期' },
       { prop: 'actualBackMoney', width: '200', label: '实际回款金额' },
       { prop: 'handPersonName', width: '200', label: '负责人' },
       { prop: 'remittanceId', width: '200', label: '汇款方式' },
       { prop: 'status', width: '200', label: '审核状态' },
-      { prop: 'status', width: '200', label: '回款状态' },
+      { prop: 'remitStatus', width: '200', label: '回款状态' },
       // { prop: 'contractMoney', width: '200', label: '合同金额' },
       // { prop: 'num', width: '200', label: '期数' },
     ]

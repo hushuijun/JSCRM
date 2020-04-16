@@ -47,7 +47,7 @@
     </div>
     <div class="input-container">
       <span>数据筛选</span>
-       <el-select v-model="dataFliter" placeholder="请选择">
+       <el-select v-model="searchInfo.status" placeholder="请选择">
         <el-option
           v-for="item in dataOptions"
           :key="item.value"
@@ -217,12 +217,13 @@ export default {
         contract_num: '',
         customer_name: '',
         owner_user_name: '',
+        status: '',
         check_status: '',
       },
       dataOptions: [
-        {label: '全部', value: '全部'},
-        {label: '私有', value: '私有'},
-        {label: '下属', value: '下属'}
+        {label: '全部', value: '1'},
+        {label: '私有', value: '2'},
+        {label: '下属', value: '3'}
       ],
       dataStatus: [
         {label: '待提交', value: '待提交'},
@@ -230,7 +231,7 @@ export default {
         {label: '审核中', value: '审核中'},
         {label: '已审核', value: '已审核'}
       ],
-      dataFliter: '',
+      dataFliter: 1,
       status: ''
     }
   },

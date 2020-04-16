@@ -90,7 +90,8 @@ export default {
       tabCurrentName: '',
       selectedStatus: '',
       isCreateBusiness: false,
-      createActionInfo: { type: 'relative', crmType: this.crmType, data: {} }
+      createActionInfo: { type: 'relative', crmType: this.crmType, data: {} },
+      caseStatus: 2
     }
   },
 
@@ -127,6 +128,9 @@ export default {
       }
       if (this.crmType == 'leads') {
         params.status = parseInt(this.status)
+      }
+      if (this.caseStatus && this.crmType == 'case') {
+        params.status = this.caseStatus
       }
       // if (this.sceneId) {
       //   params.sceneId = parseInt(this.sceneId)
@@ -271,7 +275,8 @@ export default {
         info.contract_num ? params.contract_num = {"condition": "is", "value": info.contract_num,"formType": "text","name": "contract_num"} : ''
         info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
         info.owner_user_name ? params.owner_user_name = {"condition": "is", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
-        info.check_status ||  info.check_status == 0 ? params.check_status = {"condition": "is", "value": info.check_status,"formType": "checkStatus","name": "check_status"} : ''
+        info.status ? this.caseStatus = parseInt(info.status) : ''
+        // info.check_status ||  info.check_status == 0 ? params.check_status = {"condition": "is", "value": info.check_status,"formType": "checkStatus","name": "check_status"} : ''
       }
       this.filterObj = params
       var offsetHei = document.documentElement.clientHeight

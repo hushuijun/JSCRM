@@ -20,9 +20,8 @@
     border
     style="width: 100%">
     <el-table-column
-      prop="caseId"
-      label="案件编号"
-      width="60px"
+      prop="caseId" width="140px"
+      label="案件编号" 
       >
     </el-table-column>
     <el-table-column
@@ -36,11 +35,11 @@
       >
     </el-table-column>
     <el-table-column
-      prop="realname"
+      prop="realname" width="80px"
       label="负责人"
       >
     </el-table-column>
-    <el-table-column
+    <el-table-column width="60px"
       label="操作"
       >
       <template slot-scope="scope">

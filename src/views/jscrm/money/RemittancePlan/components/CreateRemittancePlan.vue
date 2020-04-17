@@ -32,7 +32,7 @@
                   </span>
                 </div>
               </div>
-            <el-input v-model="record.id"
+            <el-input v-model="record.id" :disabled="true"
                 ></el-input>
             </el-form-item>
 
@@ -97,7 +97,7 @@
               </div>
             
              <el-date-picker
-              v-model="record.moneyBackDate"
+              v-model="record.moneyBackDate"  value-format="yyyy-MM-dd"
               type="date" style="width:100%" 
               placeholder="选择日期">
             </el-date-picker>  

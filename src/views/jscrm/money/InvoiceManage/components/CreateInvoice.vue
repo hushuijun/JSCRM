@@ -33,7 +33,7 @@
                   </span>
                 </div>
               </div>
-              <el-date-picker
+              <el-date-picker value-format="yyyy-MM-dd"
               v-model="record.invoiceDate"
               type="date" style="width:100%" 
               placeholder="选择日期">
@@ -461,7 +461,7 @@ export default {
 
     getDataCase(data){
       this.record.caseId = data.caseId;
-      this.record.caseName = data.name;
+      this.record.caseName = data.caseName;
       this.record.contractId = data.contractId;
       console.log(this.record);
     },

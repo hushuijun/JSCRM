@@ -52,3 +52,15 @@ export function selectById(id) {
   })
 }
 
+
+export function queryPagePlan(data) {
+  return request({
+    url: 'CrmCase/queryPagePlan',
+    method: 'post',
+    data: data,
+    headers: {
+      // 'Content-Type': 'application/json;charset=UTF-8'
+            'Content-Type': 'application/x-www-form-urlencoded'
+    },
+  })
+}

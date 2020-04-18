@@ -22,7 +22,7 @@
                    class="crm-create-box"
                    :rules="ruleValidate">
             <el-form-item
-                          class="crm-create-item left-field" prop="id"
+                          class="crm-create-item left-field"
                           style="">
               <div slot="label"
                    style="display: inline-block;">
@@ -32,7 +32,7 @@
                   </span>
                 </div>
               </div>
-            <el-input v-model="record.id" :disabled="true"
+            <el-input v-model="record.id" :disabled="true" placeholder="自动生成"
                 ></el-input>
             </el-form-item>
 

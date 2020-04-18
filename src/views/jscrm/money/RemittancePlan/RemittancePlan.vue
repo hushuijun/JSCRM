@@ -43,7 +43,7 @@
         <el-table-column prop="customerName" label="客户名称" align="center" header-align="center"></el-table-column>
         <el-table-column prop="customerCompanyName" label="客户公司名称" width="150px" align="center" header-align="center"></el-table-column>
         <el-table-column prop="contractId" label="合同编号" width="150px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="id" label="回款编号" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="id" label="回款编号" width="150px" align="center" header-align="center"></el-table-column>
         <el-table-column prop="moneyBackDate" label="回款日期" width="100px"  align="center" header-align="center"></el-table-column>
         <el-table-column prop="planBackMoney" label="计划回款金额" width="100px"  align="center" header-align="center"></el-table-column>
         <el-table-column prop="actualBackMoney" label="实际回款金额" width="100px"  align="center" header-align="center"></el-table-column>

@@ -141,7 +141,7 @@
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item left-field" prop="applyUserId"
+                          class="crm-create-item left-field" prop="applyUserName"
                           >
               <div slot="label"
                    style="display: inline-block;">
@@ -151,7 +151,7 @@
                   </span>
                 </div>
               </div>
-                <el-input v-model="record.applyUserId" :disabled="true" style="width: 70%"
+                <el-input v-model="record.applyUserName" :disabled="true" style="width: 70%"
                 ></el-input>
               <el-button @click="selectUser()">选择</el-button>    
             </el-form-item>

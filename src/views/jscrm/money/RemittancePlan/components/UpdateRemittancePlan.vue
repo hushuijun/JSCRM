@@ -22,7 +22,7 @@
                    class="crm-create-box"
                    :rules="ruleValidate">
             <el-form-item
-                          class="crm-create-item left-field" prop="id"
+                          class="crm-create-item left-field"
                           style="">
               <div slot="label"
                    style="display: inline-block;">

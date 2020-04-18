@@ -1,12 +1,13 @@
 <template>
   <div class="rc-cont">
-    <flexbox v-if="!isSeas"
+    <flexbox v-if="crmType!='case'"
              class="rc-head"
              direction="row-reverse">
       <el-button class="rc-head-item"
                  @click.native="createClick('plan')"
                  type="primary">新建回款计划</el-button>
     </flexbox>
+    <div class="title">计划回款</div>
     <el-table :data="palnList"
               :height="tableHeight"
               stripe
@@ -40,20 +41,22 @@
                  @click.native="createClick('money')"
                  type="primary">新建回款</el-button>
     </flexbox> -->
-    <!-- <el-table :data="list"
+    <div class="title" v-if="crmType=='case'">实际回款记录</div>
+    <el-table :data="list"
               :height="tableHeight"
               stripe
               style="width: 100%;border: 1px solid #E6E6E6;"
               :header-cell-style="headerRowStyle"
               :cell-style="cellStyle"
-              @row-click="handleRowClick">
+               v-if="crmType=='case'">
+               <!-- @row-click="handleRowClick" -->
       <el-table-column v-for="(item, index) in fieldList"
                        :key="index"
                        show-overflow-tooltip
                        :prop="item.prop"
                        :label="item.label">
       </el-table-column>
-    </el-table> -->
+    </el-table>
     <c-r-m-full-screen-detail :visible.sync="showFullDetail"
                               :crmType="showFullCrmType"
                               :id="showFullId">
@@ -80,6 +83,10 @@ import {
 import {
   crmReceivablesPlanDeleteAPI
 } from '@/api/customermanagement/money'
+import {
+  crmCaseQueryReceivables,
+  crmCaseQueryReceivablesPlan
+} from '@/api/customermanagement/case'
 /** 注意  需要删除接口 */
 import { timestampToFormatTime, objDeepCopy } from '@/utils'
 
@@ -139,7 +146,8 @@ export default {
       default: () => {
         return {}
       }
-    }
+    },
+    contractId: [String, Number]
   },
 
   mounted() {
@@ -157,14 +165,17 @@ export default {
     this.getPlanList()
 
     this.fieldList = [
+      { prop: 'customerName', width: '200', label: '客户名称' },
+      { prop: 'contractId', width: '200', label: '合同编号' },
       { prop: 'receivablesNum', width: '200', label: '回款编号' },
-      { prop: 'contractName', width: '200', label: '合同名称' },
-      { prop: 'contractMoney', width: '200', label: '合同金额' },
-      { prop: 'receivablesMoney', width: '200', label: '回款金额' },
-      { prop: 'num', width: '200', label: '期数' },
-      { prop: 'ownerUserName', width: '200', label: '负责人' },
-      { prop: 'checkStatus', width: '200', label: '状态' },
-      { prop: 'returnTime', width: '200', label: '回款日期' }
+      { prop: 'moneyBackDate', width: '200', label: '回款日期' },
+      { prop: 'actualBackMoney', width: '200', label: '实际回款金额' },
+      { prop: 'handPersonName', width: '200', label: '负责人' },
+      { prop: 'remittanceId', width: '200', label: '汇款方式' },
+      { prop: 'status', width: '200', label: '审核状态' },
+      { prop: 'remitStatus', width: '200', label: '回款状态' },
+      // { prop: 'contractMoney', width: '200', label: '合同金额' },
+      // { prop: 'num', width: '200', label: '期数' },
     ]
     this.getList()
   },
@@ -177,7 +188,8 @@ export default {
       this.loading = true
       let request = {
         customer: crmCustomerQueryReceivablesPlan,
-        contract: crmContractQueryReceivablesPlan
+        contract: crmContractQueryReceivablesPlan,
+        case: crmCaseQueryReceivablesPlan
       }[this.crmType]
       request(this.getParams())
         .then(res => {
@@ -196,12 +208,13 @@ export default {
       this.loading = true
       let request = {
         customer: crmCustomerQueryReceivables,
-        contract: crmContractQueryReceivables
+        contract: crmContractQueryReceivables,
+        case: crmCaseQueryReceivables
       }[this.crmType]
-      request(this.getParams())
+      request(this.getParams('real'))
         .then(res => {
           this.loading = false
-          this.list = res.data
+          this.list = res.data.list
         })
         .catch(() => {
           this.loading = false
@@ -211,11 +224,18 @@ export default {
     /**
      * 获取上传参数
      */
-    getParams() {
+    getParams(costType) {
       if (this.crmType === 'customer') {
         return { customerId: this.id, pageType: 0 }
       } else if (this.crmType === 'contract') {
         return { contractId: this.id, pageType: 0 }
+      } else if (this.crmType === 'case') {
+        if (costType == 'real') {
+          return { pageType: 0, type: 1}
+          // return { contractId: this.contractId, pageType: 0, type: 1}
+        } else {
+          return { contractId: this.contractId, pageType: 0}
+        }
       }
       return {}
     },
@@ -332,4 +352,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '../styles/relativecrm.scss';
+.title {
+  font-size: 18px;
+  // font-weight: 500;
+  color: #333;
+  padding: 30px 0 10px 0;
+}
 </style>

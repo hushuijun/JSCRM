@@ -2,25 +2,27 @@
     <div>
         <el-input v-model="confirmName" style="background-color: #fff;color:#333"></el-input><el-button type="primary" @click="isShow=true">选择</el-button>
         <!-- 选择审核流程弹窗 -->
-        <el-popover
-            placement="bottom-end"
+        <!-- <el-popover -->
+            <!-- placement="top-start"
             width="400"
-            v-model='isShow'>
-            <el-table :data="gridData" border>
-                <el-table-column width="150" property="name" label="审批流程名称"></el-table-column>
-                <el-table-column width="100" property="typeText" label="流程类型"></el-table-column>
+            v-model='isShow'> -->
+        <el-dialog title="请选择审核模板" :visible.sync="isShow" :append-to-body="true" :lock-scroll="true">
+            <el-table :data="gridData" border height='300'>
+                <el-table-column width="162" property="name" label="审批流程名称"></el-table-column>
+                <el-table-column width="162" property="typeText" label="流程类型"></el-table-column>
                 <!-- <el-table-column width="300" property="address" label="关联对象"></el-table-column> -->
                 <!-- <el-table-column width="300" property="address" label="适用范围"></el-table-column> -->
                 <el-table-column
                     label="操作"
                     prop="确认"
-                    width="80">
+                    width="110">
                     <template slot-scope="scope">
                     <el-button type="text" size="small" @click="handleConfirm(scope.row)">确认</el-button>
                     </template>
                 </el-table-column>
             </el-table>
-        </el-popover>
+        </el-dialog>
+        <!-- </el-popover> -->
     </div>
 </template>
 <script type="text/javascript">
@@ -95,10 +97,17 @@ export default {
 .el-button--primary {
     display: inline-block;
     position: absolute;
-    right: -60px;
+    right: 12px;
     bottom: 5px;
 }
 .el-input {
     display: inline-block;
+    width: 210px;
+}
+.el-table tr {
+    text-align: center;
+}
+.el-dialog__body {
+    padding: 0 20px 30px 20px !important;
 }
 </style>

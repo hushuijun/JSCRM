@@ -85,6 +85,7 @@ import { filedGetField, filedValidates } from '@/api/customermanagement/common'
 import { crmLeadsSave, crmLeadsUpdate } from '@/api/customermanagement/clue'
 import { crmCustomerSave, crmCustomerRead } from '@/api/customermanagement/customer'
 import { crmContactsSave } from '@/api/customermanagement/contacts'
+import { crmCaseSave } from '@/api/customermanagement/case'
 import {
   crmBusinessSave,
   crmBusinessProduct // 商机下产品
@@ -639,13 +640,14 @@ export default {
           // 商机合同 需要客户信息
         } else if (item.formType == 'business' || item.formType == 'contract') {
           let customerItem = this.getItemRelatveInfo(item, list, 'customer')
+
           if (item.formType == 'business' && customerItem) {
-            customerItem['moduleType'] = 'customer'
-            params['relation'] = customerItem
+            // customerItem['moduleType'] = 'customer'
+            // params['relation'] = customerItem
           } else if (item.formType == 'contract' && customerItem) {
-            customerItem['moduleType'] = 'customer'
-            customerItem['params'] = { checkStatus: 2 }
-            params['relation'] = customerItem
+            // customerItem['moduleType'] = 'customer'
+            // customerItem['params'] = { checkStatus: 2 }
+            // params['relation'] = customerItem
           }
         }
       }
@@ -931,6 +933,8 @@ export default {
         return crmReceivablesSave
       } else if (this.crmType == 'receivables_plan') {
         return crmReceivablesPlanSave
+      } else if (this.crmType == 'case') {
+        return crmCaseSave
       }
     },
     /** 拼接上传传输 */

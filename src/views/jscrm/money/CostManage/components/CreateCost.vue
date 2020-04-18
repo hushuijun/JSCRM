@@ -141,7 +141,7 @@
               <el-input v-model="record.caseName" :disabled="true" style="width: 70%"
                 ></el-input>
               <!-- <el-button @click="">选择</el-button>   -->
-              <el-button @click="selectCase()">选择</el-button>  
+              <el-button @click="selectCase()" type="primary" >选择</el-button>  
             </el-form-item>
 
             <el-form-item
@@ -157,7 +157,7 @@
               </div>
                 <el-input v-model="record.applyUserName" :disabled="true" style="width: 70%"
                 ></el-input>
-              <el-button @click="selectUser()">选择</el-button>    
+              <el-button @click="selectUser()" type="primary">选择</el-button>    
             </el-form-item>
 
             <el-form-item

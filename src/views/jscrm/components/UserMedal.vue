@@ -8,10 +8,10 @@
     <div class="handle-box">
 
       <div style="margin-bottom:5px">
-                <span style="margin-left:10px">姓名</span> <el-input v-model="queryCondtion.realname" placeholder="请输入" class="input_width"></el-input>
-                <span style="margin-left:10px">手机号</span> <el-input v-model="queryCondtion.mobile" placeholder="请输入" class="input_width"></el-input>
+                <span style="margin-left:10px;font-size:13px">姓名</span> <el-input v-model="queryCondtion.realname" placeholder="请输入" class="input_width"></el-input>
+                <span style="margin-left:10px;font-size:13px">手机号</span> <el-input v-model="queryCondtion.mobile" placeholder="请输入" class="input_width"></el-input>
 
-                <el-button  @click="getList()" style="float:right">查询</el-button>
+                <el-button  @click="getList()" type="primary" style="margin-left:30px">查询</el-button>
       </div>
 
        <el-table
@@ -157,6 +157,6 @@ export default {
 }
 
 .input_width {
-  width: 100px;
+  width: 130px;
 }
 </style>

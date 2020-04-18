@@ -12,7 +12,7 @@
                 <span style="margin-left:10px">案件名称</span> <el-input v-model="queryCondtion.caseName" placeholder="请输入" class="input_width"></el-input>
                 <span style="margin-left:10px">合同名称</span> <el-input v-model="queryCondtion.contractName" placeholder="请输入" class="input_width"></el-input>
 
-                <el-button  @click="getList()" style="float:right">查询</el-button>
+                <el-button  @click="getList()" type="primary" style="float:right">查询</el-button>
       </div>
 
        <el-table

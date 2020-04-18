@@ -56,7 +56,7 @@
               <el-input v-model="record.caseName" :disabled="true" style="width: 70%"
                 ></el-input>
               <!-- <el-button @click="">选择</el-button>   -->
-              <el-button @click="selectCase()">选择</el-button>  
+              <el-button @click="selectCase()" type="primary">选择</el-button>  
             </el-form-item>
 
             <el-form-item
@@ -147,7 +147,7 @@
               </div>
               <el-input v-model="record.handPersonName" :disabled="true" style="width: 70%"
                 ></el-input>
-              <el-button @click="selectUser()">选择</el-button>    
+              <el-button @click="selectUser()" type="primary">选择</el-button>    
             </el-form-item>
 
             <el-form-item
@@ -325,7 +325,9 @@ export default {
       selectById(this.detailData.id)
       .then(res => {
         this.record = res.data;
-        this.getFileList();
+        if(this.record.annexId!=null&&this.record!=""){
+          this.getFileList();
+        }
       })
       .catch(() => {
         this.$message.error('后台异常');

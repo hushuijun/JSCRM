@@ -50,7 +50,7 @@
             
               <el-input v-model="record.contractId" style="width: 70%" :disabled="true"
                 ></el-input>
-               <el-button @click="selectInvoice()">选择</el-button>   
+               <el-button @click="selectInvoice()" type="primary">选择</el-button>   
             </el-form-item>
 
             <el-form-item
@@ -359,7 +359,9 @@ export default {
     selectById(this.detailData.id)
       .then(res => {
         this.record = res.data;
-        this.getFileList();
+        if(this.record.annexId!=null&&this.record!=""){
+          this.getFileList();
+        }
       })
       .catch(() => {
         this.$message.error('后台异常');

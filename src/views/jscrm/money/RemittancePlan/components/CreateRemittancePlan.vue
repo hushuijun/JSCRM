@@ -50,7 +50,7 @@
             
               <el-input v-model="record.contractId" style="width: 70%" :disabled="true"
                 ></el-input>
-               <el-button @click="selectInvoice()">选择</el-button>   
+               <el-button @click="selectInvoice()" type="primary">选择</el-button>   
             </el-form-item>
 
             <el-form-item

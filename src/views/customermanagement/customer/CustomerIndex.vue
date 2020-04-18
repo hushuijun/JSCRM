@@ -150,8 +150,8 @@
                class="wukong wukong-lock customer-lock"></i>
           </template>
         </el-table-column>
-        <el-table-column>
-        </el-table-column>
+        <!-- <el-table-column>
+        </el-table-column> -->
         <!-- <el-table-column fixed="right"
                          width="36">
           <template slot="header"

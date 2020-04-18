@@ -19,7 +19,7 @@
                      :value="item.value">
           </el-option>
         </el-select>
-        <el-select v-model="isSubType"
+        <!-- <el-select v-model="isSubType"
                    @change="refreshList"
                    style="width: 120px; margin-left: 10px;"
                    placeholder="请选择">
@@ -28,14 +28,14 @@
                      :label="item.name"
                      :value="item.value">
           </el-option>
-        </el-select>
-        <div v-if="showFilterView"
+        </el-select> -->
+        <!-- <div v-if="showFilterView"
              class="filtrate-button"
              @click="getFilterFieldInfo">
           <img class="filtrate-button-img"
                src="@/assets/img/c_filtrate.png" />
           <span class="filtrate-button-title">高级筛选</span>
-        </div>
+        </div> -->
         <filter-form :fieldList="filterFieldList"
                      :dialogVisible.sync="showFilter"
                      :obj="filterObj"
@@ -250,7 +250,8 @@ export default {
         return [{ name: '待跟进', value: 1 }, { name: '已跟进', value: 2 }]
       } else if (
         this.infoType == 'checkContract' ||
-        this.infoType == 'checkReceivables'
+        this.infoType == 'checkReceivables' ||
+        this.infoType == 'checkCase'
       ) {
         return [{ name: '待审核', value: 1 }, { name: '已审核', value: 2 }]
       } else if (this.infoType == 'remindReceivablesPlan') {

@@ -35,7 +35,8 @@ import {
 } from '@/api/customermanagement/business'
 import {
   crmContractIndex,
-  crmContractDelete
+  crmContractDelete,
+  submitContractCheck
 } from '@/api/customermanagement/contract'
 import {
   crmProductIndex,
@@ -439,6 +440,17 @@ export default {
         })
         this.getFieldList()
       })
+    },
+    submitCheck (data) {
+      console.log(data ,'contractId')
+      submitContractCheck(data.contractId).then((res) => {
+        this.$message({
+          type: 'success',
+          message: '提交成功'
+        })
+        console.log('成功的呀')
+        this.getFieldList()
+      }).catch((e) => {})
     },
     // 保存成功
     editSaveSuccess () {

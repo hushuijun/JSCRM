@@ -23,16 +23,16 @@ const customerRouter = {
   //     icon: 'dashboard'
   //   }
   // },
-  // {
-  //   path: 'message', // 待办事项
-  //   component: () => import('@/views/customermanagement/message/Message'),
-  //   meta: {
-  //     requiresAuth: false,
-  //     title: '待办事项',
-  //     icon: 'message',
-  //     num: 0
-  //   }
-  // },
+  {
+    path: 'message', // 待办事项
+    component: () => import('@/views/customermanagement/message/Message'),
+    meta: {
+      requiresAuth: false,
+      title: '待办事项',
+      icon: 'message',
+      num: 0
+    }
+  },
   {
     path: 'clue', // 线索列表
     component: () => import('@/views/customermanagement/clue/ClueIndex'),

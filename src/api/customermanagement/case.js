@@ -130,3 +130,5 @@ export function crmCaseCostIndex(data) {
       data: data
     })
 }
+
+

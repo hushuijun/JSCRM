@@ -50,39 +50,40 @@ export default {
 
   watch: {
     /** 变化就刷新数据 */
-    messageNum() {
+    messageNum(val) {
+      console.log(val, 'messageNum')
       this.refreshNum()
     }
   },
 
   data() {
     return {
-      leftType: 'todayCustomer',
+      leftType: 'checkContract',
       leftSides: [
-        {
-          name: '今日需联系客户',
-          crmType: 'customer',
-          infoType: 'todayCustomer',
-          num: 0,
-          tips: '下次跟进时间为今日的客户',
-          hidden: false
-        },
-        {
-          name: '分配给我的线索',
-          crmType: 'leads',
-          infoType: 'followLeads',
-          num: 0,
-          tips: '转移之后未跟进的线索',
-          hidden: false
-        },
-        {
-          name: '分配给我的客户',
-          crmType: 'customer',
-          infoType: 'followCustomer',
-          num: 0,
-          tips: '转移、领取、分配之后未跟进的客户，默认显示自己负责的客户',
-          hidden: false
-        },
+        // {
+        //   name: '今日需联系客户',
+        //   crmType: 'customer',
+        //   infoType: 'todayCustomer',
+        //   num: 0,
+        //   tips: '下次跟进时间为今日的客户',
+        //   hidden: false
+        // },
+        // {
+        //   name: '分配给我的线索',
+        //   crmType: 'leads',
+        //   infoType: 'followLeads',
+        //   num: 0,
+        //   tips: '转移之后未跟进的线索',
+        //   hidden: false
+        // },
+        // {
+        //   name: '分配给我的客户',
+        //   crmType: 'customer',
+        //   infoType: 'followCustomer',
+        //   num: 0,
+        //   tips: '转移、领取、分配之后未跟进的客户，默认显示自己负责的客户',
+        //   hidden: false
+        // },
         {
           name: '待审核合同',
           crmType: 'contract',
@@ -91,30 +92,38 @@ export default {
           tips: '',
           hidden: false
         },
+        // {
+        //   name: '待审核回款',
+        //   crmType: 'receivables',
+        //   infoType: 'checkReceivables',
+        //   num: 0,
+        //   tips: '',
+        //   hidden: false
+        // },
         {
-          name: '待审核回款',
-          crmType: 'receivables',
-          infoType: 'checkReceivables',
+          name: '待审核案件',
+          crmType: 'case',
+          infoType: 'checkCase',
           num: 0,
           tips: '',
           hidden: false
         },
-        {
-          name: '待回款提醒',
-          crmType: 'receivables_plan',
-          infoType: 'remindReceivablesPlan',
-          num: 0,
-          tips: '',
-          hidden: false
-        },
-        {
-          name: '即将到期的合同',
-          crmType: 'contract',
-          infoType: 'endContract',
-          num: 0,
-          tips: '根据“合同到期时间”及设置的“提前提醒天数”提醒',
-          hidden: false
-        }
+        // {
+        //   name: '待回款提醒',
+        //   crmType: 'receivables_plan',
+        //   infoType: 'remindReceivablesPlan',
+        //   num: 0,
+        //   tips: '',
+        //   hidden: false
+        // },
+        // {
+        //   name: '即将到期的合同',
+        //   crmType: 'contract',
+        //   infoType: 'endContract',
+        //   num: 0,
+        //   tips: '根据“合同到期时间”及设置的“提前提醒天数”提醒',
+        //   hidden: false
+        // }
       ]
     }
   },
@@ -138,8 +147,10 @@ export default {
      */
     refreshNum() {
       for (let index = 0; index < this.leftSides.length; index++) {
+        console.log(index,  'index的值')
         const element = this.leftSides[index]
         if (this.messageNum.hasOwnProperty(element.infoType)) {
+          console.log('待审核中的吗')
           element.num = this.messageNum[element.infoType] || 0
           element.hidden = false
         } else {

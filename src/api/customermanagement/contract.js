@@ -165,3 +165,11 @@ export function crmContractTemplate() {
     method: 'post',
   })
 }
+
+// 提交审核
+export function submitContractCheck(data) {
+  return request({
+    url: 'CrmContract/auditContract?contractId=' + data,
+    method: 'post',
+  })
+}

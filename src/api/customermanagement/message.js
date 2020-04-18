@@ -14,6 +14,20 @@ export function crmMessageCheckContractAPI(data) {
     }
   })
 }
+/**
+ * 待审核案件
+ * @param {*} data 
+ */
+export function crmMessageCheckCaseAPI(data) {
+  return request({
+    url: 'CrmBackLog/checkCase',
+    method: 'post',
+    data: data,
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    }
+  })
+}
 
 /**
  * 待审核回款

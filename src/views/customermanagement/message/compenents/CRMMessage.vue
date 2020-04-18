@@ -156,7 +156,13 @@ export default {
   watch: {
     show() {
       this.initTableHead()
-    }
+    },
+    /** 变化就刷新数据 */
+    // messageNum(val) {
+    //   console.log(val, 'messageNum111111')
+    //   this.getFieldList()
+    //   // this.
+    // }
   },
 
   props: {
@@ -210,6 +216,7 @@ export default {
   },
 
   computed: {
+    // ...mapGetters(['messageNum']),
     // 展示勾选框
     showSelection() {
       if (this.infoType == 'followLeads' || this.infoType == 'followCustomer') {
@@ -265,7 +272,7 @@ export default {
       }
 
       return []
-    }
+    },
   },
 
   mounted() {

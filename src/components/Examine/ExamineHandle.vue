@@ -176,12 +176,20 @@ export default {
         .then(res => {
           this.loading = false
           this.$message.success('操作成功')
+          this.getcrmMessagNum()
           this.$emit('save', { type: this.status })
           this.hiddenView()
         })
         .catch(() => {
           this.loading = false
         })
+    },
+    //刷新消息数
+    getcrmMessagNum() {
+      this.$store
+        .dispatch('GetMessageNum')
+        .then(res => {})
+        .catch(() => {})
     },
     handleClick(type) {
       if (type == 'cancel') {

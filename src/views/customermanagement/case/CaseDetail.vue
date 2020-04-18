@@ -30,6 +30,7 @@
         <examine-info :id="id"
                       class="examine-info-border"
                       examineType="crm_contract"
+                      @on-handle='checkSave'
                       :recordId="detailData.examineRecordId"
                       :ownerUserId="detailData.ownerUserId">
         </examine-info>
@@ -79,6 +80,7 @@ import CaseCost from './components/CaseCost' //相关回款
 
 import CRMCreateView from '../components/CRMCreateView' // 新建页面
 import ExamineInfo from '@/components/Examine/ExamineInfo'
+
 
 import { getDateFromTimestamp } from '@/utils'
 import moment from 'moment'
@@ -212,6 +214,9 @@ export default {
     //** 点击关闭按钮隐藏视图 */
     hideView() {
       this.$emit('hide-view')
+    },
+    checkSave() {
+      this.$emit('checkSave')
     },
     //** tab标签点击 */
     handleClick(tab, event) {},

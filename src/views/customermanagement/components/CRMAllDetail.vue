@@ -22,6 +22,7 @@ import BusinessDetail from '../business/BusinessDetail'
 import ContractDetail from '../contract/ContractDetail'
 import ProductDetail from '../product/ProductDetail'
 import MoneyDetail from '../money/MoneyDetail'
+import caseDetail from '../case/CaseDetail'
 
 export default {
   name: 'c-r-m-all-detail', //详情
@@ -32,7 +33,8 @@ export default {
     BusinessDetail,
     ContractDetail,
     ProductDetail,
-    MoneyDetail
+    MoneyDetail,
+    caseDetail
   },
   watch: {
     crmType: function(type) {
@@ -50,6 +52,8 @@ export default {
         this.tabName = 'product-detail'
       } else if (this.crmType == 'receivables') {
         this.tabName = 'money-detail'
+      } else if (this.crmType == 'case') {
+        this.tabName = 'case-detail'
       }
     }
   },
@@ -122,6 +126,9 @@ export default {
       this.$emit('handle', data)
     }
   },
+  // checkSave () {
+  //   this.$emit('checkSave')
+  // },
   destroyed() {
     // remove DOM node after destroy
     if (this.$el && this.$el.parentNode) {

@@ -51,8 +51,9 @@ export default {
   watch: {
     /** 变化就刷新数据 */
     messageNum(val) {
-      console.log(val, 'messageNum')
+      // console.log(val, 'messageNum')
       this.refreshNum()
+      // this.
     }
   },
 

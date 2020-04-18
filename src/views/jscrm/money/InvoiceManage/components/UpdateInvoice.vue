@@ -413,19 +413,14 @@ export default {
 
     handleFile(type, item) {
       if (type === 'preview') {
-        // var previewList = this.list.map(element => {
-        //   element.url = element.filePath
-        //   return element
-        // })
-        // this.$bus.emit('preview-image-bus', {
-        //   index: item.$index,
-        //   data: previewList
-        // })
-
-        download(item.row.fileId)
-              .then(res => {
-              })
-              .catch(() => {})
+        var previewList = this.fileList.map(element => {
+          element.url = element.filePath
+          return element
+        })
+        this.$bus.emit('preview-image-bus', {
+          index: item.$index,
+          data: previewList
+        })
       } else if (type === 'delete') {
         this.$confirm('您确定要删除该文件吗?', '提示', {
           confirmButtonText: '确定',

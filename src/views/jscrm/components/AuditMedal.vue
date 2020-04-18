@@ -6,40 +6,13 @@
              :append-to-body="true"
              width="600px">
     <div class="handle-box">
-
-     <div style="margin-bottom:5px">
-                <span style="margin-left:10px">案件编号</span> <el-input v-model="queryCondtion.caseId" placeholder="请输入" class="input_width"></el-input>
-                <span style="margin-left:10px">案件名称</span> <el-input v-model="queryCondtion.caseName" placeholder="请输入" class="input_width"></el-input>
-                <span style="margin-left:10px">合同名称</span> <el-input v-model="queryCondtion.contractName" placeholder="请输入" class="input_width"></el-input>
-
-                <el-button  @click="getList()" type="primary" style="float:right">查询</el-button>
-      </div>
-
        <el-table
     :data="tableData"
     border
     style="width: 100%">
-    <el-table-column
-      prop="caseId" width="140px"
-      label="案件编号" 
-      >
-    </el-table-column>
-    <el-table-column
-      prop="caseName"
-      label="案件名称"
-      >
-    </el-table-column>
-    <el-table-column
-      prop="contractName"
-      label="合同名称"
-      >
-    </el-table-column>
-    <el-table-column
-      prop="realname" width="80px"
-      label="负责人"
-      >
-    </el-table-column>
-    <el-table-column width="60px"
+      <el-table-column width="162" property="name" label="审批流程名称"></el-table-column>
+      <el-table-column width="162" property="typeText" label="流程类型"></el-table-column>
+      <el-table-column width="60px"
       label="操作"
       >
       <template slot-scope="scope">
@@ -52,23 +25,13 @@
     </div>
     <span slot="footer"
           class="dialog-footer">
-       <!-- <el-pagination  style="float:right;margin:10px" -->
-       <el-pagination
-                       @size-change="handleSizeChange"
-                       @current-change="handleCurrentChange"
-                       :current-page="this.queryCondtion.page"
-                       :page-sizes="pageSizes"
-                       :page-size.sync="this.queryCondtion.limit"
-                       layout="total, sizes, prev, pager, next, jumper"
-                       :total="total">
-        </el-pagination>
     </span>
   </el-dialog>
 </template>
 
 <script>
 
-import { selectPageCase } from '@/api/jscrm/money/comm'
+import { crmContractTemplate } from '@/api/customermanagement/contract'
 export default {
   /** 客户管理 的 勾选后的 团队成员 操作 移除操作不可移除客户负责人*/
   name: 'teams-handle',
@@ -79,13 +42,13 @@ export default {
       tableData:[],
       loading: false, // 加载动画
       visible: false,
-      title:'选择案件',
+      title:'请选择审核模板',
       queryCondtion:{
-        page: 1,
-        limit: 5,
-        caseId:null,
-        caseName:null,
-        contractName:null,
+        // page: 1,
+        // limit: 5,
+        // caseId:null,
+        // caseName:null,
+        // contractName:null,
       },
       total:0,
       pageSizes: [5,10, 20, 30, 40],
@@ -104,12 +67,16 @@ export default {
     /** 获取列表数据 */
     getList() {
       this.loading = true
-      selectPageCase(this.queryCondtion)
+      crmContractTemplate(this.queryCondtion)
         .then(res => {
-          console.log(this.queryCondtion);
+          res.data.list.forEach((value) => {
+              if (value.examineType == 1) {
+                  value.typeText = '固定审批'
+              } else if (value.examineType == 2) {
+                  value.typeText = '授权审批'
+              }
+          })
           this.tableData = res.data.list
-
-          this.total = res.data.totalRow
           this.loading = false
         })
         .catch(() => {
@@ -126,7 +93,7 @@ export default {
 
     handleClick(row) {
       console.log(row);
-      this.$emit('getDataCase',row);
+      this.$emit('getDataAudit',row);
       this.visible = false;
     },
 

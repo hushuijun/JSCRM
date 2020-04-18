@@ -180,7 +180,7 @@
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item left-field" prop="moduleId"
+                          class="crm-create-item left-field" prop="moduleName"
                           >
               <div slot="label"
                    style="display: inline-block;">
@@ -190,8 +190,9 @@
                   </span>
                 </div>
               </div>
-              <el-input v-model="record.moduleId"
+              <el-input v-model="record.moduleName" :disabled="true" style="width: 70%"
                 ></el-input>
+                <el-button @click="selectAudit()" type="primary">选择</el-button>    
             </el-form-item>
 
             <el-form-item
@@ -272,6 +273,7 @@
     </flexbox>
     <CaseMedal ref="refCaseMedal" @getDataCase="getDataCase"></CaseMedal>
     <UserMedal ref="refUserMedal" @getDataUser="getDataUser"></UserMedal>
+    <AuditMedal ref="refAuditMedal" @getDataAudit="getDataAudit"></AuditMedal>
   </create-view>
 </template>
 <script type="text/javascript">
@@ -283,6 +285,8 @@ import {crmFileDelete} from '@/api/common'
 
 import CaseMedal from '@/views/jscrm/components/CaseMedal' // 引入案件medal
 import UserMedal from '@/views/jscrm/components/UserMedal' // 引入用户medal
+import AuditMedal from '@/views/jscrm/components/AuditMedal' // 引入用户medal
+ import * as fecha from "element-ui/lib/utils/date"
 
 
 
@@ -292,7 +296,7 @@ export default {
     CreateView,
     CaseMedal,
     UserMedal,
-    
+    AuditMedal,
   },
   props: {
     // 详情信息
@@ -313,6 +317,7 @@ export default {
         "updateTime": null,
         "costMoney": null,
         "moduleId": null,
+        "moduleName": null,
         "applyUserId": null,
         "applyUserName": null,
         "caseId": null,
@@ -354,7 +359,7 @@ export default {
           caseId: [
                 { required: true, message: '请输入关联案件', trigger: 'blur' },
               ],  
-          moduleId: [
+          moduleName: [
                 { required: true, message: '请选择审核模板', trigger: 'blur' },
               ],   
               
@@ -379,6 +384,10 @@ export default {
       });
   },
   methods: {
+
+     dateFormat(row,column,cellValue){
+      return cellValue ? fecha.format(new Date(cellValue),'yyyy-MM-dd'):'';
+    },
     hidenView() {
       this.$emit('hiden-view')
     },
@@ -423,6 +432,12 @@ export default {
       console.log(this.record);
     },
 
+    getDataAudit(data){
+      debugger
+      this.record.moduleId = data.examineId;
+      this.record.moduleName = data.name;
+    },
+
     addFile() {
       document.getElementById('file').click()
     },
@@ -432,6 +447,9 @@ export default {
     },
     selectUser(){
       this.$refs.refUserMedal.visible=true;
+    },
+    selectAudit(){
+      this.$refs.refAuditMedal.visible=true;
     },
 
      handleFile(type, item) {

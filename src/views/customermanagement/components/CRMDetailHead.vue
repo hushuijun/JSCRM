@@ -4,28 +4,31 @@
       <img class="t-img"
            :src="crmIcon" />
       <div class="t-name">{{name}}</div>
-      <el-button v-if="showTransfer"
+      <!-- <el-button v-if="showTransfer"
                  class="head-handle-button"
                  @click.native="handleTypeClick('transfer')"
                  type="primary">转移</el-button>
       <el-button v-if="showEdit"
                  class="head-handle-button"
                  @click.native="handleTypeClick('edit')"
-                 type="primary">编辑</el-button>
-      <el-dropdown trigger="click"
-                   @command="handleTypeClick">
-        <flexbox class="t-more">
+                 type="primary">编辑</el-button> -->
+                 
+      <!-- <el-dropdown trigger="click"
+                   @command="handleTypeClick"> -->
+
+        <!-- <flexbox class="t-more">
           <div>更多</div>
           <i class="el-icon-arrow-down el-icon--right"
              style="color:#ccc;"></i>
-        </flexbox>
-        <el-dropdown-menu slot="dropdown">
+        </flexbox> -->
+
+        <!-- <el-dropdown-menu slot="dropdown">
           <el-dropdown-item v-for="(item, index) in moreTypes"
                             :key="index"
                             v-if="whetherTypeShowByPermision(item.type)"
                             :command="item.type">{{item.name}}</el-dropdown-item>
         </el-dropdown-menu>
-      </el-dropdown>
+      </el-dropdown> -->
       <img @click="hideView"
            class="t-close"
            src="@/assets/img/task_close.png" />

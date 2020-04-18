@@ -12,22 +12,22 @@
              direction="column"
              align="stretch"
              class="d-container">
-      <!-- <c-r-m-detail-head crmType="contract"
+      <c-r-m-detail-head crmType="contract"
                          @handle="detailHeadHandle"
                          @close="hideView"
                          :detail="detailData"
                          :headDetails="headDetails"
                          :id="id">
-      </c-r-m-detail-head> -->
-      <!-- <div class="examine-info">
+      </c-r-m-detail-head>
+      <div class="examine-info">
         <examine-info :id="id"
                       class="examine-info-border"
                       examineType="crm_contract"
                       :recordId="detailData.examineRecordId"
                       :ownerUserId="detailData.ownerUserId">
         </examine-info>
-      </div> -->
-      <div class="close-detail el-icon-close" @click="closeDetail"></div>
+      </div>
+      <!-- <div class="close-detail el-icon-close" @click="closeDetail"></div> -->
       <div class="tabs">
         <el-tabs v-model="tabCurrentName"
                  @tab-click="handleClick">

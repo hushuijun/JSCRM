@@ -150,7 +150,6 @@ export default {
       this.loading = true
       queryPage(this.queryCondtion)
         .then(res => {
-          console.log(this.queryCondtion);
           this.list = res.data.list
 
           this.total = res.data.totalRow

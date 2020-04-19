@@ -129,7 +129,7 @@
         <el-table-column
           fixed="right"
           label="操作"
-          width="150"
+          min-width="180"
           type="operation">
           <template slot-scope="scope">
             <el-button @click="deleteClick(scope.row)" type="text" size="small">删除</el-button>

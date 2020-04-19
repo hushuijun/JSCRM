@@ -246,23 +246,22 @@ export default {
     },
     //点击搜索
     searchList (info) {
-      console.log(info, 'infoinfoinfo')
       let params = {}
       if (this.crmType === 'customer') {
-        info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
-        info.mobile ? params.telephone = {"condition": "is", "value": info.mobile,"formType": "text","name": "telephone"} : ''
-        info.realname ? params.owner_user_name = {"condition": "is", "value": info.realname,"formType": "text","name": "owner_user_name"} : ''
+        info.customer_name ? params.customer_name = {"condition": "contains", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
+        info.mobile ? params.telephone = {"condition": "contains", "value": info.mobile,"formType": "text","name": "telephone"} : ''
+        info.realname ? params.owner_user_name = {"condition": "contains", "value": info.realname,"formType": "text","name": "owner_user_name"} : ''
         info.create_time ? params.create_time = {"start": info.create_time[0] + ' 00:00:00',"end": info.create_time[1] + ' 23:59:59',"formType": "datetime","name": "create_time"} : ''
       } else if (this.crmType === 'leads') {
-        info.telephone ? params.telephone = {"condition": "is", "value": info.telephone,"formType": "text","name": "telephone"} : ''
-        info.leads_name ? params.leads_name = {"condition": "is", "value": info.leads_name,"formType": "text","name": "leads_name"} : ''
-        info.owner_user_name ? params.owner_user_name = {"condition": "is", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
+        info.telephone ? params.telephone = {"condition": "contains", "value": info.telephone,"formType": "text","name": "telephone"} : ''
+        info.leads_name ? params.leads_name = {"condition": "contains", "value": info.leads_name,"formType": "text","name": "leads_name"} : ''
+        info.owner_user_name ? params.owner_user_name = {"condition": "contains", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
         info['线索来源'] ? params['线索来源'] = {"condition": "is", "value": info['线索来源'],"formType": "text","name": "线索来源"} : ''
         info.create_time ? params.create_time = {"start": info.create_time[0] + ' 00:00:00',"end": info.create_time[1] + ' 23:59:59',"formType": "datetime","name": "create_time"} : ''
       } else if (this.crmType === 'business') {
-        info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
-        info.business_name ? params.business_name = {"condition": "is", "value": info.business_name,"formType": "text","name": "business_name"} : ''
-        info.owner_user_name ? params.owner_user_name = {"condition": "is", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
+        info.customer_name ? params.customer_name = {"condition": "contains", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
+        info.business_name ? params.business_name = {"condition": "contains", "value": info.business_name,"formType": "text","name": "business_name"} : ''
+        info.owner_user_name ? params.owner_user_name = {"condition": "contains", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
         info['商机状态'] ? params['商机状态'] = {"condition": "is", "value": info['商机状态'],"formType": "text","name": "商机状态"} : ''
       } else if (this.crmType === 'contract') {
         info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
@@ -443,7 +442,6 @@ export default {
       })
     },
     submitCheck (data) {
-      // console.log(data ,'contractId')
       var crmCaseRequest = this.getCheckRequest()
       let param = ''
       if (this.crmType == 'contract') {
@@ -456,7 +454,6 @@ export default {
           type: 'success',
           message: '提交成功'
         })
-        console.log('成功的呀')
         this.getcrmMessagNum()
         this.getFieldList()
       }).catch((e) => {})
@@ -610,6 +607,7 @@ export default {
       } else {
         this.isSeas = false
       }
+      this.filterObj = {}
       this.getFieldList()
     },
     /** 勾选操作 */

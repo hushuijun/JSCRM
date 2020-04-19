@@ -159,9 +159,7 @@ export default {
     },
     /** 变化就刷新数据 */
     // messageNum(val) {
-    //   console.log(val, 'messageNum111111')
     //   this.getFieldList()
-    //   // this.
     // }
   },
 

@@ -362,6 +362,57 @@ export default {
             }
           }
         }
+      } else if (this.crmType == 'business' && item.data.formType == 'customer') {
+        //商机里的用户关联负责人
+         for (let index = 0; index < this.crmForm.crmFields.length; index++) {
+           const element = this.crmForm.crmFields[index]
+           if (element.key == 'owner_user_id') {
+              if (item.value.length > 0) {
+                var customerItem = item.value[0]
+                let curUser = {
+                  realname: customerItem.ownerUserName,
+                  userId:  customerItem.ownerUserId
+                }
+                if ((!element['value'] || element['value'].length == 0)&& !element['value'].realname && !element['value'].userId) {
+                  element['value'] = [curUser]
+                }
+                // customerItem['moduleType'] = 'customer'
+                // element['relation'] = customerItem
+              } else {
+                // element.disabled = true
+                // element['relation'] = {}
+                // element.value = []
+              }
+              break
+           }
+         }
+      } else if (this.crmType == 'case' && item.data.formType == 'contract') {
+        //案件里的合同关联金额
+         for (let index = 0; index < this.crmForm.crmFields.length; index++) {
+           const element = this.crmForm.crmFields[index]
+           if (element.key == 'money') {
+              if (item.value.length > 0) {
+                element['value'] = item.value[0].money
+                element.disabled = true
+                // var customerItem = item.value[0]
+                // let curUser = {
+                //   realname: customerItem.ownerUserName,
+                //   userId:  customerItem.ownerUserId
+                // }
+                // if ((!element['value'] || element['value'].length == 0)&& !element['value'].realname && !element['value'].userId) {
+                //   element['value'] = [curUser]
+                // }
+                // customerItem['moduleType'] = 'customer'
+                // element['relation'] = customerItem
+              } else {
+                element['value'] = ''
+                // element.disabled = true
+                // element['relation'] = {}
+                // element.value = []
+              }
+              break
+           }
+         }
       } else if (this.crmType == 'contract') {
         if (item.data.formType == 'customer') {
           // 新建合同 选择客户 要将id交于 商机
@@ -602,10 +653,12 @@ export default {
               params['value'] = item.defaultValue || ''
             }
           }
-
           params['key'] = item.fieldName
           params['data'] = item
           params['disabled'] = false // 是否可交互
+          if (item.formType == 'floatnumber' && this.crmType == 'case') {
+            params['disabled'] = true
+          }
           params['styleIndex'] = showStyleIndex
           this.crmForm.crmFields.push(params)
         }

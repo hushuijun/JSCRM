@@ -148,7 +148,7 @@
         <el-table-column
           fixed="right"
           label="操作"
-          width="150"
+          min-width="200"
           type="operation">
           <template slot-scope="scope">
             <el-button @click="deleteClick(scope.row)" type="text" size="small">删除</el-button>
@@ -226,6 +226,7 @@ export default {
         {label: '下属', value: '3'}
       ],
       dataStatus: [
+        {label: '全部', value: ''},
         {label: '待提交', value: '待提交'},
         {label: '未审核', value: '未审核'},
         {label: '审核中', value: '审核中'},

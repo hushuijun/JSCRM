@@ -182,7 +182,6 @@ export default {
   },
   mounted() {
     document.body.appendChild(this.$el)
-    console.log(this.detailData);
     selectById(this.detailData.id)
       .then(res => {
         this.record = res.data;

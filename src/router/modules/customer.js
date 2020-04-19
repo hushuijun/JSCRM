@@ -106,18 +106,18 @@ const customerRouter = {
       subType: 'contract'
     }
   },
-  // {
-  //   path: 'money', // 回款列表
-  //   component: () => import('@/views/customermanagement/money/MoneyIndex'),
-  //   meta: {
-  //     requiresAuth: true,
-  //     title: '回款',
-  //     icon: 'money',
-  //     index: 1,
-  //     type: 'crm',
-  //     subType: 'receivables'
-  //   }
-  // },
+  {
+    path: 'money', // 回款列表
+    component: () => import('@/views/customermanagement/money/MoneyIndex'),
+    meta: {
+      requiresAuth: true,
+      title: '回款',
+      // icon: 'money',
+      index: 1,
+      type: 'crm',
+      subType: 'receivables'
+    }
+  },
   // {
   //   path: 'product', // 产品列表
   //   component: () => import('@/views/customermanagement/product/ProductIndex'),

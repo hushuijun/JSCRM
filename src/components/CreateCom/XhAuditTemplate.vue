@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-input v-model="confirmName" style="background-color: #fff;color:#333"></el-input><el-button type="primary" @click="isShow=true">选择</el-button>
+        <el-input v-model="confirmName" style="background-color: #fff;color:#333" @focus="isShow=true"></el-input><el-button type="primary" @click="isShow=true">选择</el-button>
         <!-- 选择审核流程弹窗 -->
         <!-- <el-popover -->
             <!-- placement="top-start"
@@ -8,14 +8,14 @@
             v-model='isShow'> -->
         <el-dialog title="请选择审核模板" :visible.sync="isShow" :append-to-body="true" :lock-scroll="true">
             <el-table :data="gridData" border height='300'>
-                <el-table-column width="162" property="name" label="审批流程名称"></el-table-column>
-                <el-table-column width="162" property="typeText" label="流程类型"></el-table-column>
+                <el-table-column  property="name" label="审批流程名称"></el-table-column>
+                <el-table-column  property="typeText" label="流程类型"></el-table-column>
                 <!-- <el-table-column width="300" property="address" label="关联对象"></el-table-column> -->
                 <!-- <el-table-column width="300" property="address" label="适用范围"></el-table-column> -->
                 <el-table-column
                     label="操作"
                     prop="确认"
-                    width="110">
+                    >
                     <template slot-scope="scope">
                     <el-button type="text" size="small" @click="handleConfirm(scope.row)">确认</el-button>
                     </template>

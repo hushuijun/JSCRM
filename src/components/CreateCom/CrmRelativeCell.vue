@@ -43,7 +43,6 @@ export default {
     }
   },
   created () {
-    console.log(this.dataValue, '关联客户')
   },
   watch: {
     relation: function(val) {
@@ -85,7 +84,6 @@ export default {
     this.dataValue.forEach((element) => {
       if (element.number || element.customerName || element.businessName || element.contractNum || element.num) {
         this.isShowAdd = false
-        console.log(this.dataValue, 'this.dataValue')
       }
     })
   },

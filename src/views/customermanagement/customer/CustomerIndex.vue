@@ -10,7 +10,7 @@
                      :crm-type="crmType">
     </c-r-m-list-head> -->
     <div class="main-title">客户管理</div>
-    <el-tabs v-model="typeId" @tab-click="switchTab(crmType, typeId)" type="card">
+    <el-tabs v-model="typeId" @tab-click="switchCustomerTab(crmType, typeId)" type="card">
       <el-tab-pane label="私有客户" name="2"></el-tab-pane>
       <el-tab-pane label="客户公海" name="8"></el-tab-pane>
     </el-tabs>
@@ -164,7 +164,7 @@
         <el-table-column
           fixed="right"
           label="操作"
-          width="120"
+          min-width="150"
           type="operation">
           <template slot-scope="scope">
             <el-button @click="deleteClick(scope.row)" type="text" size="small">删除</el-button>
@@ -256,6 +256,15 @@ export default {
       this.rowID = data.businessId
       this.rowType = 'business'
       this.showDview = true
+    },
+    switchCustomerTab (crmType, typeId) {
+      this.searchInfo = {
+        customer_name: '',
+        mobile: '',
+        create_time: '',
+        realname: ''
+      },
+      this.switchTab(crmType, typeId)
     },
     /** 通过回调控制style */
     cellStyle({ row, column, rowIndex, columnIndex }) {

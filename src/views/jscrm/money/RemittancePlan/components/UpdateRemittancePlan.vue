@@ -37,7 +37,7 @@
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item right-field" prop="contractId"
+                          class="crm-create-item right-field" prop="contractNum"
                           style="">
               <div slot="label"
                    style="display: inline-block;">
@@ -48,7 +48,7 @@
                 </div>
               </div>
             
-              <el-input v-model="record.contractId" style="width: 70%" :disabled="true"
+              <el-input v-model="record.contractNum" style="width: 70%" :disabled="true"
                 ></el-input>
                <el-button @click="selectInvoice()" type="primary">选择</el-button>   
             </el-form-item>
@@ -134,7 +134,7 @@
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item right-field" prop="moduleId"
+                          class="crm-create-item right-field" prop="moduleName"
                           >
                 <div slot="label"
                    style="display: inline-block;">
@@ -144,8 +144,9 @@
                   </span>
                 </div>
               </div>
-              <el-input v-model="record.moduleId"    placeholder="请输入内容"
+              <el-input v-model="record.moduleName" :disabled="true" style="width: 70%"
                 ></el-input>
+                <el-button @click="selectAudit()" type="primary">选择</el-button>    
             </el-form-item>
 
             <el-form-item
@@ -274,6 +275,7 @@
     </flexbox>
 
         <ContractMedal ref="refInvoiceMedal" @getDataContract="getDataContract"></ContractMedal>
+            <AuditMedal ref="refAuditMedal" @getDataAudit="getDataAudit"></AuditMedal>
 
   </create-view>
 </template>
@@ -284,14 +286,16 @@ import {remittanceIdNum}from '@/views/jscrm/money/const/const'
 import ContractMedal from '@/views/jscrm/components/ContractMedal' // 引入合同medal
 import { upload,queryPageFile,download } from '@/api/jscrm/money/file'
 import {crmFileDelete} from '@/api/common'
-
+import AuditMedal from '@/views/jscrm/components/AuditMedal' // 引入用户medal
+import * as fecha from "element-ui/lib/utils/date"
 
 
 export default {
   name: 'create-share', // 所有新建效果的view
   components: {
     CreateView,
-    ContractMedal
+    ContractMedal,
+    AuditMedal,
   },
    props: {
     // 详情信息
@@ -305,8 +309,11 @@ export default {
       record:{
         // "type": 1,
         "contractId": null,
+        "contractNum": null,
         "customerId": null,
         "caseName": null,
+        "moduleId": null,
+        "moduleName": null,
         "handPersonName": null,
         "billNo": null,
         "invoiceMoney": null,
@@ -322,7 +329,7 @@ export default {
       loading: false,
       // 自定义字段验证规则
       ruleValidate: {
-         contractId: [
+         contractNum: [
             { required: true, message: '请输入合同编号', trigger: 'blur' },
           ],
            customerName: [
@@ -342,7 +349,7 @@ export default {
            actualBackMoney: [
             { required: true, message: '请输入实际回款金额', trigger: 'blur' },
           ],         
-           moduleId: [
+           moduleName: [
             { required: true, message: '请输入审核模板', trigger: 'blur' },
           ],        
           
@@ -369,6 +376,10 @@ export default {
 
   },
   methods: {
+
+    dateFormat(row,column,cellValue){
+      return cellValue ? fecha.format(new Date(cellValue),'yyyy-MM-dd'):'';
+    },
     hidenView() {
       this.$emit('hiden-view')
     },
@@ -404,9 +415,19 @@ export default {
       this.$refs.refInvoiceMedal.visible=true;
     },
 
+    selectAudit(){
+      this.$refs.refAuditMedal.visible=true;
+    },
+
     getDataContract(data){
       this.record.contractId = data.contractId;
+      this.record.contractNum = data.contractNum;
       this.record.customerName = data.customerName;
+    },
+
+     getDataAudit(data){
+      this.record.moduleId = data.examineId;
+      this.record.moduleName = data.name;
     },
 
      addFile() {

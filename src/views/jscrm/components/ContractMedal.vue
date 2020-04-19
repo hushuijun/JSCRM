@@ -21,7 +21,7 @@
     border
     style="width: 100%">
     <el-table-column
-      prop="contractId"
+      prop="contractNum"
       label="合同编号"
       >
     </el-table-column>

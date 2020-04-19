@@ -433,7 +433,6 @@ export default {
     },
 
     getDataAudit(data){
-      debugger
       this.record.moduleId = data.examineId;
       this.record.moduleName = data.name;
     },

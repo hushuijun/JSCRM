@@ -20,7 +20,7 @@
     border
     style="width: 100%">
     <el-table-column
-      prop="caseId" width="140px"
+      prop="caseNum" width="140px"
       label="案件编号" 
       >
     </el-table-column>

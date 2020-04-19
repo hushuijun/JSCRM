@@ -95,6 +95,7 @@
                     @save="examineHandleClick"
                     :id="id"
                     :recordId="recordId"
+                    :ownerUserId="ownerUserId"
                     :examineType="examineType"
                     :detail="examineInfo"
                     :status="examineHandleInfo.status"></examine-handle>

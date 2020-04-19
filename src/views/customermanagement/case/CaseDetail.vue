@@ -19,7 +19,23 @@
                          :headDetails="headDetails"
                          :id="id">
       </c-r-m-detail-head> -->
-      <div class="close-detail el-icon-close" @click="closeDetail"></div>
+      <c-r-m-detail-head crmType="contract"
+                         @handle="detailHeadHandle"
+                         @close="hideView"
+                         :detail="detailData"
+                         :headDetails="headDetails"
+                         :id="id">
+      </c-r-m-detail-head>
+      <div class="examine-info">
+        <examine-info :id="id"
+                      class="examine-info-border"
+                      examineType="crm_contract"
+                      @on-handle='checkSave'
+                      :recordId="detailData.examineRecordId"
+                      :ownerUserId="detailData.ownerUserId">
+        </examine-info>
+      </div>
+      <!-- <div class="close-detail el-icon-close" @click="closeDetail"></div> -->
       <div class="tabs">
         <el-tabs v-model="tabCurrentName"
                  @tab-click="handleClick">
@@ -63,6 +79,8 @@ import CaseInvoice from './components/CaseInvoice' //相关回款
 import CaseCost from './components/CaseCost' //相关回款
 
 import CRMCreateView from '../components/CRMCreateView' // 新建页面
+import ExamineInfo from '@/components/Examine/ExamineInfo'
+
 
 import { getDateFromTimestamp } from '@/utils'
 import moment from 'moment'
@@ -82,7 +100,8 @@ export default {
     RelativeReturnMoney,
     CaseProcess,
     CaseInvoice,
-    CaseCost
+    CaseCost,
+    ExamineInfo
   },
   mixins: [detail],
   props: {
@@ -119,9 +138,9 @@ export default {
       crmType: 'leads',
       detailData: {}, // read 详情
       headDetails: [
-        { title: '姓名', value: '' },
-        { title: '线索来源', value: '' },
-        { title: '手机', value: '' },
+        { title: '案件名称', value: '' },
+        { title: '案件编号', value: '' },
+        { title: '客户名称', value: '' },
         { title: '负责人', value: '' },
         { title: '创建时间', value: '' }
       ],
@@ -181,8 +200,8 @@ export default {
           this.detailData = res.data
           this.contractId = res.data.contractId
           this.headDetails[0].value = res.data.name
-          this.headDetails[1].value = res.data.线索来源
-          this.headDetails[2].value = res.data.mobile
+          this.headDetails[1].value = res.data.num
+          this.headDetails[2].value = res.data.customerName
           // 负责人
           this.headDetails[3].value = res.data.ownerUserName
           this.headDetails[4].value = res.data.createTime
@@ -195,6 +214,9 @@ export default {
     //** 点击关闭按钮隐藏视图 */
     hideView() {
       this.$emit('hide-view')
+    },
+    checkSave() {
+      this.$emit('checkSave')
     },
     //** tab标签点击 */
     handleClick(tab, event) {},

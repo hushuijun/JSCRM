@@ -167,7 +167,7 @@ export default {
     this.fieldList = [
       { prop: 'customerName', width: '200', label: '客户名称' },
       { prop: 'contractId', width: '200', label: '合同编号' },
-      { prop: 'receivablesNum', width: '200', label: '回款编号' },
+      { prop: 'id', width: '200', label: '回款编号' },
       { prop: 'moneyBackDate', width: '200', label: '回款日期' },
       { prop: 'actualBackMoney', width: '200', label: '实际回款金额' },
       { prop: 'handPersonName', width: '200', label: '负责人' },

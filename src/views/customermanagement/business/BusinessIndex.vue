@@ -94,8 +94,8 @@
             <div class="table-head-name">{{scope.column.label}}</div>
           </template>
         </el-table-column>
-        <el-table-column>
-        </el-table-column>
+        <!-- <el-table-column>
+        </el-table-column> -->
         <!-- <el-table-column fixed="right"
                          width="36">
           <template slot="header"

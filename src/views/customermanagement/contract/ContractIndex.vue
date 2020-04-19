@@ -115,8 +115,8 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column>
-        </el-table-column>
+        <!-- <el-table-column>
+        </el-table-column> -->
         <!-- <el-table-column fixed="right"
                          width="36">
           <template slot="header"
@@ -135,7 +135,7 @@
             <el-button @click="deleteClick(scope.row)" type="text" size="small">删除</el-button>
             <el-button @click="editClick(scope.row, 'edit')" type="text" size="small">编辑</el-button>
             <el-button @click="detailClick(scope.row)" type="text" size="small">详情</el-button>
-            <el-button @click="statusClick(scope.row)" type="text" size="small">提交审核</el-button>
+            <el-button @click="submitCheck(scope.row)" type="text" size="small">提交审核</el-button>
           </template>
         </el-table-column>
       </el-table>

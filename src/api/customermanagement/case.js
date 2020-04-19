@@ -130,3 +130,13 @@ export function crmCaseCostIndex(data) {
       data: data
     })
 }
+
+// 提交审核
+export function submitCaseCheck(data) {
+  return request({
+    url: 'CrmCase/auditCase?caseId=' + data,
+    method: 'post',
+  })
+}
+
+

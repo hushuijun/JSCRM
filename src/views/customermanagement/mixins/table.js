@@ -35,7 +35,8 @@ import {
 } from '@/api/customermanagement/business'
 import {
   crmContractIndex,
-  crmContractDelete
+  crmContractDelete,
+  submitContractCheck
 } from '@/api/customermanagement/contract'
 import {
   crmProductIndex,
@@ -43,7 +44,8 @@ import {
 } from '@/api/customermanagement/product'
 import {
   crmCaseIndex,
-  crmCaseDelete
+  crmCaseDelete,
+  submitCaseCheck
 } from '@/api/customermanagement/case'
 import {
   crmReceivablesIndex
@@ -439,6 +441,40 @@ export default {
         })
         this.getFieldList()
       })
+    },
+    submitCheck (data) {
+      // console.log(data ,'contractId')
+      var crmCaseRequest = this.getCheckRequest()
+      let param = ''
+      if (this.crmType == 'contract') {
+        param = data.contractId
+      } else if (this.crmType == 'case') {
+        param = data.caseId
+      }
+      crmCaseRequest(param).then((res) => {
+        this.$message({
+          type: 'success',
+          message: '提交成功'
+        })
+        console.log('成功的呀')
+        this.getcrmMessagNum()
+        this.getFieldList()
+      }).catch((e) => {})
+    },
+    //刷新消息数
+    getcrmMessagNum() {
+      this.$store
+        .dispatch('GetMessageNum')
+        .then(res => {})
+        .catch(() => {})
+    },
+    /** 获取审核接口 */
+    getCheckRequest() {
+      if (this.crmType === 'contract') {
+        return submitContractCheck
+      } else if (this.crmType === 'case') {
+        return submitCaseCheck
+      }
     },
     // 保存成功
     editSaveSuccess () {

@@ -14,9 +14,10 @@ const app = {
       followCustomer: 0,
       checkContract: 0,
       checkReceivables: 0,
+      checkCase: 0,
       remindReceivablesPlan: 0,
       endContract: 0,
-      totalNum: 0
+      totalNum: 0,
     }
   },
 

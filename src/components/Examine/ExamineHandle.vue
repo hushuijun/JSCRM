@@ -102,6 +102,7 @@ export default {
     // 详情信息id
     id: [String, Number],
     recordId: [String, Number],
+    ownerUserId: [String, Number],
     // 审核信息 config 1 固定 0 自选
     detail: {
       type: Object,
@@ -162,7 +163,8 @@ export default {
         id: this.id,
         recordId: this.recordId,
         status: this.status,
-        remarks: this.content
+        remarks: this.content,
+        ownerUserId: this.ownerUserId
       }
       if (this.status == 1 && this.detail.examineType == 2) {
         if (this.handleType == 1) {
@@ -174,12 +176,20 @@ export default {
         .then(res => {
           this.loading = false
           this.$message.success('操作成功')
+          this.getcrmMessagNum()
           this.$emit('save', { type: this.status })
           this.hiddenView()
         })
         .catch(() => {
           this.loading = false
         })
+    },
+    //刷新消息数
+    getcrmMessagNum() {
+      this.$store
+        .dispatch('GetMessageNum')
+        .then(res => {})
+        .catch(() => {})
     },
     handleClick(type) {
       if (type == 'cancel') {

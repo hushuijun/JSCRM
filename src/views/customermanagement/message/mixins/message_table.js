@@ -10,7 +10,8 @@ import {
   crmMessageFollowLeadsAPI,
   crmMessageFollowCustomerAPI,
   crmMessagEndContractAPI,
-  crmMessagRemindreceivablesplanAPI
+  crmMessagRemindreceivablesplanAPI,
+  crmMessageCheckCaseAPI
 } from '@/api/customermanagement/message'
 
 export default {
@@ -51,6 +52,7 @@ export default {
      * @param {*} event 
      */
     handleRowClick(row, column, event) {
+      console.log(column, 'column')
       if (this.crmType === 'leads') {
         this.rowID = row.leadsId
         this.rowType = 'leads'
@@ -92,6 +94,29 @@ export default {
           this.rowType = 'contract'
         }
         this.showDview = true
+      } else if (this.crmType === 'case') {
+        if (column.property === 'customerName') {
+          this.rowID = row.customerId
+          this.rowType = 'customer'
+          this.showDview = true
+        } else if (column.property === 'name') {
+          console.log("走进来了吗")
+          this.rowID = row.caseId
+          this.rowType = 'case'
+          this.showDview = true
+        } else if (column.property === 'contractName') {
+          this.rowID = row.contractId
+          this.rowType = 'contract'
+          this.showDview = true
+        } else if (column.property === 'contractNum') {
+          this.rowID = row.contractId
+          this.rowType = 'contract'
+          this.showDview = true
+        } 
+        // else {
+        //   this.rowID = row.caseId
+        //   this.rowType = 'case'
+        // }
       } else if (this.crmType === 'product') {
         this.rowID = row.productId
         this.showDview = true
@@ -118,7 +143,9 @@ export default {
         this.showDview = true
       }
     },
-
+    // checkSave () {
+    //   this.getFieldList()
+    // },
     /** 获取列表数据 */
     getList() {
       this.loading = true
@@ -156,7 +183,8 @@ export default {
         'checkContract': crmMessageCheckContractAPI,
         'checkReceivables': crmMessageCheckReceivablesAPI,
         'remindReceivablesPlan': crmMessagRemindreceivablesplanAPI,
-        'endContract': crmMessagEndContractAPI
+        'endContract': crmMessagEndContractAPI,
+        'checkCase': crmMessageCheckCaseAPI
       }[this.infoType]
     },
 
@@ -296,7 +324,6 @@ export default {
         }
       }
     },
-
     getStatusName(status) {
       if (status == 0) {
         return '待审核'

@@ -3,7 +3,7 @@
     <div class="main-title">回款管理</div>
     
         <div class="input-container">
-          <span style="margin-left:10px">合同编号</span> <el-input v-model="queryCondtion.contractId" placeholder="请输入" size="small"></el-input>
+          <span style="margin-left:10px">合同编号</span> <el-input v-model="queryCondtion.contractNum" placeholder="请输入" size="small"></el-input>
         </div>
         <div class="input-container">
          <span style="margin-left:10px">客户名称</span> <el-input v-model="queryCondtion.customerName" placeholder="请输入" size="small"></el-input>
@@ -48,11 +48,11 @@
        
         <el-table-column prop="customerName" label="客户名称" width="100px" align="center" header-align="center"></el-table-column>
         <el-table-column prop="customerCompanyName" label="客户公司名称" width="150px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="contractId" label="合同编号" width="150px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="contractNum" label="合同编号" width="150px" align="center" header-align="center"></el-table-column>
         <el-table-column prop="id" label="回款编号" width="150px" align="center" header-align="center"></el-table-column>
         <el-table-column prop="moneyBackDate" label="回款日期" width="100px"  align="center" header-align="center"></el-table-column>
-        <el-table-column prop="planBackMoney" label="计划回款金额" width="100px"  align="center" header-align="center"></el-table-column>
-        <el-table-column prop="actualBackMoney" label="实际回款金额" width="100px"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="planBackMoney" label="计划回款金额" width="120px"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="actualBackMoney" label="实际回款金额" width="120px"  align="center" header-align="center"></el-table-column>
         <el-table-column prop="handPersonName" label="负责人" width="100px" align="center" header-align="center"></el-table-column>
         <el-table-column prop="remittanceId" label="汇款方式" width="100px" align="center" header-align="center"></el-table-column>
         <el-table-column prop="remittanceId" label="审核状态" width="100px" align="center" header-align="center"></el-table-column>
@@ -133,7 +133,7 @@ export default {
       queryCondtion:{
         page: 1,
         limit: 10,
-        contractId:null,
+        contractNum:null,
         customerName:null,
         customerName1:null,
         handPersonName:null,

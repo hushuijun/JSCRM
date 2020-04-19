@@ -16,7 +16,7 @@
         <span >负责人</span> <el-input v-model="queryCondtion.handPersonName" placeholder="请输入" size="small"></el-input>
                  </div>
                <div class="input-container">
-        <span >案件编码</span> <el-input v-model="queryCondtion.caseId" placeholder="请输入" size="small"></el-input>
+        <span >案件编码</span> <el-input v-model="queryCondtion.caseNum" placeholder="请输入" size="small"></el-input>
                  </div>
                <div class="input-container">
         <span >案件名称</span> <el-input v-model="queryCondtion.caseName" placeholder="请输入" size="small"></el-input>
@@ -38,14 +38,14 @@
                 style="width: 100%"
                >
        
-        <el-table-column prop="caseId" label="案件编号" width="150px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="caseNum" label="案件编号" width="150px" align="center" header-align="center"></el-table-column>
         <el-table-column prop="caseName" label="案件名称"  width="100px" align="center" header-align="center"></el-table-column>
         <el-table-column prop="invoiceDate" label="开票日期"  width="100px" align="center" header-align="center"></el-table-column>
         <el-table-column prop="billType" label="票据类型" width="140px" align="center" header-align="center"></el-table-column>
         <el-table-column prop="invoiceMoney" label="开票金额" width="100px" align="center" header-align="center"></el-table-column>
         <el-table-column prop="billNo" label="发票号码" width="100px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="createUserName" label="所属人员" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="handPersonName" label="发票经手人员" width="100px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="handPersonName" label="所属人员" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="createUserName" label="发票经手人员" width="100px" align="center" header-align="center"></el-table-column>
 
         <el-table-column fixed="right"
                          label="操作"
@@ -124,7 +124,7 @@ export default {
         limit: 10,
         billType:null,
         handPersonName:null,
-        caseId:null,
+        caseNum:null,
         caseName:null,
       },
     }

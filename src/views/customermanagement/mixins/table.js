@@ -709,7 +709,8 @@ export default {
     },
     getStatusName(status) {
       if (status == 0 || status == null) {
-        return '待审核'
+        // return '待审核'
+        return '未提交'
       } else if (status == 1) {
         return '审核中'
       } else if (status == 2) {

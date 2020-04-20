@@ -58,7 +58,7 @@
     </div>
     <div class="input-container">
       <span>案件状态</span>
-       <el-select v-model="status" placeholder="请选择">
+       <el-select v-model="searchInfo.check_status" placeholder="请选择">
         <el-option
           v-for="item in dataStatus"
           :key="item.value"
@@ -154,7 +154,7 @@
             <el-button @click="deleteClick(scope.row)" type="text" size="small">删除</el-button>
             <el-button @click="editClick(scope.row, 'edit')" type="text" size="small">编辑</el-button>
             <el-button @click="caseFollowLog(scope.row)" type="text" size="small">跟进</el-button>
-            <el-button @click="submitCheck(scope.row)" type="text" size="small">提交审核</el-button>
+            <el-button @click="submitCheck(scope.row)" type="text" size="small" v-if="scope.row.checkStatus == 0 || scope.row.checkStatus == 4 || scope.row.checkStatus == null">提交审核</el-button>
             <el-button @click="detailClick(scope.row)" type="text" size="small">详情</el-button>
           </template>
         </el-table-column>
@@ -227,10 +227,11 @@ export default {
       ],
       dataStatus: [
         {label: '全部', value: ''},
-        {label: '待提交', value: '待提交'},
-        {label: '未审核', value: '未审核'},
-        {label: '审核中', value: '审核中'},
-        {label: '已审核', value: '已审核'}
+        {label: '未提交', value: '0'},
+        {label: '审核中', value: '1'},
+        {label: '通过', value: '2'},
+        {label: '拒绝', value: '3'},
+        {label: '撤回', value: '4'}
       ],
       dataFliter: 1,
       status: ''

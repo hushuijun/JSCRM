@@ -89,8 +89,8 @@
                        :width="item.width"
                        :formatter="fieldFormatter">
       </el-table-column>
-      <el-table-column :resizable="false">
-      </el-table-column>
+      <!-- <el-table-column :resizable="false">
+      </el-table-column> -->
       <el-table-column v-if="showCheckStatus"
                        show-overflow-tooltip
                        prop="checkStatus"

@@ -52,32 +52,34 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-popover
-        placement="right"
-        v-model="isShow" class="popStyle">
-        <div class="title">附件列表</div>
-        <div class="close-detail el-icon-close" @click="isShow=false"></div>
-        <el-table :data="fileList" style="width: 100%; height: 250px">
-          <el-table-column width="160" property="name" label="名称" show-overflow-tooltip></el-table-column>
-          <el-table-column width="130" property="createUserName" label="上传人" show-overflow-tooltip></el-table-column>
-          <el-table-column width="160" property="createTime" label="时间" show-overflow-tooltip></el-table-column>
-          <el-table-column width="150" property="size" label="大小" show-overflow-tooltip></el-table-column>
-          <el-table-column
-          fixed="right"
-          label="操作"
-          width="60"
-          type="operation">
-          <template slot-scope="scope">
-            <!-- <el-button @click="detailClick(scope.row)" type="text" size="small">详情</el-button> -->
-          <div class="fl-b-img-item"
-             v-for="(file, index) in [scope.row]"
-             :key="file.filePath"
-             @click="previewImg([scope.row], index)">预览</div>
-            <!-- <el-button @click="previewFile(scope.row)" type="text" size="small">预览</el-button> -->
-          </template>
-          </el-table-column>
-        </el-table>
-      </el-popover>
+      <el-dialog title="附件列表" :visible.sync="isShow" :append-to-body='true'>
+        <!-- <el-popover
+          placement="right"
+          v-model="isShow" class="popStyle"> -->
+          <!-- <div class="title">附件列表</div> -->
+          <!-- <div class="close-detail el-icon-close" @click="isShow=false"></div> -->
+          <el-table :data="fileList" style="width: 100%; height: 250px" border>
+            <el-table-column width="160" property="name" label="名称" show-overflow-tooltip></el-table-column>
+            <el-table-column width="130" property="createUserName" label="上传人" show-overflow-tooltip></el-table-column>
+            <el-table-column width="160" property="createTime" label="时间" show-overflow-tooltip></el-table-column>
+            <el-table-column width="150" property="size" label="大小" show-overflow-tooltip></el-table-column>
+            <el-table-column
+            fixed="right"
+            label="操作"
+            width="60"
+            type="operation">
+            <template slot-scope="scope">
+              <!-- <el-button @click="detailClick(scope.row)" type="text" size="small">详情</el-button> -->
+            <div class="fl-b-img-item"
+              v-for="(file, index) in [scope.row]"
+              :key="file.filePath"
+              @click="previewImg([scope.row], index)">预览</div>
+              <!-- <el-button @click="previewFile(scope.row)" type="text" size="small">预览</el-button> -->
+            </template>
+            </el-table-column>
+          </el-table>
+        <!-- </el-popover> -->
+      </el-dialog>
     </div>
 </template>
 <script>
@@ -163,8 +165,8 @@ export default {
       top: 10px;
       z-index: 99;
     }
-    .fl-b-img-item {
-      color: #3E84E9;
-    }
+}
+.fl-b-img-item {
+  color: #3E84E9;
 }
 </style>

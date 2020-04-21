@@ -56,6 +56,24 @@
                        :prop="item.prop"
                        :label="item.label">
       </el-table-column>
+      <el-table-column show-overflow-tooltip
+                         prop="checkStatus"
+                         label="审核状态"
+                         :resizable="false"
+                         width="100"
+                         align="center"
+                         fixed="right">
+        <template slot="header"
+                  slot-scope="scope">
+          <div class="table-head-name">{{scope.column.label}}</div>
+        </template>
+        <template slot-scope="scope">
+          <div class="status_button"
+                :style="getStatusStyle(scope.row.checkStatus)">
+            {{getStatusName(scope.row.checkStatus)}}
+          </div>
+        </template>
+      </el-table-column>
     </el-table>
     <c-r-m-full-screen-detail :visible.sync="showFullDetail"
                               :crmType="showFullCrmType"
@@ -172,7 +190,7 @@ export default {
       { prop: 'actualBackMoney', width: '200', label: '实际回款金额' },
       { prop: 'handPersonName', width: '200', label: '负责人' },
       { prop: 'remittanceId', width: '200', label: '汇款方式' },
-      { prop: 'status', width: '200', label: '审核状态' },
+      // { prop: 'status', width: '200', label: '审核状态' },
       { prop: 'remitStatus', width: '200', label: '回款状态' },
       // { prop: 'contractMoney', width: '200', label: '合同金额' },
       // { prop: 'num', width: '200', label: '期数' },
@@ -200,7 +218,52 @@ export default {
           this.loading = false
         })
     },
-
+    getStatusStyle(status) {
+      if (status == 0 || status == null) {
+        return {
+          'border-color': '#E6A23C',
+          'background-color': '#FDF6EC',
+          'color': '#E6A23C'
+        }
+      } else if (status == 1) {
+        return {
+          'border-color': '#409EFF',
+          'background-color': '#ECF5FF',
+          'color': '#409EFF'
+        }
+      } else if (status == 2) {
+        return {
+          'border-color': '#67C23A',
+          'background-color': '#F0F9EB',
+          'color': '#67C23A'
+        }
+      } else if (status == 3) {
+        return {
+          'border-color': '#F56C6B',
+          'background-color': '#FEF0F0',
+          'color': '#F56C6B'
+        }
+      } else if (status == 4) {
+        return {
+          'background-color': '#FFFFFF'
+        }
+      }
+    },
+    getStatusName(status) {
+      if (status == 0 || status == null) {
+        // return '待审核'
+        return '未提交'
+      } else if (status == 1) {
+        return '审核中'
+      } else if (status == 2) {
+        return '通过'
+      } else if (status == 3) {
+        return '拒绝'
+      } else if (status == 4) {
+        return '撤回'
+      }
+      return ''
+    },
     /**
      * 回款列表
      */
@@ -357,5 +420,13 @@ export default {
   // font-weight: 500;
   color: #333;
   padding: 30px 0 10px 0;
+}
+.status_button {
+  padding: 1px 6px;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 12px;
+  margin: 0 auto;
 }
 </style>

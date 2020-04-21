@@ -8,10 +8,10 @@
     <div class="handle-box">
 
       <div style="margin-bottom:5px">
-                <span style="margin-left:10px">姓名</span> <el-input v-model="queryCondtion.realname" placeholder="请输入" class="input_width"></el-input>
-                <span style="margin-left:10px">手机号</span> <el-input v-model="queryCondtion.mobile" placeholder="请输入" class="input_width"></el-input>
+                <span style="margin-left:10px;font-size:13px">姓名</span> <el-input v-model="queryCondtion.realname" placeholder="请输入" class="input_width"></el-input>
+                <span style="margin-left:10px;font-size:13px">手机号</span> <el-input v-model="queryCondtion.mobile" placeholder="请输入" class="input_width"></el-input>
 
-                <el-button  @click="getList()" style="float:right">查询</el-button>
+                <el-button  @click="getList()" type="primary" style="margin-left:30px">查询</el-button>
       </div>
 
        <el-table
@@ -21,15 +21,17 @@
     <el-table-column
       prop="userId"
       label="编号"
+      width="50px"
       >
     </el-table-column>
     <el-table-column
       prop="realname"
       label="名称"
+      width="80px"
       >
     </el-table-column>
     <el-table-column
-      prop="mobile"
+      prop="mobile"  width="110px"
       label="手机号"
       >
     </el-table-column>
@@ -41,10 +43,11 @@
     <el-table-column
       prop="post"
       label="岗位"
+      width="120px"
       >
     </el-table-column>
     <el-table-column
-      label="操作"
+      label="操作" width="60px"
       >
       <template slot-scope="scope">
         <el-button @click="handleClick(scope.row)" type="text" size="small">选择</el-button>
@@ -152,6 +155,6 @@ export default {
 }
 
 .input_width {
-  width: 100px;
+  width: 130px;
 }
 </style>

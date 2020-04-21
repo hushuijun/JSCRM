@@ -33,7 +33,7 @@
                   </span>
                 </div>
               </div>
-              <el-date-picker
+              <el-date-picker value-format="yyyy-MM-dd"
               v-model="record.invoiceDate"
               type="date" style="width:100%" 
               placeholder="选择日期">
@@ -56,7 +56,7 @@
               <el-input v-model="record.caseName" :disabled="true" style="width: 70%"
                 ></el-input>
               <!-- <el-button @click="">选择</el-button>   -->
-              <el-button @click="selectCase()">选择</el-button>  
+              <el-button @click="selectCase()" type="primary">选择</el-button>  
             </el-form-item>
 
             <el-form-item
@@ -147,7 +147,7 @@
               </div>
               <el-input v-model="record.handPersonName" :disabled="true" style="width: 70%"
                 ></el-input>
-              <el-button @click="selectUser()">选择</el-button>    
+              <el-button @click="selectUser()" type="primary">选择</el-button>    
             </el-form-item>
 
             <el-form-item
@@ -234,7 +234,7 @@
 <script type="text/javascript">
 import CreateView from '@/components/CreateView'
 import { updateData,selectById } from '@/api/jscrm/money/InvoiceManage'
-import { uploadMultiple,getBatchId,queryPageFile,download } from '@/api/jscrm/money/file'
+import { upload,queryPageFile,download } from '@/api/jscrm/money/file'
 import {billTyppNum}from '@/views/jscrm/money/const/const'
 import * as fecha from "element-ui/lib/utils/date"
 import {crmFileDelete} from '@/api/common'
@@ -271,7 +271,7 @@ export default {
         "caseId": 2,
         "billType": null,
         "id": null,
-        "annexId": null,
+        "annexId": "",
         "remarks": null
       },
       // 标题展示名称
@@ -325,7 +325,9 @@ export default {
       selectById(this.detailData.id)
       .then(res => {
         this.record = res.data;
-        this.getFileList();
+        if(this.record.annexId!=null&&this.record!=""){
+          this.getFileList();
+        }
       })
       .catch(() => {
         this.$message.error('后台异常');
@@ -378,9 +380,11 @@ export default {
         var params = {}
         params.batchId = this.record.annexId;
         params.file = file
-        uploadMultiple(params)
+        upload(params)
           .then(res => {
             // this.fileList.push(res.data);
+            // console.log(this.fileList);
+            this.record.annexId = res.batchId;
             this.getFileList();
             this.$message.success('上传成功')
           })
@@ -410,19 +414,14 @@ export default {
 
     handleFile(type, item) {
       if (type === 'preview') {
-        // var previewList = this.list.map(element => {
-        //   element.url = element.filePath
-        //   return element
-        // })
-        // this.$bus.emit('preview-image-bus', {
-        //   index: item.$index,
-        //   data: previewList
-        // })
-
-        download(item.row.fileId)
-              .then(res => {
-              })
-              .catch(() => {})
+        var previewList = this.fileList.map(element => {
+          element.url = element.filePath
+          return element
+        })
+        this.$bus.emit('preview-image-bus', {
+          index: item.$index,
+          data: previewList
+        })
       } else if (type === 'delete') {
         this.$confirm('您确定要删除该文件吗?', '提示', {
           confirmButtonText: '确定',
@@ -457,7 +456,7 @@ export default {
 
     getDataCase(data){
       this.record.caseId = data.caseId;
-      this.record.caseName = data.name;
+      this.record.caseName = data.caseName;
       this.record.contractId = data.contractId;
     },
 

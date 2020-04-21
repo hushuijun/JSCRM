@@ -7,40 +7,36 @@
              width="600px">
     <div class="handle-box">
 
-     <div style="margin-bottom:5px">
-                <span style="margin-left:10px">案件编号</span> <el-input v-model="queryCondtion.caseId" placeholder="请输入" class="input_width"></el-input>
-                <span style="margin-left:10px">案件名称</span> <el-input v-model="queryCondtion.caseName" placeholder="请输入" class="input_width"></el-input>
-                <span style="margin-left:10px">合同名称</span> <el-input v-model="queryCondtion.contractName" placeholder="请输入" class="input_width"></el-input>
+      <div style="margin-bottom:5px">
+                <span style="margin-left:10px">合同编号</span> <el-input v-model="queryCondtion.contractId" placeholder="请输入" class="input_width"></el-input>
+                <span style="margin-left:10px">合同名称</span> <el-input v-model="queryCondtion.name" placeholder="请输入" class="input_width"></el-input>
+                <span style="margin-left:10px">客户名称</span> <el-input v-model="queryCondtion.customerName" placeholder="请输入" class="input_width"></el-input>
 
                 <el-button  @click="getList()" type="primary" style="float:right">查询</el-button>
       </div>
+
 
        <el-table
     :data="tableData"
     border
     style="width: 100%">
     <el-table-column
-      prop="caseNum" width="140px"
-      label="案件编号" 
+      prop="contractNum"
+      label="合同编号"
       >
     </el-table-column>
     <el-table-column
-      prop="caseName"
-      label="案件名称"
-      >
-    </el-table-column>
-    <el-table-column
-      prop="contractName"
+      prop="name"
       label="合同名称"
       >
     </el-table-column>
     <el-table-column
-      prop="realname" width="80px"
-      label="负责人"
+      prop="customerName"
+      label="客户名称"
       >
     </el-table-column>
-    <el-table-column width="60px"
-      label="操作"
+    <el-table-column
+      label="操作"  width="60px"
       >
       <template slot-scope="scope">
         <el-button @click="handleClick(scope.row)" type="text" size="small">选择</el-button>
@@ -68,7 +64,7 @@
 
 <script>
 
-import { selectPageCase } from '@/api/jscrm/money/comm'
+import { selectPageContract } from '@/api/jscrm/money/comm'
 export default {
   /** 客户管理 的 勾选后的 团队成员 操作 移除操作不可移除客户负责人*/
   name: 'teams-handle',
@@ -76,16 +72,16 @@ export default {
   },
   data() {
     return {
-      tableData:[],
+      tableData:null,
       loading: false, // 加载动画
       visible: false,
-      title:'选择案件',
+      title:'选择合同',
       queryCondtion:{
         page: 1,
         limit: 5,
-        caseId:null,
-        caseName:null,
-        contractName:null,
+        contractId:null,
+        name:null,
+        customerName:null,
       },
       total:0,
       pageSizes: [5,10, 20, 30, 40],
@@ -104,10 +100,9 @@ export default {
     /** 获取列表数据 */
     getList() {
       this.loading = true
-      selectPageCase(this.queryCondtion)
+      selectPageContract(this.queryCondtion)
         .then(res => {
           this.tableData = res.data.list
-
           this.total = res.data.totalRow
           this.loading = false
         })
@@ -124,7 +119,8 @@ export default {
     },
 
     handleClick(row) {
-      this.$emit('getDataCase',row);
+      console.log(row);
+      this.$emit('getDataContract',row);
       this.visible = false;
     },
 

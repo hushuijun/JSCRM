@@ -10,17 +10,9 @@
     :data="tableData"
     border
     style="width: 100%">
-    <el-table-column
-      prop="contractId"
-      label="合同编号"
-      >
-    </el-table-column>
-    <el-table-column
-      prop="name"
-      label="合同名称"
-      >
-    </el-table-column>
-    <el-table-column
+      <el-table-column width="162" property="name" label="审批流程名称"></el-table-column>
+      <el-table-column width="162" property="typeText" label="流程类型"></el-table-column>
+      <el-table-column width="60px"
       label="操作"
       >
       <template slot-scope="scope">
@@ -33,23 +25,13 @@
     </div>
     <span slot="footer"
           class="dialog-footer">
-       <!-- <el-pagination  style="float:right;margin:10px" -->
-       <el-pagination
-                       @size-change="handleSizeChange"
-                       @current-change="handleCurrentChange"
-                       :current-page="this.queryCondtion.page"
-                       :page-sizes="pageSizes"
-                       :page-size.sync="this.queryCondtion.limit"
-                       layout="total, sizes, prev, pager, next, jumper"
-                       :total="total">
-        </el-pagination>
     </span>
   </el-dialog>
 </template>
 
 <script>
 
-import { queryPageListContract } from '@/api/jscrm/money/comm'
+import { crmContractTemplate } from '@/api/customermanagement/contract'
 export default {
   /** 客户管理 的 勾选后的 团队成员 操作 移除操作不可移除客户负责人*/
   name: 'teams-handle',
@@ -57,17 +39,16 @@ export default {
   },
   data() {
     return {
-      tableData:[{"caseId":3,"name":"案件标题","customerId":3},{"caseId":3,"name":"案件标题","customerId":3},{"caseId":3,"name":"案件标题","customerId":3}],
+      tableData:[],
       loading: false, // 加载动画
       visible: false,
-      title:'选择合同',
+      title:'请选择审核模板',
       queryCondtion:{
-        page: 1,
-        limit: 5,
-        billType:null,
-        handPersonName:null,
-        caseId:null,
-        caseName:null,
+        // page: 1,
+        // limit: 5,
+        // caseId:null,
+        // caseName:null,
+        // contractName:null,
       },
       total:0,
       pageSizes: [5,10, 20, 30, 40],
@@ -86,10 +67,16 @@ export default {
     /** 获取列表数据 */
     getList() {
       this.loading = true
-      queryPageListContract(this.queryCondtion)
+      crmContractTemplate(this.queryCondtion)
         .then(res => {
+          res.data.list.forEach((value) => {
+              if (value.examineType == 1) {
+                  value.typeText = '固定审批'
+              } else if (value.examineType == 2) {
+                  value.typeText = '授权审批'
+              }
+          })
           this.tableData = res.data.list
-          this.total = res.data.totalRow
           this.loading = false
         })
         .catch(() => {
@@ -105,7 +92,8 @@ export default {
     },
 
     handleClick(row) {
-      this.$emit('getDataCase',row);
+      console.log(row);
+      this.$emit('getDataAudit',row);
       this.visible = false;
     },
 
@@ -129,5 +117,9 @@ export default {
 .handle-box {
   color: #333;
   font-size: 12px;
+}
+
+.input_width {
+  width: 100px;
 }
 </style>

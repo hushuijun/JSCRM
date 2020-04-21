@@ -195,12 +195,12 @@ export default {
         check_status: ""
       },
       statusList: [
-        {value: '', label: '全部'},
-        {value: 0, label: '待审核'},
-        {value: 1, label: '审核中'},
-        {value: 2, label: '审核通过'},
-        {value: 3, label: '审核未通过'},
-        {value: 4, label: '已撤回'}
+        {label: '全部', value: ''},
+        {label: '未提交', value: '0'},
+        {label: '审核中', value: '1'},
+        {label: '通过', value: '2'},
+        {label: '拒绝', value: '3'},
+        {label: '撤回', value: '4'}
       ]
     }
   },

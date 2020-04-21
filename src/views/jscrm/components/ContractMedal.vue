@@ -102,9 +102,7 @@ export default {
       this.loading = true
       selectPageContract(this.queryCondtion)
         .then(res => {
-          console.log(this.queryCondtion);
           this.tableData = res.data.list
-
           this.total = res.data.totalRow
           this.loading = false
         })

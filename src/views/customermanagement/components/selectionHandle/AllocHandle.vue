@@ -205,10 +205,12 @@ export default {
       // var params = {
       //   userId: this.usersList[0].userId
       // }
-      // params.ids = actionIds.join(',')
-      let params = {}
-      console.log(info, 'info数据')
-      params.ids = info.userId
+      var params = {
+        userId: info.userId
+      }
+      params.ids = actionIds.join(',')
+      // let params = {}
+      // params.ids = info.userId
       this.loading = true
       crmCustomerDistribute(params)
         .then(res => {

@@ -52,7 +52,6 @@ export default {
      * @param {*} event 
      */
     handleRowClick(row, column, event) {
-      console.log(column, 'column')
       if (this.crmType === 'leads') {
         this.rowID = row.leadsId
         this.rowType = 'leads'
@@ -100,7 +99,6 @@ export default {
           this.rowType = 'customer'
           this.showDview = true
         } else if (column.property === 'name') {
-          console.log("走进来了吗")
           this.rowID = row.caseId
           this.rowType = 'case'
           this.showDview = true

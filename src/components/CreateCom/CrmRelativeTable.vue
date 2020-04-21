@@ -115,7 +115,6 @@ export default {
   computed: {
     // 展示相关效果 去除场景
     isRelationShow() {
-      console.log(this.action.type, 'this.action.type')
       return this.action.type === 'condition'
     }
   },
@@ -349,7 +348,6 @@ export default {
         params.sceneId = this.sceneInfo.sceneId
       }
       // 注入关联ID
-      console.log(this.isRelationShow, 'this.isRelationShow')
       if (this.isRelationShow) {
         // this.action.data.moduleType 下的 this.crmType 的列表
         if (this.action.data.moduleType) {

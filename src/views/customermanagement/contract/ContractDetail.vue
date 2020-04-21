@@ -192,7 +192,7 @@ export default {
       // tempsTabs.push({ label: '附件', name: 'file' })
       // tempsTabs.push({ label: '操作记录', name: 'operationlog' })
       tempsTabs.push({ label: '合同详情', name: 'basicinfo' })
-      tempsTabs.push({ label: '审核流程', name: 'approvalprocess' })
+      // tempsTabs.push({ label: '审核流程', name: 'approvalprocess' })
       tempsTabs.push({ label: '附件列表', name: 'file' })
       tempsTabs.push({ label: '回款信息', name: 'returnedmoney' })
 

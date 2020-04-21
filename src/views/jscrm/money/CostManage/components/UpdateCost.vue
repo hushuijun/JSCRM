@@ -423,13 +423,11 @@ export default {
       this.record.caseId = data.caseId;
       this.record.caseName = data.caseName;
       this.record.contractId = data.contractId;
-      console.log(this.record);
     },
 
     getDataUser(data){
       this.record.applyUserId = data.userId;
       this.record.applyUserName = data.realname;
-      console.log(this.record);
     },
 
     getDataAudit(data){
@@ -499,7 +497,6 @@ export default {
         params.file = file
         upload(params)
           .then(res => {
-            // console.log(res);
             // this.fileList.push(res.data);
             // console.log(this.fileList);
             this.record.annexId = res.batchId;

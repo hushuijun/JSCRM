@@ -89,8 +89,8 @@
                        :width="item.width"
                        :formatter="fieldFormatter">
       </el-table-column>
-      <el-table-column :resizable="false">
-      </el-table-column>
+      <!-- <el-table-column :resizable="false">
+      </el-table-column> -->
       <el-table-column v-if="showCheckStatus"
                        show-overflow-tooltip
                        prop="checkStatus"
@@ -159,9 +159,7 @@ export default {
     },
     /** 变化就刷新数据 */
     // messageNum(val) {
-    //   console.log(val, 'messageNum111111')
     //   this.getFieldList()
-    //   // this.
     // }
   },
 

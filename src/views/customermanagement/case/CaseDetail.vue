@@ -147,7 +147,7 @@ export default {
       tabnames: [
         { label: '基本信息', name: 'basicinfo' },
         { label: '跟进记录', name: 'followlog' },
-        { label: '审核流程', name: 'caseprocess' },
+        // { label: '审核流程', name: 'caseprocess' },
         { label: '相关附件', name: 'file' },
         { label: '回款', name: 'returnedmoney' },
         { label: '发票', name: 'invoice' },

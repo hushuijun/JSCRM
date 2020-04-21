@@ -108,7 +108,7 @@
         <el-table-column
           fixed="right"
           label="操作"
-          width="120"
+          min-width="150"
           type="operation">
           <template slot-scope="scope">
             <el-button @click="deleteClick(scope.row)" type="text" size="small">删除</el-button>
@@ -167,7 +167,12 @@ export default {
         owner_user_name: '',
         '商机状态': ''
       },
-      options: [{
+      options: [
+        {
+          value: '',
+          label: '全部'
+        }, 
+        {
           value: '初步洽谈',
           label: '初步洽谈'
         }, {
@@ -176,6 +181,10 @@ export default {
         }, {
           value: '流失商机',
           label: '流失商机'
+        },
+         {
+          value: '成交商机',
+          label: '成交商机'
         }],
     }
   },

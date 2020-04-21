@@ -10,7 +10,7 @@
                      :crm-type="crmType">
     </c-r-m-list-head> -->
     <div class="main-title">线索管理</div>
-    <el-tabs v-model="clueType" @tab-click="switchTab(clueType)" type="card">
+    <el-tabs v-model="clueType" @tab-click="switchClueTab(clueType)" type="card">
       <el-tab-pane label="私有线索" name="0"></el-tab-pane>
       <el-tab-pane label="线索公海" name="1"></el-tab-pane>
       <el-tab-pane label="死海" name="2"></el-tab-pane>
@@ -134,7 +134,7 @@
         <el-table-column
           fixed="right"
           label="操作"
-          width="150"
+          min-width="150"
           type="operation">
           <template slot-scope="scope">
             <el-button @click="deleteClick(scope.row)" type="text" size="small">删除</el-button>
@@ -205,6 +205,10 @@ export default {
       },
       options: [
         {
+          value: '',
+          label: '全部'
+        },
+        {
           value: '促销',
           label: '促销'
         }, {
@@ -245,8 +249,18 @@ export default {
       } else {
         return ''
       }
+    },
+    switchClueTab (clueType) {
+      this.searchInfo = {
+        leads_name: '',
+        telephone: '',
+        create_time: '',
+        owner_user_name: '',
+        '线索来源': ''
+      },
+      this.switchTab(clueType)
     }
-  }
+  },
 }
 </script>
 

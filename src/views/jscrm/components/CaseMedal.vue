@@ -106,7 +106,6 @@ export default {
       this.loading = true
       selectPageCase(this.queryCondtion)
         .then(res => {
-          console.log(this.queryCondtion);
           this.tableData = res.data.list
 
           this.total = res.data.totalRow
@@ -125,7 +124,6 @@ export default {
     },
 
     handleClick(row) {
-      console.log(row);
       this.$emit('getDataCase',row);
       this.visible = false;
     },

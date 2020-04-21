@@ -51,9 +51,7 @@ export default {
   watch: {
     /** 变化就刷新数据 */
     messageNum(val) {
-      // console.log(val, 'messageNum')
       this.refreshNum()
-      // this.
     }
   },
 
@@ -148,10 +146,8 @@ export default {
      */
     refreshNum() {
       for (let index = 0; index < this.leftSides.length; index++) {
-        console.log(index,  'index的值')
         const element = this.leftSides[index]
         if (this.messageNum.hasOwnProperty(element.infoType)) {
-          console.log('待审核中的吗')
           element.num = this.messageNum[element.infoType] || 0
           element.hidden = false
         } else {

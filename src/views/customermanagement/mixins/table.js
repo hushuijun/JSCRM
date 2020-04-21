@@ -93,7 +93,7 @@ export default {
       selectedStatus: '',
       isCreateBusiness: false,
       createActionInfo: { type: 'relative', crmType: this.crmType, data: {} },
-      caseStatus: 2
+      caseStatus: 2,
     }
   },
 
@@ -246,39 +246,39 @@ export default {
     },
     //点击搜索
     searchList (info) {
-      console.log(info, 'infoinfoinfo')
       let params = {}
       if (this.crmType === 'customer') {
-        info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
-        info.mobile ? params.telephone = {"condition": "is", "value": info.mobile,"formType": "text","name": "telephone"} : ''
-        info.realname ? params.owner_user_name = {"condition": "is", "value": info.realname,"formType": "text","name": "owner_user_name"} : ''
+        info.customer_name ? params.customer_name = {"condition": "contains", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
+        info.mobile ? params.telephone = {"condition": "contains", "value": info.mobile,"formType": "text","name": "telephone"} : ''
+        info.realname ? params.owner_user_name = {"condition": "contains", "value": info.realname,"formType": "text","name": "owner_user_name"} : ''
         info.create_time ? params.create_time = {"start": info.create_time[0] + ' 00:00:00',"end": info.create_time[1] + ' 23:59:59',"formType": "datetime","name": "create_time"} : ''
       } else if (this.crmType === 'leads') {
-        info.telephone ? params.telephone = {"condition": "is", "value": info.telephone,"formType": "text","name": "telephone"} : ''
-        info.leads_name ? params.leads_name = {"condition": "is", "value": info.leads_name,"formType": "text","name": "leads_name"} : ''
-        info.owner_user_name ? params.owner_user_name = {"condition": "is", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
+        info.telephone ? params.telephone = {"condition": "contains", "value": info.telephone,"formType": "text","name": "telephone"} : ''
+        info.leads_name ? params.leads_name = {"condition": "contains", "value": info.leads_name,"formType": "text","name": "leads_name"} : ''
+        info.owner_user_name ? params.owner_user_name = {"condition": "contains", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
         info['线索来源'] ? params['线索来源'] = {"condition": "is", "value": info['线索来源'],"formType": "text","name": "线索来源"} : ''
         info.create_time ? params.create_time = {"start": info.create_time[0] + ' 00:00:00',"end": info.create_time[1] + ' 23:59:59',"formType": "datetime","name": "create_time"} : ''
       } else if (this.crmType === 'business') {
-        info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
-        info.business_name ? params.business_name = {"condition": "is", "value": info.business_name,"formType": "text","name": "business_name"} : ''
-        info.owner_user_name ? params.owner_user_name = {"condition": "is", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
+        info.customer_name ? params.customer_name = {"condition": "contains", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
+        info.business_name ? params.business_name = {"condition": "contains", "value": info.business_name,"formType": "text","name": "business_name"} : ''
+        info.owner_user_name ? params.owner_user_name = {"condition": "contains", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
         info['商机状态'] ? params['商机状态'] = {"condition": "is", "value": info['商机状态'],"formType": "text","name": "商机状态"} : ''
       } else if (this.crmType === 'contract') {
-        info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
-        info.name ? params.name = {"condition": "is", "value": info.name,"formType": "text","name": "name"} : ''
-        info.owner_user_name ? params.owner_user_name = {"condition": "is", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
-        info.contacts_name ? params.contacts_name = {"condition": "is", "value": info.contacts_name,"formType": "text","name": "contacts_name"} : ''
-        info.company_user_name ? params.company_user_name = {"condition": "is", "value": info.company_user_name,"formType": "text","name": "company_user_name"} : ''
+        info.customer_name ? params.customer_name = {"condition": "contains", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
+        info.name ? params.name = {"condition": "contains", "value": info.name,"formType": "text","name": "name"} : ''
+        info.owner_user_name ? params.owner_user_name = {"condition": "contains", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
+        info.contacts_name ? params.contacts_name = {"condition": "contains", "value": info.contacts_name,"formType": "text","name": "contacts_name"} : ''
+        info.company_user_name ? params.company_user_name = {"condition": "contains", "value": info.company_user_name,"formType": "text","name": "company_user_name"} : ''
         info.check_status ||  info.check_status == 0 ? params.check_status = {"condition": "is", "value": info.check_status,"formType": "checkStatus","name": "check_status"} : ''
       } else if (this.crmType === 'case') {
-        info.name ? params.name  = {"condition": "is", "value": info.name ,"formType": "text","name": "name "} : ''
-        info.num ? params.num = {"condition": "is", "value": info.num,"formType": "text","name": "num"} : ''
-        info.contract_num ? params.contract_num = {"condition": "is", "value": info.contract_num,"formType": "text","name": "contract_num"} : ''
-        info.customer_name ? params.customer_name = {"condition": "is", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
-        info.owner_user_name ? params.owner_user_name = {"condition": "is", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
+        info.name ? params.name  = {"condition": "contains", "value": info.name ,"formType": "text","name": "name "} : ''
+        info.num ? params.num = {"condition": "contains", "value": info.num,"formType": "text","name": "num"} : ''
+        info.contract_num ? params.contract_num = {"condition": "contains", "value": info.contract_num,"formType": "text","name": "contract_num"} : ''
+        info.customer_name ? params.customer_name = {"condition": "contains", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
+        info.owner_user_name ? params.owner_user_name = {"condition": "contains", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
         info.status ? this.caseStatus = parseInt(info.status) : ''
-        // info.check_status ||  info.check_status == 0 ? params.check_status = {"condition": "is", "value": info.check_status,"formType": "checkStatus","name": "check_status"} : ''
+        // info.checkStatus ? this.checkStatus = info.checkStatus : ''
+        info.check_status || info.check_status == 0 ? params.check_status = {"condition": "is", "value": info.check_status,"formType": "checkStatus","name": "check_status"} : ''
       }
       this.filterObj = params
       var offsetHei = document.documentElement.clientHeight
@@ -443,7 +443,6 @@ export default {
       })
     },
     submitCheck (data) {
-      // console.log(data ,'contractId')
       var crmCaseRequest = this.getCheckRequest()
       let param = ''
       if (this.crmType == 'contract') {
@@ -456,7 +455,6 @@ export default {
           type: 'success',
           message: '提交成功'
         })
-        console.log('成功的呀')
         this.getcrmMessagNum()
         this.getFieldList()
       }).catch((e) => {})
@@ -610,6 +608,7 @@ export default {
       } else {
         this.isSeas = false
       }
+      this.filterObj = {}
       this.getFieldList()
     },
     /** 勾选操作 */
@@ -711,7 +710,8 @@ export default {
     },
     getStatusName(status) {
       if (status == 0 || status == null) {
-        return '待审核'
+        // return '待审核'
+        return '未提交'
       } else if (status == 1) {
         return '审核中'
       } else if (status == 2) {

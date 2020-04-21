@@ -70,7 +70,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.dataValue, 'dataValue')
   },
   methods: {
     /** 选中 */

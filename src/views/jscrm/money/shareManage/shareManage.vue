@@ -1,10 +1,9 @@
 <template>
   <div class="se-container">
-    <div class="se-header">分润管理</div>
-    <div class="se-body">
-      <div class="se-table-header">
+    <div class="main-title">分润管理</div>
 
-        <span style="margin-left:10px">类型</span> <el-select v-model="queryCondtion.type" class="input_width" clearable placeholder="请选择">
+        <div class="input-container">
+        <span>类型</span> <el-select v-model="queryCondtion.type" size="small" clearable placeholder="请选择">
                 <el-option
                   key="员工"
                   label="员工"
@@ -26,12 +25,15 @@
                   value="兼职">
                 </el-option>  
                </el-select>  
-        <span style="margin-left:10px">标题</span> <el-input v-model="queryCondtion.title" placeholder="请输入标题" class="input_width"></el-input>
+        </div>       
+        <div class="input-container">
+        <span>标题</span> <el-input v-model="queryCondtion.title" size="small" placeholder="请输入标题"></el-input>
+        </div>
+        <el-button  @click="getList()"  type="primary">搜索</el-button>
         <el-button 
                    @click="addData"
-                   type="primary" style="float:right;margin:0px 10px">新增</el-button>
-        <el-button  @click="getList()" style="float:right">搜索</el-button>
-      </div>
+                   type="primary" >新增</el-button>
+    <div class="se-body">
       <el-table class="main-table"
                 id="examine-table"
                 v-loading="loading"
@@ -319,6 +321,22 @@ export default {
 
 .input_width {
   width: 100px;
+}
+
+.input-container {
+  width: 230px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.el-input--small{
+  width: 150px;
+  display: inline-block;
+}
+
+.main-title {
+  font-size: 20px;
+  padding: 20px 0;
 }
 
 // @import '../styles/table.scss';

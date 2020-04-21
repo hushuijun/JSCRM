@@ -1,30 +1,40 @@
 <template>
   <div class="se-container">
-    <div class="se-header">回款计划列表</div>
-    <div class="se-body">
-      <div class="se-table-header">
-        <span style="margin-left:10px">合同编号</span> <el-input v-model="queryCondtion.handPersonName" placeholder="请输入" class="input_width"></el-input>
-        <span style="margin-left:10px">客户名称</span> <el-input v-model="queryCondtion.caseId" placeholder="请输入" class="input_width"></el-input>
-        <span style="margin-left:10px">审核状态</span> <el-input v-model="queryCondtion.caseName" placeholder="请输入" class="input_width"></el-input>
-        <br/>
+    <div class="main-title">回款管理</div>
+    
+        <div class="input-container">
+          <span style="margin-left:10px">合同编号</span> <el-input v-model="queryCondtion.contractId" placeholder="请输入" size="small"></el-input>
+        </div>
+        <div class="input-container">
+         <span style="margin-left:10px">客户名称</span> <el-input v-model="queryCondtion.customerName" placeholder="请输入" size="small"></el-input>
+        </div>
+        <div class="input-container">
+           <span style="margin-left:10px">公司名称</span> <el-input v-model="queryCondtion.customerCompanyName" placeholder="请输入" size="small"></el-input>
+        </div>
+         <div class="input-container" style="width: 250px;">
         <span style="margin-left:10px">回款开始日期</span> 
         <el-date-picker
-          v-model="queryCondtion.startDate"
+          v-model="queryCondtion.startDate" value-format="yyyy-MM-dd"
           type="date" style="width: 140px"
           placeholder="选择日期">
         </el-date-picker>
+        </div>
+         <div class="input-container"  style="width: 250px;">
         <span style="margin-left:10px">回款结束日期</span> 
         <el-date-picker
-          v-model="queryCondtion.endDate"
+          v-model="queryCondtion.endDate" value-format="yyyy-MM-dd"
           type="date" style="width: 140px"
           placeholder="选择日期">
         </el-date-picker>
-        <span style="margin-left:10px">负责人</span> <el-input v-model="queryCondtion.caseName" placeholder="请输入" class="input_width"></el-input>
+        </div>
+         <div class="input-container">
+        <span style="margin-left:10px">负责人</span> <el-input v-model="queryCondtion.handPersonName" placeholder="请输入" size="small"></el-input>
+        </div>
+        <el-button  @click="getList()"  type="primary">搜索</el-button>
         <el-button 
                    @click="addData"
-                   type="primary" style="float:right;margin:0px 10px">新增</el-button>
-        <el-button  @click="getList()" style="float:right">搜索</el-button>
-      </div>
+                   type="primary" >新增</el-button>
+      <div class="se-body">
       <el-table class="main-table"
                 id="examine-table"
                 v-loading="loading"
@@ -33,31 +43,25 @@
                  stripe
                 border
                 highlight-current-row
-                style="width: 100%"
+                style="width: 100%;"
                >
        
-        <el-table-column prop="customerName" label="客户名称" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="customerCompanyName" label="客户公司名称" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="contractId" label="合同编号" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="id" label="回款编号" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="moneyBackDate" label="回款日期"  :formatter="dateFormat" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="planBackMoney" label="计划回款金额" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="actualBackMoney" label="实际回款金额" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="handPersonName" label="负责人" width="100px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="remittanceId" label="汇款方式" width="100px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="remittanceId" label="审核状态" width="100px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="remittanceId" label="回款状态" width="100px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="customerName" label="客户名称" width="100px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="customerCompanyName" label="客户公司名称" width="150px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="contractId" label="合同编号" width="150px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="money" label="计划回款金额" width="110px"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="num" label="期数" width="100px"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="returnDate" label="回款日期" width="100px" :formatter="dateFormat" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="returnType" label="汇款方式" width="100px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="remind" label="提前几日提醒" width="120px" align="center" header-align="center"></el-table-column>
 
         <el-table-column fixed="right"
                          label="操作"
-                         width="250">
+                         >
           <template slot-scope="scope">
             <el-button @click="handleClick('edit', scope)"
                        type="text"
-                       size="small">编辑</el-button>
-            <el-button @click="handleClick('delete', scope)"
-                       type="text"
-                       size="small">删除</el-button>
+                       size="small">预览</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -73,28 +77,23 @@
         </el-pagination>
       </div>
     </div>
-    <create-RemittancePlan v-if="createView"
-                           @save="getList"
-                           @hiden-view="createView=false"></create-RemittancePlan>
-    <update-RemittancePlan v-if="updateView"
+    <update-RemittancePlanList v-if="updateView"
                            :detailData="detailData"
                            @update="getList"
-                           @hiden-view="updateView=false"></update-RemittancePlan>
+                           @hiden-view="updateView=false"></update-RemittancePlanList>
 
     
   </div>
 </template>
 
 <script>
-import CreateRemittancePlan from './components/CreateRemittancePlan'
-import UpdateRemittancePlan from './components/UpdateRemittancePlan'
+import UpdateRemittancePlanList from './components/UpdateRemittancePlanList'
 import {billTyppNum}from '@/views/jscrm/money/const/const'
 import * as fecha from "element-ui/lib/utils/date"
 
 
 import {
-  queryPage,
-  deleteData,
+  queryPagePlan,
 } from '@/api/jscrm/money/RemittancePlan'
 import { timestampToFormatTime } from '@/utils'
 
@@ -102,8 +101,7 @@ export default {
   /** 系统管理 的 审核管理 */
   name: 'system-examine',
   components: {
-    CreateRemittancePlan,
-    UpdateRemittancePlan,
+    UpdateRemittancePlanList,
   },
   mixins: [],
   data() {
@@ -123,11 +121,13 @@ export default {
       queryCondtion:{
         page: 1,
         limit: 10,
-        billType:null,
+        contractId:null,
+        customerName:null,
+        customerCompanyName:null,
         handPersonName:null,
-        caseId:null,
-        caseName:null,
-        type:0,  //计划还款
+        startDate:null,
+        endDate:null,
+        // type:1,  //实际还款
       },
     }
   },
@@ -148,7 +148,7 @@ export default {
     /** 获取列表数据 */
     getList() {
       this.loading = true
-      queryPage(this.queryCondtion)
+      queryPagePlan(this.queryCondtion)
         .then(res => {
           this.list = res.data.list
 
@@ -186,7 +186,7 @@ export default {
     },
     handleClick(type, scope) {
       if (type === 'edit') {
-        this.detailData.id = scope.row.id
+        this.detailData = scope.row
         this.updateView = true
       } else if (type === 'delete') {
         // 启用停用
@@ -238,7 +238,7 @@ export default {
 }
 
 .se-table-header {
-  height: 50px;
+  height: 80px;
   background-color: white;
   position: relative;
   .se-table-header-button {
@@ -264,6 +264,22 @@ export default {
 
 .input_width {
   width: 100px;
+}
+
+.input-container {
+  width: 230px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.el-input--small{
+  width: 150px;
+  display: inline-block;
+}
+
+.main-title {
+  font-size: 20px;
+  padding: 20px 0;
 }
 
 // @import '../styles/table.scss';

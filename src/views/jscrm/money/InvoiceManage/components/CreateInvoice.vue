@@ -33,7 +33,7 @@
                   </span>
                 </div>
               </div>
-              <el-date-picker
+              <el-date-picker value-format="yyyy-MM-dd"
               v-model="record.invoiceDate"
               type="date" style="width:100%" 
               placeholder="选择日期">
@@ -56,7 +56,7 @@
               <el-input v-model="record.caseName" :disabled="true" style="width: 70%"
                 ></el-input>
               <!-- <el-button @click="">选择</el-button>   -->
-              <el-button @click="selectCase()">选择</el-button>  
+              <el-button @click="selectCase()" type="primary">选择</el-button>  
             </el-form-item>
 
             <el-form-item
@@ -147,7 +147,7 @@
               </div>
               <el-input v-model="record.handPersonName" :disabled="true" style="width: 70%"
                 ></el-input>
-              <el-button @click="selectUser()">选择</el-button>    
+              <el-button @click="selectUser()" type="primary">选择</el-button>    
             </el-form-item>
 
             <el-form-item
@@ -231,7 +231,7 @@
 <script type="text/javascript">
 import CreateView from '@/components/CreateView'
 import { addData } from '@/api/jscrm/money/InvoiceManage'
-import { uploadMultiple,getBatchId,queryPageFile,download } from '@/api/jscrm/money/file'
+import { upload,queryPageFile,download } from '@/api/jscrm/money/file'
 import {billTyppNum}from '@/views/jscrm/money/const/const'
 import * as fecha from "element-ui/lib/utils/date"
 import {crmFileDelete} from '@/api/common'
@@ -264,7 +264,7 @@ export default {
         "caseId": 2,
         "billType": null,
         "id": null,
-        "annexId": null,
+        "annexId": "",
         "remarks": null
       },
       // 标题展示名称
@@ -306,19 +306,8 @@ export default {
   mounted() {
     document.body.appendChild(this.$el)
 
-    this.getBatchId();
-
   },
   methods: {
-    getBatchId(){
-      getBatchId()
-      .then(res => {
-        this.record.annexId = res.msg;
-      })
-      .catch(() => {
-        this.$message.error('后台异常');
-      });
-    },
 
     hidenView() {
       this.$emit('hiden-view')
@@ -366,9 +355,11 @@ export default {
         var params = {}
         params.batchId = this.record.annexId;
         params.file = file
-        uploadMultiple(params)
+        upload(params)
           .then(res => {
             // this.fileList.push(res.data);
+            // console.log(this.fileList);
+            this.record.annexId = res.batchId;
             this.getFileList();
             this.$message.success('上传成功')
           })
@@ -398,43 +389,14 @@ export default {
 
     handleFile(type, item) {
       if (type === 'preview') {
-        // var previewList = this.list.map(element => {
-        //   element.url = element.filePath
-        //   return element
-        // })
-        // this.$bus.emit('preview-image-bus', {
-        //   index: item.$index,
-        //   data: previewList
-        // })
-
-        // download(item.row.fileId)
-        //       .then(res => {
-        //       })
-        //       .catch(() => {})
-
-        // window.location.href = 'http://127.0.0.1:8080/upload/download?id='+item.row.fileId;
-
-        // let a = document.createElement('a')
-        // a.href ='http://localhost:8090/api/upload/download?id='+item.row.fileId;
-        // a.click();
-
-
-        // axios.post('http://localhost:8090/api/upload/download?id='+item.row.fileId, this.group, {
-				// 		  responseType: "blob"
-				// 		})
-				// 		.then(res => {
-				// 		  let blob = new Blob([res.data], {
-				// 			type: "application/ms-excel;charset=utf-8"
-				// 		  });
-				// 		  let downloadElement = document.createElement("a");
-				// 		  let href = window.URL.createObjectURL(blob); // 创建下载的链接
-				// 		  downloadElement.href = href;
-				// 		  downloadElement.download = "银行日记账.xlsx"; // 下载后文件名
-				// 		  document.body.appendChild(downloadElement);
-				// 		  downloadElement.click(); // 点击下载
-				// 		  document.body.removeChild(downloadElement); // 下载完成移除元素
-				// 		  window.URL.revokeObjectURL(href); // 释放掉blob对象
-				// 		});
+        var previewList = this.fileList.map(element => {
+          element.url = element.filePath
+          return element
+        })
+        this.$bus.emit('preview-image-bus', {
+          index: item.$index,
+          data: previewList
+        })
       } else if (type === 'delete') {
         this.$confirm('您确定要删除该文件吗?', '提示', {
           confirmButtonText: '确定',
@@ -469,7 +431,7 @@ export default {
 
     getDataCase(data){
       this.record.caseId = data.caseId;
-      this.record.caseName = data.name;
+      this.record.caseName = data.caseName;
       this.record.contractId = data.contractId;
     },
 

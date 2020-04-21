@@ -77,7 +77,7 @@
                 </div>
               </div>
                 <el-date-picker
-              v-model="record.costDate"
+              v-model="record.costDate"  value-format="yyyy-MM-dd"
               type="date" style="width:100%" 
               placeholder="选择日期">
             </el-date-picker>  
@@ -128,6 +128,39 @@
             </el-form-item>
 
             <el-form-item
+                          class="crm-create-item right-field"  prop="caseId"
+                          >
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  关联案件
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+              <el-input v-model="record.caseName" :disabled="true" style="width: 70%"
+                ></el-input>
+              <!-- <el-button @click="">选择</el-button>   -->
+              <el-button @click="selectCase()" type="primary" >选择</el-button>  
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item left-field" prop="applyUserName"
+                          >
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  申请人
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+                <el-input v-model="record.applyUserName" :disabled="true" style="width: 70%"
+                ></el-input>
+              <el-button @click="selectUser()" type="primary">选择</el-button>    
+            </el-form-item>
+
+            <el-form-item
                           class="crm-create-item right-field" prop="contractId"
                           style="">
               <div slot="label"
@@ -147,40 +180,7 @@
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item left-field" prop="applyUserId"
-                          >
-              <div slot="label"
-                   style="display: inline-block;">
-                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  申请人
-                  <span style="color:#999;">
-                  </span>
-                </div>
-              </div>
-                <el-input v-model="record.applyUserId" :disabled="true" style="width: 70%"
-                ></el-input>
-              <el-button @click="selectUser()">选择</el-button>    
-            </el-form-item>
-
-            <el-form-item
-                          class="crm-create-item right-field"  prop="caseId"
-                          >
-              <div slot="label"
-                   style="display: inline-block;">
-                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  关联案件
-                  <span style="color:#999;">
-                  </span>
-                </div>
-              </div>
-              <el-input v-model="record.caseName" :disabled="true" style="width: 70%"
-                ></el-input>
-              <!-- <el-button @click="">选择</el-button>   -->
-              <el-button @click="selectCase()">选择</el-button>  
-            </el-form-item>
-
-            <el-form-item
-                          class="crm-create-item left-field" prop="moduleId"
+                          class="crm-create-item left-field" prop="moduleName"
                           >
               <div slot="label"
                    style="display: inline-block;">
@@ -190,31 +190,16 @@
                   </span>
                 </div>
               </div>
-              <el-input v-model="record.moduleId"
+              <el-input v-model="record.moduleName" :disabled="true" style="width: 70%"
                 ></el-input>
+                <el-button @click="selectAudit()" type="primary">选择</el-button>    
             </el-form-item>
 
-            <el-form-item
+             <el-form-item
                           class="crm-create-item right-field" 
                           >
-              <!-- <div slot="label"
-                   style="display: inline-block;">
-                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  上传附件
-                  <span style="color:#999;">
-                  </span>
-                </div>
-              </div> -->
-               <el-button style="margin:10px 0px"
-                 @click.native="addFile"
-                 type="primary">上传附件</el-button>
-              <input type="file"
-                    id="file"
-                    class="rc-head-file"
-                    accept="*/*"
-                    @change="uploadFile"
-                    multiple>
             </el-form-item>
+
 
             <el-form-item
                           class="crm-create-item left-field" 
@@ -231,7 +216,46 @@
                 ></el-input>
             </el-form-item>
 
+             <el-form-item
+                          class="crm-create-item right-field" 
+                          >
+            </el-form-item>
+
+              <el-button style="margin:10px 0px"
+                 @click.native="addFile"
+                 type="primary">上传附件</el-button>
+              <input type="file"
+                    id="file"
+                    class="rc-head-file"
+                    accept="*/*"
+                    @change="uploadFile"
+                    multiple>
           </el-form>
+
+          <div style="margin: 0px 20px">
+             <el-table :data="fileList"
+              align="center"
+              header-align="center"
+              stripe
+              style="width: 100%;border: 1px solid #E6E6E6;"
+               >
+              <el-table-column show-overflow-tooltip prop="name" label="名称"></el-table-column>
+              <el-table-column show-overflow-tooltip prop="createUserName" label="上传人"></el-table-column>
+              <el-table-column show-overflow-tooltip prop="createTime" :formatter="dateFormat" label="时间"></el-table-column>
+              <el-table-column show-overflow-tooltip prop="size" label="大小"></el-table-column>
+            <el-table-column label="操作"
+                            width="150">
+              <template slot-scope="scope">
+                <!-- <flexbox justify="center"> -->
+                  <el-button type="text"
+                            @click.native="handleFile('preview', scope)">预览</el-button>
+                  <el-button type="text"
+                            @click.native="handleFile('delete', scope)">删除</el-button>
+                <!-- </flexbox> -->
+              </template>
+            </el-table-column>
+            </el-table>
+            </div>
         </div>
 
 
@@ -250,17 +274,21 @@
     </flexbox>
     <CaseMedal ref="refCaseMedal" @getDataCase="getDataCase"></CaseMedal>
     <UserMedal ref="refUserMedal" @getDataUser="getDataUser"></UserMedal>
+    <AuditMedal ref="refAuditMedal" @getDataAudit="getDataAudit"></AuditMedal>
   </create-view>
 </template>
 <script type="text/javascript">
 import CreateView from '@/components/CreateView'
 import { addData } from '@/api/jscrm/money/CostManage'
 import {formTypeNum,costTypeNum}from '@/views/jscrm/money/const/const'
-import { upload,download } from '@/api/jscrm/money/file'
+import { upload,queryPageFile,download } from '@/api/jscrm/money/file'
+import {crmFileDelete} from '@/api/common'
 
 import CaseMedal from '@/views/jscrm/components/CaseMedal' // 引入案件medal
 import UserMedal from '@/views/jscrm/components/UserMedal' // 引入用户medal
-
+import AuditMedal from '@/views/jscrm/components/AuditMedal' // 引入用户medal
+import XhAuditTemplatee from '@/views/jscrm/components/XhAuditTemplatee' // 
+import * as fecha from "element-ui/lib/utils/date"
 
 
 export default {
@@ -269,12 +297,15 @@ export default {
     CreateView,
     CaseMedal,
     UserMedal,
+    AuditMedal,
+    XhAuditTemplatee,
   },
  
   data() {
     return {
       formTypeNum:formTypeNum,
       costTypeNum:costTypeNum,
+      fileList:[],
       record:{
         "costDate": null,
         "costType": null,
@@ -284,13 +315,14 @@ export default {
         "updateTime": null,
         "costMoney": null,
         "moduleId": null,
+        "moduleName": null,
         "applyUserId": null,
-        "applyUserName": null,
+        // "applyUserName": null,
         "caseId": null,
         "caseName": null,
         "id": null,
         "costName": null,
-        "annexId": null,
+        "annexId": "",
         "remarks": null,
         "status": null
       },
@@ -325,7 +357,7 @@ export default {
           caseId: [
                 { required: true, message: '请输入关联案件', trigger: 'blur' },
               ],  
-          moduleId: [
+          moduleName: [
                 { required: true, message: '请选择审核模板', trigger: 'blur' },
               ],   
               
@@ -341,6 +373,10 @@ export default {
 
   },
   methods: {
+
+     dateFormat(row,column,cellValue){
+      return cellValue ? fecha.format(new Date(cellValue),'yyyy-MM-dd'):'';
+    },
     hidenView() {
       this.$emit('hiden-view')
     },
@@ -374,7 +410,7 @@ export default {
     },
     getDataCase(data){
       this.record.caseId = data.caseId;
-      this.record.caseName = data.name;
+      this.record.caseName = data.caseName;
       this.record.contractId = data.contractId;
     },
 
@@ -383,9 +419,60 @@ export default {
       this.record.applyUserName = data.realname;
     },
 
+    getDataAudit(data){
+      this.record.moduleId = data.examineId;
+      this.record.moduleName = data.name;
+    },
+
     addFile() {
       document.getElementById('file').click()
     },
+
+    selectCase(){
+      this.$refs.refCaseMedal.visible=true;
+    },
+    selectUser(){
+      this.$refs.refUserMedal.visible=true;
+    },
+    selectAudit(){
+      this.$refs.refAuditMedal.visible=true;
+    },
+
+     handleFile(type, item) {
+      if (type === 'preview') {
+        var previewList = this.fileList.map(element => {
+          element.url = element.filePath
+          return element
+        })
+        this.$bus.emit('preview-image-bus', {
+          index: item.$index,
+          data: previewList
+        })
+      } else if (type === 'delete') {
+        this.$confirm('您确定要删除该文件吗?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(() => {
+            crmFileDelete({
+              id: item.row.fileId
+            })
+              .then(res => {
+                this.getFileList();
+                this.$message.success('删除成功')
+              })
+              .catch(() => {})
+          })
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消操作'
+            })
+          })
+      } 
+    },
+
     /** 图片选择出发 */
     uploadFile(event) {
       var files = event.target.files
@@ -395,12 +482,14 @@ export default {
         // if (file.type.indexOf('image') != -1) {
         var params = {}
         var params = {}
-        // params.batchId = this.record.annexId;
-        // params.file = file
+        params.batchId = this.record.annexId;
+        params.file = file
         upload(params)
           .then(res => {
             // this.fileList.push(res.data);
-            // this.getFileList();
+            // console.log(this.fileList);
+            this.record.annexId = res.batchId;
+            this.getFileList();
             this.$message.success('上传成功')
           })
           .catch(() => {})
@@ -410,12 +499,16 @@ export default {
       event.target.value = ''
     },
 
-
-    selectCase(){
-      this.$refs.refCaseMedal.visible=true;
-    },
-    selectUser(){
-      this.$refs.refUserMedal.visible=true;
+    getFileList() {
+      this.loading = true
+      queryPageFile(this.record.annexId)
+        .then(res => {
+          this.fileList = res.data
+          this.loading = false
+        })
+        .catch(() => {
+          this.loading = false
+        })
     },
 
 

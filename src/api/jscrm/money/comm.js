@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function queryPageListCase(data) {
+export function selectPageCase(data) {
   return request({
-    url: 'CrmCase/queryPageList',
+    url: 'remittancePlan/selectPageCase',
     method: 'post',
     data: data,
     headers: {
@@ -13,9 +13,9 @@ export function queryPageListCase(data) {
 }
 
 
-export function queryPageListContract(data) {
+export function selectPageContract(data) {
   return request({
-    url: 'CrmContract/queryPageList',
+    url: 'remittancePlan/selectPageContract',
     method: 'post',
     data: data,
     headers: {

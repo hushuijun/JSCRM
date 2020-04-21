@@ -55,7 +55,7 @@ export function selectById(id) {
 
 export function queryPagePlan(data) {
   return request({
-    url: 'CrmCase/queryPagePlan',
+    url: 'remittancePlan/queryPagePlan',
     method: 'post',
     data: data,
     headers: {

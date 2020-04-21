@@ -44,12 +44,12 @@
         <el-table-column prop="billType" label="票据类型" width="140px" align="center" header-align="center"></el-table-column>
         <el-table-column prop="invoiceMoney" label="开票金额" width="100px" align="center" header-align="center"></el-table-column>
         <el-table-column prop="billNo" label="发票号码" width="100px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="handPersonName" label="所属人员" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="handPersonName" label="所属人员" width="100px" align="center" header-align="center"></el-table-column>
         <el-table-column prop="createUserName" label="发票经手人员" width="100px" align="center" header-align="center"></el-table-column>
 
-        <el-table-column fixed="right"
+        <el-table-column 
                          label="操作"
-                         width="250">
+                         >
           <template slot-scope="scope">
             <el-button @click="handleClick('edit', scope)"
                        type="text"

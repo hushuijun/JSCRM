@@ -91,14 +91,14 @@ export default {
           tips: '',
           hidden: false
         },
-        // {
-        //   name: '待审核回款',
-        //   crmType: 'receivables',
-        //   infoType: 'checkReceivables',
-        //   num: 0,
-        //   tips: '',
-        //   hidden: false
-        // },
+        {
+          name: '待审核回款',
+          crmType: 'receivables',
+          infoType: 'checkReceivables',
+          num: 0,
+          tips: '',
+          hidden: false
+        },
         {
           name: '待审核案件',
           crmType: 'case',

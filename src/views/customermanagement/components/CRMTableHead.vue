@@ -685,7 +685,8 @@ export default {
           // 'delete_user'
         ])
       } else if (this.crmType == 'receivables') {
-        return this.forSelectionHandleItems(handleInfos, ['delete'])
+        // return this.forSelectionHandleItems(handleInfos, ['delete'])
+        return this.forSelectionHandleItems(handleInfos, [''])
       } else if (this.crmType == 'product') {
         return this.forSelectionHandleItems(handleInfos, [
           'export',

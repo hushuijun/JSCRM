@@ -266,6 +266,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/table.scss';
+.crm-container {
+  position: relative;
+  margin-top: 36px;
+}
 .main-title {
   font-size: 20px;
   padding: 20px 0;

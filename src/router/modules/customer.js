@@ -14,15 +14,15 @@ const customerRouter = {
     type: 'crm'
   },
   children: [
-  // {
-  //   path: 'workbench', // 工作台
-  //   component: () => import('@/views/customermanagement/workbench/workbench'),
-  //   meta: {
-  //     requiresAuth: false,
-  //     title: '仪表盘',
-  //     icon: 'dashboard'
-  //   }
-  // },
+  {
+    path: 'workbench', // 工作台
+    component: () => import('@/views/customermanagement/workbench/workbench'),
+    meta: {
+      requiresAuth: false,
+      title: '仪表盘',
+      icon: 'dashboard'
+    }
+  },
   {
     path: 'message', // 待办事项
     component: () => import('@/views/customermanagement/message/Message'),
@@ -39,7 +39,7 @@ const customerRouter = {
     meta: {
       requiresAuth: true,
       title: '线索列表',
-      // icon: 'leads',
+      icon: 'leads',
       index: 1,
       type: 'crm',
       subType: 'leads'
@@ -51,7 +51,7 @@ const customerRouter = {
     meta: {
       requiresAuth: true,
       title: '客户',
-      // icon: 'customer',
+      icon: 'customer',
       index: 1,
       type: 'crm',
       subType: 'customer'
@@ -87,8 +87,8 @@ const customerRouter = {
     component: () => import('@/views/customermanagement/business/BusinessIndex'),
     meta: {
       requiresAuth: true,
-      title: '商机管理',
-      // icon: 'business',
+      title: '业务商机',
+      icon: 'business',
       index: 1,
       type: 'crm',
       subType: 'business'
@@ -100,7 +100,7 @@ const customerRouter = {
     meta: {
       requiresAuth: true,
       title: '合同',
-      // icon: 'contract',
+      icon: 'contract',
       index: 1,
       type: 'crm',
       subType: 'contract'
@@ -112,7 +112,7 @@ const customerRouter = {
     meta: {
       requiresAuth: true,
       title: '回款',
-      // icon: 'money',
+      icon: 'money',
       index: 1,
       type: 'crm',
       subType: 'receivables'
@@ -136,7 +136,7 @@ const customerRouter = {
     meta: {
       requiresAuth: true,
       title: '案件管理',
-      // icon: 'files',
+      icon: 'file',
       index: 1,
       type: 'crm',
       subType: 'case'

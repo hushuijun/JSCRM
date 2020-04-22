@@ -688,7 +688,7 @@ ul li {
 ::-webkit-scrollbar {
   /* 血槽宽度 */
   width: 8px;
-  height: 8px;
+  height: 16px;
 }
 ::-webkit-scrollbar-thumb {
   /* 拖动条 */

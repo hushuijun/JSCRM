@@ -45,7 +45,8 @@ export const constantRouterMap = [{
   personRouter,
   {
     path: '/',
-    redirect: '/workbench/index',
+    // redirect: '/workbench/index',
+    redirect: '/crm/workbench',
     hidden: true
   }
 ]

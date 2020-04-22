@@ -67,14 +67,14 @@ export default {
         //   tips: '下次跟进时间为今日的客户',
         //   hidden: false
         // },
-        // {
-        //   name: '分配给我的线索',
-        //   crmType: 'leads',
-        //   infoType: 'followLeads',
-        //   num: 0,
-        //   tips: '转移之后未跟进的线索',
-        //   hidden: false
-        // },
+        {
+          name: '分配给我的线索',
+          crmType: 'leads',
+          infoType: 'followLeads',
+          num: 0,
+          tips: '转移之后未跟进的线索',
+          hidden: false
+        },
         // {
         //   name: '分配给我的客户',
         //   crmType: 'customer',

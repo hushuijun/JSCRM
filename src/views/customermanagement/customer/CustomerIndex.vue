@@ -37,15 +37,6 @@
     </div>
     <div class="dateTime">
       <span>创建时间</span>
-      <!-- <el-input
-        placeholder="请选择时间"
-        label="创建时间" size="small" v-model="searchInfo.create_time" suffix-icon="el-icon-date" disabled="false">
-      </el-input> -->
-      <!-- <el-date-picker
-        v-model="searchInfo.create_time"
-        type="date"
-        placeholder="选择日期" class="date-pick" value-format="yyyy-MM-dd">
-      </el-date-picker> -->
       <div class="block">
         <el-date-picker
           v-model="searchInfo.create_time"
@@ -56,13 +47,13 @@
         </el-date-picker>
       </div>
       <el-row class="customer-search">
-        <el-button type="primary" @click="searchList(searchInfo)">搜索</el-button>
+        <el-button type="primary" @click="searchList(searchInfo)" icon="el-icon-search">搜索</el-button>
       </el-row>
       <!-- <el-row class="customer-search">
         <el-button type="primary" @click="createClick">新建</el-button>
       </el-row> -->
       <c-r-m-list-head
-        main-title="新建"
+        main-title="新建客户"
         :crm-type="crmType" @on-handle="listHeadHandle">
       </c-r-m-list-head>
     </div>
@@ -301,6 +292,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/table.scss';
+.crm-container {
+  position: relative;
+  margin-top: 36px;
+}
 .main-title {
   font-size: 20px;
   padding: 20px 0;
@@ -308,7 +303,9 @@ export default {
 .customer-lock {
   color: #f15e64;
 }
-
+.dateTime {
+  display: inline-block;
+}
 .el-table /deep/ tbody tr td:nth-child(2) {
   border-right-width: 0;
 }
@@ -342,5 +339,29 @@ export default {
 }
 .customer-search {
   margin-left: 20px;
+}
+.el-table__header .table-head-name {
+  font-weight: 700;
+}
+.p-contianer {
+  .p-bar {
+    /deep/ .el-pagination__total {
+      font-size: 15px !important;
+    }
+  }
+  /deep/ .el-input__inner {
+    font-size: 15px !important;
+  }
+  /deep/ .el-pager {
+    /deep/ .number {
+      font-size: 16px !important;
+    }
+  }
+  /deep/ .el-pagination__jump {
+    font-size: 15px !important;
+   /deep/ .el-pagination__editor {
+      font-size: 18px !important;
+    }
+  }
 }
 </style>

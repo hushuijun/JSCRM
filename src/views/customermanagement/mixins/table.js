@@ -48,7 +48,9 @@ import {
   submitCaseCheck
 } from '@/api/customermanagement/case'
 import {
-  crmReceivablesIndex
+  crmReceivablesIndex,
+  submitReceivablesCheck,
+  crmReceivablesDelete
 } from '@/api/customermanagement/money'
 export default {
   components: {
@@ -271,7 +273,7 @@ export default {
         info.company_user_name ? params.company_user_name = {"condition": "contains", "value": info.company_user_name,"formType": "text","name": "company_user_name"} : ''
         info.check_status ||  info.check_status == 0 ? params.check_status = {"condition": "is", "value": info.check_status,"formType": "checkStatus","name": "check_status"} : ''
       } else if (this.crmType === 'case') {
-        info.name ? params.name  = {"condition": "contains", "value": info.name ,"formType": "text","name": "name "} : ''
+        info.name ? params.name  = {"condition": "contains", "value": info.name ,"formType": "text","name": "name"} : ''
         info.num ? params.num = {"condition": "contains", "value": info.num,"formType": "text","name": "num"} : ''
         info.contract_num ? params.contract_num = {"condition": "contains", "value": info.contract_num,"formType": "text","name": "contract_num"} : ''
         info.customer_name ? params.customer_name = {"condition": "contains", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
@@ -279,6 +281,12 @@ export default {
         info.status ? this.caseStatus = parseInt(info.status) : ''
         // info.checkStatus ? this.checkStatus = info.checkStatus : ''
         info.check_status || info.check_status == 0 ? params.check_status = {"condition": "is", "value": info.check_status,"formType": "checkStatus","name": "check_status"} : ''
+      } else if (this.crmType === 'receivables') {
+        info.contract_num ? params.contract_num  = {"condition": "contains", "value": info.contract_num,"formType": "text","name": "contract_num"} : ''
+        info.customer_name ? params.customer_name = {"condition": "contains", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
+        info.owner_user_name ? params.owner_user_name = {"condition": "contains", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
+        info.check_status || info.check_status == 0 ? params.check_status = {"condition": "is", "value": info.check_status,"formType": "checkStatus","name": "check_status"} : ''
+        info.return_time ? params.return_time = {"start": info.return_time[0] + ' 00:00:00',"end": info.return_time[1] + ' 23:59:59',"formType": "datetime","name": "return_time"} : ''
       }
       this.filterObj = params
       var offsetHei = document.documentElement.clientHeight
@@ -363,22 +371,23 @@ export default {
     //     } else {
     //       this.showDview = false
     //     }
-    //   } else if (this.crmType === 'receivables') {
-    //     if (column.property === 'customerName') {
-    //       this.rowID = row.customerId
-    //       this.rowType = 'customer'
-    //       this.showDview = true
-    //     } else if (column.property === 'contractNum') {
-    //       this.rowID = row.contractId
-    //       this.rowType = 'contract'
-    //       this.showDview = true
-    //     } else if (column.property === 'number') {
-    //       this.rowID = row.receivablesId
-    //       this.rowType = 'receivables'
-    //       this.showDview = true
-    //     } else {
-    //       this.showDview = false
-    //     }
+      // } else 
+      // if (this.crmType === 'receivables') {
+      //   if (column.property === 'customerName') {
+      //     this.rowID = row.customerId
+      //     this.rowType = 'customer'
+      //     this.showDview = true
+      //   } else if (column.property === 'contractNum') {
+      //     this.rowID = row.contractId
+      //     this.rowType = 'contract'
+      //     this.showDview = true
+      //   } else if (column.property === 'number') {
+      //     this.rowID = row.receivablesId
+      //     this.rowType = 'receivables'
+      //     this.showDview = true
+      //   } else {
+      //     this.showDview = false
+      //   }
       // }
     },
     deleteClick (info) {
@@ -398,8 +407,8 @@ export default {
         // contacts: crmContactsDelete,
         business: crmBusinessDelete,
         contract: crmContractDelete,
-        case: crmCaseDelete
-        // receivables: crmReceivablesDelete
+        case: crmCaseDelete,
+        receivables: crmReceivablesDelete
       }[this.crmType]
       request({
         [this.crmType + 'Ids']: info[this.crmType+'Id']
@@ -449,6 +458,8 @@ export default {
         param = data.contractId
       } else if (this.crmType == 'case') {
         param = data.caseId
+      } else if (this.crmType == 'receivables') {
+        param = data.receivablesId
       }
       crmCaseRequest(param).then((res) => {
         this.$message({
@@ -472,6 +483,8 @@ export default {
         return submitContractCheck
       } else if (this.crmType === 'case') {
         return submitCaseCheck
+      } else if (this.crmType === 'receivables') {
+        return submitReceivablesCheck
       }
     },
     // 保存成功
@@ -517,6 +530,9 @@ export default {
       } else if (this.crmType === 'case') {
         // this.rowID = row.customerId
         this.rowType = 'case'
+      } else if (this.crmType === 'receivables') {
+        // this.rowID = row.customerId
+        this.rowType = 'receivables'
       }
       // this.rowID = row.leadsId
       this.showDview = true

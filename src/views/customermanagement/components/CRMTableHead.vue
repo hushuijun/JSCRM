@@ -814,9 +814,12 @@ export default {
 }
 
 .selection-items-box {
+  position: absolute;
+  top: -56px;
+  left: 0px;
   .selection-item {
     width: auto;
-    padding: 15px;
+    padding: 15px 30px 15px 0;
     .selection-item-icon {
       display: block;
       margin-right: 5px;

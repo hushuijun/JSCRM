@@ -13,7 +13,7 @@
     <div class="right-container">
       <el-button @click="createClick"
                  v-if="canSave"
-                 type="primary">{{mainTitle}}</el-button>
+                 type="primary" class='el-icon-plus'> {{mainTitle}}</el-button>
       <!-- <el-dropdown trigger="click"
                    v-if="moreTypes.length > 0"
                    @command="handleTypeDrop"> -->
@@ -165,6 +165,11 @@ export default {
   position: relative;
   z-index: 100;
   display: inline-block;
+  .el-button--primary {
+    background-color: #ff6a00;
+    border-color: #ff6a00;
+    margin-left: 24px;
+  }
   .title {
     float: left;
     padding: 0 20px;

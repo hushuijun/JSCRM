@@ -72,10 +72,10 @@
         </el-date-picker>
       </div>
       <el-row class="customer-search">
-      <el-button type="primary" @click="searchList(searchInfo)">搜索</el-button>
+      <el-button type="primary" @click="searchList(searchInfo)" icon="el-icon-search">搜索</el-button>
       </el-row>
       <c-r-m-list-head
-        main-title="新建"
+        main-title="新建线索"
         :crm-type="crmType" :isSeas="false" @on-handle="listHeadHandle">
       </c-r-m-list-head>
     </div>
@@ -266,6 +266,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/table.scss';
+.crm-container {
+  position: relative;
+  margin-top: 36px;
+}
 .main-title {
   font-size: 20px;
   padding: 20px 0;
@@ -299,5 +303,30 @@ export default {
 }
 .el-select {
   width: 150px;
+}
+.el-table__header .table-head-name {
+  font-weight: 700;
+}
+
+.p-contianer {
+  .p-bar {
+    /deep/ .el-pagination__total {
+      font-size: 15px !important;
+    }
+  }
+  /deep/ .el-input__inner {
+    font-size: 15px !important;
+  }
+  /deep/ .el-pager {
+    /deep/ .number {
+      font-size: 16px !important;
+    }
+  }
+  /deep/ .el-pagination__jump {
+    font-size: 15px !important;
+   /deep/ .el-pagination__editor {
+      font-size: 18px !important;
+    }
+  }
 }
 </style>

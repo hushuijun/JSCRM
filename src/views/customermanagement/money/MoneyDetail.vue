@@ -118,7 +118,7 @@ export default {
       ],
       tabnames: [
         { label: '基本信息', name: 'basicinfo' },
-        { label: '操作记录', name: 'operationlog' }
+        // { label: '操作记录', name: 'operationlog' }
       ],
       tabCurrentName: 'basicinfo',
       isCreate: false // 编辑操作

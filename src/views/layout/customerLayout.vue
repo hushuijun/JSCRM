@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-header class="nav-container">
-      <navbar :navIndex="1"
+      <navbar :navIndex="0"
               @nav-items-click="navClick"></navbar>
     </el-header>
     <el-container>
@@ -105,6 +105,13 @@ export default {
           icon: 'product',
           index: 'product',
           label: '产品'
+        })
+      }
+      if (this.crm.case && this.crm.case.save) {
+        addItems.push({
+          icon: 'file',
+          index: 'case',
+          label: '案件'
         })
       }
       return addItems

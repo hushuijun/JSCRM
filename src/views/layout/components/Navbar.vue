@@ -82,20 +82,20 @@ export default {
     ...mapGetters(['userInfo', 'lang', 'logo', 'crm', 'bi', 'manage',"contract"]),
     items() {
       var tempsItems = []
-      tempsItems.push({
-        title: '办公',
-        type: 0,
-        path: '/workbench',
-        icon: 'workbench'
-      })
       if (this.crm) {
         tempsItems.push({
           title: '客户管理',
-          type: 1,
+          type: 0,
           path: '/crm',
           icon: 'customer'
         })
       }
+      tempsItems.push({
+        title: '办公',
+        type: 1,
+        path: '/workbench',
+        icon: 'workbench'
+      })
       if (this.contract) {
         tempsItems.push({
           title: '合同库',

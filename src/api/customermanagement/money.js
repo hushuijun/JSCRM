@@ -102,3 +102,11 @@ export function crmReceivablesRevokeCheck(data) {
     data: data
   })
 }
+
+// 提交审核
+export function submitReceivablesCheck(data) {
+  return request({
+    url: 'CrmReceivables/auditReceivable?receivableId=' + data,
+    method: 'post',
+  })
+}

@@ -36,14 +36,14 @@
       <span>客户签署人</span>
       <el-input
         placeholder=""
-        label="客户签署人" size="small" v-model="searchInfo.contacts_name">
+        label="客户签署人" size="small" v-model="searchInfo['客户签约人']">
       </el-input>
     </div>
     <div class="input-container">
       <span>公司签署人</span>
       <el-input
         placeholder=""
-        label="公司签署人" size="small" v-model="searchInfo.telephone">
+        label="公司签署人" size="small" v-model="searchInfo.company_user_name">
       </el-input>
     </div>
     <el-row class="customer-search">
@@ -190,7 +190,7 @@ export default {
         customer_name: "",
         name: "",
         owner_user_name: "",
-        contacts_name: "",
+        '客户签约人': "",
         company_user_name: "",
         check_status: ""
       },

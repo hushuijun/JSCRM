@@ -64,7 +64,7 @@
                         @handle="handleHandle"
                         @scene="handleScene" @handleRecordsClick="handleRecordsClick"></c-r-m-table-head>
       <!-- @row-click="handleRowClick" -->
-      <el-table class="n-table--border"
+      <el-table class="n-table--border table-style-width" 
                 id="crm-table"
                 v-loading="loading"
                 :data="list"
@@ -238,6 +238,11 @@ export default {
 }
 .el-table__header .table-head-name {
   font-weight: 700;
+}
+.table-style-width {
+  td {
+    width: 10% !important;
+  }
 }
 .p-contianer {
   .p-bar {

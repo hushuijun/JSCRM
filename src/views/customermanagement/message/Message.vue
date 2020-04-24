@@ -12,6 +12,7 @@
                :class="leftType==item.infoType? 'side-item-select' : 'side-item-default'"
                @click="sideClick(item)"
                class="side-item">
+            <img :src="item.icon" alt="" class="left-icon">
             {{item.name}}
             <el-badge v-if="item.num > 0"
                       :max="99"
@@ -73,6 +74,7 @@ export default {
           infoType: 'followLeads',
           num: 0,
           tips: '转移之后未跟进的线索',
+          icon: '../../../../static/img/clue.png',
           hidden: false
         },
         // {
@@ -89,6 +91,7 @@ export default {
           infoType: 'checkContract',
           num: 0,
           tips: '',
+          icon: '../../../../static/img/contract.png',
           hidden: false
         },
         {
@@ -97,6 +100,7 @@ export default {
           infoType: 'checkReceivables',
           num: 0,
           tips: '',
+          icon: '../../../../static/img/money.png',
           hidden: false
         },
         {
@@ -105,6 +109,7 @@ export default {
           infoType: 'checkCase',
           num: 0,
           tips: '',
+          icon: '../../../../static/img/case.png',
           hidden: false
         },
         // {
@@ -193,7 +198,12 @@ export default {
   position: relative;
   height: 100%;
 }
-
+.left-icon {
+  width: 22px;
+  height: auto;
+  vertical-align: middle;
+  margin-right: 4px;
+}
 .message-body-side {
   width: 200px;
   font-size: 14px;

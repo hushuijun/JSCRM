@@ -216,8 +216,9 @@ export default {
 }
 
 .menu-item-select {
-  border-left: 2px solid #3e84e9;
-  background-color: #454e57 !important;
+  // border-left: 2px solid #3e84e9;
+  // background-color: #454e57 !important;
+  background-color: #3e84e9 !important;
 }
 
 .create-button-container {

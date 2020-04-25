@@ -269,7 +269,7 @@ export default {
         info.customer_name ? params.customer_name = {"condition": "contains", "value": info.customer_name,"formType": "text","name": "customer_name"} : ''
         info.name ? params.name = {"condition": "contains", "value": info.name,"formType": "text","name": "name"} : ''
         info.owner_user_name ? params.owner_user_name = {"condition": "contains", "value": info.owner_user_name,"formType": "text","name": "owner_user_name"} : ''
-        info.contacts_name ? params.contacts_name = {"condition": "contains", "value": info.contacts_name,"formType": "text","name": "contacts_name"} : ''
+        info['客户签约人'] ? params['客户签约人'] = {"condition": "contains", "value": info['客户签约人'],"formType": "text","name": "客户签约人"} : ''
         info.company_user_name ? params.company_user_name = {"condition": "contains", "value": info.company_user_name,"formType": "text","name": "company_user_name"} : ''
         info.check_status ||  info.check_status == 0 ? params.check_status = {"condition": "is", "value": info.check_status,"formType": "checkStatus","name": "check_status"} : ''
       } else if (this.crmType === 'case') {

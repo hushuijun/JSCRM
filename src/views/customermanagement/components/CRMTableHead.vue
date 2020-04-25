@@ -570,7 +570,8 @@ export default {
           icon: require('@/assets/img/selection_delete_user.png')
         },
         alloc: {
-          name: this.clueType == 1 ? '移交' : '分配',
+          // name: this.clueType == 1 ? '移交' : '分配',
+          name: '分配',
           type: 'alloc',
           // icon: require('@/assets/img/selection_alloc.png')
         },

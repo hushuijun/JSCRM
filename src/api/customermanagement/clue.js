@@ -185,3 +185,15 @@ export function crmLeadsSetFollowAPI(data) {
     data: data
   })
 }
+
+/**
+ * 线索分配
+ * @param {*} data
+ */
+export function crmClueDistribute(data) {
+  return request({
+    url: 'CrmLeads/distributeByIds',
+    method: 'post',
+    data: data
+  })
+}

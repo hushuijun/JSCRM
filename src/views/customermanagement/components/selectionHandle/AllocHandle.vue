@@ -120,6 +120,7 @@
 <script>
 import { XhUserCell } from '@/components/CreateCom'
 import { crmCustomerDistribute, getUserByCondition } from '@/api/customermanagement/customer'
+import { crmClueDistribute} from '@/api/customermanagement/clue'
 
 export default {
   /** 客户管理 的 勾选后的 公海分配 操作*/
@@ -212,7 +213,14 @@ export default {
       // let params = {}
       // params.ids = info.userId
       this.loading = true
-      crmCustomerDistribute(params)
+      let requestFun = ''
+      console.log(self.crmType, 'self.crmType')
+      if (self.crmType == 'seas' || self.crmType == 'customer') {
+        requestFun = crmCustomerDistribute
+      } else if (self.crmType == 'leads') {
+        requestFun = crmClueDistribute
+      }
+      requestFun(params)
         .then(res => {
           this.$message({
             type: 'success',

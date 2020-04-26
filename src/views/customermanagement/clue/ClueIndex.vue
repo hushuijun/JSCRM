@@ -11,9 +11,9 @@
     </c-r-m-list-head> -->
     <div class="main-title">线索管理</div>
     <el-tabs v-model="clueType" @tab-click="switchClueTab(clueType)" type="card">
-      <el-tab-pane label="私有线索" name="0"></el-tab-pane>
-      <el-tab-pane label="线索公海" name="1"></el-tab-pane>
-      <el-tab-pane label="死海" name="2"></el-tab-pane>
+      <el-tab-pane label="私有线索" name="0"><span slot="label"><img :src="clueType == 0 ? tabData[0].selectedIcon : tabData[0].icon" alt="">私有线索</span></el-tab-pane>
+      <el-tab-pane label="线索公海" name="1"><span slot="label"><img :src="clueType == 1 ? tabData[1].selectedIcon : tabData[1].icon" alt="">线索公海</span></el-tab-pane>
+      <el-tab-pane label="死海" name="2"><span slot="label"><img :src="clueType == 2 ? tabData[2].selectedIcon : tabData[2].icon" alt="">死海</span></el-tab-pane>
     </el-tabs>
     <div class="input-container">
       <span>客户姓名</span>
@@ -190,7 +190,11 @@ export default {
     return {
       crmType: 'leads',
       clueType: '0',
-
+      tabData: [
+        {label: '私有线索', name: '0', icon: require('@/assets/img/customer/private-clue.png'), selectedIcon: require('@/assets/img/customer/private-clue-selected.png')},
+        {label: '线索公海', name: '1', icon: require('@/assets/img/customer/public-clue.png'), selectedIcon: require('@/assets/img/customer/public-clue-selected.png')},
+        {label: '死海', name: '2', icon: require('@/assets/img/customer/dead-clue.png'), selectedIcon: require('@/assets/img/customer/dead-clue-selected.png')}
+      ],
        // leads_name 客户名称
       // mobile 客户手机号
       // owner_user_name 负责人
@@ -269,6 +273,21 @@ export default {
 .crm-container {
   position: relative;
   margin-top: 36px;
+}
+.el-tabs {
+  /deep/ .el-tabs__item {
+    padding: 0 10px !important;
+    width: 106px !important;
+    text-align: center;
+    span {
+      vertical-align: middle;
+      img {
+        vertical-align: middle;
+        width: 22px;
+        margin-right: 6px;
+      }
+    }
+  }
 }
 .main-title {
   font-size: 20px;

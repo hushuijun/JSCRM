@@ -11,8 +11,8 @@
     </c-r-m-list-head> -->
     <div class="main-title">客户管理</div>
     <el-tabs v-model="typeId" @tab-click="switchCustomerTab(crmType, typeId)" type="card">
-      <el-tab-pane label="私有客户" name="2"></el-tab-pane>
-      <el-tab-pane label="客户公海" name="8"></el-tab-pane>
+      <el-tab-pane label="私有客户" name="2"><span slot="label"><img :src="typeId == 2 ? tabData[0].selectedIcon : tabData[0].icon" alt="">私有客户</span></el-tab-pane>
+      <el-tab-pane label="客户公海" name="8"><span slot="label"><img :src="typeId == 8 ? tabData[1].selectedIcon : tabData[1].icon" alt="">客户公海</span></el-tab-pane>
     </el-tabs>
     <div class="input-container">
       <span>客户姓名</span>
@@ -236,6 +236,10 @@ export default {
       },
       clickRow: {},
       isEdit: false,
+      tabData: [
+        {label: '私有客户', name: '2', icon: require('@/assets/img/customer/private-customer.png'), selectedIcon: require('@/assets/img/customer/private-customer-selected.png')},
+        {label: '客户公海', name: '8', icon: require('@/assets/img/customer/public-customer.png'), selectedIcon: require('@/assets/img/customer/public-customer-selected.png')},
+      ],
       // searchDate: ''
     }
   },
@@ -299,6 +303,21 @@ export default {
 .main-title {
   font-size: 20px;
   padding: 20px 0;
+}
+.el-tabs {
+  /deep/ .el-tabs__item {
+    padding: 0 10px !important;
+    width: 106px !important;
+    text-align: center;
+    span {
+      vertical-align: middle;
+      img {
+        vertical-align: middle;
+        width: 22px;
+        margin-right: 6px;
+      }
+    }
+  }
 }
 .customer-lock {
   color: #f15e64;

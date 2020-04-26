@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="main-title">合同管理</div>
     <div class="input-container">
       <span>客户姓名</span>
       <el-input
@@ -251,6 +252,10 @@ export default {
 .crm-container {
   position: relative;
   margin-top: 36px;
+}
+.main-title {
+  font-size: 20px;
+  padding: 20px 0;
 }
 .money-bar {
   color: #99a9bf;

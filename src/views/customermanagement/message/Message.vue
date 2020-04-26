@@ -74,7 +74,7 @@ export default {
           infoType: 'followLeads',
           num: 0,
           tips: '转移之后未跟进的线索',
-          icon: '../../../../static/img/clue.png',
+          icon: require('@/assets/img/customer/clue.png'),
           hidden: false
         },
         // {
@@ -91,7 +91,7 @@ export default {
           infoType: 'checkContract',
           num: 0,
           tips: '',
-          icon: '../../../../static/img/contract.png',
+          icon: require('@/assets/img/customer/contract.png'),
           hidden: false
         },
         {
@@ -100,7 +100,7 @@ export default {
           infoType: 'checkReceivables',
           num: 0,
           tips: '',
-          icon: '../../../../static/img/money.png',
+          icon: require('@/assets/img/customer/money.png'),
           hidden: false
         },
         {
@@ -109,7 +109,7 @@ export default {
           infoType: 'checkCase',
           num: 0,
           tips: '',
-          icon: '../../../../static/img/case.png',
+          icon: require('@/assets/img/customer/case.png'),
           hidden: false
         },
         // {

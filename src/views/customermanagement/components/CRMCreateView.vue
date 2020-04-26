@@ -1114,6 +1114,8 @@ export default {
         return this.action.type == 'update' ? '编辑回款' : '新建回款'
       } else if (this.crmType == 'receivables_plan') {
         return this.action.type == 'update' ? '编辑回款计划' : '新建回款计划'
+      } else if (this.crmType == 'case') {
+        return this.action.type == 'update' ? '编辑案件' : '新建案件'
       }
     },
     // 获取左边padding

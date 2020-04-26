@@ -12,11 +12,57 @@
                      :key="index">
           <i class="wukong"
              :class="'wukong-' + item.icon"
-             style="margin-right: 10px;"
-             :style="{ 'color': item.type == navIndexChild ? '#3E84E9' : '#333333'}"></i>
-          <div class="nav-item-title">{{item.title}}</div>
+             style="padding-right: 10px;"
+             :style="{ 'color': item.type == navIndexChild ? '#3E84E9' : '#333333','border-bottom': item.type == navIndexChild ? '4px solid #3E84E9' : '0px solid #3E84E9'}"></i>
+          <div class="nav-item-title" :style="{ 'color': item.type == navIndexChild ? '#3E84E9' : '#333333','border-bottom': item.type == navIndexChild ? '4px solid #3E84E9' : '0px solid #3E84E9'}">{{item.title}}</div>
         </router-link>
       </flexbox>
+      <a @click="ShowMore()" :style="{ 'color': showMore== true ? '#3E84E9' : '#333333','border-bottom': showMore== true ? '2px solid #3E84E9' : '0px solid #3E84E9'}" style="margin: 0 30px;">
+        <i class="wukong wukong-productstatistics" ></i>
+        <span>
+          开发中
+        </span>
+      </a>
+    </div>
+    <div class="more" v-show='showMore'>
+      <h3>
+        二期待开发模块
+      </h3>
+      <ul>
+        <li>
+          <div>
+            <img src="../../../assets/img/customer/development_1.png" alt="电子合同">
+            <span>
+              未开通
+            </span>
+          </div>
+          <p>
+            电子合同
+          </p>
+        </li>
+        <li>
+          <div>
+            <img src="../../../assets/img/customer/development_2.png" alt="商业智能">
+            <span>
+              未开通
+            </span>
+          </div>
+          <p>
+            商业智能
+          </p>
+        </li>
+        <li>
+          <div>
+            <img src="../../../assets/img/customer/development_3.png" alt="文档中心">
+            <span>
+              未开通
+            </span>
+          </div>
+          <p>
+            文档中心
+          </p>
+        </li>
+      </ul>
     </div>
     <el-popover placement="bottom"
                 :visible-arrow="false"
@@ -59,7 +105,8 @@ import { Loading } from 'element-ui'
 export default {
   data() {
     return {
-      navIndexChild: 0
+      navIndexChild: 0,
+      showMore:false,
     }
   },
   props: {
@@ -96,14 +143,14 @@ export default {
         path: '/workbench',
         icon: 'workbench'
       })
-      if (this.contract) {
-        tempsItems.push({
-          title: '合同库',
-          type: 3,
-          path: '/contract',
-          icon: 'workbench'
-        })
-      }
+      // if (this.contract) {
+      //   tempsItems.push({
+      //     title: '合同库',
+      //     type: 3,
+      //     path: '/contract',
+      //     icon: 'workbench'
+      //   })
+      // }
       if (this.bi) {
         tempsItems.push({
           title: '财款管理',
@@ -113,11 +160,29 @@ export default {
         })
       }
       tempsItems.push({
-        title: '项目管理',
-        type: 2,
-        path: '/project',
-        icon: 'project'
+        title: '日历',
+        type: 4,
+        path: '/calendar',
+        icon: 'schedule'
       })
+      tempsItems.push({
+        title: '审批',
+        type: 2,
+        path: '/approval',
+        icon: 'examine'
+      })
+      tempsItems.push({
+        title: '公告',
+        type: 3,
+        path: '/notice',
+        icon: 'notice'
+      })
+      // tempsItems.push({
+      //   title: '项目管理',
+      //   type: 2,
+      //   path: '/project',
+      //   icon: 'project'
+      // })
       return tempsItems
     }
   },
@@ -125,7 +190,17 @@ export default {
     this.navIndexChild = this.navIndex
   },
   methods: {
+    ShowMore(){
+      this.showMore = !this.showMore;
+      if(this.showMore == true){
+        this.navIndexChild = this.moreIndex
+        this.navIndexChild= 33
+      }else{
+
+      }
+    },
     navItemsClick(type) {
+      this.showMore = false
       this.navIndexChild = type
       this.$store.commit('SET_NAVACTIVEINDEX', type)
       this.$emit('nav-items-click', type)
@@ -195,7 +270,7 @@ export default {
     height: 100%;
     overflow-x: auto;
     line-height: 60px;
-    font-size: 15px;
+    font-size: 18px;
   }
 
   .user-container {
@@ -282,6 +357,43 @@ export default {
     font-weight: bold;
     color: #3e84e9;
   }
+}
+.more{
+  position: fixed;
+  top: 61px;
+  left: 50%;
+  width: 30%;
+  height: 200px;
+  background: #fff;
+  box-shadow: 0 8px 11px 1px rgba(0,0,0,.1);
+  padding: 20px;
+}
+.more ul{
+  margin-top: 30px;
+}
+.more ul li{
+  display: inline-block;
+  text-align: center;
+  padding:0 30px;
+}
+.more ul li div{
+  background: rgba(0, 0, 0, 0.1);
+    border-radius: 7px;
+    margin-bottom: 10px;
+    position: relative;
+    padding: 11px;
+}
+.more ul li div span{
+  position: absolute;
+    right: -36px;
+    top: -10px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+    padding: 3px 6px;
+    color: #fff;
+}
+.more ul li p{
+  font-size: 16px;
 }
 </style>
 

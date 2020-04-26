@@ -192,10 +192,10 @@ $colorF: #fff;
   height: 100%;
   min-height: 720px;
   // width: 100%;
-  width: 1160px;
+  width: 100%;
   display: flex;
   .tabs-box {
-    width: 770px;
+    width: 68%;
     // width: 66%;
     background: $colorF;
     margin-right: 20px;

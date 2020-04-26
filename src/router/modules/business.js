@@ -369,7 +369,7 @@ const shareManage = {
   meta: {
     requiresAuth: true,
     title: '分润管理',
-    icon: 'customer',
+    icon: 'employeestatistics',
     index: 1,
     type: 'bi',
     subType: 'shareManage'
@@ -382,25 +382,25 @@ const InvoiceManage = {
   meta: {
     requiresAuth: true,
     title: '发票管理',
-    icon: 'customer',
+    icon: 'productstatistics',
     index: 1,
     type: 'bi',
     subType: 'InvoiceManage'
   }
 }
 
-const CostManage = {
-  path: 'CostManage',
-  component: () => import('@/views/jscrm/money/CostManage/CostManage'),
-  meta: {
-    requiresAuth: true,
-    title: '费用管理',
-    icon: 'customer',
-    index: 1,
-    type: 'bi',
-    subType: 'CostManage'
-  }
-}
+// const CostManage = {
+//   path: 'CostManage',
+//   component: () => import('@/views/jscrm/money/CostManage/CostManage'),
+//   meta: {
+//     requiresAuth: true,
+//     title: '费用管理',
+//     icon: 'customer',
+//     index: 1,
+//     type: 'bi',
+//     subType: 'CostManage'
+//   }
+// }
 
 const RemittancePlan = {
   path: 'RemittancePlan',
@@ -408,7 +408,7 @@ const RemittancePlan = {
   meta: {
     requiresAuth: true,
     title: '回款记录管理',
-    icon: 'customer',
+    icon: 'BI_Employee_performance',
     index: 1,
     type: 'bi',
     subType: 'RemittancePlan'
@@ -422,7 +422,7 @@ const RemittancePlanList = {
   meta: {
     requiresAuth: true,
     title: '回款计划列表',
-    icon: 'customer',
+    icon: 'project',
     index: 1,
     type: 'bi',
     subType: 'RemittancePlanList'
@@ -452,7 +452,7 @@ export const biRouter = {
     // taskCompleteRouteItem,
     shareManage,
     InvoiceManage,
-    CostManage,
+    // CostManage,
     RemittancePlan,
     RemittancePlanList,
   ]
@@ -468,7 +468,7 @@ export const biRouterMenu = [
   // taskCompleteRouteItem,
   shareManage,
   InvoiceManage,
-    CostManage,
+    // CostManage,
     RemittancePlan,
     RemittancePlanList,
 ]

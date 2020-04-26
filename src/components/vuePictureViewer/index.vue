@@ -692,7 +692,7 @@ ul li {
 }
 ::-webkit-scrollbar-thumb {
   /* 拖动条 */
-  background: rgba(0, 0, 0, 0.3);
+  /* background: rgba(0, 0, 0, 0.3); */
   border-radius: 6px;
 }
 ::-webkit-scrollbar-track {

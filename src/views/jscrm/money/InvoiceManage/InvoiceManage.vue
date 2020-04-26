@@ -21,10 +21,11 @@
                <div class="input-container">
         <span >案件名称</span> <el-input v-model="queryCondtion.caseName" placeholder="请输入" size="small"></el-input>
                  </div>
-        <el-button  @click="getList()"  type="primary">搜索</el-button>
+        <el-button  @click="getList()"  type="primary" icon="el-icon-search">搜索</el-button>
         <el-button 
                    @click="addData"
-                   type="primary" >新增</el-button>
+                   icon="el-icon-plus"
+                   type="primary"  style="background-color: #ff6a00;border-color: #ff6a00;">新建发票</el-button>
 
       <div class="se-body">
       <el-table class="main-table"
@@ -34,18 +35,19 @@
                 :height="tableHeight"
                  stripe
                 border
+                :header-cell-style="{color:'#333',background: '#fafdff',fontWeight:700}"
                 highlight-current-row
                 style="width: 100%"
                >
        
-        <el-table-column prop="caseNum" label="案件编号" width="150px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="caseName" label="案件名称"  width="100px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="invoiceDate" label="开票日期"  width="100px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="billType" label="票据类型" width="140px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="invoiceMoney" label="开票金额" width="100px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="billNo" label="发票号码" width="100px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="handPersonName" label="所属人员" width="100px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="createUserName" label="发票经手人员" width="100px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="caseNum" label="案件编号"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="caseName" label="案件名称"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="invoiceDate" label="开票日期"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="billType" label="票据类型" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="invoiceMoney" label="开票金额"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="billNo" label="发票号码"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="handPersonName" label="所属人员" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="createUserName" label="发票经手人员"  align="center" header-align="center"></el-table-column>
 
         <el-table-column 
                          label="操作"

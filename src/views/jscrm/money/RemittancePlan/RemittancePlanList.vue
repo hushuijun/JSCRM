@@ -30,10 +30,10 @@
          <div class="input-container">
         <span style="margin-left:10px">负责人</span> <el-input v-model="queryCondtion.handPersonName" placeholder="请输入" size="small"></el-input>
         </div>
-        <el-button  @click="getList()"  type="primary">搜索</el-button>
+        <!-- <el-button  @click="getList()"  type="primary">搜索</el-button>
         <el-button 
                    @click="addData"
-                   type="primary" >新增</el-button>
+                   type="primary" >新增</el-button> -->
       <div class="se-body">
       <el-table class="main-table"
                 id="examine-table"
@@ -42,18 +42,19 @@
                 :height="tableHeight"
                  stripe
                 border
+                :header-cell-style="{color:'#333',background: '#fafdff',fontWeight:700}"
                 highlight-current-row
                 style="width: 100%;"
                >
        
-        <el-table-column prop="customerName" label="客户名称" width="100px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="customerCompanyName" label="客户公司名称" width="150px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="contractId" label="合同编号" width="150px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="money" label="计划回款金额" width="110px"  align="center" header-align="center"></el-table-column>
-        <el-table-column prop="num" label="期数" width="100px"  align="center" header-align="center"></el-table-column>
-        <el-table-column prop="returnDate" label="回款日期" width="100px" :formatter="dateFormat" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="returnType" label="汇款方式" width="100px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="remind" label="提前几日提醒" width="120px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="customerName" label="客户名称"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="customerCompanyName" label="客户公司名称"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="contractId" label="合同编号"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="money" label="计划回款金额"   align="center" header-align="center"></el-table-column>
+        <el-table-column prop="num" label="期数"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="returnDate" label="回款日期"  :formatter="dateFormat" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="returnType" label="汇款方式"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="remind" label="提前几日提醒"  align="center" header-align="center"></el-table-column>
 
         <el-table-column fixed="right"
                          label="操作"

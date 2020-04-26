@@ -29,10 +29,11 @@
         <div class="input-container">
         <span>标题</span> <el-input v-model="queryCondtion.title" size="small" placeholder="请输入标题"></el-input>
         </div>
-        <el-button  @click="getList()"  type="primary">搜索</el-button>
+        <el-button  @click="getList()"  type="primary" icon="el-icon-search" >搜索</el-button>
         <el-button 
                    @click="addData"
-                   type="primary" >新增</el-button>
+                   icon="el-icon-plus"
+                   type="warning"  style="background-color: #ff6a00;border-color: #ff6a00;">新建分润</el-button>
     <div class="se-body">
       <el-table class="main-table"
                 id="examine-table"
@@ -41,6 +42,7 @@
                 :height="tableHeight"
                  stripe
                 border
+                :header-cell-style="{color:'#333',background: '#fafdff',fontWeight:700}"
                 highlight-current-row
                 style="width: 100%"
                >

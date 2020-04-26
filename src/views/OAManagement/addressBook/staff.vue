@@ -10,17 +10,17 @@
         <div class="list-right">
           <div class="k-realname">{{k.realname.substring(0, 6)}}</div>
           <div class="content">
-            <div v-if="k.deptName">
+            <div v-if="k.deptName" style="width: 200px;">
               <img src="@/assets/img/structure.png"
                    alt="">
               <span>{{k.deptName}}</span>
             </div>
-            <div v-if="k.postName">
+            <div v-if="k.postName"  style="width: 200px;">
               <img src="@/assets/img/post.png"
                    alt="">
               <span>{{k.postName}}</span>
             </div>
-            <div v-if="k.mobile">
+            <div v-if="k.mobile"  style="width: 200px;">
               <img src="@/assets/img/mobile.png"
                    alt="">
               <span>{{k.mobile}}</span>

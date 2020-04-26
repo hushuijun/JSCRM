@@ -224,7 +224,7 @@ export default {
 .create-button-container {
   padding: 15px 12px 15px 12px;
   color: white;
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
   position: absolute;
   top: 0;

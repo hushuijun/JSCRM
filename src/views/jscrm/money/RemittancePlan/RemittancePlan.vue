@@ -30,10 +30,10 @@
          <div class="input-container">
         <span style="margin-left:10px">负责人</span> <el-input v-model="queryCondtion.handPersonName" placeholder="请输入" size="small"></el-input>
         </div>
-        <el-button  @click="getList()"  type="primary">搜索</el-button>
+        <!-- <el-button  @click="getList()"  type="primary">搜索</el-button>
         <el-button 
                    @click="addData"
-                   type="primary" >新增</el-button>
+                   type="primary" >新增</el-button> -->
       <div class="se-body">
       <el-table class="main-table"
                 id="examine-table"
@@ -41,24 +41,25 @@
                 :data="list"
                 :height="tableHeight"
                  stripe
+                 :header-cell-style="{color:'#333',background: '#fafdff',fontWeight:700}"
                 border
                 highlight-current-row
                 style="width: 100%;"
                >
        
-        <el-table-column prop="customerName" label="客户名称" width="100px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="customerCompanyName" label="客户公司名称" width="150px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="contractNum" label="合同编号" width="150px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="id" label="回款编号" width="150px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="moneyBackDate" label="回款日期" width="100px"  align="center" header-align="center"></el-table-column>
-        <el-table-column prop="planBackMoney" label="计划回款金额" width="120px"  align="center" header-align="center"></el-table-column>
-        <el-table-column prop="actualBackMoney" label="实际回款金额" width="120px"  align="center" header-align="center"></el-table-column>
-        <el-table-column prop="handPersonName" label="负责人" width="100px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="remittanceId" label="汇款方式" width="100px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="remittanceId" label="审核状态" width="100px" align="center" header-align="center"></el-table-column>
-        <el-table-column prop="remitStatus" label="回款状态" width="100px" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="customerName" label="客户名称"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="customerCompanyName" label="客户公司名称"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="contractNum" label="合同编号"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="id" label="回款编号"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="moneyBackDate" label="回款日期"   align="center" header-align="center"></el-table-column>
+        <el-table-column prop="planBackMoney" label="计划回款金额"   align="center" header-align="center"></el-table-column>
+        <el-table-column prop="actualBackMoney" label="实际回款金额"   align="center" header-align="center"></el-table-column>
+        <el-table-column prop="handPersonName" label="负责人"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="remittanceId" label="汇款方式"  align="center" header-align="center"></el-table-column>
+        <!-- <el-table-column prop="remittanceId" label="审核状态" width="100px" align="center" header-align="center"></el-table-column> -->
+        <!-- <el-table-column prop="remitStatus" label="回款状态" width="100px" align="center" header-align="center"></el-table-column> -->
 
-        <el-table-column fixed="right"
+        <!-- <el-table-column fixed="right"
                          label="操作"
                          width="250">
           <template slot-scope="scope">
@@ -69,7 +70,7 @@
                        type="text"
                        size="small">删除</el-button>
           </template>
-        </el-table-column>
+        </el-table-column> -->
       </el-table>
       <div class="p-contianer">
         <el-pagination class="p-bar"

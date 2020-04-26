@@ -7,6 +7,12 @@ const getters = {
     }
     return require('@/assets/img/logo.png')
   },
+  logo_1: state => {
+    if (state.app.logo) {
+      return state.app.logo
+    }
+    return require('@/assets/img/logo_1.png')
+  },
   name: state => {
     if (state.app.name) {
       return state.app.name

@@ -45,7 +45,7 @@
     </div>
 
     <img class="logo"
-         :src="logo" />
+         :src="logo_1" />
   </div>
 </template>
 
@@ -96,7 +96,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['logo', 'name'])
+    ...mapGetters(['logo_1', 'name'])
   },
   mounted() {},
   methods: {

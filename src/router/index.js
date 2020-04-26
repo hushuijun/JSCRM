@@ -7,6 +7,9 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 import workbenchRouter from './modules/workbench'
+import calendarRouter from './modules/calendar'
+import approvalRouter from './modules/Approval'
+import noticeRouter from './modules/Notice'
 import customerRouter from './modules/customer'
 import projectRouter from './modules/project/index'
 import ContractLibrary  from './modules/contract'
@@ -63,8 +66,10 @@ export const asyncRouterMap = [
   customerRouter,
   biRouter,
   managerRouter,
-  
+  calendarRouter,
+  approvalRouter,
   ContractLibrary,
+  noticeRouter,
   {
     path: '*',
     redirect: '/404',

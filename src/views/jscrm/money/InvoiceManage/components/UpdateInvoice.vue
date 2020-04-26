@@ -22,9 +22,10 @@
                    class="crm-create-box"
                    :rules="ruleValidate">
             <el-form-item
-                          class="crm-create-item left-field" prop="invoiceDate"
+                          class="crm-create-item left-field" prop="billNo"
                           style="">
-              <div slot="label"
+             
+            <div slot="label"
                    style="display: inline-block;">
                 <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
                   开票日期
@@ -33,11 +34,11 @@
                   </span>
                 </div>
               </div>
-              <el-date-picker value-format="yyyy-MM-dd"
-              v-model="record.invoiceDate"
-              type="date" style="width:100%" 
-              placeholder="选择日期">
-            </el-date-picker>  
+              <el-input
+                placeholder="请输入" maxlength="36"
+                v-model="record.billNo"
+              >
+              </el-input>  
             </el-form-item>
 
             <el-form-item
@@ -116,26 +117,153 @@
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item right-field" prop="billNo"
+                          class="crm-create-item right-field" prop="invoiceDate"
+                          style="">
+               <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  开票日期
+                  <span style="color:#999;">
+                   
+                  </span>
+                </div>
+              </div>
+              <el-date-picker value-format="yyyy-MM-dd"
+              v-model="record.invoiceDate"
+              type="date" style="width:100%" 
+              placeholder="选择日期">
+            </el-date-picker> 
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item left-field" prop="ttlx"
+                          >
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  抬头类型
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+                <el-select v-model="record.ttlx" style="width:100%" clearable placeholder="请选择">
+                 <el-option
+                  v-for="item in ttlxNum"
+                  :key="item.code"
+                  :label="item.code"
+                  :value="item.code"
+                  >
+                </el-option>
+                </el-select> 
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item right-field"  prop="kptt"
                           style="">
               <div slot="label"
                    style="display: inline-block;">
                 <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
-                  发票号码
+                  开票抬头
                   <span style="color:#999;">
                    
                   </span>
                 </div>
               </div>
               <el-input
-                placeholder="请输入" maxlength="36"
-                v-model="record.billNo"
+                placeholder="请输入" maxlength="36" 
+                v-model="record.kptt"
               >
               </el-input>  
             </el-form-item>
 
             <el-form-item
-                          class="crm-create-item left-field" prop="handPersonName"
+                          class="crm-create-item left-field"  prop="lsrsbh"
+                          >
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  纳税人识别号
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+                <el-input v-model="record.lsrsbh"   placeholder="请输入"
+                ></el-input>
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item right-field"  prop="khh"
+                          style="">
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  开户行
+                  <span style="color:#999;">
+                   
+                  </span>
+                </div>
+              </div>
+              <el-input
+                placeholder="请输入" maxlength="36"  
+                v-model="record.khh"
+              >
+              </el-input>  
+            </el-form-item>
+
+             <el-form-item
+                          class="crm-create-item left-field" prop="khzh"
+                          >
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  开户账户
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+                <el-input v-model="record.khzh"  placeholder="请输入"
+                ></el-input>
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item right-field" prop="kpdz"
+                          style="">
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  开票地址
+                  <span style="color:#999;">
+                   
+                  </span>
+                </div>
+              </div>
+              <el-input
+                placeholder="请输入" maxlength="36" 
+                v-model="record.kpdz"
+              >
+              </el-input>  
+            </el-form-item>
+
+
+             </el-form-item>
+
+             <el-form-item
+                          class="crm-create-item left-field"  prop="phone"
+                          >
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  电话
+                  <span style="color:#999;">
+                  </span>
+                </div>
+              </div>
+                <el-input v-model="record.phone" type="number" placeholder="请输入"
+                ></el-input>
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item right-field" prop="handPersonName"
                           >
               <div slot="label"
                    style="display: inline-block;">
@@ -150,10 +278,6 @@
               <el-button @click="selectUser()" type="primary">选择</el-button>    
             </el-form-item>
 
-            <el-form-item
-                          class="crm-create-item right-field"
-                          >
-            </el-form-item>
 
             <el-form-item
                           class="crm-create-item left-field" 
@@ -235,7 +359,7 @@
 import CreateView from '@/components/CreateView'
 import { updateData,selectById } from '@/api/jscrm/money/InvoiceManage'
 import { upload,queryPageFile,download } from '@/api/jscrm/money/file'
-import {billTyppNum}from '@/views/jscrm/money/const/const'
+import {billTyppNum,ttlxNum}from '@/views/jscrm/money/const/const'
 import * as fecha from "element-ui/lib/utils/date"
 import {crmFileDelete} from '@/api/common'
 import CaseMedal from '@/views/jscrm/components/CaseMedal' // 引入案件medal
@@ -258,6 +382,7 @@ export default {
     return {
       CaseMedalIf:false,
       billTyppNum:billTyppNum,
+      ttlxNum:ttlxNum,
       fileList:[],
       // fileList:[{size: "32KB", createTime: "2020-04-05 21:18:31", name: "捕获16.JPG", createUserName: "admin"}],
       record:{
@@ -272,12 +397,48 @@ export default {
         "billType": null,
         "id": null,
         "annexId": "",
-        "remarks": null
+        "remarks": null,
+        "ttlx" : null,
+        "kptt" : null,
+       "lsrsbh" : null,
+        "khh" : null,
+       "khzh" : null,
+        "kpdz" : null,
+        "phone": null,
       },
       // 标题展示名称
       loading: false,
       // 自定义字段验证规则
       ruleValidate: {
+
+        ttlx: [
+            // { required: true, message: '请输入经手人', trigger: 'blur' },
+            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
+          ],  
+            kptt: [
+            // { required: true, message: '请输入经手人', trigger: 'blur' },
+            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
+          ],      
+          lsrsbh: [
+            // { required: true, message: '请输入经手人', trigger: 'blur' },
+            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
+          ],   
+          khh: [
+            // { required: true, message: '请输入经手人', trigger: 'blur' },
+            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
+          ],  
+          khzh: [
+            // { required: true, message: '请输入经手人', trigger: 'blur' },
+            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
+          ],  
+          kpdz: [
+            // { required: true, message: '请输入经手人', trigger: 'blur' },
+            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
+          ],   
+           phone: [
+            // { required: true, message: '请输入经手人', trigger: 'blur' },
+            { max: 10, message: '长度在10个字符以下', trigger: 'blur' }
+          ],   
           invoiceDate: [
             { required: true, message: '请输入开票日期', trigger: 'blur' },
           ],

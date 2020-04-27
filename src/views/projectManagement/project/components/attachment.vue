@@ -255,7 +255,7 @@ export default {
 .el-table /deep/ thead th {
   background-color: #f5f5f5;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .p-contianer {

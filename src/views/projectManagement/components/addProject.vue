@@ -249,7 +249,7 @@ $color3: #333;
   .label {
     margin-bottom: 12px;
     color: $color3;
-    font-size: 13px;
+    font-size: 14px;
   }
   .range {
     margin: 15px 0;

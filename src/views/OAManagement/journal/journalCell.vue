@@ -554,7 +554,7 @@ export default {
     .header {
       margin-bottom: 15px;
       @include color9;
-      font-size: 12px;
+      font-size: 14px;
       .row {
         display: inline-block;
         vertical-align: middle;
@@ -613,7 +613,7 @@ export default {
       .row {
         margin-bottom: 7px;
         line-height: 22px;
-        font-size: 13px;
+        font-size: 14px;
         white-space: pre-wrap;
         word-wrap: break-word;
         .title {
@@ -621,7 +621,7 @@ export default {
           text-align: left;
           display: inline-block;
           @include color9;
-          font-size: 13px;
+          font-size: 14px;
         }
       }
     }
@@ -668,14 +668,14 @@ export default {
         }
         .time {
           color: #999;
-          font-size: 12px;
+          font-size: 14px;
           display: inline-block;
           margin-top: 3px;
         }
 
         .reply-title {
           color: #333;
-          font-size: 13px;
+          font-size: 14px;
           margin: 10px 0 10px 40px;
           padding: 10px 10px 10px 40px;
           white-space: pre-wrap;
@@ -748,7 +748,7 @@ export default {
     .comment {
       margin-right: 15px;
       color: #6c7a95;
-      font-size: 13px;
+      font-size: 14px;
       cursor: pointer;
     }
   }

@@ -151,7 +151,7 @@ export default {
 <style lang="scss" scoped>
 .handle-box {
   color: #333;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .input_width {

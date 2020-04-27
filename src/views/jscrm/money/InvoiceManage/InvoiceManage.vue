@@ -44,8 +44,10 @@
         <el-table-column prop="caseName" label="案件名称"  align="center" header-align="center"></el-table-column>
         <el-table-column prop="invoiceDate" label="开票日期"  align="center" header-align="center"></el-table-column>
         <el-table-column prop="billType" label="票据类型" align="center" header-align="center"></el-table-column>
+        <el-table-column prop="kptt" label="开票抬头" align="center" header-align="center"></el-table-column>
         <el-table-column prop="invoiceMoney" label="开票金额"  align="center" header-align="center"></el-table-column>
         <el-table-column prop="billNo" label="发票号码"  align="center" header-align="center"></el-table-column>
+        <el-table-column prop="phone" label="电话"  align="center" header-align="center"></el-table-column>
         <el-table-column prop="handPersonName" label="所属人员" align="center" header-align="center"></el-table-column>
         <el-table-column prop="createUserName" label="发票经手人员"  align="center" header-align="center"></el-table-column>
 
@@ -278,8 +280,11 @@ export default {
 }
 
 .main-title {
-  font-size: 20px;
-  padding: 20px 0;
+  height: 60px;
+    font-size: 18px;
+    padding: 0 20px;
+    line-height: 60px;
+    font-weight: 700;
 }
 
 // @import '../styles/table.scss';

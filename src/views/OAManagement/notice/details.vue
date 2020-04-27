@@ -144,7 +144,7 @@ $size16: 16px;
     .time {
       color: #999;
       text-align: center;
-      font-size: 12px;
+      font-size: 14px;
       margin-top: 8px;
     }
     .text {

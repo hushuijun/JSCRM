@@ -1285,7 +1285,7 @@ export default {
     text-align: center;
     span {
       color: #aaa;
-      font-size: 12px;
+      font-size: 14px;
       padding: 7px 10px;
       text-align: center;
       display: inline-block;
@@ -1533,7 +1533,7 @@ export default {
           .item-color {
             padding: 0 10px;
             color: #fff;
-            font-size: 12px;
+            font-size: 14px;
             margin-right: 5px;
             border-radius: 3px;
             display: inline-block;
@@ -1546,7 +1546,7 @@ export default {
             color: #999;
           }
           .el-icon-plus {
-            font-size: 13px;
+            font-size: 14px;
             padding-left: 6px;
           }
           .add-tag {
@@ -1558,7 +1558,7 @@ export default {
             border-radius: 3px;
             cursor: pointer;
             text-align: center;
-            font-size: 12px;
+            font-size: 14px;
           }
           .label {
             padding-right: 10px;
@@ -1622,7 +1622,7 @@ export default {
           line-height: 40px;
           // color: #3E84E9;
           padding: 0 10px;
-          font-size: 13px;
+          font-size: 14px;
           .card-related-matters-right {
             float: right;
             margin-top: 8px;
@@ -1630,7 +1630,7 @@ export default {
           .rt {
             margin-right: 0;
             .bg-color {
-              font-size: 12px;
+              font-size: 14px;
               padding: 0 8px !important;
               vertical-align: middle;
               height: 30px;
@@ -1745,7 +1745,7 @@ export default {
         line-height: 40px;
         margin-top: 10px;
         padding-left: 12px;
-        font-size: 13px;
+        font-size: 14px;
       }
       .add-description /deep/ {
         margin-bottom: 20px;
@@ -1822,7 +1822,7 @@ export default {
             .activity-time {
               float: right;
               color: #999;
-              font-size: 12px;
+              font-size: 14px;
             }
             .activity-name {
               color: #666;
@@ -1926,14 +1926,14 @@ export default {
     }
     .time {
       color: #999;
-      font-size: 12px;
+      font-size: 14px;
       display: inline-block;
       margin-top: 3px;
     }
 
     .reply-title {
       color: #333;
-      font-size: 13px;
+      font-size: 14px;
       margin: 10px 0 10px 40px;
       .reply {
         color: #3e84e9;

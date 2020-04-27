@@ -290,8 +290,11 @@ export default {
   }
 }
 .main-title {
-  font-size: 20px;
-  padding: 20px 0;
+  height: 60px;
+    font-size: 18px;
+    padding: 0 20px;
+    line-height: 60px;
+    font-weight: bold;
 }
 .input-container {
   width: 230px;
@@ -347,5 +350,8 @@ export default {
       font-size: 18px !important;
     }
   }
+}
+.dateTime{
+  display: inline-block;
 }
 </style>

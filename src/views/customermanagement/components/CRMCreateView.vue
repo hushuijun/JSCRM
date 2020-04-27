@@ -1199,7 +1199,7 @@ export default {
 
 .el-form-item /deep/ .el-form-item__label {
   line-height: normal;
-  font-size: 13px;
+  font-size: 14px;
   color: #333333;
   position: relative;
   padding-left: 8px;
@@ -1230,7 +1230,7 @@ export default {
 
 // 审核信息 里的审核类型
 .examine-type {
-  font-size: 12px;
+  font-size: 14px;
   color: white;
   background-color: #fd715a;
   padding: 0 8px;

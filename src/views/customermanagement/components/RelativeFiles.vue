@@ -262,7 +262,7 @@ export default {
 @import '../styles/relativecrm.scss';
 
 .h-item {
-  font-size: 13px;
+  font-size: 14px;
   color: #409eff;
   margin: 0 5px;
   cursor: pointer;

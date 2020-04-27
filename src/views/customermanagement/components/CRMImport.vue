@@ -230,7 +230,7 @@ export default {
 }
 
 .content-tips {
-  font-size: 12px;
+  font-size: 14px;
   color: #a9a9a9;
   line-height: 15px;
 }

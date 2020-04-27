@@ -108,7 +108,7 @@ export default {
 
 /* 合同 样式*/
 .tips {
-  font-size: 13px;
+  font-size: 14px;
   color: #999;
 }
 
@@ -132,7 +132,7 @@ export default {
   span {
     margin-left: 5px;
     color: #333333;
-    font-size: 13px;
+    font-size: 14px;
   }
 }
 </style>

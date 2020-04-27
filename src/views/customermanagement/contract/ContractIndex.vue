@@ -254,8 +254,11 @@ export default {
   margin-top: 36px;
 }
 .main-title {
-  font-size: 20px;
-  padding: 20px 0;
+  height: 60px;
+    font-size: 18px;
+    padding: 0 20px;
+    line-height: 60px;
+    font-weight: 700;
 }
 .money-bar {
   color: #99a9bf;

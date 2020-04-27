@@ -818,7 +818,7 @@ export default {
   margin-left: -12px;
   margin-right: -12px;
   p {
-    font-size: 13px;
+    font-size: 14px;
     color: #333;
     height: 26px;
     line-height: 26px;
@@ -838,7 +838,7 @@ export default {
     .personnel-list {
       height: 30px;
       line-height: 30px;
-      font-size: 13px;
+      font-size: 14px;
       padding: 0 10px;
       cursor: pointer;
       img {
@@ -951,13 +951,13 @@ export default {
           white-space: normal;
           word-wrap: break-word;
           overflow: auto;
-          font-size: 12px;
+          font-size: 14px;
           .img-box {
             display: inline-block;
             margin-right: 5px;
             margin-bottom: 7px;
             color: #999;
-            font-size: 12px;
+            font-size: 14px;
             img {
               width: 15px;
               vertical-align: middle;
@@ -996,7 +996,7 @@ export default {
       cursor: pointer;
       color: #999999;
       padding-top: 10px;
-      font-size: 13px;
+      font-size: 14px;
       padding-left: 4px;
       .el-icon-plus {
         color: #3e84e9;
@@ -1089,7 +1089,7 @@ export default {
     cursor: pointer;
     .el-icon-plus {
       color: #3e84e9;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 700;
       margin-right: 10px;
     }
@@ -1125,7 +1125,7 @@ export default {
   border-radius: 3px;
   color: #fff;
   margin-right: 6px;
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 6px;
 }
 

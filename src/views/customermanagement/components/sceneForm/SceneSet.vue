@@ -502,7 +502,7 @@ export default {
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
 .scene-name {
-  font-size: 12px;
+  font-size: 14px;
   padding-bottom: 5px;
   color: #aaa;
 }
@@ -559,7 +559,7 @@ export default {
     padding-bottom: 15px;
     padding-left: 9px;
     border-bottom: 1px dashed $xr-border-line-color;
-    font-size: 13px;
+    font-size: 14px;
     .scene-list-head-name {
       color: #333;
       flex: 1;
@@ -584,7 +584,7 @@ export default {
       margin-right: 8px;
     }
     .list-item-name {
-      font-size: 13px;
+      font-size: 14px;
       color: #333;
       flex: 1;
     }
@@ -593,7 +593,7 @@ export default {
       display: none;
       i {
         color: #aaa;
-        font-size: 12px;
+        font-size: 14px;
         margin-right: 5px;
       }
       i:hover {
@@ -610,7 +610,7 @@ export default {
 }
 
 .handle-bar {
-  font-size: 12px;
+  font-size: 14px;
   .handle-bar-add {
     cursor: pointer;
     color: #3e84e9;

@@ -330,7 +330,7 @@ export default {
       margin: 5px 0;
       span {
         padding: 0 10px;
-        font-size: 13px;
+        font-size: 14px;
         cursor: pointer;
       }
       .span-item + .span-item {
@@ -347,7 +347,7 @@ export default {
         }
         .label {
           margin-right: 10px;
-          font-size: 13px;
+          font-size: 14px;
         }
         .color-box {
           span {

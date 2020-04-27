@@ -47,7 +47,7 @@
         </div>
         <div v-show="currentPage == 2"
              class="crm-create-body">
-          <div style="padding: 0 20px; font-size: 12px;">
+          <div style="padding: 0 20px; font-size: 14px;">
             <el-radio v-model="examineType"
                       :label="1">固定审批流</el-radio>
             <div class="examine-items">
@@ -539,7 +539,7 @@ export default {
   }
 }
 .create-name {
-  font-size: 12px;
+  font-size: 14px;
   padding: 0 10px;
   margin-left: 15px;
   margin-bottom: 10px;
@@ -575,7 +575,7 @@ export default {
 
 .el-form-item /deep/ .el-form-item__label {
   line-height: normal;
-  font-size: 13px;
+  font-size: 14px;
   color: #333333;
   position: relative;
   padding-left: 8px;
@@ -604,7 +604,7 @@ export default {
   .examine-item-name {
     width: 60px;
     padding-left: 20px;
-    font-size: 13px;
+    font-size: 14px;
     margin-right: 20px;
   }
   .examine-item-select {
@@ -633,12 +633,12 @@ export default {
 
 .examine-items-add {
   padding: 5px 0 20px 0;
-  font-size: 13px;
+  font-size: 14px;
   color: $xr-color-primary;
 }
 
 .examine-add-des {
-  font-size: 12px;
+  font-size: 14px;
   background-color: #fffcf0;
   padding: 10px;
   line-height: 23px;

@@ -416,7 +416,7 @@ export default {
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
 .scene-name {
-  font-size: 12px;
+  font-size: 14px;
   padding-bottom: 5px;
   color: #aaa;
 }
@@ -481,7 +481,7 @@ export default {
   .scene-list-head {
     padding-bottom: 15px;
     border-bottom: 1px dashed $xr-border-line-color;
-    font-size: 13px;
+    font-size: 14px;
     .scene-list-head-name {
       color: #333;
       flex: 1;
@@ -506,7 +506,7 @@ export default {
       margin-right: 8px;
     }
     .list-item-name {
-      font-size: 13px;
+      font-size: 14px;
       color: #333;
       flex: 1;
     }
@@ -514,7 +514,7 @@ export default {
 }
 
 .handle-bar {
-  font-size: 12px;
+  font-size: 14px;
   .handle-bar-save {
     position: relative;
     height: 30px;

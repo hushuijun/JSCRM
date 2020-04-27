@@ -294,7 +294,7 @@ export default {
 
 .load {
   color: #999;
-  font-size: 13px;
+  font-size: 14px;
   margin: 0 auto 15px;
   text-align: center;
   .el-button,

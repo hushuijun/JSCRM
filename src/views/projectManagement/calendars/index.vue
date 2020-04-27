@@ -296,7 +296,7 @@ export default {
       margin-left: 20px;
       margin-right: 10px;
       color: #999999;
-      font-size: 12px;
+      font-size: 14px;
       .el-icon-time {
         color: #ddd;
         font-size: 14px;

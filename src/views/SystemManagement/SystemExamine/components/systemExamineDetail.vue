@@ -252,7 +252,7 @@ export default {
     .delete {
       color: #3e84e9;
       padding: 0 10px;
-      font-size: 13px;
+      font-size: 14px;
       cursor: pointer;
     }
   }
@@ -268,7 +268,7 @@ export default {
 
 .detail-header-des {
   color: #999999;
-  font-size: 12px;
+  font-size: 14px;
   .status {
     float: left;
   }
@@ -340,7 +340,7 @@ export default {
   .examine-flow-body {
     .body-header {
       padding: 8px 0;
-      font-size: 13px;
+      font-size: 14px;
       .body-header-name {
         color: #333333;
       }
@@ -363,7 +363,7 @@ export default {
     }
     .name {
       color: #333333;
-      font-size: 12px;
+      font-size: 14px;
       padding: 2px 0;
       width: 60px;
       overflow: hidden;

@@ -463,7 +463,7 @@ export default {
   }
   .t-more {
     border: 1px solid #dcdfe6;
-    font-size: 12px;
+    font-size: 14px;
     color: #606266;
     padding: 0 10px 0 12px;
     border-radius: 2px;
@@ -487,13 +487,13 @@ export default {
   min-height: 58px;
   .h-item {
     .h-title {
-      font-size: 12px;
+      font-size: 14px;
       color: #777;
     }
     .h-value {
       min-height: 14px;
       margin-top: 8px;
-      font-size: 13px;
+      font-size: 14px;
       color: #333333;
       text-overflow: ellipsis;
       display: -webkit-box;

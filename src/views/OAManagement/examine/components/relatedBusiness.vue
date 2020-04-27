@@ -121,7 +121,7 @@ export default {
 <style lang="scss" scoped>
 .add-file {
   margin: 5px 0;
-  font-size: 13px;
+  font-size: 14px;
   color: #3e84e9;
   cursor: pointer;
   display: inline-block;

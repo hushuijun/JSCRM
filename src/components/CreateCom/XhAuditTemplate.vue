@@ -107,7 +107,7 @@ export default {
 .el-button--primary {
     display: inline-block;
     position: absolute;
-    right: 12px;
+    right: 14px;
     bottom: 5px;
 }
 .el-input {

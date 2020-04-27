@@ -192,7 +192,7 @@ export default {
 .business-des {
   display: inline-block;
   color: #999;
-  font-size: 12px;
+  font-size: 14px;
   width: 60px;
 }
 .business-setting-content {

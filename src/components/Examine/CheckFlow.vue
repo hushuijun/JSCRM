@@ -197,14 +197,14 @@ export default {
   }
   .cf-flow-item-head {
     color: #bababa;
-    font-size: 12px;
+    font-size: 14px;
     .cf-flow-item-des {
       margin-right: 10px;
     }
   }
   .cf-flow-item-info {
     margin-top: 8px;
-    font-size: 12px;
+    font-size: 14px;
     color: #979797;
     .cf-flow-item-name {
       color: #333;
@@ -225,7 +225,7 @@ export default {
     margin-top: 15px;
     border-radius: 4px;
     background-color: #f7f8fa;
-    font-size: 12px;
+    font-size: 14px;
     color: #929293;
     padding: 8px;
     line-height: 18px;

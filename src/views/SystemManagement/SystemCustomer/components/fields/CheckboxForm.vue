@@ -48,7 +48,7 @@ export default {
 @import 'form.scss';
 
 .box {
-  font-size: 13px;
+  font-size: 14px;
   .checkbox {
     display: block;
     margin-left: 0;
@@ -57,7 +57,7 @@ export default {
 }
 
 .el-checkbox /deep/ .el-checkbox__label {
-  font-size: 13px;
+  font-size: 14px;
   color: #333333;
 }
 </style>

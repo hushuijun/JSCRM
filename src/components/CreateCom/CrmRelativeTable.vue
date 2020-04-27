@@ -535,11 +535,11 @@ export default {
 
 .el-table /deep/ thead th {
   font-weight: 400;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .el-table /deep/ tbody tr td {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .el-table /deep/ thead .el-checkbox {

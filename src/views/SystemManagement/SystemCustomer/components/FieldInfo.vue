@@ -293,7 +293,7 @@ export default {
   padding: 10px 0 12px 0;
   border-bottom: 1px solid #e6e6e6;
   .name {
-    font-size: 13px;
+    font-size: 14px;
     font-size: 500;
     color: #333;
     margin: 10px 0;
@@ -301,7 +301,7 @@ export default {
 }
 
 .input-tips {
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 10px;
   color: #999;
   span {
@@ -310,7 +310,7 @@ export default {
 }
 
 .el-checkbox /deep/ .el-checkbox__label {
-  font-size: 13px;
+  font-size: 14px;
   color: #333333;
 }
 

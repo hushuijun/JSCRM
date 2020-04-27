@@ -266,7 +266,7 @@ export default {
   }
 }
 .create-name {
-  font-size: 12px;
+  font-size: 14px;
   padding: 0 10px;
   margin-left: 15px;
   margin-bottom: 10px;
@@ -302,7 +302,7 @@ export default {
 
 .el-form-item /deep/ .el-form-item__label {
   line-height: normal;
-  font-size: 13px;
+  font-size: 14px;
   color: #333333;
   position: relative;
   padding-left: 8px;

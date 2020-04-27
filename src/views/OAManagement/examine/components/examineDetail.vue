@@ -124,7 +124,7 @@
                          class="create-sections"
                          v-if="type && type == 3 && travelList && travelList.length > 0">
           <el-table :data="travelList"
-                    style="font-size: 13px;"
+                    style="font-size: 14px;"
                     align="center"
                     header-align="center"
                     stripe>
@@ -144,7 +144,7 @@
                          class="create-sections"
                          v-if="type && type == 5 && travelList && travelList.length > 0">
           <el-table :data="travelList"
-                    style="font-size: 13px;"
+                    style="font-size: 14px;"
                     align="center"
                     header-align="center"
                     stripe>
@@ -425,7 +425,7 @@ export default {
 .related-business {
   margin: 15px 0;
   .label {
-    font-size: 13px;
+    font-size: 14px;
     margin-bottom: 7px;
   }
   p {
@@ -434,7 +434,7 @@ export default {
     background: #f5f7fa;
     line-height: 30px;
     margin-bottom: 5px;
-    font-size: 13px;
+    font-size: 14px;
     padding-left: 7px;
     border-radius: 2px;
     img {
@@ -452,12 +452,12 @@ export default {
     .b-cell-name {
       width: 100px;
       margin-right: 10px;
-      font-size: 13px;
+      font-size: 14px;
       flex-shrink: 0;
       color: #777;
     }
     .b-cell-value {
-      font-size: 13px;
+      font-size: 14px;
       color: #333;
     }
     .b-cell-foot {
@@ -482,7 +482,7 @@ export default {
   }
   .f-name {
     color: #666;
-    font-size: 12px;
+    font-size:14px;
     margin-right: 10px;
   }
 }
@@ -512,7 +512,7 @@ export default {
         bottom: 0;
         background-color: rgba(0, 0, 0, 0.5);
         text-align: center;
-        font-size: 12px;
+        font-size: 14px;
         color: #fff;
         display: none;
         span {
@@ -532,7 +532,7 @@ export default {
 // 表头
 .table-head-name {
   color: #909399;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 23px;
   padding: 0;
 }

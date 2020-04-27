@@ -11,7 +11,7 @@
         <el-radio v-model="handleType"
                   :label="1"><span></span></el-radio>
         <div @click.native="handleType=1"
-             style="font-size: 12px;">审核结束</div>
+             style="font-size: 14px;">审核结束</div>
       </flexbox>
       <flexbox class="handle-item"
                id="selectUser">
@@ -233,7 +233,7 @@ export default {
 }
 
 .title {
-  font-size: 12px;
+  font-size: 14px;
   padding-bottom: 8px;
   color: #666;
 }

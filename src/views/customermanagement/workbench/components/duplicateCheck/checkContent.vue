@@ -274,7 +274,7 @@ export default {
 // 提示标志
 .wukong-help_tips {
   color: #999;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .wukong-help_tips:hover {
@@ -294,7 +294,7 @@ export default {
     /deep/ .el-form-item__label {
       padding: 10px 0 0 0 !important;
       line-height: 30px;
-      font-size: 13px;
+      font-size: 14px;
     }
   }
   .condition-button {

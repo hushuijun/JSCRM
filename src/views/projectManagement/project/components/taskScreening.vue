@@ -260,7 +260,7 @@ export default {
     }
   }
   .content {
-    font-size: 13px;
+    font-size: 14px;
     .menu-list {
       margin-bottom: 10px;
       .item-label {

@@ -701,7 +701,7 @@ export default {
 
 /** 状态操作布局 */
 .state-handel-cont {
-  font-size: 13px;
+  font-size: 14px;
   color: #333;
   .state-handel-item {
     padding: 10px 0;

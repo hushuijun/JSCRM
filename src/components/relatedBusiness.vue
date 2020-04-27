@@ -200,15 +200,15 @@ export default {
 <style scoped lang="scss">
 .related-business {
   color: #777;
-  font-size: 12px;
+  font-size: 14px;
   margin: 10px 0;
   .alterable-p {
     padding-bottom: 10px;
-    font-size: 13px;
+    font-size: 14px;
   }
   .add-file {
     margin: 10px 0;
-    font-size: 13px;
+    font-size: 14px;
     color: #3e84e9;
     cursor: pointer;
     display: inline-block;

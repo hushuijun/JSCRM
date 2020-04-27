@@ -171,7 +171,7 @@ export default {
   margin-bottom: 30px;
   .name {
     color: #777777;
-    font-size: 12px;
+    font-size: 14px;
     margin-bottom: 8px;
   }
 

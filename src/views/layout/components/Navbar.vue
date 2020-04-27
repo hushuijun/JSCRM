@@ -270,7 +270,7 @@ export default {
     height: 100%;
     overflow-x: auto;
     line-height: 60px;
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .user-container {

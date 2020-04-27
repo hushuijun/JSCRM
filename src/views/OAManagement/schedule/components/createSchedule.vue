@@ -471,7 +471,7 @@ export default {
           }
           .el-form-item__label {
             float: none;
-            font-size: 12px;
+            font-size: 14px;
           }
           .el-textarea {
             margin-top: 8px;
@@ -483,7 +483,7 @@ export default {
             background: #f5f5f5;
             margin-left: 20px;
             padding: 20px;
-            font-size: 12px;
+            font-size: 14px;
             margin-top: 10px;
             .top-nav {
               // margin-left: 50px;
@@ -615,7 +615,7 @@ export default {
           margin: 0 5px;
           height: 27px;
           line-height: 28px;
-          font-size: 12px;
+          font-size: 14px;
           color: #333;
           padding: 0 5px;
           display: inline-block;

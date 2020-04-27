@@ -157,7 +157,7 @@ export default {
       .time {
         color: #999;
         margin-top: 5px;
-        font-size: 12px;
+        font-size: 14px;
       }
     }
   }
@@ -168,7 +168,7 @@ export default {
   .data-content {
     margin-top: 10px;
     color: #999;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 18px;
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -183,7 +183,7 @@ export default {
     margin-top: 15px;
     span {
       cursor: pointer;
-      font-size: 13px;
+      font-size: 14px;
       color: #8ab7f5;
     }
   }

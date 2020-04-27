@@ -213,6 +213,7 @@ export default {
   border-left: 2px solid transparent;
   height: 46px;
   line-height: 46px;
+  font-size: 15px;
 }
 
 .menu-item-select {

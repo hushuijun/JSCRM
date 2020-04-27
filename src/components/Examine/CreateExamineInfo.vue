@@ -10,7 +10,7 @@
                     class='crm-create-item'>
         <div slot="label"
              style="display: inline-block;">
-          <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+          <div style="margin:5px 0;font-size:14px;word-wrap:break-word;word-break:break-all;">
             审核人
             <span style="color:#999;">
             </span>
@@ -170,7 +170,7 @@ export default {
 
 .el-form-item /deep/ .el-form-item__label {
   line-height: normal;
-  font-size: 13px;
+  font-size: 14px;
   color: #333333;
   position: relative;
   padding-left: 8px;
@@ -202,13 +202,13 @@ export default {
     }
     .detail {
       color: #777777;
-      font-size: 12px;
+      font-size: 14px;
       padding: 2px 0;
       transform: scale(0.8, 0.8);
     }
     .step {
       color: #333333;
-      font-size: 12px;
+      font-size: 14px;
     }
   }
 }

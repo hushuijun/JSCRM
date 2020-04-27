@@ -397,7 +397,7 @@ export default {
   margin: 0 5px;
   height: 27px;
   line-height: 28px;
-  font-size: 12px;
+  font-size: 14px;
   color: #333;
   padding: 0 5px;
   display: inline-block;
@@ -406,7 +406,7 @@ export default {
   display: block;
   width: 100%;
   text-align: left;
-  font-size: 12px;
+  font-size: 14px;
 }
 .my-task-dialog /deep/ .el-range-separator {
   width: auto;
@@ -429,7 +429,7 @@ export default {
   display: inline-block;
   text-align: center;
   border-radius: 50%;
-  font-size: 12px;
+  font-size: 14px;
   cursor: pointer;
   border: 1px solid #ccc;
   color: #cccccc;

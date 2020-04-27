@@ -193,7 +193,7 @@ export default {
       float: left;
       margin-right: 10px;
       padding: 8px 10px;
-      font-size: 13px;
+      font-size: 14px;
       border-radius: 2px;
     }
 
@@ -201,7 +201,7 @@ export default {
       cursor: pointer;
       border: 1px solid #dcdfe6;
       background-color: white;
-      font-size: 13px;
+      font-size: 14px;
       color: #777;
       padding: 0 12px;
       border-radius: 2px;

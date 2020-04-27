@@ -143,14 +143,14 @@ export default {
   .list {
     color: #999;
     padding: 10px 11%;
-    font-size: 13px;
+    font-size: 14px;
     cursor: pointer;
     .list-title {
       margin-bottom: 5px;
     }
     .time {
       margin-right: 10px;
-      font-size: 12px;
+      font-size: 14px;
     }
   }
   .see-more {

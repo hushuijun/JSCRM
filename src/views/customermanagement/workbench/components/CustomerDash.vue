@@ -641,7 +641,8 @@ export default {
 
 .mark-header {
   margin-bottom: 20px;
-  font-size: 13px;
+  font-size: 16px;
+  font-weight: bold;
 }
 /** 简报 */
 
@@ -662,13 +663,13 @@ export default {
 
   .jianbao-title {
     color: #333;
-    font-size: 12px;
+    font-size: 14px;
     margin-right: 10px;
   }
   .jianbao-value {
     color: #333;
     text-align: right;
-    font-size: 13px;
+    font-size: 14px;
     flex: 1;
   }
 }
@@ -703,7 +704,7 @@ export default {
   padding: 20px 25px;
   min-width: 100px;
   .name {
-    font-size: 12px;
+    font-size: 14px;
     color: #666666;
   }
   .value {
@@ -742,7 +743,7 @@ export default {
   position: absolute;
   top: 180px;
   left: 70px;
-  font-size: 13px;
+  font-size: 14px;
   div:nth-child(1) {
     color: #6ca2ff;
   }
@@ -755,7 +756,7 @@ export default {
 .trend-target-item {
   padding: 10px 25px 25px 25px;
   .name {
-    font-size: 12px;
+    font-size: 14px;
     color: #666666;
   }
   .value {
@@ -770,7 +771,7 @@ export default {
   z-index: 1;
   right: 30px;
   top: 80px;
-  font-size: 12px;
+  font-size: 14px;
   .label-item {
     .label-item-mark {
       width: 10px;

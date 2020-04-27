@@ -1,6 +1,6 @@
 <template>
   <div class="se-container">
-    <div class="main-title">回款管理</div>
+    <div class="main-title">回款记录管理</div>
     
         <div class="input-container">
           <span style="margin-left:10px">合同编号</span> <el-input v-model="queryCondtion.contractNum" placeholder="请输入" size="small"></el-input>
@@ -291,8 +291,11 @@ export default {
 }
 
 .main-title {
-  font-size: 20px;
-  padding: 20px 0;
+  height: 60px;
+    font-size: 18px;
+    padding: 0 20px;
+    line-height: 60px;
+    font-weight: 700;
 }
 
 // @import '../styles/table.scss';

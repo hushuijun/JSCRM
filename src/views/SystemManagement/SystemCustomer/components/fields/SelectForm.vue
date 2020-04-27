@@ -34,7 +34,7 @@
   @import "form.scss";
 
   .box {
-    font-size: 13px;
+    font-size: 14px;
     .select-box {
       border: 1px solid #dcdfe6;
       border-radius: 2px;

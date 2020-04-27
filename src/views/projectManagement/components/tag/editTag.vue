@@ -114,7 +114,7 @@ export default {
         }
       }
       .tag-name {
-        font-size: 12px;
+        font-size: 14px;
         border-radius: 3px;
         padding: 3px 10px;
         color: #fff;

@@ -78,7 +78,7 @@ export default {
     li {
       float: left;
       width: 76px;
-      font-size: 12px;
+      font-size: 14px;
       line-height: 36px;
       cursor: pointer;
       text-align: center;

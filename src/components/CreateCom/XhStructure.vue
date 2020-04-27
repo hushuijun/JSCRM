@@ -224,7 +224,7 @@ export default {
 }
 .stru-list {
   padding: 5px;
-  font-size: 13px;
+  font-size: 14px;
   .stru-check {
     margin-right: 8px;
   }

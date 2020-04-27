@@ -145,12 +145,12 @@ export default {
   padding: 0 10px;
   flex-shrink: 0;
   .name {
-    font-size: 13px;
+    font-size: 14px;
     padding: 0 10px;
     color: #333;
   }
   .detail {
-    font-size: 12px;
+    font-size: 14px;
     padding: 0 10px;
     color: #aaaaaa;
     border-left: 1px solid #aaaaaa;

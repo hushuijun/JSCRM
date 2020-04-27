@@ -190,7 +190,7 @@ export default {
       }
       .list-data {
         margin-bottom: 15px;
-        font-size: 13px;
+        font-size: 14px;
         color: #333;
         label {
           width: 70px;

@@ -183,7 +183,7 @@ export default {
       .time {
         color: #999;
         margin-top: 5px;
-        font-size: 12px;
+        font-size: 14px;
       }
     }
   }
@@ -203,7 +203,7 @@ export default {
   .img-group {
     // margin-top: 6px;
     color: #999;
-    font-size: 12px;
+    font-size: 14px;
     // margin-left: 27px;
     vertical-align: middle;
     display: inline-block;
@@ -220,7 +220,7 @@ export default {
       }
       .priority-btn {
         width: 68px;
-        font-size: 12px;
+        font-size: 14px;
         display: inline-block;
         text-align: center;
         border-radius: 10px;
@@ -277,7 +277,7 @@ export default {
         border-radius: 3px;
         color: #fff;
         margin-right: 6px;
-        font-size: 12px;
+        font-size: 14px;
       }
     }
     .tag-box /deep/ .color-label-more {

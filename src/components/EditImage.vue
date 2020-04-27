@@ -136,7 +136,7 @@ export default {
   right: 0;
   .preview-name {
     margin-bottom: 8px;
-    font-size: 13px;
+    font-size: 14px;
     color: #666;
   }
   .preview-img {

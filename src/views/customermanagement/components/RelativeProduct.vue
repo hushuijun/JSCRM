@@ -170,7 +170,7 @@ export default {
 
 .handle-footer {
   position: relative;
-  font-size: 12px;
+  font-size: 14px;
   padding: 8px 5px;
   .discount-title {
     color: #666;

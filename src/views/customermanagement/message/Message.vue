@@ -189,6 +189,7 @@ export default {
   font-size: 18px;
   padding: 0 20px;
   line-height: 60px;
+  font-weight: bold;
 }
 .message-body {
   position: relative;
@@ -221,7 +222,7 @@ export default {
     height: 50px;
     line-height: 50px;
     padding: 0 20px;
-    font-size: 13px;
+    font-size: 14px;
     cursor: pointer;
     i {
       color: #999;

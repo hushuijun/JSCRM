@@ -426,7 +426,7 @@ export default {
   border: 1px solid #e6e6e6;
   border-radius: 4px;
   display: inline-block;
-  font-size: 12px;
+  font-size: 14px;
   margin: 0 auto;
 }
 </style>

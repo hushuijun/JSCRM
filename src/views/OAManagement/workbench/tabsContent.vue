@@ -192,7 +192,7 @@ export default {
 .tabs-content {
   margin: 0 30px;
   .list {
-    font-size: 13px;
+    font-size: 14px;
     padding: 20px 0;
     border-bottom: 1px solid #f1f1f1;
     .div-photo {
@@ -218,7 +218,7 @@ export default {
         }
         .time {
           color: #999;
-          font-size: 12px;
+          font-size: 14px;
         }
       }
       .log-title {

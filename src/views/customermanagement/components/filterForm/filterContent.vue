@@ -122,7 +122,7 @@ export default {
   min-height: 50px;
   background: white;
   border-top: 1px solid #e1e1e1;
-  font-size: 13px;
+  font-size: 14px;
   overflow-x: scroll;
   color: #aaa;
   @include left;

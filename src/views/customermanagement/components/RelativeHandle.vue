@@ -95,7 +95,7 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/relativecrm.scss';
 .ha-cont {
-  font-size: 12px;
+  font-size: 14px;
   position: relative;
   line-height: 20px;
   min-height: 40px;

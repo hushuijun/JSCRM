@@ -265,16 +265,16 @@ export default {
 }
 
 .el-table /deep/ thead th {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .el-table /deep/ tbody tr td {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .handle-footer {
   position: relative;
-  font-size: 12px;
+  font-size: 14px;
   padding: 5px;
   .discount-title {
     color: #666;

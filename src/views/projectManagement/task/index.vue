@@ -495,9 +495,9 @@ export default {
             display: inline-block;
             margin-bottom: 7px;
             margin-right: 5px;
-            font-size: 12px;
+            font-size: 14px;
             color: #999;
-            font-size: 12px;
+            font-size: 14px;
             img {
               width: 15px;
               vertical-align: middle;
@@ -522,7 +522,7 @@ export default {
           cursor: pointer;
           span {
             color: #999;
-            font-size: 12px;
+            font-size: 14px;
           }
           img {
             vertical-align: middle;
@@ -542,7 +542,7 @@ export default {
       cursor: pointer;
       color: #999999;
       padding-top: 10px;
-      font-size: 13px;
+      font-size: 14px;
       padding-left: 4px;
       .el-icon-plus {
         color: #3e84e9;
@@ -569,7 +569,7 @@ export default {
   border-radius: 3px;
   color: #fff;
   margin-right: 6px;
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 6px;
 }
 

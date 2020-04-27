@@ -160,13 +160,13 @@ export default {
       margin: 0 14px;
     }
     .user-switch {
-      font-size: 12px;
+      font-size: 14px;
       margin-right: 15px;
     }
   }
   .user-more {
     margin-top: 5px;
-    font-size: 12px;
+    font-size: 14px;
     color: #999999;
   }
 
@@ -175,7 +175,7 @@ export default {
     top: 3px;
     right: 0;
     color: white;
-    font-size: 13px;
+    font-size: 14px;
     border-radius: 3px;
 
     /deep/ .wukong-check {

@@ -177,7 +177,7 @@ export default {
           display: inline-block;
         }
         .time {
-          font-size: 12px;
+          font-size: 14px;
           padding-left: 27px;
           .el-icon-time {
             font-weight: 600;
@@ -207,7 +207,7 @@ export default {
           line-height: 34px;
           border-radius: 50%;
           color: #fff;
-          font-size: 12px;
+          font-size: 14px;
         }
       }
     }

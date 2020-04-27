@@ -124,7 +124,7 @@ $size16: 16px;
         width: 50%;
         .el-form-item__label {
           float: none;
-          font-size: 12px;
+          font-size: 14px;
         }
         .el-input {
           // width: 45%;

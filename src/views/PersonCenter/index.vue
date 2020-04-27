@@ -216,7 +216,7 @@ export default {
         cursor: pointer;
         margin-top: 55px;
         color: white;
-        font-size: 12px;
+        font-size: 14px;
       }
     }
   }
@@ -231,7 +231,7 @@ export default {
       margin-bottom: 15px;
     }
     .person-detail {
-      font-size: 12px;
+      font-size: 14px;
       color: #777;
     }
   }
@@ -259,7 +259,7 @@ export default {
     padding: 5px 15px;
   }
   .section-title {
-    font-size: 13px;
+    font-size: 14px;
     color: #333;
     margin-left: 8px;
     flex-shrink: 0;
@@ -279,12 +279,12 @@ export default {
     &-name {
       width: 100px;
       margin-right: 10px;
-      font-size: 12px;
+      font-size: 14px;
       flex-shrink: 0;
       color: #777;
     }
     &-value {
-      font-size: 12px;
+      font-size: 14px;
       color: #333;
     }
   }

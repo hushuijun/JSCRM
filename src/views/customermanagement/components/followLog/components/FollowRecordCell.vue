@@ -189,7 +189,7 @@ export default {
     // height: 40px;
     // line-height: 40px;
     border-radius: 28px;
-    font-size: 12px;
+    font-size: 14px;
     margin-right: 10px;
     margin-bottom: 10px;
   }

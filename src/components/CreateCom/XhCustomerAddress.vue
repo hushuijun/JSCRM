@@ -260,14 +260,14 @@ export default {
 }
 
 .area-title {
-  font-size: 12px;
+  font-size: 14px;
   color: #aaa;
   padding-left: 10px;
 }
 
 .distpicker-address-wrapper /deep/ select {
   height: 34px;
-  font-size: 12px;
+  font-size: 14px;
   border-radius: 0.1rem;
 }
 </style>

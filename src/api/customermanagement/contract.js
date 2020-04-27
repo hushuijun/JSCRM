@@ -159,9 +159,9 @@ export function crmContractUpdateMembers(data) {
   })
 }
 //获取审核模板
-export function crmContractTemplate() {
+export function crmContractTemplate(data) {
   return request({
-    url: '/examine/queryAllExamine',
+    url: '/examine/queryAllExamine?type=' + data,
     method: 'post',
   })
 }

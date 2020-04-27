@@ -53,6 +53,7 @@ export default {
   props: {
     /** 索引值 用于更新数据 */
     index: Number,
+    crmType: String,
     /** 包含数据源 */
     item: Object,
     value: {
@@ -63,8 +64,17 @@ export default {
     }
   },
   created () {
+      console.log(this.crmType, 'crmTypecrmTypecrmTypecrmType')
+      let type = ''
+      if (this.crmType == 'contract') {
+          type = 1
+      } else if (this.crmType == 'receivables') {
+          type = 2
+      } else if (this.crmType == 'case') {
+          type = 3
+      }
       this.confirmName = this.value[0] ? this.value[0].examineName : ''
-      crmContractTemplate().then((res) => {
+      crmContractTemplate(type).then((res) => {
           res.data.list.forEach((value) => {
               if (value.examineType == 1) {
                   value.typeText = '固定审批'

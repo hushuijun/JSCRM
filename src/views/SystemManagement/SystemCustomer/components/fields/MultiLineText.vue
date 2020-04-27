@@ -47,7 +47,7 @@ export default {
   }
   .max-tips {
     text-align: right;
-    font-size: 12px;
+    font-size: 14px;
     color: #999;
     overflow: hidden;
     word-break: break-all;

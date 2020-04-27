@@ -435,7 +435,7 @@ export default {
   }
   .img-bar {
     color: #5a8ae2;
-    font-size: 12px;
+    font-size: 14px;
     padding: 5px 0;
     cursor: pointer;
   }
@@ -455,7 +455,7 @@ export default {
     }
     .f-name {
       color: #777;
-      font-size: 12px;
+      font-size: 14px;
     }
   }
 
@@ -471,14 +471,14 @@ export default {
       }
       .f-name {
         color: #666;
-        font-size: 12px;
+        font-size: 14px;
       }
     }
   }
 
   .img-bar {
     color: #5a8ae2;
-    font-size: 12px;
+    font-size: 14px;
     padding: 5px 0;
   }
 }
@@ -497,7 +497,7 @@ export default {
     }
     .c-name {
       color: #777;
-      font-size: 12px;
+      font-size: 14px;
     }
   }
 
@@ -512,7 +512,7 @@ export default {
       color: white;
       width: auto;
       .c-item-name {
-        font-size: 12px;
+        font-size: 14px;
       }
       .c-item-close {
         padding-left: 5px;
@@ -548,7 +548,7 @@ export default {
     }
     .bar-title {
       color: #777;
-      font-size: 12px;
+      font-size: 14px;
     }
   }
 }

@@ -501,7 +501,7 @@ export default {
       }
       .el-tabs__nav {
         margin-left: 20px;
-        font-size: 13px;
+        font-size: 16px;
       }
       .el-tabs__nav-wrap::after {
         height: 1px;
@@ -524,7 +524,7 @@ export default {
     .item-label {
       margin-bottom: 9px;
       display: block;
-      font-size: 12px;
+      font-size: 14px;
       // padding-bottom: 10px;
     }
     .el-textarea {
@@ -534,7 +534,7 @@ export default {
     }
   }
   .img-accessory {
-    font-size: 12px;
+    font-size: 14px;
     img {
       vertical-align: middle;
     }
@@ -577,7 +577,7 @@ export default {
     }
     .label {
       margin-right: 15px;
-      font-size: 12px;
+      font-size: 14px;
     }
     img {
       cursor: pointer;
@@ -593,7 +593,7 @@ export default {
     }
     .must {
       color: #f56c6c;
-      font-size: 12px;
+      font-size: 14px;
       margin-top: 5px;
     }
     .sent-img {

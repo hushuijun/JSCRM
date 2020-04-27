@@ -239,7 +239,7 @@ export default {
     .img-content {
       color: #999;
       margin-bottom: 10px;
-      font-size: 12px;
+      font-size: 14px;
       img {
         vertical-align: middle;
       }

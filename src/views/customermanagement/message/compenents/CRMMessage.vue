@@ -453,7 +453,7 @@ export default {
 
 /** 勾选操作 */
 .selection-bar {
-  font-size: 12px;
+  font-size: 14px;
   height: 34px;
   color: #777;
 

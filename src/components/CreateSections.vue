@@ -56,7 +56,7 @@ export default {
   padding: 5px 15px;
 }
 .section-title {
-  font-size: 13px;
+  font-size: 14px;
   color: #333;
   margin-left: 8px;
   flex-shrink: 0;

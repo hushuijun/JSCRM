@@ -138,7 +138,7 @@ export default {
   min-height: 34px;
   position: relative;
   border-radius: 3px;
-  font-size: 12px;
+  font-size: 14px;
   border: 1px solid #ddd;
   color: #333333;
   padding: 5px;

@@ -178,7 +178,7 @@ export default {
     .header {
       margin-bottom: 15px;
       @include color9;
-      font-size: 12px;
+      font-size: 14px;
       .head-img {
         width: 35px;
         height: 35px;
@@ -228,7 +228,7 @@ export default {
       }
       .title {
         @include color9;
-        font-size: 13px;
+        font-size: 14px;
         padding-bottom: 10px;
       }
     }
@@ -255,7 +255,7 @@ export default {
             bottom: 0;
             background-color: rgba(0, 0, 0, 0.5);
             text-align: center;
-            font-size: 12px;
+            font-size: 14px;
             color: #fff;
             display: none;
             span {
@@ -274,7 +274,7 @@ export default {
     .related-business {
       margin: 15px 0;
       .label {
-        font-size: 13px;
+        font-size: 14px;
         margin-bottom: 7px;
         color: #666;
       }

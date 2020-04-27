@@ -92,7 +92,7 @@ export default {
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;
     color: #777;
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 </style>

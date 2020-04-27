@@ -70,15 +70,15 @@ export default {
 }
 .cell-title {
   color: #333333;
-  font-size: 13px;
+  font-size: 14px;
 }
 .cell-detail {
   color: #999999;
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 8px;
 }
 .cell-time {
   color: #333333;
-  font-size: 13px;
+  font-size: 14px;
 }
 </style>

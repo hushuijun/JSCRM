@@ -1226,7 +1226,7 @@ export default {
 
 /** 勾选操作 */
 .selection-bar {
-  font-size: 12px;
+  font-size: 14px;
   height: 54px;
   min-height: 54px;
   padding: 0 20px;
@@ -1282,7 +1282,7 @@ export default {
 }
 
 .status-des {
-  font-size: 12px;
+  font-size: 14px;
   color: #777777;
   margin: 0 5px;
   position: absolute;
@@ -1326,7 +1326,7 @@ export default {
 }
 
 .tips {
-  font-size: 13px;
+  font-size: 14px;
   color: #999;
 }
 @import '../styles/table.scss';

@@ -285,7 +285,7 @@ export default {
   margin-bottom: 10px;
 }
 .node-data {
-  font-size: 13px;
+  font-size: 14px;
   .node-img {
     width: 15px;
     height: 15px;
@@ -297,7 +297,7 @@ export default {
   }
   .node-label-set {
     margin-left: 8px;
-    font-size: 12px;
+    font-size: 14px;
     color: $xr-color-primary;
     display: none;
   }

@@ -239,7 +239,7 @@ export default {
   margin: 0 5px;
   height: 27px;
   line-height: 28px;
-  font-size: 12px;
+  font-size: 14px;
   color: #333;
   padding: 0 5px;
   display: inline-block;

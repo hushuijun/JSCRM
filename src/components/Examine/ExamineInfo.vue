@@ -292,7 +292,7 @@ export default {
   height: 30px;
   border-radius: 2px;
   margin: 5px;
-  font-size: 13px;
+  font-size: 14px;
 }
 .blue {
   background-color: #3e84e9;
@@ -309,7 +309,7 @@ export default {
   color: #777;
 }
 .check-flow-button {
-  font-size: 13px;
+  font-size: 14px;
   position: absolute;
   left: 0;
   top: 5px;
@@ -351,7 +351,7 @@ export default {
     }
     .check-item-name {
       color: #aaa;
-      font-size: 12px;
+      font-size: 14px;
     }
   }
   .check-item-arrow {
@@ -376,7 +376,7 @@ export default {
     }
     .detail {
       color: #777777;
-      font-size: 12px;
+      font-size: 14px;
       padding: 2px 0;
       transform: scale(0.9, 0.9);
     }
@@ -392,7 +392,7 @@ export default {
       }
       .check-item-name {
         color: #aaa;
-        font-size: 12px;
+        font-size: 14px;
       }
     }
   }
@@ -419,7 +419,7 @@ export default {
   }
   &-time {
     color: #bababa;
-    font-size: 12px;
+    font-size: 14px;
   }
   &-examine {
     .examine-name {

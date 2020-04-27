@@ -84,7 +84,7 @@ export default {
 .empty-text {
   margin: 3px 0;
   color: #aaa;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .empty-icon {

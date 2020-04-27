@@ -632,7 +632,7 @@ export default {
   margin-bottom: 0;
 }
 .el-tabs /deep/ .el-tabs__item {
-  font-size: 13px;
+  font-size: 16px;
   height: 57px;
   line-height: 57px;
 }

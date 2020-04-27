@@ -61,7 +61,7 @@ export default {
     padding-bottom: 10px;
     color: #777;
     margin-bottom: 13px;
-    font-size: 12px;
+    font-size: 14px;
   }
   .k-realname {
     margin-bottom: 8px;

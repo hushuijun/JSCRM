@@ -23,4 +23,8 @@ export const remittanceIdNum=[
     {'code':'微信'},
     {'code':'银联'}
 ]
+export const ttlxNum=[
+    {'code':'单位'},
+    {'code':'个人'},
+]
 

@@ -226,7 +226,7 @@ $login_theme: #00aaee;
       position: absolute;
       bottom: 2%;
       color: #d0d0d0;
-      font-size: 12px;
+      font-size: 14px;
       text-align: center;
       line-height: 1.5;
     }

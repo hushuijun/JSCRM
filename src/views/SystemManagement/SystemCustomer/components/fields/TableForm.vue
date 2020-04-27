@@ -71,7 +71,7 @@ li {
   text-align: -webkit-match-parent;
   min-width: 100px;
   float: left;
-  font-size: 12px;
+  font-size: 14px;
 }
 .table-item.is-select {
   background-color: white;

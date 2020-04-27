@@ -167,7 +167,7 @@ export default {
   height: 60px;
   overflow: hidden;
   align-items: center;
-  font-size: 13px;
+  font-size: 14px;
   display: flex;
 }
 .table-item-label {

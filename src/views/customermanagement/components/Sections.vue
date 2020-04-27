@@ -98,7 +98,7 @@ export default {
   padding: 5px 15px;
 }
 .section-title {
-  font-size: 13px;
+  font-size: 14px;
   color: #333;
   margin-left: 8px;
   flex-shrink: 0;
@@ -109,7 +109,7 @@ export default {
   margin-left: 40px;
   .f-item {
     padding: 2px 4px;
-    font-size: 12px;
+    font-size: 14px;
     margin-right: 10px;
     color: #666;
   }
@@ -128,7 +128,7 @@ export default {
       margin-top: 30px;
     }
     .no-data-name {
-      font-size: 12px;
+      font-size: 14px;
       margin-top: 8px;
       color: #666;
     }

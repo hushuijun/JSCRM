@@ -193,7 +193,7 @@ export default {
     background-color: #f5f5f5;
     &-title {
       height: auto;
-      font-size: 12px;
+      font-size: 14px;
       color: #333;
       flex: 1;
       line-height: normal;
@@ -216,21 +216,21 @@ export default {
     &-title {
       width: 90px;
       flex-shrink: 0;
-      font-size: 12px;
+      font-size: 14px;
       color: #333;
     }
   }
 }
 
 .sub-total {
-  font-size: 12px;
+  font-size: 14px;
   color: #333;
 }
 
 .description {
   padding: 0 20px;
   &-title {
-    font-size: 12px;
+    font-size: 14px;
     color: #333;
   }
 }
@@ -258,7 +258,7 @@ export default {
   &-total {
     margin-top: 10px;
     text-align: left;
-    font-size: 13px;
+    font-size: 14px;
     color: #333;
     span {
       color: #666;

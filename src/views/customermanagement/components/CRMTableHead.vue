@@ -777,7 +777,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .th-container {
-  font-size: 13px;
+  font-size: 14px;
   // height: 50px;
   padding: 0 20px;
 }
@@ -799,7 +799,7 @@ export default {
 
 /** 勾选操作 */
 .selection-bar {
-  font-size: 12px;
+  font-size: 14px;
   height: 50px;
   padding: 0 20px;
   color: #777;

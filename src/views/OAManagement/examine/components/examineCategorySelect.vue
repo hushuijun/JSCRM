@@ -113,7 +113,7 @@ export default {
   position: absolute;
   left: 25px;
   top: 55px;
-  font-size: 12px;
+  font-size: 14px;
   color: #ccc;
 }
 
@@ -125,7 +125,7 @@ export default {
     border-radius: 3px;
     border: 1px solid #e6e6e6;
     color: #727272;
-    font-size: 12px;
+    font-size: 14px;
     margin: 5px 7px;
     cursor: pointer;
 

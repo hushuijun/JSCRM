@@ -413,7 +413,7 @@ export default {
   border-bottom: 1px solid #e1e1e1;
   .desc {
     color: #999;
-    font-size: 12px;
+    font-size: 14px;
   }
   &:last-child {
     margin-top: 15px;
@@ -452,7 +452,7 @@ export default {
       .field-item {
         width: 130px;
         height: 30px;
-        font-size: 13px;
+        font-size: 14px;
         padding: 0 10px;
         background: #ebf3ff;
         margin-bottom: 10px;

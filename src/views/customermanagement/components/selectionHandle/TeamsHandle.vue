@@ -191,14 +191,14 @@ export default {
 <style lang="scss" scoped>
 .tips {
   color: #777;
-  font-size: 12px;
+  font-size: 14px;
   position: absolute;
   bottom: -2px;
   right: 125px;
 }
 .handle-box {
   color: #333;
-  font-size: 12px;
+  font-size: 14px;
 }
 .handle-item {
   padding-bottom: 15px;

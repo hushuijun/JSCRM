@@ -244,7 +244,7 @@ export default {
     margin-bottom: 5px;
   }
   .main-user-name {
-    font-size: 13px;
+    font-size: 14px;
     color: #333;
   }
 
@@ -260,7 +260,7 @@ export default {
 .progress {
   display: inline-block;
   .progress-title {
-    font-size: 12px;
+    font-size: 14px;
     color: #666;
     margin-bottom: 7px;
   }
@@ -270,7 +270,7 @@ export default {
     color: #333;
     font-weight: 700;
     span {
-      font-size: 12px;
+      font-size: 14px;
     }
   }
 }
@@ -311,7 +311,7 @@ export default {
   border-radius: 3px;
   color: #fff;
   margin-right: 6px;
-  font-size: 12px;
+  font-size: 14px;
   background-color: $xr-color-primary;
 }
 </style>

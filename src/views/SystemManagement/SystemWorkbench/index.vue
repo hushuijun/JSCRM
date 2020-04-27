@@ -77,7 +77,7 @@ export default {
     height: 50px;
     line-height: 50px;
     padding: 0 20px;
-    font-size: 13px;
+    font-size: 14px;
     cursor: pointer;
   }
 }

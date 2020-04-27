@@ -832,7 +832,7 @@ export default {
 }
 .role-nav-box .item-list {
   color: #333;
-  font-size: 13px;
+  font-size: 14px;
   padding-left: 30px;
   height: 40px;
   line-height: 40px;

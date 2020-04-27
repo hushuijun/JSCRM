@@ -160,7 +160,7 @@ export default {
   }
   .f-name {
     color: #3e84e9;
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 .f-header.is_disabled {
@@ -180,7 +180,7 @@ export default {
     }
     .f-name {
       color: #666;
-      font-size: 12px;
+      font-size: 14px;
     }
     .close-button {
       cursor: pointer;

@@ -175,19 +175,19 @@ export default {
     border-radius: 5px;
   }
   .fl-h-state-name {
-    font-size: 13px;
+    font-size: 14px;
     color: #333;
   }
 }
 
 .el-checkbox /deep/ .el-checkbox__label {
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .fl-b-des {
   margin: 15px 0;
   .fl-b-des-item {
-    font-size: 12px;
+    font-size: 14px;
     color: #777;
     margin: 8px 0;
     .fl-b-des-item-name {
@@ -209,7 +209,7 @@ export default {
 .related-business {
   margin: 15px 0;
   .label {
-    font-size: 13px;
+    font-size: 14px;
     margin-bottom: 7px;
   }
   p {
@@ -218,7 +218,7 @@ export default {
     background: #f5f7fa;
     line-height: 30px;
     margin-bottom: 5px;
-    font-size: 13px;
+    font-size: 14px;
     padding-left: 7px;
     border-radius: 2px;
     img {

@@ -118,7 +118,7 @@ export default {
 .scene-list {
   max-height: 240px;
   overflow-y: auto;
-  font-size: 12px;
+  font-size: 14px;
   .scene-list-item {
     color: #333;
     padding: 10px 15px;
@@ -146,7 +146,7 @@ export default {
     margin-right: 8px;
   }
   .handle-button-name {
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 .handle-button:hover {

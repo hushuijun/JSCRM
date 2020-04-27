@@ -255,7 +255,7 @@ export default {
   top: 0;
   bottom: 0;
   width: 150px;
-  font-size: 12px;
+  font-size: 14px;
   background-color: white;
   height: 100%;
   border-right: 1px solid $xr-border-line-color;

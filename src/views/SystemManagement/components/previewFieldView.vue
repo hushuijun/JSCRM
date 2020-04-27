@@ -296,7 +296,7 @@ export default {
 
 .el-form-item /deep/ .el-form-item__label {
   line-height: normal;
-  font-size: 13px;
+  font-size: 14px;
   color: #333333;
   position: relative;
   padding-left: 8px;

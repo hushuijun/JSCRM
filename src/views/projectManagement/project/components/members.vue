@@ -206,11 +206,11 @@ export default {
     .color-a {
       color: #aaa;
       margin-left: 5px;
-      font-size: 13px;
+      font-size: 14px;
     }
   }
   .content {
-    font-size: 13px;
+    font-size: 14px;
     padding: 16px;
     .item-list {
       position: relative;
@@ -252,7 +252,7 @@ export default {
     vertical-align: middle;
   }
   .add-title {
-    font-size: 13px;
+    font-size: 14px;
     color: #3e84e9;
     vertical-align: middle;
   }

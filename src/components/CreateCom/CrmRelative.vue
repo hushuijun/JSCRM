@@ -103,6 +103,7 @@ export default {
   },
   watch: {
     selectedData: function(data) {
+      console.log(data, 11111111)
       this.currentSelectedData = objDeepCopy(data)
     },
     // 刷新标记

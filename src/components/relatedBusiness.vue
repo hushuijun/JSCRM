@@ -12,7 +12,6 @@
                     ref="crmrelative"
                     :show="showPopover"
                     :radio="false"
-                    :selectedData="relatedListData"
                     :showTypes='showTypes'
                     @close="crmrelativeClose"
                     @changeCheckout="checkInfos">
@@ -51,11 +50,11 @@
                     v-if="showTaskRelative"
                     :radio="false"
                     :show="showPopover"
-                    :selectedData="relatedListData"
                     :showTypes='showTypes'
                     @close="crmrelativeClose"
                     @changeCheckout="checkInfos">
       </crm-relative>
+         <!-- :selectedData="relatedListData" -->
       <p class="add-file"
          @click="showTaskRelative = true"
          slot="reference">
@@ -97,9 +96,9 @@ export default {
     }
   },
   watch: {
-    allData: function() {
-      this.relatedListData = this.allData
-    }
+    // allData: function() {
+    //   this.relatedListData = this.allData
+    // }
   },
   props: {
     marginLeft: {
@@ -135,7 +134,7 @@ export default {
   },
   mounted() {
     // 编辑时勾选
-    this.relatedListData = this.allData
+    // this.relatedListData = this.allData
   },
   methods: {
     crmrelativeClose() {

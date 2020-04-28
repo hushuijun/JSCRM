@@ -149,7 +149,7 @@ export default {
         { label: '跟进记录', name: 'followlog' },
         // { label: '审核流程', name: 'caseprocess' },
         { label: '相关附件', name: 'file' },
-        { label: '回款', name: 'returnedmoney' },
+        // { label: '回款', name: 'returnedmoney' },
         { label: '发票', name: 'invoice' },
         { label: '费用', name: 'cost' },
         // { label: '附件', name: 'file' },

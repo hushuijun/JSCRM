@@ -41,14 +41,13 @@
                  @click.native="createClick('money')"
                  type="primary">新建回款</el-button>
     </flexbox> -->
-    <div class="title" v-if="crmType=='case'">实际回款记录</div>
+    <div class="title">实际回款记录</div>
     <el-table :data="list"
               :height="tableHeight"
               stripe
               style="width: 100%;border: 1px solid #E6E6E6;"
               :header-cell-style="headerRowStyle"
-              :cell-style="cellStyle"
-               v-if="crmType=='case'">
+              :cell-style="cellStyle">
                <!-- @row-click="handleRowClick" -->
       <el-table-column v-for="(item, index) in fieldList"
                        :key="index"
@@ -184,14 +183,14 @@ export default {
 
     this.fieldList = [
       { prop: 'customerName', width: '200', label: '客户名称' },
-      { prop: 'contractId', width: '200', label: '合同编号' },
-      { prop: 'id', width: '200', label: '回款编号' },
-      { prop: 'moneyBackDate', width: '200', label: '回款日期' },
-      { prop: 'actualBackMoney', width: '200', label: '实际回款金额' },
-      { prop: 'handPersonName', width: '200', label: '负责人' },
-      { prop: 'remittanceId', width: '200', label: '汇款方式' },
-      // { prop: 'status', width: '200', label: '审核状态' },
-      { prop: 'remitStatus', width: '200', label: '回款状态' },
+      { prop: 'contractNum', width: '200', label: '合同编号' },
+      { prop: 'receivablesNum', width: '200', label: '回款编号' },
+      { prop: 'returnTime', width: '200', label: '回款日期' },
+      { prop: 'receivablesMoney', width: '200', label: '实际回款金额' },
+      { prop: 'ownerUserName', width: '200', label: '负责人' },
+      { prop: 'returnType', width: '200', label: '汇款方式' },
+      // { prop: 'checkStatus', width: '200', label: '审核状态' },
+      // { prop: 'remitStatus', width: '200', label: '回款状态' },
       // { prop: 'contractMoney', width: '200', label: '合同金额' },
       // { prop: 'num', width: '200', label: '期数' },
     ]
@@ -277,7 +276,7 @@ export default {
       request(this.getParams('real'))
         .then(res => {
           this.loading = false
-          this.list = res.data.list
+          this.list = res.data
         })
         .catch(() => {
           this.loading = false

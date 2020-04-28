@@ -51,26 +51,13 @@
               </div>
               <el-select v-model="record.type"  style="width : 100%" clearable placeholder="请选择">
                 <el-option
-                  key="员工"
-                  label="员工"
-                  value="员工">
-                </el-option>  
-                <el-option
-                  key="合伙人"
-                  label="合伙人"
-                  value="合伙人">
-                </el-option>  
-                <el-option
-                  key="商家"
-                  label="商家"
-                  value="商家">
-                </el-option>  
-                <el-option
-                  key="兼职"
-                  label="兼职"
-                  value="兼职">
-                </el-option>  
-               </el-select>  
+                  v-for="item in shareTypeNum"
+                  :key="item.code"
+                  :label="item.code"
+                  :value="item.code"
+                  >
+                </el-option>
+               </el-select>   
             </el-form-item>
 
             <el-form-item
@@ -107,16 +94,36 @@
             
               <el-select v-model="record.state"  style="width : 100%" clearable placeholder="请选择">
                 <el-option
-                  key="停用"
-                  label="停用"
-                  value="停用">
-                </el-option>  
-                <el-option
-                  key="启用"
-                  label="启用"
-                  value="启用">
-                </el-option>  
-              </el-select>  
+                  v-for="item in shareStateNum"
+                  :key="item.code"
+                  :label="item.code"
+                  :value="item.code"
+                  >
+                </el-option>
+               </el-select> 
+            </el-form-item>
+
+            <el-form-item
+                          class="crm-create-item left-field" prop="department"
+                          >
+              <div slot="label"
+                   style="display: inline-block;">
+                <div style="margin:5px 0;font-size:12px;word-wrap:break-word;word-break:break-all;">
+                  部门
+                  <span style="color:#999;">
+                   
+                  </span>
+                </div>
+              </div>
+            
+              <el-select v-model="record.department"  style="width : 100%" clearable placeholder="请选择">
+               <el-option
+                  v-for="item in departmentNum"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id">
+                </el-option>
+               </el-select> 
             </el-form-item>
 
           </el-form>
@@ -140,6 +147,8 @@
 <script type="text/javascript">
 import CreateView from '@/components/CreateView'
 import { updateData,selectById } from '@/api/jscrm/money/shareManage'
+import {shareTypeNum,shareStateNum}from '@/views/jscrm/money/const/const'
+import { depList } from '@/api/common'
 
 
 export default {
@@ -154,6 +163,9 @@ export default {
   },
   data() {
     return {
+      shareTypeNum:shareTypeNum,
+      shareStateNum:shareStateNum,
+      departmentNum:[],
       record:{
         state: null,
         title: null,
@@ -168,8 +180,15 @@ export default {
             { required: true, message: '请输入标题', trigger: 'blur' },
             { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
           ],
+           type: [
+            { required: true, message: '请输入类型', trigger: 'blur' },
+            { max: 36, message: '长度在36个字符以下', trigger: 'blur' }
+          ],  
            ratio: [
             { required: true, message: '请输入分润占比', trigger: 'blur' },
+          ],         
+           department: [
+            { required: true, message: '请输入部门', trigger: 'blur' },
           ],         
           state: [
             { required: true, message: '请选择状态', trigger: 'blur' },
@@ -183,6 +202,11 @@ export default {
   mounted() {
     document.body.appendChild(this.$el)
     console.log(this.detailData);
+    let data = {type: "tree"};
+    depList(data).then(res => {
+      this.departmentNum = res.data[0].children
+    })
+      
     selectById(this.detailData.id)
       .then(res => {
         this.record = res.data;
@@ -190,6 +214,8 @@ export default {
       .catch(() => {
         this.$message.error('后台异常');
       });
+      
+        
   },
   methods: {
     hidenView() {

@@ -1,3 +1,13 @@
+export const shareTypeNum=[
+    {'code':'员工提成'},
+    {'code':'平台提成'},
+    {'code':'商家提成'},
+]
+export const shareStateNum=[
+    {'code':'停用'},
+    {'code':'启用'},
+]
+
 export const billTyppNum=[
     {'code':'增值税专用发票'},
     {'code':'增值税普通发票'},

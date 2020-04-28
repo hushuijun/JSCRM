@@ -105,6 +105,7 @@ export default {
       this.showPopover = false
     },
     checkInfos(val) {
+      debugger
       this.showPopover = false
       this.selectedData = val.data
       this.submitValueChange()

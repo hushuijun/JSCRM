@@ -197,3 +197,12 @@ export function crmClueDistribute(data) {
     data: data
   })
 }
+
+//线索认领
+export function crmClueClaim(data) {
+  return request({
+    url: 'CrmLeads/claim',
+    method: 'post',
+    data: data
+  })
+}

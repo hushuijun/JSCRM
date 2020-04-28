@@ -546,6 +546,7 @@ export default {
     // 根据自定义字段获取自定义字段规则
     getcrmRulesAndModel(list) {
       let showStyleIndex = -1
+      console.log(list, 'selectselectselectselect')
       for (let index = 0; index < list.length; index++) {
         const item = list[index]
         showStyleIndex += 1
@@ -657,6 +658,9 @@ export default {
           params['data'] = item
           params['disabled'] = false // 是否可交互
           if (item.formType == 'floatnumber' && this.crmType == 'case') {
+            params['disabled'] = true
+          }
+          if (this.action.type == 'update' && item.fieldName == '是否公开') {
             params['disabled'] = true
           }
           params['styleIndex'] = showStyleIndex

@@ -19,14 +19,16 @@ const systemCustomerRouter = {
     icon: 'customer',
     ...systemCustomerAuth
   },
-  children: [{
-    path: 'custom-field',
-    component: () => import('@/views/SystemManagement/SystemCustomer/customField'),
-    meta: {
-      title: '自定义字段设置',
-      ...systemCustomerAuth
-    }
-  }, {
+  children: [
+  //   {
+  //   path: 'custom-field',
+  //   component: () => import('@/views/SystemManagement/SystemCustomer/customField'),
+  //   meta: {
+  //     title: '自定义字段设置',
+  //     ...systemCustomerAuth
+  //   }
+  // },
+   {
     path: 'customer',
     component: () => import('@/views/SystemManagement/SystemCustomer/customer'),
     meta: {
@@ -130,19 +132,19 @@ const systemOtherRouter = {
         subType: 'oa'
       }
     },
-    {
-      name: 'project',
-      path: 'project', // 项目管理
-      component: () => import('@/views/SystemManagement/project'),
-      meta: {
-        requiresAuth: true,
-        title: '项目管理',
-        icon: 'project',
-        index: 1,
-        type: 'manage',
-        subType: 'oa'
-      }
-    }
+    // {
+    //   name: 'project',
+    //   path: 'project', // 项目管理
+    //   component: () => import('@/views/SystemManagement/project'),
+    //   meta: {
+    //     requiresAuth: true,
+    //     title: '项目管理',
+    //     icon: 'project',
+    //     index: 1,
+    //     type: 'manage',
+    //     subType: 'oa'
+    //   }
+    // }
   ]
 }
 

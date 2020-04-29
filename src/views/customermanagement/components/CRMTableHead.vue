@@ -97,7 +97,8 @@ import {
 import {
   crmLeadsTransform,
   crmLeadsExcelExport,
-  crmLeadsDelete
+  crmLeadsDelete,
+  crmClueClaim
 } from '@/api/customermanagement/clue'
 import {
   crmCustomerLock,
@@ -272,6 +273,8 @@ export default {
     },
     /** 操作 */
     selectionBarClick(type) {
+      console.log(type, 'typetypetypetype')
+      console.log(this.clueType, 'this.clueTypethis.clueType')
       if (this.selectionList.length === 0 && type != 'business') {
         this.$message({
           type: 'warning',
@@ -347,7 +350,8 @@ export default {
         type == 'unlock' ||
         type == 'start' ||
         type == 'disable' ||
-        type == 'get'
+        type == 'get' ||
+        type == 'claim'
       ) {
         var message = ''
         if (type == 'transform') {
@@ -370,6 +374,9 @@ export default {
           message = '确定要下架这些产品吗?'
         } else if (type == 'get') {
           message = '确定要领取该客户吗?'
+        } else if (type == 'claim' && this.clueType == 1) {
+            console.log(111111111)
+            message = '确定认领?'
         }
         this.$confirm(message, '提示', {
           confirmButtonText: '确定',
@@ -449,6 +456,21 @@ export default {
             this.$message({
               type: 'success',
               message: '转化成功'
+            })
+            this.$emit('handle', { type: type })
+          })
+          .catch(() => {})
+      } else if (type == 'claim') { 
+        var leadsId = this.selectionList.map(function(item, index, array) {
+          return item.leadsId
+        })
+        crmClueClaim({
+          leadsIds: leadsId.join(',')
+        })
+          .then(res => {
+            this.$message({
+              type: 'success',
+              message: '认领成功'
             })
             this.$emit('handle', { type: type })
           })
@@ -618,7 +640,8 @@ export default {
         }
         if (this.clueType == 1) {
           return this.forSelectionHandleItems(handleInfos, [
-            'transform',
+            // 'transform',
+            'claim',
             // 'alloc',
             this.istransfer ? 'alloc' : '',
           // 'export',
